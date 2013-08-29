@@ -2,6 +2,45 @@
 (function( window, document, undefined ) {
   'use strict';
 
+  function verticalBounds( data, width, height ) {
+    var first = false,
+        last  = false,
+        row   = height,
+        col   = 0;
+
+    var y;
+
+    while ( !last && row ) {
+      row--;
+      for ( col = 0; col < width; col++ ) {
+        if ( data[ row * width * 4 + col * 4 + 3 ] ) {
+          last = row;
+          break;
+        }
+      }
+    }
+
+    while ( row ) {
+      row--;
+      for ( col = 0; col < width; col++ ) {
+        if ( data[ row * width * 4 + col * 4 + 3 ] ) {
+          first = row;
+          break;
+        }
+      }
+
+      if ( first !== row ) {
+        y = last - first;
+        break;
+      }
+    }
+
+    return {
+      y: first,
+      height: y
+    };
+  }
+
   $(function() {
     var $canvas = $( '#canvas' ),
         canvas  = $canvas[0],
@@ -151,6 +190,11 @@
     testCtx.textBaseline = 'top';
     testCtx.fillStyle = 'white';
     testCtx.fillText( '{', 0, 0 );
+    testCtx.fillText( '1', 2 * charWidth, 0 );
+
+    testCtx.fillStyle = 'black';
+    testCtx.fillText( '{', charWidth, 0 );
+    testCtx.fillText( '1', 3 * charWidth, 0 );
 
     min = Number.POSITIVE_INFINITY;
     minIndex = null;
@@ -170,7 +214,10 @@
       }
     }
 
-    testCtx.fillStyle = 'red';
+    ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+    ctx.fillRect( minIndex * charWidth, first, charWidth, ymax );
+
+    testCtx.fillStyle = 'rgba(255, 0, 0, 0.5)';
     testCtx.fillRect( 0, first, charWidth, ymax );
 
     console.log( min + ', ' + minIndex + ', ' + text.charAt( minIndex ) );
