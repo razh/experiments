@@ -44,6 +44,11 @@ $(function() {
     ctx.fillStyle = backgroundColor;
     ctx.fillRect( 0, 0, canvas.width, canvas.height );
 
+    ctx.beginPath();
+    ctx.arc( bgCircle.x, bgCircle.y, bgCircle.radius, 0, PI2 );
+    ctx.fillStyle = 'rgba(250, 120, 80, 1.0)';
+    ctx.fill();
+
     stage.forEach(function( object ) {
       object.draw( ctx );
     });
@@ -58,8 +63,23 @@ $(function() {
       ctx.beginPath();
       ctx.arc( circle.x, circle.y, circle.radius, 0, PI2 );
       ctx.lineWidth = 2;
-      ctx.strokeStyle = 'red';
+      ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
       ctx.stroke();
+
+      ctx.beginPath();
+      var startAngle = angleFrom( bgCircle.x, bgCircle.y, stage[0].x, stage[0].y );
+      var endAngle = angleFrom( bgCircle.x, bgCircle.y, stage[1].x, stage[1].y );
+      ctx.arc( bgCircle.x, bgCircle.y, bgCircle.radius, startAngle, endAngle );
+
+      startAngle = angleFrom( circle.x, circle.y, stage[0].x, stage[0].y );
+      endAngle = angleFrom( circle.x, circle.y, stage[1].x, stage[1].y );
+      ctx.arc( circle.x, circle.y, circle.radius, endAngle, startAngle, true );
+
+      // ctx.strokeStyle = 'white';
+      // ctx.lineWidth = 10;
+      // ctx.stroke();
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+      ctx.fill();
     }
 
     // console.log(circle.x, circle.y, circle.radius)
@@ -190,6 +210,14 @@ $(function() {
     };
   }
 
+  /**
+   * Determines the angle from x0, y0 to x1, y1.
+   * Returns the angle in radians.
+   */
+  function angleFrom( x0, y0, x1, y1 ) {
+    return Math.atan2( y1 - y0, x1 - x0 );
+  }
+
   var $canvas = $( '#canvas' );
   var canvas = $canvas[0];
   var context = canvas.getContext( '2d' );
@@ -200,15 +228,29 @@ $(function() {
     mouseup: onMouseUp
   });
 
-  stage.push(
-    new Rect( 100, 100, 10, 10 ),
-    new Rect( 50, 120, 10, 10 ),
-    new Rect( 200, 100, 10, 10 )
-  );
-
   $canvas.css( 'position', 'absolute' );
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+
+  var bgCircle = {
+    x: 0.5 * canvas.width,
+    y: 0.5 * canvas.height,
+    radius: 100
+  };
+
+  stage.push(
+    new Rect(
+      bgCircle.x + Math.cos( 300 * DEG_TO_RAD ) * bgCircle.radius,
+      bgCircle.y + Math.sin( 300 * DEG_TO_RAD ) * bgCircle.radius,
+      10, 10
+    ),
+    new Rect(
+      bgCircle.x + Math.cos( 120 * DEG_TO_RAD ) * bgCircle.radius,
+      bgCircle.y + Math.sin( 120 * DEG_TO_RAD ) * bgCircle.radius,
+      10, 10
+    ),
+    new Rect( bgCircle.x + 50, bgCircle.y + 50, 10, 10 )
+  );
 
   tick();
 
