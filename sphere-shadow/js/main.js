@@ -132,19 +132,25 @@ $(function() {
 
       startAngle = angleFrom( circle.x, circle.y, h0.x, h0.y );
       endAngle   = angleFrom( circle.x, circle.y, h1.x, h1.y );
-      ctx.arc( circle.x, circle.y, circle.radius, endAngle, startAngle, true );
+      var midAngle = angleFrom( circle.x, circle.y, h2.x, h2.y );
+      ctx.arc( circle.x, circle.y, circle.radius, endAngle, startAngle, startAngle < midAngle );
+
 
       ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
       ctx.fill();
 
       ctx.font = '12px Monaco';
-      var startText = 'start: ' + ( startAngle * RAD_TO_DEG ).toFixed(1),
+      var startText = 'start: ' + ( startAngle * RAD_TO_DEG ).toFixed(1) + ', ' + ( startAngle < endAngle ),
           endText   = 'end: '   + ( endAngle   * RAD_TO_DEG ).toFixed(1);
+
+      var midText = 'mid: ' + ( midAngle * RAD_TO_DEG ).toFixed(1);
 
       ctx.fillStyle = 'white';
       ctx.fillText( startText, h0.x + 20, h0.y );
       ctx.fillStyle = 'rgba(0, 255, 0, 1.0)';
       ctx.fillText( endText,   h1.x + 20, h1.y );
+      ctx.fillStyle = 'rgba(255, 255, 0, 1.0)';
+      ctx.fillText( midText, h2.x + 20, h2.y );
     }
   };
 
@@ -370,7 +376,7 @@ $(function() {
   });
 
   $canvas.css( 'position', 'absolute' );
-  canvas.width = window.innerWidth;
+  canvas.width = 1920; // window.innerWidth;
   canvas.height = window.innerHeight;
 
   stage.push(
