@@ -7,7 +7,8 @@ $(function() {
   var stage = [];
 
   var PI2 = 2 * Math.PI;
-  var DEG_TO_RAD = Math.PI / 180;
+  var DEG_TO_RAD = Math.PI / 180,
+      RAD_TO_DEG = 180 / Math.PI;
 
   var mouse = {
     x: null,
@@ -20,28 +21,9 @@ $(function() {
     }
   };
 
-  var backgroundColor = '#aaa';
+  var backgroundColor = '#888';
 
   var snapping = true;
-
-  function Rect( x, y, width, height ) {
-    this.x = x || 0.0;
-    this.y = y || 0.0;
-    this.width = width || 0.0;
-    this.height = height || 0.0;
-  }
-
-  Rect.prototype.draw = function( ctx ) {
-    ctx.beginPath();
-    ctx.rect( this.x, this.y, this.width, this.height );
-    ctx.fillStyle = 'rgba(0, 255, 0, 1.0)';
-    ctx.fill();
-  };
-
-  Rect.prototype.contains = function( x, y ) {
-    return this.x <= x && x <= this.x + this.width &&
-           this.y <= y && y <= this.y + this.height;
-  };
 
   function Handler( x, y, radius ) {
     this.x = x || 0.0;
@@ -130,10 +112,6 @@ $(function() {
       h2.y = cp.y;
     }
 
-    this.handlers.forEach(function( handler ) {
-      handler.draw( ctx );
-    });
-
     var circle = circleFromPoints(
       h0.x, h0.y,
       h1.x, h1.y,
@@ -146,7 +124,32 @@ $(function() {
       ctx.lineWidth = 2;
       ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
       ctx.stroke();
+
+      ctx.beginPath();
+      var startAngle = angleFrom( this.x, this.y, h0.x, h0.y ),
+          endAngle   = angleFrom( this.x, this.y, h1.x, h1.y );
+      ctx.arc( this.x, this.y, this.radius, startAngle, endAngle );
+
+      startAngle = angleFrom( circle.x, circle.y, h0.x, h0.y );
+      endAngle   = angleFrom( circle.x, circle.y, h1.x, h1.y );
+      ctx.arc( circle.x, circle.y, circle.radius, endAngle, startAngle, true );
+
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+      ctx.fill();
+
+      ctx.font = '12px Monaco';
+      var startText = 'start: ' + ( startAngle * RAD_TO_DEG ).toFixed(1),
+          endText   = 'end: '   + ( endAngle   * RAD_TO_DEG ).toFixed(1);
+
+      ctx.fillStyle = 'white';
+      ctx.fillText( startText, h0.x + 20, h0.y );
+      ctx.fillStyle = 'rgba(0, 255, 0, 1.0)';
+      ctx.fillText( endText,   h1.x + 20, h1.y );
     }
+  };
+
+  Sphere.prototype.contains = function() {
+    return false;
   };
 
   function tick() {
@@ -158,79 +161,9 @@ $(function() {
     ctx.fillStyle = backgroundColor;
     ctx.fillRect( 0, 0, canvas.width, canvas.height );
 
-    ctx.beginPath();
-    ctx.arc( bgCircle.x, bgCircle.y, bgCircle.radius, 0, PI2 );
-    ctx.fillStyle = 'rgba(250, 120, 80, 1.0)';
-    ctx.fill();
-
-    if ( snapping ) {
-      var closestPoint = closestPointOnCircle( stage[0].x, stage[0].y, bgCircle.x, bgCircle.y, bgCircle.radius );
-      stage[0].x = closestPoint.x;
-      stage[0].y = closestPoint.y;
-
-      closestPoint = closestPointOnCircle( stage[1].x, stage[1].y, bgCircle.x, bgCircle.y, bgCircle.radius );
-      stage[1].x = closestPoint.x;
-      stage[1].y = closestPoint.y;
-
-      var perp = perpendicular( stage[0].x, stage[0].y, stage[1].x, stage[1].y );
-      ctx.beginPath();
-      ctx.moveTo( perp.x0, perp.y0 );
-      ctx.lineTo( perp.x1, perp.y1 );
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = 'white';
-      ctx.stroke();
-
-      closestPoint = closestPointOnLine( stage[2].x, stage[2].y, perp.x0, perp.y0, perp.x1, perp.y1 );
-      stage[2].x = closestPoint.x;
-      stage[2].y = closestPoint.y;
-    }
-
     stage.forEach(function( object ) {
       object.draw( ctx );
     });
-
-    var circle = circleFromPoints(
-      stage[0].x, stage[0].y,
-      stage[1].x, stage[1].y,
-      stage[2].x, stage[2].y
-    );
-
-    if ( circle ) {
-      ctx.beginPath();
-      ctx.arc( circle.x, circle.y, circle.radius, 0, PI2 );
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
-      ctx.stroke();
-
-      ctx.beginPath();
-      var startAngle = angleFrom( bgCircle.x, bgCircle.y, stage[0].x, stage[0].y );
-      var endAngle = angleFrom( bgCircle.x, bgCircle.y, stage[1].x, stage[1].y );
-      ctx.arc( bgCircle.x, bgCircle.y, bgCircle.radius, startAngle, endAngle );
-
-      startAngle = angleFrom( circle.x, circle.y, stage[0].x, stage[0].y );
-      endAngle = angleFrom( circle.x, circle.y, stage[1].x, stage[1].y );
-      // if ( startAngle > endAngle ) {
-      //   var temp = startAngle;
-      //   startAngle = endAngle;
-      //   endAngle = temp;
-      // }
-      ctx.arc( circle.x, circle.y, circle.radius, endAngle, startAngle, startAngle < endAngle );
-
-      // ctx.strokeStyle = 'white';
-      // ctx.lineWidth = 10;
-      // ctx.stroke();
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-      // ctx.fillStyle = 'rgba(0, 0, 255, 0.6)';
-      ctx.fill();
-
-      ctx.font = '12px Monaco';
-      ctx.fillStyle = 'white';
-      ctx.fillText( (startAngle * 1 / DEG_TO_RAD).toFixed(2), stage[0].x + 20, stage[0].y );
-      ctx.fillStyle = 'rgb(0, 255, 0)';
-      ctx.fillText( (endAngle * 1 / DEG_TO_RAD).toFixed(2), stage[1].x + 20, stage[1].y );
-    }
-
-    // console.log(circle.x, circle.y, circle.radius)
   }
 
   function mousePosition( event ) {
@@ -440,102 +373,39 @@ $(function() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  var bgCircle = {
-    x: 0.5 * canvas.width,
-    y: 0.5 * canvas.height,
-    radius: 100
-  };
-
   stage.push(
-    new Handler(
-      bgCircle.x + Math.cos( 300 * DEG_TO_RAD ) * bgCircle.radius,
-      bgCircle.y + Math.sin( 300 * DEG_TO_RAD ) * bgCircle.radius,
-      10
-    ),
-    new Handler(
-      bgCircle.x + Math.cos( 120 * DEG_TO_RAD ) * bgCircle.radius,
-      bgCircle.y + Math.sin( 120 * DEG_TO_RAD ) * bgCircle.radius,
-      10
-    ),
-    new Handler( bgCircle.x + 50, bgCircle.y + 50, 10 )
+    new Sphere( 300, 0.5 * canvas.height, 100 ),
+    new Sphere( 700, 0.5 * canvas.height, 100 ),
+    new Sphere( 1100, 0.5 * canvas.height, 100 ),
+    new Sphere( 1500, 0.5 * canvas.height, 100 )
   );
 
+  var sph0 = stage[0],
+      sph1 = stage[1],
+      sph2 = stage[2];
+
+  // First sphere.
+  sph0.handlers[2].x = sph0.x - 0.25 * sph0.radius;
+  sph0.handlers[2].y = sph0.y - 0.25 * sph0.radius;
+
+  // Second sphere.
+  sph1.handlers[1].x = sph1.x + Math.cos( 225 * DEG_TO_RAD ) * sph1.radius;
+  sph1.handlers[1].y = sph1.y + Math.sin( 225 * DEG_TO_RAD ) * sph1.radius;
+  sph1.handlers[2].x = sph1.x;
+  sph1.handlers[2].y = sph1.y - 1.25 * sph1.radius;
+
+  // Third sphere.
+  sph2.handlers[1].x = sph2.x + Math.cos( 225 * DEG_TO_RAD ) * sph2.radius;
+  sph2.handlers[1].y = sph2.y + Math.sin( 225 * DEG_TO_RAD ) * sph2.radius;
+  sph2.handlers[2].x = sph2.x;
+  sph2.handlers[2].y = sph2.y;
+
+
+  stage.forEach(function( object ) {
+    if ( object instanceof Sphere ) {
+      stage.push.apply( stage, object.handlers );
+    }
+  });
+
   tick();
-
-  function test( ctx ) {
-    var ctx = canvas.getContext( '2d' );
-    ctx.fillStyle = '#222';
-    ctx.fillRect( 0, 0, canvas.width, canvas.height );
-
-    var x = 0.5 * canvas.width;
-    var y = 0.5 * canvas.height;
-    var radius = 100;
-    ctx.beginPath();
-    ctx.arc( x, y, radius, 0, PI2 );
-
-    ctx.fillStyle = 'rgba(250, 120, 80, 1.0)';
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.rect(
-      x + Math.cos( 300 * DEG_TO_RAD ) * radius,
-      y + Math.sin( 300 * DEG_TO_RAD ) * radius,
-      10,
-      10
-    );
-
-    ctx.rect(
-       x + Math.cos( 100 * DEG_TO_RAD ) * radius,
-       y + Math.sin( 100 * DEG_TO_RAD ) * radius,
-       10,
-       10
-    );
-    ctx.fillStyle = 'rgb(0, 255, 0)';
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.rect(
-      x + Math.cos(0) * radius,
-      y + Math.sin(0) * radius,
-      5, 5
-    );
-    ctx.rect(
-      x + Math.cos( 90 * DEG_TO_RAD ) * radius,
-      y + Math.sin( 90 * DEG_TO_RAD ) * radius,
-      5, 5
-    );
-    ctx.fillStyle = 'rgb(255, 0, 0)';
-    ctx.fill();
-
-    ctx.beginPath();
-    // ctx.arcTo(
-    //   x + Math.cos( 300 * DEG_TO_RAD ) * radius,
-    //   y + Math.sin( 300 * DEG_TO_RAD ) * radius,
-    //   x + Math.cos( 100 * DEG_TO_RAD ) * radius,
-    //   y + Math.sin( 100 * DEG_TO_RAD ) * radius,
-    //   radius
-    // );
-    // ctx.arcTo(
-    //   x + Math.cos( 100 * DEG_TO_RAD ) * radius,
-    //   y + Math.sin( 100 * DEG_TO_RAD ) * radius,
-    //   x + Math.cos( 300 * DEG_TO_RAD ) * radius,
-    //   y + Math.sin( 300 * DEG_TO_RAD ) * radius,
-    //   2 * radius
-    // );
-    var startAngle = 300;
-    var endAngle = 1;
-    // var x0 = x +
-
-    ctx.arc( x, y, radius, 300 * DEG_TO_RAD, 100 * DEG_TO_RAD );
-    ctx.arc( x - 100, y - 100, 2* radius, 80 * DEG_TO_RAD, 30 * DEG_TO_RAD, true );
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
-    ctx.fillStyle = 'white';
-
-    ctx.strokeStyle = 'white';
-    ctx.lineWidth = 1;
-    ctx.stroke();
-    // ctx.fill();
-  }
-
-  // test( context );
 });
