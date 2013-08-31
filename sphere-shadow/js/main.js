@@ -133,14 +133,14 @@ $(function() {
       startAngle = angleFrom( circle.x, circle.y, h0.x, h0.y );
       endAngle   = angleFrom( circle.x, circle.y, h1.x, h1.y );
       var midAngle = angleFrom( circle.x, circle.y, h2.x, h2.y );
-      ctx.arc( circle.x, circle.y, circle.radius, endAngle, startAngle, startAngle < midAngle );
+      ctx.arc( circle.x, circle.y, circle.radius, endAngle, startAngle, segmentLeft( h2.x, h2.y, h0.x, h0.y, h1.x, h1.y ) );
 
 
       ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
       ctx.fill();
 
       ctx.font = '12px Monaco';
-      var startText = 'start: ' + ( startAngle * RAD_TO_DEG ).toFixed(1) + ', ' + ( startAngle < endAngle ),
+      var startText = 'start: ' + ( startAngle * RAD_TO_DEG ).toFixed(1) + ', ' + ( startAngle < endAngle ) + ', ' + ( segmentLeft( h2.x, h2.y, h0.x, h0.y, h1.x, h1.y ) ? 'left' : 'right' ),
           endText   = 'end: '   + ( endAngle   * RAD_TO_DEG ).toFixed(1);
 
       var midText = 'mid: ' + ( midAngle * RAD_TO_DEG ).toFixed(1);
@@ -363,6 +363,18 @@ $(function() {
       x1: mx + 0.5 * dy,
       y1: my - 0.5 * dx
     };
+  }
+
+  /**
+   * Returns if the point (x, y) is to the left of the line segment defined
+   * by (x0, y0) and (x1, y1).
+   *
+   * This is the cross product.
+   *
+   * Returns true if left, false if right.
+   */
+  function segmentLeft( x, y, x0, y0, x1, y1 ) {
+    return ( ( x - x0 ) * ( y1 - y0 ) - ( y - y0 ) * ( x1 - x0 ) ) > 0;
   }
 
   var $canvas = $( '#canvas' );
