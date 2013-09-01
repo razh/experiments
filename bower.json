@@ -16,6 +16,10 @@
   ],
   "dependencies": {
     "jquery": "~2.0.3",
-    "d3": "~3.3.2"
+    "d3": "~3.3.2",
+    "backbone": "~1.0.0",
+    "underscore": "~1.5.1",
+    "requirejs": "~2.1.8",
+    "requirejs-text": "~2.0.10"
   }
 }
