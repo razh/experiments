@@ -21,7 +21,7 @@ $(function() {
     }
   };
 
-  var backgroundColor = '#888';
+  var backgroundColor = '#222';
 
   var snapping = true;
 
@@ -57,6 +57,21 @@ $(function() {
     this.y = y || 0.0;
     this.radius = radius || 0.0;
 
+    this.fill = 'rgba(250, 120, 80, 1.0)';
+    this.shadowFill = 'rgba(0, 0, 0, 0.3)';
+
+    // Shadow angles in the background circle.
+    this.startAngle = 0;
+    this.endAngle   = 0;
+
+    this.shadow = null;
+    // Shadow angles for the umbra.
+    this.shadowStartAngle = 0;
+    this.shadowEndAngle   = 0;
+
+    // true: counterclockwise, false: clockwise (default).
+    this.anticlockwise = false;
+
     this.handlers = [
       // Start angle.
       new Handler(
@@ -81,7 +96,7 @@ $(function() {
   Sphere.prototype.draw = function( ctx ) {
     ctx.beginPath();
     ctx.arc( this.x, this.y, this.radius, 0, PI2 );
-    ctx.fillStyle = 'rgba( 250, 120, 80, 1.0)';
+    ctx.fillStyle = this.fill;
     ctx.fill();
 
     var h0 = this.handlers[0],
@@ -112,36 +127,37 @@ $(function() {
       h2.y = cp.y;
     }
 
-    var circle = circleFromPoints(
+    var shadow = this.shadow = circleFromPoints(
       h0.x, h0.y,
       h1.x, h1.y,
       h2.x, h2.y
     );
 
-    if ( circle ) {
+    if ( shadow ) {
       ctx.beginPath();
-      ctx.arc( circle.x, circle.y, circle.radius, 0, PI2 );
+      ctx.arc( shadow.x, shadow.y, shadow.radius, 0, PI2 );
       ctx.lineWidth = 2;
       ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
       ctx.stroke();
 
       ctx.beginPath();
-      var startAngle = angleFrom( this.x, this.y, h0.x, h0.y ),
-          endAngle   = angleFrom( this.x, this.y, h1.x, h1.y );
+      var startAngle = this.startAngle = angleFrom( this.x, this.y, h0.x, h0.y ),
+          endAngle   = this.endAngle   = angleFrom( this.x, this.y, h1.x, h1.y );
       ctx.arc( this.x, this.y, this.radius, startAngle, endAngle );
 
-      startAngle = angleFrom( circle.x, circle.y, h0.x, h0.y );
-      endAngle   = angleFrom( circle.x, circle.y, h1.x, h1.y );
-      var midAngle = angleFrom( circle.x, circle.y, h2.x, h2.y );
-      ctx.arc( circle.x, circle.y, circle.radius, endAngle, startAngle, segmentLeft( h2.x, h2.y, h0.x, h0.y, h1.x, h1.y ) );
+      var shadowStartAngle = this.shadowStartAngle = angleFrom( shadow.x, shadow.y, h0.x, h0.y ),
+          shadowEndAngle   = this.shadowEndAngle   = angleFrom( shadow.x, shadow.y, h1.x, h1.y );
+      var midAngle = angleFrom( shadow.x, shadow.y, h2.x, h2.y );
 
+      var anticlockwise = this.anticlockwise = segmentLeft( h2.x, h2.y, h0.x, h0.y, h1.x, h1.y );
+      ctx.arc( shadow.x, shadow.y, shadow.radius, shadowEndAngle, shadowStartAngle, anticlockwise );
 
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+      ctx.fillStyle = this.shadowFill;
       ctx.fill();
 
       ctx.font = '12px Monaco';
-      var startText = 'start: ' + ( startAngle * RAD_TO_DEG ).toFixed(1) + ', ' + ( startAngle < endAngle ) + ', ' + ( segmentLeft( h2.x, h2.y, h0.x, h0.y, h1.x, h1.y ) ? 'left' : 'right' ),
-          endText   = 'end: '   + ( endAngle   * RAD_TO_DEG ).toFixed(1);
+      var startText = 'start: ' + ( shadowStartAngle * RAD_TO_DEG ).toFixed(1) + ', ' + ( anticlockwise ? 'left' : 'right' ),
+          endText   = 'end: '   + ( shadowEndAngle   * RAD_TO_DEG ).toFixed(1);
 
       var midText = 'mid: ' + ( midAngle * RAD_TO_DEG ).toFixed(1);
 
@@ -157,6 +173,83 @@ $(function() {
   Sphere.prototype.contains = function() {
     return false;
   };
+
+  /**
+   * Returns a string which represents the sphere and its shadow as HTML5
+   * drawing commands.
+   */
+  Sphere.prototype.toString = function( options ) {
+    var x           = options.x || 0,
+        y           = options.y || 0,
+        contextName = options.contextName || 'ctx',
+        precision   = options.precision;
+
+    var dx = x - this.x,
+        dy = y - this.y;
+
+    var startAngle       = this.startAngle,
+        endAngle         = this.endAngle,
+        shadowX          = this.shadow.x + dx,
+        shadowY          = this.shadow.y + dy,
+        shadowRadius     = this.shadow.radius,
+        shadowStartAngle = this.shadowStartAngle,
+        shadowEndAngle   = this.shadowEndAngle;
+
+    if ( !isNaN( precision ) ) {
+      startAngle       = round( startAngle, precision );
+      endAngle         = round( endAngle, precision );
+      shadowX          = round( shadowX, precision );
+      shadowY          = round( shadowY, precision );
+      shadowRadius     = round( shadowRadius, precision );
+      shadowStartAngle = round( shadowStartAngle, precision );
+      shadowEndAngle   = round( shadowEndAngle, precision );
+    }
+
+    return contextName + '.beginPath();\n' +
+      // Background circle.
+      contextName + '.arc(' +
+        ( this.x + dx ) + ', ' +
+        ( this.y + dy ) + ', ' +
+        this.radius + ', ' +
+        '0, 2 * Math.PI' +
+      ');\n' +
+      contextName + '.fillStyle = \'' +
+        this.fill + '\';\n' +
+      contextName + '.fill();\n' +
+      // Background circle shadow.
+      contextName + '.beginPath();\n' +
+      contextName + '.arc(' +
+        ( this.x + dx ) + ', ' +
+        ( this.y + dy ) + ', ' +
+        this.radius + ', ' +
+        startAngle + ', ' +
+        endAngle +
+      ');\n' +
+      contextName + '.arc(' +
+        shadowX + ', ' +
+        shadowY + ', ' +
+        shadowRadius + ', ' +
+        shadowEndAngle + ', ' +
+        shadowStartAngle + ', ' +
+        this.anticlockwise +
+      ');\n' +
+      contextName + '.fillStyle = \'' +
+        this.shadowFill + '\';\n' +
+      contextName + '.fill();';
+  };
+
+  /**
+   * Rounds a value to the given precision, removes any trailing zeros produced
+   * by Number.prototype.toFixed().
+   *
+   * Example:
+   *   var x = 100;
+   *   x.toFixed(2); // "100.00"
+   *   round( 100, 2 ); // "100"
+   */
+  function round( value, precision ) {
+    return parseFloat( value.toFixed( precision ) );
+  }
 
   function tick() {
     draw( context );
@@ -210,6 +303,16 @@ $(function() {
   function onMouseUp() {
     selection = [];
     offsets = [];
+  }
+
+  function onKeyDown( event ) {
+    if ( event.which === ' '.charCodeAt(0) ) {
+      console.log(stage[3].toString({
+        x: 100,
+        y: 100,
+        precision: 2
+      }));
+    }
   }
 
   function circleFromPoints( x0, y0, x1, y1, x2, y2 ) {
@@ -387,6 +490,10 @@ $(function() {
     mouseup: onMouseUp
   });
 
+  $( document ).on({
+    keydown: onKeyDown
+  });
+
   $canvas.css( 'position', 'absolute' );
   canvas.width = 1920; // window.innerWidth;
   canvas.height = window.innerHeight;
@@ -417,7 +524,6 @@ $(function() {
   sph2.handlers[1].y = sph2.y + Math.sin( 225 * DEG_TO_RAD ) * sph2.radius;
   sph2.handlers[2].x = sph2.x;
   sph2.handlers[2].y = sph2.y;
-
 
   stage.forEach(function( object ) {
     if ( object instanceof Sphere ) {
