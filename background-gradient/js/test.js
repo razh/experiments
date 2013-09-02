@@ -70,21 +70,35 @@ $(function() {
       }).join( ', ' ) + ')';
   };
 
+  LinearGradient.prototype.maxAlpha = function() {
+    return Math.max.apply( this, this.colorStops.map(function( colorStop ) {
+      return colorStop.color.alpha;
+    }));
+  };
+
   var testGradient = new LinearGradient();
   testGradient.angle = '45deg';
-  testGradient.colorStops.push( new RGBAColor( 255, 0, 0, 1.0 ) );
-  testGradient.colorStops.push( new RGBAColor( 255, 255, 128, 1.0 ) );
+  testGradient.colorStops.push( new ColorStop( new RGBAColor( 255, 0, 0, 1.0 ) ) );
+  testGradient.colorStops.push( new ColorStop( new RGBAColor( 255, 255, 128, 1.0 ) ) );
 
   var testGradient2 = new LinearGradient();
-  testGradient2.colorStops.push( new RGBAColor( 128, 128, 128, 1.0 ) );
-  testGradient2.colorStops.push( new RGBAColor( 0, 0, 127, 1.0 ) );
+  testGradient2.colorStops.push( new ColorStop( new RGBAColor( 240, 128, 128, 1.0 ), '10%' ) );
+  testGradient2.colorStops.push( new ColorStop( new RGBAColor( 127, 0, 127, 1.0 ) ) );
+
+  var testGradient3 = new LinearGradient();
+  testGradient3.angle = 'to top left';
+  testGradient3.colorStops.push( new ColorStop( new RGBAColor( 128, 128, 128, 1.0 ) ) );
+  testGradient3.colorStops.push( new ColorStop( new RGBAColor( 240, 128, 127, 1.0 ) ) );
 
   function Background() {
     this.gradients = [];
   }
 
   Background.prototype.css = function() {
-    var totalAlpha = this.gradients.length;
+    var totalAlpha = this.gradients.reduce(function( previousValue, gradient ) {
+      return previousValue + gradient.maxAlpha();
+    }, 0 );
+
     return this.gradients.map(function( gradient ) {
       return gradient.css( totalAlpha );
     }).join( ', ' );
@@ -93,11 +107,13 @@ $(function() {
   var testBackground = new Background();
   testBackground.gradients.push( testGradient );
   testBackground.gradients.push( testGradient2 );
+  testBackground.gradients.push( testGradient3 );
 
-  console.log( testBackground.css() );
+  var css = testBackground.css();
+  console.log( css );
 
   $background.css({
-    background: testBackground.css()
+    background: css
   });
 
   var gradients = [];
