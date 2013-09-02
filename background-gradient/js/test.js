@@ -6,6 +6,9 @@ $(function() {
       canvas  = $canvas[0],
       context = canvas.getContext( '2d' );
 
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
   var $background = $( '.gradient-view' );
 
   function round( value, precision ) {
@@ -123,6 +126,23 @@ $(function() {
   }
 
   function draw( ctx ) {
+    var patternCanvas = document.createElement( 'canvas' );
+    patternCanvas.width = 64;
+    patternCanvas.height = 64;
+
+    var patternCtx = patternCanvas.getContext( '2d' );
+    patternCtx.moveTo( 0, 0 );
+    patternCtx.lineTo( patternCanvas.width, patternCanvas.height );
+    patternCtx.moveTo( patternCanvas.width, 0 );
+    patternCtx.lineTo( 0, patternCanvas.height );
+
+    patternCtx.lineWidth = 1;
+    patternCtx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+    patternCtx.stroke();
+
+    ctx.fillStyle = ctx.createPattern( patternCanvas, 'repeat' );
+    // ctx.fillRect( 0, 0, canvas.width, canvas.height );
   }
 
+  draw( context );
 });
