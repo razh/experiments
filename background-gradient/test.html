@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Background Gradient Test</title>
+
+  <style>
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .gradient-view {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: table;
+    }
+
+    .gradient-view > h1  {
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 500;
+      font-size: 8em;
+      color: white;
+    }
+
+    canvas {
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div class="gradient-view">
+    <h1>Hello world!</h1>
+  </div>
+  <canvas id="canvas"></canvas>
+
+  <script src="../app/components/jquery/jquery.js"></script>
+  <script src="./js/test.js"></script>
+</body>
+</html>
