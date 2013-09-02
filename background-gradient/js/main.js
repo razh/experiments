@@ -18,23 +18,53 @@ requirejs.config({
 });
 
 define(function( require ) {
-  var Backbone = require( 'backbone' );
+  'use strict';
 
-  var ColorStop = Backbone.Model.extend({});
-  var ColorStops = Backbone.Collection.extend({
-    model: ColorStop
-  });
+  var _        = require( 'underscore' ),
+      Backbone = require( 'backbone' );
 
-  var Gradient = Backbone.Model.extend({
-    default: function() {
+  var ColorStop = Backbone.Model.extend({
+    defaults: function() {
       return {
-        colorStops: new ColorStops()
+        color: '',
+        position: ''
       };
+    },
+
+    css: function() {
+      return color + ' ' + position;
     }
   });
 
+  var ColorStops = Backbone.Collection.extend({
+    model: ColorStop,
+
+    css: function() {
+      return this.map(function( colorStop ) {
+        return colorStop.css();
+      }).join( ', ' );
+    }
+  });
+
+  var Gradient = Backbone.Model.extend({
+    defaults: function() {
+      return {
+        colorStops: new ColorStops(),
+        repeating: false
+      };
+    },
+
+    css: function() {}
+  });
+
   var LinearGradient = Gradient.extend({
-    toString: function() {
+    defaults: function() {
+      var defaults = Gradient.prototype.defaults();
+      defaults.direction = LinearGradient.Direction.BOTTOM;
+      return defaults;
+    },
+
+    css: function() {
       return 'linear-gradient();';
     }
   });
@@ -46,8 +76,22 @@ define(function( require ) {
     RIGHT:  8
   };
 
+  var LinearGradientView = Backbone.View.extend({
+    template: _.template( '<div></div>' ),
+
+    initialize: function() {
+      _.bindAll( this, 'render' );
+      this.listenTo( this.model, 'change', this.render );
+    },
+
+    render: function() {
+      this.$el.html( this.template({ gradient: this.model }) );
+      return this;
+    }
+  });
+
   var RadialGradient = Gradient.extend({
-    toString: function() {
+    css: function() {
       return 'radial-gradient();';
     }
   });
@@ -63,9 +107,6 @@ define(function( require ) {
     CLOSEST_CORNER:  2,
     FARTHEST_CORNER: 3
   };
-
-  var RepeatingLinearGradient = LinearGradient.extend({});
-  var RepeatingRadialGradient = RadialGradient.extend({});
 
   var Background = Backbone.Model.extend({});
 });
