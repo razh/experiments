@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Background Gradient Grid Test</title>
+
+  <style>
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .gradient-container {
+      display: inline-block;
+    }
+
+    .gradient {
+      display: inline-block;
+      margin-right: -4px;
+      margin-bottom: -4px;
+    }
+
+    .gradient-fullscreen {
+      z-index: -1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="gradient-container">
+    <div class="gradient" id="gradient-00"></div>
+    <div class="gradient" id="gradient-01"></div>
+    <div class="gradient" id="gradient-02"></div>
+    <div class="gradient" id="gradient-03"></div>
+    <div class="gradient" id="gradient-04"></div>
+    <div class="gradient" id="gradient-05"></div>
+    <div class="gradient" id="gradient-06"></div>
+    <div class="gradient" id="gradient-07"></div>
+    <div class="gradient" id="gradient-08"></div>
+    <div class="gradient" id="gradient-09"></div>
+    <div class="gradient" id="gradient-10"></div>
+    <div class="gradient" id="gradient-11"></div>
+    <div class="gradient" id="gradient-12"></div>
+    <div class="gradient" id="gradient-13"></div>
+    <div class="gradient" id="gradient-14"></div>
+    <div class="gradient" id="gradient-15"></div>
+  </div>
+
+  <div class="gradient-fullscreen"></div>
+
+  <script src="../app/components/jquery/jquery.js"></script>
+  <script src="./js/defs.js"></script>
+  <script src="./js/grid-test.js"></script>
+</body>
+</html>
