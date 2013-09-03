@@ -28,6 +28,10 @@ $(function() {
   }
 
   RGBAColor.prototype.css = function( totalAlpha ) {
+    if ( typeof totalAlpha === 'undefined' ) {
+      totalAlpha = 1;
+    }
+
     return 'rgba(' +
       Math.round( limit( this.red,   0, 255 ) ) + ', ' +
       Math.round( limit( this.green, 0, 255 ) ) + ', ' +
@@ -44,6 +48,10 @@ $(function() {
   }
 
   HSLAColor.prototype.css = function( totalAlpha ) {
+    if ( typeof totalAlpha === 'undefined' ) {
+      totalAlpha = 1;
+    }
+
     return 'hsla(' +
       Math.round( limit( this.hue, 0, 360 ) ) + ', ' +
       this.saturation.toFixed(0) + '%, ' +
@@ -115,6 +123,7 @@ $(function() {
   RadialGradient.prototype.css = function( totalAlpha ) {
     return 'radial-gradient(' +
       ( this.position ? this.position + ', ' : '' ) +
+      ( this.shape ? this.shape + ', ' : '' ) +
       this.colorStopsString( totalAlpha ) +
     ')';
   };
@@ -132,6 +141,13 @@ $(function() {
   testGradient3.angle = 'to top left';
   testGradient3.colorStops.push( new ColorStop( new RGBAColor( 128, 128, 128, 1.0 ) ) );
   testGradient3.colorStops.push( new ColorStop( new RGBAColor( 240, 128, 127, 1.0 ) ) );
+
+  var testRadGradient = new RadialGradient();
+  testRadGradient.shape = 'ellipse';
+  testRadGradient.colorStops.push( new ColorStop( new HSLAColor( 0, 0, 0, 1.0 ) ) );
+  testRadGradient.colorStops.push( new ColorStop( new RGBAColor( 255, 255, 255, 1.0 ) ) );
+
+  console.log(testRadGradient.css());
 
   function Background() {
     this.gradients = [];
