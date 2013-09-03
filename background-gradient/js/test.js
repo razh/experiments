@@ -6,9 +6,6 @@ $(function() {
       canvas  = $canvas[0],
       context = canvas.getContext( '2d' );
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
   var $background = $( '.gradient-view' );
 
   function round( value, precision ) {
@@ -17,6 +14,10 @@ $(function() {
 
   function limit( value, min, max ) {
     return Math.min( Math.max( value, min ), max );
+  }
+
+  function randomInt( min, max ) {
+    return Math.round( min + Math.random() * ( max - min ) );
   }
 
   function RGBAColor( red, green, blue, alpha ) {
@@ -60,23 +61,62 @@ $(function() {
     return this.color.css( totalAlpha ) + ( this.position ? ' ' + this.position : '' );
   };
 
-  function LinearGradient() {
-    this.angle = '';
+  /**
+   * Gradient.
+   */
+  function Gradient() {
     this.colorStops = [];
   }
 
-  LinearGradient.prototype.css = function( totalAlpha ) {
-    return 'linear-gradient(' +
-      ( this.angle.length ? this.angle + ', ' : '' ) +
-      this.colorStops.map(function( colorStop ) {
-        return colorStop.css( totalAlpha );
-      }).join( ', ' ) + ')';
-  };
-
-  LinearGradient.prototype.maxAlpha = function() {
+  Gradient.prototype.maxAlpha = function() {
     return Math.max.apply( this, this.colorStops.map(function( colorStop ) {
       return colorStop.color.alpha;
     }));
+  };
+
+  Gradient.prototype.colorStopsString = function( totalAlpha ) {
+    return this.colorStops.map(function( colorStop ) {
+      return colorStop.css( totalAlpha );
+    }).join( ', ' );
+  };
+
+  /**
+   * LinearGradient.
+   */
+  function LinearGradient() {
+    Gradient.call( this );
+    this.angle = '';
+  }
+
+  LinearGradient.prototype = new Gradient();
+  LinearGradient.prototype.constructor = LinearGradient;
+
+  LinearGradient.prototype.css = function( totalAlpha ) {
+    return 'linear-gradient(' +
+      ( this.angle ? this.angle + ', ' : '' ) +
+      this.colorStopsString( totalAlpha ) +
+    ')';
+  };
+
+  /**
+   * RadialGradient.
+   */
+  function RadialGradient() {
+    Gradient.call( this );
+    this.position = '';
+    this.angle = '';
+    this.shape = '';
+    this.size = '';
+  }
+
+  RadialGradient.prototype = new Gradient();
+  RadialGradient.prototype.constructor = RadialGradient;
+
+  RadialGradient.prototype.css = function( totalAlpha ) {
+    return 'radial-gradient(' +
+      ( this.position ? this.position + ', ' : '' ) +
+      this.colorStopsString( totalAlpha ) +
+    ')';
   };
 
   var testGradient = new LinearGradient();
@@ -126,6 +166,9 @@ $(function() {
   }
 
   function draw( ctx ) {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
     var patternCanvas = document.createElement( 'canvas' );
     patternCanvas.width = 64;
     patternCanvas.height = 64;
@@ -141,8 +184,8 @@ $(function() {
     patternCtx.stroke();
 
     ctx.fillStyle = ctx.createPattern( patternCanvas, 'repeat' );
-    // ctx.fillRect( 0, 0, canvas.width, canvas.height );
+    ctx.fillRect( 0, 0, canvas.width, canvas.height );
   }
 
-  draw( context );
+  // draw( context );
 });
