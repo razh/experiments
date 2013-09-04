@@ -24,13 +24,17 @@
     },
     entity: {
       color: 'rgba(255, 0, 255, 1.0)'
+    },
+    bullet: {
+      color: 'rgba(255, 255, 0, 1.0)'
     }
   };
 
   var keys = {};
 
-  var zombies = [],
-      civilians = [],
+  var zombies     = [],
+      civilians   = [],
+      projectiles = [],
       player;
 
   var zombieHeatMap = document.createElement( 'canvas' ),
@@ -88,6 +92,10 @@
     ctx.drawImage( civilianHeatMap, 0, 0, canvas.width, canvas.height );
     ctx.globalAlpha = 1.0;
 
+    projectiles.forEach(function( projectile ) {
+      projectile.draw( ctx );
+    });
+
     zombies.forEach(function( zombie ) {
       zombie.draw( ctx );
     });
@@ -143,6 +151,10 @@
 
     updateHeatMaps();
 
+    projectiles.forEach(function( projectile ) {
+      projectile.update( dt );
+    });
+
     zombies.forEach(function( zombie ) {
       zombie.update( dt );
     });
@@ -191,6 +203,32 @@
   Entity.prototype.draw = function( ctx ) {
     ctx.fillStyle = config.entity.color;
     ctx.fillRect( this.x - 0.5 * this.width, this.y - 0.5 * this.height, this.width, this.height );
+  };
+
+  /**
+   * Bullet.
+   */
+  function Bullet( x, y, vx, vy ) {
+    Entity.call( this, x, y, 1, 1 );
+    this.vx = vx || 0.0;
+    this.vy = vy || 0.0;
+  }
+
+  Bullet.prototype.draw = function( ctx ) {
+    ctx.fillStyle = config.bullet.color;
+    ctx.fillRect( this.x, this.y, this.width, this.height );
+  };
+
+  Bullet.prototype.update = function( dt ) {
+    Entity.prototype.update.call( this, dt );
+
+    if ( this.x === 0 || this.x === canvas.width ||
+         this.y === 0 || this.y === canvas.height ) {
+      var index = projectiles.indexOf( this );
+      if ( index !== -1 ) {
+        projectiles.splice( index, 1 );
+      }
+    }
   };
 
   /**
@@ -289,20 +327,35 @@
     var dx = 0,
         dy = 0;
 
-    // A>
-    dx += keys[ 65 ] ? -1 : 0;
-    // D.
-    dx += keys[ 68 ] ? 1 : 0;
+    dx += keys[ 65 ] ? -1 : 0; // A.
+    dx += keys[ 68 ] ?  1 : 0; // D.
 
-    // W.
-    dy += keys[ 87 ] ? -1 : 0;
-    // S.
-    dy += keys[ 83 ] ? 1 : 0;
+    dy += keys[ 87 ] ? -1 : 0; // W.
+    dy += keys[ 83 ] ?  1 : 0; // S.
 
     this.vx = dx * 30;
     this.vy = dy * 30;
 
     Character.prototype.update.call( this, dt );
+
+    // Start shooting.
+    var bx = 0,
+        by = 0;
+
+    bx += keys[ 37 ] ? -1 : 0; // Left.
+    bx += keys[ 39 ] ?  1 : 0; // Right.
+
+    by += keys[ 38 ] ? -1 : 0; // Top.
+    by += keys[ 40 ] ?  1 : 0;  // Bottom.
+
+    if ( !bx && !by ) {
+      return;
+    }
+
+    bx *= 200;
+    by *= 200;
+
+    projectiles.push( new Bullet( this.x, this.y, bx, by ) );
   };
 
   function randomInt( min, max ) {
