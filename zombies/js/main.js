@@ -170,6 +170,22 @@
   Entity.prototype.update = function( dt ) {
     this.x += this.vx * dt;
     this.y += this.vy * dt;
+
+    if ( 0 > this.x ) {
+      this.x = 0;
+    }
+
+    if ( this.x > canvas.width ) {
+      this.x = canvas.width;
+    }
+
+    if ( 0 > this.y ) {
+      this.y = 0;
+    }
+
+    if ( this.y > canvas.height ) {
+      this.y = canvas.height;
+    }
   };
 
   Entity.prototype.draw = function( ctx ) {
@@ -264,6 +280,31 @@
   Player.prototype = new Character();
   Player.prototype.constructor = Player;
 
+  Player.prototype.draw = function( ctx ) {
+    ctx.fillStyle = config.player.color;
+    ctx.fillRect( this.x - 2, this.y - 2, this.width + 5, this.height + 5 );
+  };
+
+  Player.prototype.update = function( dt ) {
+    var dx = 0,
+        dy = 0;
+
+    // A>
+    dx += keys[ 65 ] ? -1 : 0;
+    // D.
+    dx += keys[ 68 ] ? 1 : 0;
+
+    // W.
+    dy += keys[ 87 ] ? -1 : 0;
+    // S.
+    dy += keys[ 83 ] ? 1 : 0;
+
+    this.vx = dx * 30;
+    this.vy = dy * 30;
+
+    Character.prototype.update.call( this, dt );
+  };
+
   function randomInt( min, max ) {
     return Math.round( min + Math.random() * ( max - min ) );
   }
@@ -289,7 +330,7 @@
   }
 
   function onKeyDown( event ) {
-    console.log( event.which );
+    // console.log( event.which );
     keys[ event.which ] = true;
     // ESC.
     if ( event.which === 27 ) {
@@ -298,12 +339,12 @@
   }
 
   function onKeyUp( event ) {
-    console.log( event.which );
+    // console.log( event.which );
     keys[ event.which ] = false;
   }
 
   document.addEventListener( 'keydown', onKeyDown );
-  document.addEventListener( 'keydown', onKeyUp );
+  document.addEventListener( 'keyup', onKeyUp );
 
   init();
 }) ( window, document );
