@@ -1,4 +1,6 @@
 (function( window, document ) {
+  'use strict';
+
   var PI2 = 2 * Math.PI;
 
   var canvas = document.getElementById( 'canvas' );
@@ -20,12 +22,12 @@
     zombie: {
       color: 'rgba(255, 0, 0, 1.0)',
       speed: 20,
-      radiusSquared: 75 * 75,
+      radiusSquared: 150 * 150,
       health: 10
     },
     civilian: {
       color: 'rgba(255, 255, 255, 1.0)',
-      radiusSquared: 100 * 100,
+      radiusSquared: 75 * 75,
       speed: 25
     },
     entity: {
@@ -196,9 +198,10 @@
     var x = this.x,
         y = this.y;
 
+    var index;
     if ( x === 0 || x === canvas.width ||
          y === 0 || y === canvas.height ) {
-      var index = projectiles.indexOf( this );
+      index = projectiles.indexOf( this );
       if ( index !== -1 ) {
         projectiles.splice( index, 1 );
       }
@@ -209,7 +212,7 @@
         min;
 
     zombies.forEach(function( zombie ) {
-      var currDistanceSquared = distanceSquared( x, y, zombie.x, zombie.y );
+      currDistanceSquared = distanceSquared( x, y, zombie.x, zombie.y );
       if ( currDistanceSquared < minDistanceSquared ) {
         minDistanceSquared = currDistanceSquared;
         min = zombie;
@@ -217,7 +220,7 @@
     });
 
     if ( min && minDistanceSquared < 4 ) {
-      var index = zombies.indexOf( min );
+      index = zombies.indexOf( min );
       if ( index !== -1 ) {
         zombies.splice( index, 1 );
 
@@ -423,6 +426,142 @@
       this.living = false;
     }
   };
+
+
+  /**
+   * Quadtree.
+   *
+   * Taken from:
+   * http://gamedev.tutsplus.com/tutorials/implementation/quick-tip-use-quadtrees-to-detect-likely-collisions-in-2d-space/
+   */
+  function Quadtree( depth, aabb ) {
+    this.depth = depth || 0;
+
+    this.objects = [];
+    this.nodes = [];
+
+    this.aabb = aabb || {
+      x0: 0.0,
+      y0: 0.0,
+      x1: 0.0,
+      y1: 0.0
+    };
+  }
+
+  Quadtree.MAX_OBJECTS = 10;
+  Quadtree.MAX_DEPTH = 5;
+
+  Quadtree.prototype.clear = function() {
+    this.objects = [];
+    this.nodes = [];
+  };
+
+  Quadtree.prototype.split = function() {
+    var x0 = this.aabb.x0,
+        y0 = this.aabb.y0,
+        x1 = this.aabb.x1,
+        y1 = this.aabb.y1;
+
+    var mx = x0 + 0.5 * ( x1 - x0 ),
+        my = y0 + 0.5 * ( y1 - y0 );
+
+    this.nodes[0] = new Quadtree( this.depth + 1, { x0: mx, y0: y0, x1: x1, y1: my } );
+    this.nodes[1] = new Quadtree( this.depth + 1, { x0: x0, y0: y0, x1: mx, y1: my } );
+    this.nodes[2] = new Quadtree( this.depth + 1, { x0: x0, y0: my, x1: mx, y1: y1 } );
+    this.nodes[3] = new Quadtree( this.depth + 1, { x0: mx, y0: my, x1: x1, y1: y1 } );
+  };
+
+  Quadtree.prototype.indexOf = function( object ) {
+    var index = -1;
+
+    var mx = 0.5 * ( this.x0 + this.x1 ),
+        my = 0.5 * ( this.y0 + this.y1 );
+
+    var top = object.y < my;
+
+    if ( object.x < mx ) {
+      index = top ? 1 : 2;
+    } else {
+      index = top ? 0 : 3;
+    }
+
+    return index;
+  };
+
+  Quadtree.prototype.insert = function( object ) {
+    var index;
+    if ( this.nodes[0] ) {
+      index = this.indexOf( object );
+      if ( index !== -1 ) {
+        this.nodes[ index ].insert( object );
+        return;
+      }
+    }
+
+    this.objects.push( object );
+
+    if ( this.objects.size() > Quadtree.MAX_OBJECTS && this.depth < Quadtree.MAX_DEPTH ) {
+      if ( !this.nodes[0] ) {
+        this.split();
+      }
+
+      var i = 0;
+      while ( i < this.objects.length ) {
+        index = this.indexOf( this.objects[i] );
+        if ( index !== -1 ) {
+          this.nodes[ index ].insert( this.objects.splice( i, 1 ) );
+        } else {
+          i++;
+        }
+      }
+    }
+  };
+
+  Quadtree.prototype.retrieve = function( object, potentials ) {
+    var index = this.indexOf( object );
+    if ( index !== -1 && this.nodes[0] ) {
+      this.nodes[ index ].retrieve( object, potentials );
+    }
+
+    potentials = potentials.concat( this.objects );
+    return potentials;
+  };
+
+  function arrayAABB( array ) {
+    var x0 = Number.POSITIVE_INFINITY,
+        y0 = Number.POSITIVE_INFINITY,
+        x1 = Number.NEGATIVE_INFINITY,
+        y1 = Number.NEGATIVE_INFINITY;
+
+    var x, y;
+    array.forEach(function( element ) {
+      x = element.x;
+      y = element.y;
+
+      if ( x < x0 ) {
+        x0 = x;
+      }
+
+      if ( x > x1 ) {
+        x1 = x;
+      }
+
+      if ( y < y0 ) {
+        y0 = y;
+      }
+
+      if ( y > y1 ) {
+        y1 = y;
+      }
+    });
+
+    return {
+      x0: x0,
+      y0: y0,
+      x1: x1,
+      y1: y1
+    };
+  }
 
   function randomInt( min, max ) {
     return Math.round( min + Math.random() * ( max - min ) );
