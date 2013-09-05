@@ -12,15 +12,21 @@
   var config = {
     player: {
       color: 'rgba(0, 255, 0, 1.0)',
-      radius: 10
+      health: 100,
+      speed: 15,
+      frequency: 1000 / 10, // Number of ms to fire n bullets/second.
+      hitFrequency: 1000 / 40 // Number of ms between player injuries.
     },
     zombie: {
       color: 'rgba(255, 0, 0, 1.0)',
-      radius: 10
+      speed: 20,
+      radiusSquared: 75 * 75,
+      health: 10
     },
     civilian: {
       color: 'rgba(255, 255, 255, 1.0)',
-      radius: 10
+      radiusSquared: 100 * 100,
+      speed: 25
     },
     entity: {
       color: 'rgba(255, 0, 255, 1.0)'
@@ -36,39 +42,6 @@
       civilians   = [],
       projectiles = [],
       player;
-
-  var zombieHeatMap = document.createElement( 'canvas' ),
-      civilianHeatMap = document.createElement( 'canvas' );
-
-  var zombieHeatMapCtx = zombieHeatMap.getContext( '2d' ),
-      civilianHeatMapCtx = civilianHeatMap.getContext( '2d' );
-
-  zombieHeatMap.width = canvas.width;
-  zombieHeatMap.height = canvas.height;
-
-  civilianHeatMap.width = canvas.width;
-  civilianHeatMap.height = canvas.height;
-
-  // Draw heat map template pattern
-  var heatMapTemplate = document.createElement( 'canvas' ),
-      heatMapTemplateCtx = heatMapTemplate.getContext( '2d' );
-
-  var heatMapRadius = 25,
-      heatMapSize = 2 * heatMapRadius;
-
-  heatMapTemplate.width = heatMapSize;
-  heatMapTemplate.height = heatMapSize;
-
-  var heatMapGrad = heatMapTemplateCtx.createRadialGradient(
-    heatMapRadius, heatMapRadius, 1,
-    heatMapRadius, heatMapRadius, heatMapRadius
-  );
-
-  heatMapGrad.addColorStop( 0, 'white' );
-  heatMapGrad.addColorStop( 1, 'transparent' );
-
-  heatMapTemplateCtx.fillStyle = heatMapGrad;
-  heatMapTemplateCtx.fillRect( 0, 0, heatMapSize, heatMapSize );
 
   var prevTime = Date.now(),
       currTime,
@@ -88,54 +61,31 @@
     ctx.fillStyle = 'black';
     ctx.fillRect( 0, 0, canvas.width, canvas.height );
 
-    ctx.globalAlpha = 0.2;
-    ctx.drawImage( civilianHeatMap, 0, 0, canvas.width, canvas.height );
-    ctx.globalAlpha = 1.0;
-
     projectiles.forEach(function( projectile ) {
       projectile.draw( ctx );
     });
 
+    ctx.beginPath();
     zombies.forEach(function( zombie ) {
       zombie.draw( ctx );
     });
+    ctx.fillStyle = config.zombie.color;
+    ctx.fill();
 
+    ctx.beginPath();
     civilians.forEach(function( civilian ) {
-      civilian.draw( ctx );
+      if ( !( civilian instanceof Player ) ) {
+        civilian.draw( ctx );
+      }
     });
+    ctx.fillStyle = config.civilian.color;
+    ctx.fill();
 
     player.draw( ctx );
-  }
 
-  function updateHeatMaps() {
-    zombieHeatMapCtx.fillStyle = 'black';
-    zombieHeatMapCtx.fillRect( 0, 0, zombieHeatMap.width, zombieHeatMap.height );
-
-    civilianHeatMapCtx.fillStyle = 'black';
-    civilianHeatMapCtx.fillRect( 0, 0, civilianHeatMap.width, civilianHeatMap.height );
-
-    var x, y;
-    zombies.forEach(function( zombie ) {
-      x = zombie.x;
-      y = zombie.y;
-
-      zombieHeatMapCtx.drawImage(
-        heatMapTemplate,
-        x - heatMapRadius, y - heatMapRadius,
-        heatMapSize, heatMapSize
-      );
-    });
-
-    civilians.forEach(function( civilian ) {
-      x = civilian.x;
-      y = civilian.y;
-
-      civilianHeatMapCtx.drawImage(
-        heatMapTemplate,
-        x - heatMapRadius, y - heatMapRadius,
-        heatMapSize, heatMapSize
-      );
-    });
+    ctx.font = '14px Helvetica, Arial';
+    ctx.fillStyle = 'white';
+    ctx.fillText( player.health, 20, 20 );
   }
 
   function update() {
@@ -148,8 +98,6 @@
     }
 
     dt *= 1e-3;
-
-    updateHeatMaps();
 
     projectiles.forEach(function( projectile ) {
       projectile.update( dt );
@@ -164,6 +112,25 @@
     });
 
     player.update( dt );
+  }
+
+  function distanceSquared( x0, y0, x1, y1 ) {
+    var dx = x1 - x0,
+        dy = y1 - y0;
+
+    return dx * dx + dy * dy;
+  }
+
+  function distance( x0, y0, x1, y1 ) {
+    return Math.sqrt( distanceSquared( x0, y0, x1, y1 ) );
+  }
+
+  /**
+   * Returns the angle that a character at (x0, y0) would need to travel along
+   * to reach (x1, y1);
+   */
+  function angleTo( x0, y0, x1, y1 ) {
+    return Math.atan2( y1 - y0, x1 - x0 );
   }
 
   /**
@@ -185,18 +152,22 @@
 
     if ( 0 > this.x ) {
       this.x = 0;
+      this.vx = -this.vx;
     }
 
     if ( this.x > canvas.width ) {
       this.x = canvas.width;
+      this.vx = -this.vx;
     }
 
     if ( 0 > this.y ) {
       this.y = 0;
+      this.vy = -this.vy;
     }
 
     if ( this.y > canvas.height ) {
       this.y = canvas.height;
+      this.vy = -this.vy;
     }
   };
 
@@ -222,11 +193,38 @@
   Bullet.prototype.update = function( dt ) {
     Entity.prototype.update.call( this, dt );
 
-    if ( this.x === 0 || this.x === canvas.width ||
-         this.y === 0 || this.y === canvas.height ) {
+    var x = this.x,
+        y = this.y;
+
+    if ( x === 0 || x === canvas.width ||
+         y === 0 || y === canvas.height ) {
       var index = projectiles.indexOf( this );
       if ( index !== -1 ) {
         projectiles.splice( index, 1 );
+      }
+    }
+
+    var minDistanceSquared = Number.POSITIVE_INFINITY,
+        currDistanceSquared,
+        min;
+
+    zombies.forEach(function( zombie ) {
+      var currDistanceSquared = distanceSquared( x, y, zombie.x, zombie.y );
+      if ( currDistanceSquared < minDistanceSquared ) {
+        minDistanceSquared = currDistanceSquared;
+        min = zombie;
+      }
+    });
+
+    if ( min && minDistanceSquared < 4 ) {
+      var index = zombies.indexOf( min );
+      if ( index !== -1 ) {
+        zombies.splice( index, 1 );
+
+        index = projectiles.indexOf( this );
+        if ( index !== -1 ) {
+          projectiles.splice( index, 1 );
+        }
       }
     }
   };
@@ -236,6 +234,7 @@
    */
   function Character( x, y ) {
     Entity.call( this, x, y, 2, 2 );
+    this.speed = 0;
   }
 
   Character.prototype = new Entity();
@@ -246,43 +245,48 @@
    */
   function Zombie( x, y ) {
     Character.call( this, x, y );
+    this.speed = ( Math.random() + 0.5 ) * config.zombie.speed;
   }
 
   Zombie.prototype = new Character();
   Zombie.prototype.constructor = Zombie;
 
   Zombie.prototype.draw = function( ctx ) {
-    ctx.fillStyle = config.zombie.color;
-    ctx.fillRect( this.x - 2, this.y - 2, this.width + 4, this.height + 4 );
+    ctx.rect( this.x, this.y, this.width, this.height );
   };
 
   Zombie.prototype.update = function( dt ) {
     Character.prototype.update.call( this, dt );
-    var data = civilianHeatMapCtx.getImageData( this.x - 1, this.y - 1, 3, 3 ).data;
-    // This is super hacky.
-    var topLeft     = data[ 0 * 4 ];
-    var top         = data[ 1 * 4 ];
-    var topRight    = data[ 2 * 4 ];
-    var left        = data[ 3 * 4 ];
-    var center      = data[ 4 * 4 ];
-    var right       = data[ 5 * 4 ];
-    var bottomLeft  = data[ 6 * 4 ];
-    var bottom      = data[ 7 * 4 ];
-    var bottomRight = data[ 8 * 4 ];
 
-    var dx = topLeft * -1 + left * -1 + bottomLeft * -1 + topRight * 1 + right * 1 + bottomRight * 1;
-    var dy = topLeft * -1 + top * -1 + topRight * -1 + bottomLeft * 1 + bottom * 1 + bottomRight * 1;
+    var x = this.x,
+        y = this.y;
 
-    if ( dx === 0 ) {
-      dx = Math.random() * 50 - 25;
+    var minDistanceSquared = Number.POSITIVE_INFINITY,
+        currDistanceSquared,
+        min;
+
+    civilians.forEach(function( civilian ) {
+      currDistanceSquared = distanceSquared( x, y, civilian.x, civilian.y );
+      if ( currDistanceSquared < config.zombie.radiusSquared &&
+           currDistanceSquared < minDistanceSquared ) {
+        minDistanceSquared = currDistanceSquared;
+        min = civilian;
+      }
+    });
+
+    if ( minDistanceSquared < 1 ) {
+      min.infect();
+    } else {
+      var angle;
+      if ( min ) {
+        angle = angleTo( x, y, min.x, min.y );
+      } else {
+        angle = Math.random() * PI2;
+      }
+
+      this.vx = Math.cos( angle ) * this.speed;
+      this.vy = Math.sin( angle ) * this.speed;
     }
-
-    if ( dy === 0 ) {
-      dy = Math.random() * 50 - 25;
-    }
-
-    this.vx = dx;
-    this.vy = dy;
   };
 
 
@@ -291,28 +295,65 @@
    */
   function Civilian( x, y ) {
     Character.call( this, x, y );
+    this.speed = ( Math.random() + 0.5 ) * config.civilian.speed;
   }
 
   Civilian.prototype = new Character();
   Civilian.prototype.constructor = Civilian;
 
   Civilian.prototype.draw = function( ctx ) {
-    ctx.fillStyle = config.civilian.color;
-    ctx.fillRect( this.x, this.y, this.width, this.height );
+    ctx.rect( this.x, this.y, this.width, this.height );
   };
 
   Civilian.prototype.update = function( dt ) {
     Character.prototype.update.call( this, dt );
-    this.vx = Math.random() * 100 - 50;
-    this.vy = Math.random() * 100 - 50;
+
+    var x = this.x,
+        y = this.y;
+
+    var minDistanceSquared = Number.POSITIVE_INFINITY,
+        currDistanceSquared,
+        min;
+
+    zombies.forEach(function( zombie ) {
+      currDistanceSquared = distanceSquared( x, y, zombie.x, zombie.y );
+      if ( currDistanceSquared < config.civilian.radiusSquared &&
+           currDistanceSquared < minDistanceSquared ) {
+        minDistanceSquared = currDistanceSquared;
+        min = zombie;
+      }
+    });
+
+    var angle;
+    if ( min ) {
+      angle = angleTo( x, y, min.x, min.y ) + Math.PI;
+    } else {
+      angle = Math.random() * PI2;
+    }
+
+    this.vx = Math.cos( angle ) * this.speed;
+    this.vy = Math.sin( angle ) * this.speed;
+  };
+
+  Civilian.prototype.infect = function() {
+    var index = civilians.indexOf( this );
+    if ( index !== -1 ) {
+      civilians.splice( index, 1 );
+      zombies.push( new Zombie( this.x, this.y ) );
+    }
   };
 
 
   /**
-   * Zombie.
+   * Player.
    */
   function Player( x, y ) {
     Character.call( this, x, y );
+    this.canFire = true;
+
+    this.health = config.player.health;
+    this.living = true;
+    this.injured = false;
   }
 
   Player.prototype = new Character();
@@ -348,14 +389,39 @@
     by += keys[ 38 ] ? -1 : 0; // Top.
     by += keys[ 40 ] ?  1 : 0;  // Bottom.
 
-    if ( !bx && !by ) {
+    if ( !bx && !by || !this.canFire ) {
       return;
     }
+
+    this.canFire = false;
+    setTimeout(function() {
+      this.canFire = true;
+    }.bind( this ), config.player.frequency );
 
     bx *= 200;
     by *= 200;
 
     projectiles.push( new Bullet( this.x, this.y, bx, by ) );
+  };
+
+  Player.prototype.infect = function() {
+    if ( !this.living ) {
+      return;
+    }
+
+    if ( !this.injured ) {
+      this.health--;
+      this.injured = true;
+
+      setTimeout(function() {
+        this.injured = false;
+      }.bind( this ), config.player.hitFrequency );
+    }
+
+    if ( !this.health ) {
+      console.log( 'You\'re dead!' );
+      this.living = false;
+    }
   };
 
   function randomInt( min, max ) {
@@ -366,18 +432,17 @@
     var width  = canvas.width,
         height = canvas.height;
 
-    var civilianCount = 100;
+    civilians.push( player = new Player( randomInt( 0, width ), randomInt( 0, height ) ) );
+    var civilianCount = 500;
     var i;
     for ( i = 0; i < civilianCount; i++ ) {
       civilians.push( new Civilian( randomInt( 0, width ), randomInt( 0, height ) ) );
     }
 
-    var zombieCount = 5;
+    var zombieCount = 20;
     for ( i = 0; i < zombieCount; i++ ) {
       zombies.push( new Zombie( randomInt( 0, width ), randomInt( 0, height ) ) );
     }
-
-    player = new Player( randomInt( 0, width ), randomInt( 0, height ) );
 
     tick();
   }
