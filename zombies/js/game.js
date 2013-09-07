@@ -1,7 +1,8 @@
 /*globals define*/
 define([
-  'config'
-], function( config ) {
+  'config',
+  'math/quadtree'
+], function( config, Quadtree ) {
   'use strict';
 
   function Game() {
@@ -15,6 +16,8 @@ define([
     this.civilians   = [];
     this.projectiles = [];
     this.player      = null;
+
+    this.test = [];
 
     this.prevTime = Date.now();
     this.currTime = this.prevTime;
@@ -44,12 +47,22 @@ define([
     ctx.fillStyle = config.civilian.color;
     ctx.fill();
 
+    ctx.beginPath();
+    this.test.forEach(function( test ) {
+      test.draw( ctx );
+    });
+    ctx.fillStyle = 'rgba(0, 0, 255, 1.0)';
+    ctx.fill();
+
     ctx.font = '14px Helvetica, Arial';
     ctx.fillStyle = 'yellow';
     ctx.fillText( this.civilians.length, 100, 20 );
 
     ctx.fillStyle = 'red';
     ctx.fillText( this.zombies.length, 150, 20 );
+
+    ctx.fillStyle = 'blue';
+    ctx.fillText( this.test.length, 200, 20 );
 
     if ( this.player ) {
       this.player.draw( ctx );
@@ -85,6 +98,13 @@ define([
     if ( this.player ) {
       this.player.update( dt );
     }
+
+    var projectilesQuadtree = new Quadtree( 0.5 * this.canvas.width, 0.5 * this.canvas.height, this.canvas.height );
+    this.projectiles.forEach(function( projectile ) {
+      projectilesQuadtree.insert( projectile );
+    });
+
+    this.test = projectilesQuadtree.retrieve( 0, 0, 0.5 * this.canvas.width, 0.5 * this.canvas.height );
   };
 
   return Game.instance;

@@ -74,7 +74,7 @@ define(function() {
 
     this.objects.push( object );
 
-    if ( this.objects.size() > Quadtree.MAX_OBJECTS && this.depth < Quadtree.MAX_DEPTH ) {
+    if ( this.objects.length > Quadtree.MAX_OBJECTS && this.depth < Quadtree.MAX_DEPTH ) {
       if ( !this.nodes[0] ) {
         this.split();
       }
@@ -133,7 +133,7 @@ define(function() {
     var x = object.x,
         y = object.y;
 
-    if ( this._contains( x, y ) ) {
+    if ( this.contains( x, y ) ) {
       if ( this.halfSize <= Quadtree.MIN_SIZE ) {
         this.objects.push( object );
         return true;
@@ -143,7 +143,7 @@ define(function() {
 
         var quadrant = this.quadrantOf( x, y );
         if ( !this.children[ quadrant ] ) {
-          this.children[ quadrant ] = new Quadtree(
+          this.children[ quadrant ] = new QuadtreePoint(
             this,
             this.x + ( !( quadrant & 1 ) ? this.halfSize : 0 ),
             this.y + ( !( quadrant & 2 ) ? this.halfSize : 0 ),
@@ -168,8 +168,36 @@ define(function() {
    * the local coordinate space.
    */
   QuadtreePoint.prototype.quadrantOf = function( x, y ) {
-    return ( x > this.halfSize ? 1 : 0 ) +
-           ( y > this.halfSize ? 2 : 0 );
+    return ( x > 0 ? 1 : 0 ) +
+           ( y > 0 ? 2 : 0 );
+  };
+
+  QuadtreePoint.prototype.intersects = function( x, y, width, height ) {
+    return !( this.x + this.width  < x || x + width  < this.x ||
+              this.y + this.height < y || y + height < this.y );
+  };
+
+  QuadtreePoint.prototype.retrieve = function( x, y, width, height ) {
+    var results = [];
+
+    if ( this.intersects( x, y, width, height ) ) {
+      this.objects.forEach(function( object ) {
+        if ( x <= object.x && object.x <= x + width &&
+             y <= object.y && object.y <= y + height ) {
+          results.push( object );
+        }
+      });
+    } else if ( this.children.length ) {
+      this.children.forEach(function( child ) {
+        if ( !child ) {
+          return;
+        }
+
+        results = results.concat( child.retrieve( x, y, width, height ) );
+      });
+    }
+
+    return results;
   };
 
   return QuadtreePoint;
