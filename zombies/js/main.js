@@ -1,3 +1,4 @@
+/*jshint bitwise: false*/
 (function( window, document ) {
   'use strict';
 
@@ -139,13 +140,13 @@
    * Entity.
    */
   function Entity( x, y, width, height  ) {
-    this.x = x || 0.0;
-    this.y = y || 0.0;
-    this.width = width || 0.0;
-    this.height = height || 0.0;
+    this.x = x || 0;
+    this.y = y || 0;
+    this.width = width || 0;
+    this.height = height || 0;
 
-    this.vx = 0.0;
-    this.vy = 0.0;
+    this.vx = 0;
+    this.vy = 0;
   }
 
   Entity.prototype.update = function( dt ) {
@@ -183,8 +184,8 @@
    */
   function Bullet( x, y, vx, vy ) {
     Entity.call( this, x, y, 1, 1 );
-    this.vx = vx || 0.0;
-    this.vy = vy || 0.0;
+    this.vx = vx || 0;
+    this.vy = vy || 0;
   }
 
   Bullet.prototype.draw = function( ctx ) {
@@ -433,6 +434,7 @@
    *
    * Taken from:
    * http://gamedev.tutsplus.com/tutorials/implementation/quick-tip-use-quadtrees-to-detect-likely-collisions-in-2d-space/
+   * and toxiclibs' implementation of quadtrees, specifically the PointQuadtree.
    */
   function Quadtree( depth, aabb ) {
     this.depth = depth || 0;
@@ -441,10 +443,10 @@
     this.nodes = [];
 
     this.aabb = aabb || {
-      x0: 0.0,
-      y0: 0.0,
-      x1: 0.0,
-      y1: 0.0
+      x0: 0,
+      y0: 0,
+      x1: 0,
+      y1: 0
     };
   }
 
@@ -525,6 +527,76 @@
 
     potentials = potentials.concat( this.objects );
     return potentials;
+  };
+
+  function QuadtreePoint( x, y, size, parent ) {
+    this.x = x || 0;
+    this.y = y || 0;
+
+    this.size = size || 0;
+    this.halfSize = 0.5 * this.size;
+
+    this.objects = [];
+    this.children = [];
+
+    this.depth = 0;
+    this.minSize = Quadtree.MIN_SIZE;
+
+    this.parent = parent || null;
+    if ( parent ) {
+      this.depth = parent.depth + 1;
+      this.minSize = parent.minSize;
+    }
+  }
+
+  QuadtreePoint.MIN_SIZE = 4;
+
+  QuadtreePoint.TOP_LEFT  = 0;
+  QuadtreePoint.TOP_RIGHT = 1;
+  QuadtreePoint.BOTTOM_LEFT  = 2;
+  QuadtreePoint.BOTTOM_RIGHT = 3;
+
+  QuadtreePoint.prototype._insert = function( object ) {
+    var x = object.x,
+        y = object.y;
+
+    if ( this._contains( x, y ) ) {
+      if ( this.halfSize <= Quadtree.MIN_SIZE ) {
+        this.objects.push( object );
+        return true;
+      } else {
+        x -= this.x;
+        y -= this.y;
+
+        var quadrant = this._quadrantOf( x, y );
+        if ( !this.children[ quadrant ] ) {
+          this.children[ quadrant ] = new Quadtree(
+            this,
+            this.x + ( !( quadrant & 1 ) ? this.halfSize : 0 ),
+            this.y + ( !( quadrant & 2 ) ? this.halfSize : 0 ),
+            this.halfSize
+          );
+        }
+
+        return this.children[ quadrant ].insert( object );
+      }
+    }
+
+    return false;
+  };
+
+  QuadtreePoint.prototype._contains = function( x, y ) {
+    return x - this.halfSize <= this.x && this.x <= x + this.halfSize &&
+           y - this.halfSize <= this.y && this.y <= y + this.halfSize;
+  };
+
+  /**
+   * Get the quadrant index for the point given by (x, y), where x and y are in
+   * the local coordinate space.
+   */
+  QuadtreePoint.prototype._quadrantOf = function( x, y ) {
+    return ( x > this.halfSize ? 1 : 0 ) +
+           ( y > this.halfSize ? 2 : 0 );
   };
 
   function arrayAABB( array ) {
