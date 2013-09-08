@@ -1,3 +1,4 @@
+/*jshint bitwise: false*/
 'use strict';
 
 /**
@@ -26,18 +27,8 @@ function Quadtree( x, y, size, parent ) {
 
 Quadtree.MIN_SIZE = 4;
 
-Quadtree.TOP_LEFT  = 0;
-Quadtree.TOP_RIGHT = 1;
-Quadtree.BOTTOM_LEFT  = 2;
-Quadtree.BOTTOM_RIGHT = 3;
-
 Quadtree.prototype.clear = function() {
   this.objects = [];
-
-  this.children.forEach(function( child ) {
-    child.parent = null;
-  });
-
   this.children = [];
 };
 
@@ -91,28 +82,27 @@ Quadtree.prototype.quadrantOf = function( x, y ) {
 };
 
 Quadtree.prototype.intersects = function( x, y, width, height ) {
-  return !( this.x + this.width  < x || x + width  < this.x ||
-            this.y + this.height < y || y + height < this.y );
+  return this.x <= x + width  && x <= this.x + this.size &&
+         this.y <= y + height && y <= this.y + this.size;
 };
 
 Quadtree.prototype.retrieve = function( x, y, width, height ) {
   var results = [];
 
   if ( this.intersects( x, y, width, height ) ) {
-    this.objects.forEach(function( object ) {
-      if ( x <= object.x && object.x <= x + width &&
-           y <= object.y && object.y <= y + height ) {
+    if ( this.objects.length ) {
+      this.objects.forEach(function( object ) {
         results.push( object );
-      }
-    });
-  } else if ( this.children.length ) {
-    this.children.forEach(function( child ) {
-      if ( !child ) {
-        return;
-      }
+      });
+    } else if ( this.children.length ) {
+      this.children.forEach(function( child ) {
+        if ( !child ) {
+          return;
+        }
 
-      results = results.concat( child.retrieve( x, y, width, height ) );
-    });
+        results = results.concat( child.retrieve( x, y, width, height ) );
+      });
+    }
   }
 
   return results;
