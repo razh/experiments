@@ -11,11 +11,22 @@ define([
     Entity.call( this, x, y, 1, 1 );
     this.vx = vx || 0;
     this.vy = vy || 0;
+
+    this.timeout = setTimeout(function() {
+      this.remove();
+    }.bind( this ), config.bullet.lifetime );
   }
 
-  Bullet.prototype.draw = function( ctx ) {
-    ctx.fillStyle = config.bullet.color;
-    ctx.fillRect( this.x, this.y, this.width, this.height );
+  Bullet.prototype = new Entity();
+  Bullet.prototype.constructor = Bullet;
+
+  Bullet.prototype.remove = function() {
+    clearTimeout( this.timeout );
+
+    var index = Game.bullets.indexOf( this );
+    if ( index !== -1 ) {
+      Game.bullets.splice( index, 1 );
+    }
   };
 
   Bullet.prototype.update = function( dt ) {
@@ -23,15 +34,6 @@ define([
 
     var x = this.x,
         y = this.y;
-
-    var index;
-    if ( x === config.padding || x === Game.canvas.width  - config.padding ||
-         y === config.padding || y === Game.canvas.height - config.padding ) {
-      index = Game.projectiles.indexOf( this );
-      if ( index !== -1 ) {
-        Game.projectiles.splice( index, 1 );
-      }
-    }
 
     var minDistanceSquared = Number.POSITIVE_INFINITY,
         currDistanceSquared,
@@ -47,15 +49,12 @@ define([
       }
     });
 
+    var index;
     if ( min && minDistanceSquared < 4 ) {
       index = Game.zombies.indexOf( min );
       if ( index !== -1 ) {
         Game.zombies.splice( index, 1 );
-
-        index = Game.projectiles.indexOf( this );
-        if ( index !== -1 ) {
-          Game.projectiles.splice( index, 1 );
-        }
+        this.remove();
       }
     }
   };

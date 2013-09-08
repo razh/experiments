@@ -12,10 +12,10 @@ define([
     this.canvas.width  = window.innerWidth;
     this.canvas.height = window.innerHeight;
 
-    this.zombies     = [];
-    this.civilians   = [];
-    this.projectiles = [];
-    this.player      = null;
+    this.zombies   = [];
+    this.civilians = [];
+    this.bullets   = [];
+    this.player    = null;
 
     var size = Math.max( this.canvas.width, this.canvas.height );
     this.zombiesQuadtree = new Quadtree( 0, 0, size );
@@ -37,9 +37,12 @@ define([
     ctx.fillStyle = 'black';
     ctx.fillRect( 0, 0, this.canvas.width, this.canvas.height );
 
-    this.projectiles.forEach(function( projectile ) {
-      projectile.draw( ctx );
+    ctx.beginPath();
+    this.bullets.forEach(function( bullet ) {
+      bullet.draw( ctx );
     });
+    ctx.fillStyle = config.bullet.color;
+    ctx.fill();
 
     ctx.beginPath();
     this.zombies.forEach(function( zombie ) {
@@ -111,8 +114,8 @@ define([
     });
     this.debug.comparisons = comparisons;
 
-    this.projectiles.forEach(function( projectile ) {
-      projectile.update( dt );
+    this.bullets.forEach(function( bullet ) {
+      bullet.update( dt );
     });
 
     if ( this.player ) {

@@ -36,8 +36,8 @@ define([
     dy += Input.keys[ 87 ] ? -1 : 0; // W.
     dy += Input.keys[ 83 ] ?  1 : 0; // S.
 
-    this.vx = dx * 30;
-    this.vy = dy * 30;
+    this.vx = dx * config.player.speed;
+    this.vy = dy * config.player.speed;
 
     Character.prototype.update.call( this, dt );
 
@@ -60,10 +60,10 @@ define([
       this.canFire = true;
     }.bind( this ), config.player.frequency );
 
-    bx *= 200;
-    by *= 200;
+    bx *= config.bullet.speed;
+    by *= config.bullet.speed;
 
-    Game.projectiles.push( new Bullet( this.x, this.y, bx, by ) );
+    Game.bullets.push( new Bullet( this.x, this.y, bx, by ) );
   };
 
   Player.prototype.infect = function() {
