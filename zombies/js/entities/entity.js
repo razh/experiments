@@ -19,30 +19,29 @@ define([
     this.x += this.vx * dt;
     this.y += this.vy * dt;
 
-    if ( 0 > this.x ) {
-      this.x = 0;
+    if ( config.padding > this.x ) {
+      this.x = config.padding;
       this.vx = -this.vx;
     }
 
-    if ( this.x > Game.canvas.width ) {
-      this.x = Game.canvas.width;
+    if ( this.x > Game.canvas.width - config.padding ) {
+      this.x = Game.canvas.width - config.padding;
       this.vx = -this.vx;
     }
 
-    if ( 0 > this.y ) {
-      this.y = 0;
+    if ( config.padding > this.y ) {
+      this.y = config.padding;
       this.vy = -this.vy;
     }
 
-    if ( this.y > Game.canvas.height ) {
-      this.y = Game.canvas.height;
+    if ( this.y > Game.canvas.height - config.padding ) {
+      this.y = Game.canvas.height - config.padding;
       this.vy = -this.vy;
     }
   };
 
   Entity.prototype.draw = function( ctx ) {
-    ctx.fillStyle = config.entity.color;
-    ctx.fillRect( this.x - 0.5 * this.width, this.y - 0.5 * this.height, this.width, this.height );
+    ctx.rect( this.x - 0.5 * this.width, this.y - 0.5 * this.height, this.width, this.height );
   };
 
   return Entity;

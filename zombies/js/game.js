@@ -17,10 +17,18 @@ define([
     this.projectiles = [];
     this.player      = null;
 
+    var size = Math.max( this.canvas.width, this.canvas.height );
+    this.zombiesQuadtree = new Quadtree( 0, 0, size );
+    this.civiliansQuadtree = new Quadtree( 0, 0, size );
+
     this.test = [];
 
     this.prevTime = Date.now();
     this.currTime = this.prevTime;
+
+    this.debug = {
+      comparisons: 0
+    };
   }
 
   Game.instance = new Game();
@@ -56,19 +64,23 @@ define([
 
     ctx.font = '14px Helvetica, Arial';
     ctx.fillStyle = 'yellow';
-    ctx.fillText( this.civilians.length, 100, 20 );
+    ctx.fillText( 'Civilians: ' + this.civilians.length, 100, 20 );
 
     ctx.fillStyle = 'red';
-    ctx.fillText( this.zombies.length, 150, 20 );
+    ctx.fillText( 'Zombies: ' + this.zombies.length, 200, 20 );
 
-    ctx.fillStyle = 'blue';
-    ctx.fillText( this.test.length, 200, 20 );
+    ctx.fillStyle = 'white';
+    var comparisons = this.debug.comparisons,
+        totalComparisons = 2 * this.zombies.length * this.civilians.length,
+        comparisonRatio = ( comparisons / totalComparisons * 1e2 ).toFixed(2);
+    ctx.fillText( 'Comparisons: ' + comparisons + ' / ' + totalComparisons + ' (' + comparisonRatio + '%)', 300, 20 );
 
     if ( this.player ) {
       this.player.draw( ctx );
 
-      ctx.fillStyle = 'white';
-      ctx.fillText( this.player.health, 20, 20 );
+      var health = this.player.health;
+      ctx.fillStyle = health > 50 ? 'rgb(0, 255, 0)' : ( health > 25 ? 'yellow' : 'red' );
+      ctx.fillText( 'Health: ' + health, 10, 20 );
     }
   };
 
@@ -83,28 +95,29 @@ define([
 
     dt *= 1e-3;
 
-    this.projectiles.forEach(function( projectile ) {
-      projectile.update( dt );
-    });
+    this.zombiesQuadtree.clear();
+    this.civiliansQuadtree.clear();
 
+    this.zombiesQuadtree.insertAll( this.zombies );
+    this.civiliansQuadtree.insertAll( this.civilians );
+
+    var comparisons = 0;
     this.zombies.forEach(function( zombie ) {
-      zombie.update( dt );
+      comparisons += zombie.update( dt );
     });
 
     this.civilians.forEach(function( civilian ) {
-      civilian.update( dt );
+      comparisons += civilian.update( dt );
+    });
+    this.debug.comparisons = comparisons;
+
+    this.projectiles.forEach(function( projectile ) {
+      projectile.update( dt );
     });
 
     if ( this.player ) {
       this.player.update( dt );
     }
-
-    var projectilesQuadtree = new Quadtree( 0.5 * this.canvas.width, 0.5 * this.canvas.height, this.canvas.height );
-    this.projectiles.forEach(function( projectile ) {
-      projectilesQuadtree.insert( projectile );
-    });
-
-    this.test = projectilesQuadtree.retrieve( 0, 0, 0.5 * this.canvas.width, 0.5 * this.canvas.height );
   };
 
   return Game.instance;

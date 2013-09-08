@@ -1,12 +1,13 @@
 /*globals define*/
 define([
   'game',
+  'config',
   'input',
   'math/geometry',
   'entities/civilian',
   'entities/zombie',
   'entities/player'
-], function( Game, Input, Geometry, Civilian, Zombie, Player ) {
+], function( Game, config, Input, Geometry, Civilian, Zombie, Player ) {
   'use strict';
 
   function init() {
@@ -15,13 +16,13 @@ define([
 
     Game.player = new Player( Geometry.randomInt( 0, width ), Geometry.randomInt( 0, height ) );
 
-    var civilianCount = 2000;
+    var civilianCount = config.civilian.count;
     var i;
     for ( i = 0; i < civilianCount; i++ ) {
       Game.civilians.push( new Civilian( Geometry.randomInt( 0, width ), Geometry.randomInt( 0, height ) ) );
     }
 
-    var zombieCount = 20;
+    var zombieCount = config.zombie.count;
     for ( i = 0; i < zombieCount; i++ ) {
       Game.zombies.push( new Zombie( Geometry.randomInt( 0, width ), Geometry.randomInt( 0, height ) ) );
     }

@@ -16,23 +16,29 @@ define([
   Civilian.prototype = new Character();
   Civilian.prototype.constructor = Civilian;
 
-  Civilian.prototype.draw = function( ctx ) {
-    ctx.rect( this.x, this.y, this.width, this.height );
-  };
-
   Civilian.prototype.update = function( dt ) {
     Character.prototype.update.call( this, dt );
 
     var x = this.x,
         y = this.y;
 
+    var radius = config.civilian.radius,
+        diameter = 2 * radius,
+        radiusSquared = radius * radius;
+
     var minDistanceSquared = Number.POSITIVE_INFINITY,
         currDistanceSquared,
         min;
 
-    Game.zombies.forEach(function( zombie ) {
+    var zombiesInRange = Game.zombiesQuadtree.retrieve(
+      x - radius,
+      y - radius,
+      diameter, diameter
+    );
+
+    zombiesInRange.forEach(function( zombie ) {
       currDistanceSquared = Geometry.distanceSquared( x, y, zombie.x, zombie.y );
-      if ( currDistanceSquared < config.civilian.radiusSquared &&
+      if ( currDistanceSquared < radiusSquared &&
            currDistanceSquared < minDistanceSquared ) {
         minDistanceSquared = currDistanceSquared;
         min = zombie;
@@ -48,6 +54,8 @@ define([
 
     this.vx = Math.cos( angle ) * this.speed;
     this.vy = Math.sin( angle ) * this.speed;
+
+    return zombiesInRange.length;
   };
 
   Civilian.prototype.infect = function() {
