@@ -43,10 +43,7 @@ define(function() {
         this.objects.push( object );
         return true;
       } else {
-        x -= this.x;
-        y -= this.y;
-
-        var quadrant = this.quadrantOf( x, y );
+        var quadrant = this.quadrantOf( x - this.x, y - this.y );
         if ( !this.children[ quadrant ] ) {
           this.children[ quadrant ] = new Quadtree(
             this.x + ( ( quadrant & 1 ) ? this.halfSize : 0 ),
@@ -93,9 +90,7 @@ define(function() {
 
     if ( this.intersects( x, y, width, height ) ) {
       if ( this.objects.length ) {
-        this.objects.forEach(function( object ) {
-          results.push( object );
-        });
+        results = results.concat( this.objects );
       } else if ( this.children.length ) {
         this.children.forEach(function( child ) {
           if ( !child ) {
