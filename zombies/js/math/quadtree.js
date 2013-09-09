@@ -39,7 +39,7 @@ define(function() {
         y = object.y;
 
     if ( this.contains( x, y ) ) {
-      if ( this.halfSize <= Quadtree.MIN_SIZE ) {
+      if ( this.halfSize <= this.minSize ) {
         this.objects.push( object );
         return true;
       } else {
