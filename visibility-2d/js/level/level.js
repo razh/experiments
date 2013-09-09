@@ -115,15 +115,16 @@ define([
 
     var startAngle = 0;
     var point, node;
+    var previous, current;
     var i, j, jl;
     for ( i = 0; i < 2; i++ ) {
-      for ( j = 0, jl = this.points.length; j < jl; j++ ) {
-        point = this.points[j];
+      for ( j = 0, jl = this.endpoints.length; j < jl; j++ ) {
+        point = this.endpoints[j];
         if ( i === 1 && point.angle > maxAngle ) {
           break;
         }
 
-        var previous = this.open.isEmpty() ? null : this.open.head.data;
+        previous = this.open.isEmpty() ? null : this.open.head.data;
         if ( point.begin ) {
           node = this.open.head;
           while ( node && point.segment.frontOf( node.data, this.center ) ) {
@@ -139,7 +140,7 @@ define([
           this.open.remove( this.open.search( point.segment ) );
         }
 
-        var current = this.open.isEmpty() ? null : this.open.head.data;
+        current = this.open.isEmpty() ? null : this.open.head.data;
         if ( previous !== current ) {
           if ( i === 1 ) {
             this.triangle( startAngle, point.angle, previous );

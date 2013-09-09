@@ -15,7 +15,10 @@ define([
     ctx.lineTo( this.end.x, this.end.y );
   };
 
-  Segment.prototype.leftOf = function( x, y ) {
+  Segment.prototype.leftOf = function( point ) {
+    var x = point.x,
+        y = point.y;
+
     var x0 = this.start.x,
         y0 = this.start.y,
         x1 = this.end.x,
@@ -25,10 +28,20 @@ define([
   };
 
   Segment.prototype.frontOf = function( segment, relativePoint ) {
-    var start = this.start,
-        end = this.end;
     // Have an A1 day!
-    var a1 = this.leftOf( segment, start.lerp( end, 0.01 ) );
+    var a0 = this.leftOf( segment.start.lerp( segment.end, 0.01 ) ),
+        a1 = this.leftOf( segment.end.lerp( segment.start, 0.01 ) ),
+        a2 = this.leftOf( relativePoint ),
+        b0 = segment.leftOf( this.start.lerp( this.end, 0.01 ) ),
+        b1 = segment.leftOf( this.end.lerp( this.start, 0.01 ) ),
+        b2 = segment.leftOf( relativePoint );
+
+    if ( b0 === b1 && b1 !== b2 ) { return true; }
+    if ( a0 === a1 && a1 === a2 ) { return true; }
+    if ( a0 === a1 && a1 !== a2 ) { return false; }
+    if ( b0 === b1 && b1 === b2 ) { return false; }
+
+    return false;
   };
 
   Segment.prototype.distanceSquaredTo = function( x, y ) {

@@ -46,6 +46,8 @@ define([
     }
 
     dt *= 1e-3;
+
+    level.sweep( Math.PI );
   }
 
   function init() {

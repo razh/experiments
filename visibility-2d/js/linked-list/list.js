@@ -61,6 +61,10 @@ define([
   };
 
   List.prototype.remove = function( node ) {
+    if ( !node ) {
+      return;
+    }
+
     var prev = node.prev,
         next = node.next;
 
