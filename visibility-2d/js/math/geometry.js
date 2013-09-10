@@ -1,13 +1,15 @@
 /*globals define*/
-define([
-  'math/point'
-], function( Point ) {
+define(function() {
   'use strict';
 
   var PI2 = 2 * Math.PI;
 
   function lerp( a, b, t ) {
     return a + t * ( b - a );
+  }
+
+  function limit( value, min, max ) {
+    return Math.min( Math.max( value, min ), max );
   }
 
   function lineLineIntersection( x0, y0, x1, y1, x2, y2, x3, y3 ) {
@@ -21,12 +23,16 @@ define([
   }
 
   function lineParameter( x0, y0, x1, y1, parameter ) {
-    return new Point( lerp( x0, x1, parameter ), lerp( y0, y1, parameter ) );
+    return {
+      x: lerp( x0, x1, parameter ),
+      y: lerp( y0, y1, parameter )
+    };
   }
 
   return {
     PI2: PI2,
     lerp: lerp,
+    limit: limit,
     lineLineIntersection: lineLineIntersection
   };
 });

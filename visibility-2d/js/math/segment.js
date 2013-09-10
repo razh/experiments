@@ -1,12 +1,12 @@
 /*globals define*/
 define([
-  'math/point'
-], function( Point ) {
+  'math/endpoint'
+], function( Endpoint ) {
   'use strict';
 
   function Segment( start, end, distanceSquared ) {
-    this.start = start || new Point();
-    this.end = end || new Point();
+    this.start = start || new Endpoint();
+    this.end = end || new Endpoint();
     this.distanceSquared = distanceSquared || 0;
   }
 
@@ -28,6 +28,10 @@ define([
   };
 
   Segment.prototype.frontOf = function( segment, relativePoint ) {
+    if ( !segment || !relativePoint ) {
+      return false;
+    }
+
     // Have an A1 day!
     var a0 = this.leftOf( segment.start.lerp( segment.end, 0.01 ) ),
         a1 = this.leftOf( segment.end.lerp( segment.start, 0.01 ) ),
@@ -49,6 +53,13 @@ define([
         dy = 0.5 * ( this.start.y + this.end.y ) - y;
 
     return dx * dx + dy * dy;
+  };
+
+  Segment.prototype.toString = function() {
+    return '[(' + this.start.x + ', ' +
+      this.start.y + '), (' +
+      this.end.x + ', ' +
+      this.end.y + ')]';
   };
 
   return Segment;

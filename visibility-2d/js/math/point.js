@@ -1,3 +1,4 @@
+/*globals define*/
 define([
   'math/geometry'
 ], function( Geometry ) {
@@ -13,6 +14,14 @@ define([
       Geometry.lerp( this.x, point.x, alpha ),
       Geometry.lerp( this.y, point.y, alpha )
     );
+  };
+
+  Point.prototype.angleFrom = function( x, y ) {
+    return Math.atan2( this.y - y, this.x - x );
+  };
+
+  Point.prototype.toString = function() {
+    return '(' + this.x + ', ' + this.y + ')';
   };
 
   return Point;

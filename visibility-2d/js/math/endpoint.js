@@ -24,9 +24,5 @@ define([
     return 0;
   };
 
-  Endpoint.prototype.angleFrom = function( x, y ) {
-    return Math.atan2( this.y - y, this.x - x );
-  };
-
   return Endpoint;
 });

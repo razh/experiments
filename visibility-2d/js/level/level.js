@@ -37,8 +37,8 @@ define([
 
   Level.prototype.segment = function( x0, y0, x1, y1 ) {
     var segment = new Segment(
-      new Endpoint( x0, y0, false, null, true ),
-      new Endpoint( x1, y1, false, null, false ),
+      new Endpoint( x0, y0, false, null, 0, true ),
+      new Endpoint( x1, y1, false, null, 0, false ),
       0
     );
 
@@ -96,13 +96,13 @@ define([
       if ( dAngle <= -Math.PI ) { dAngle += Geometry.PI2; }
       if ( dAngle > Math.PI ) { dAngle -= Geometry.PI2; }
 
-      segment.start.angle = dAngle > 0;
-      segment.end.angle = !segment.start.angle;
+      segment.start.begin = dAngle > 0;
+      segment.end.begin = !segment.start.begin;
     });
   };
 
   Level.prototype.sweep = function( maxAngle ) {
-    maxAngle = typeof maxAngle !== 'undefine' ? maxAngle : 999;
+    maxAngle = typeof maxAngle !== 'undefined' ? maxAngle : 999;
 
     this.output = [];
     this.intersections = [];
@@ -116,15 +116,16 @@ define([
     var startAngle = 0;
     var point, node;
     var previous, current;
-    var i, j, jl;
-    for ( i = 0; i < 2; i++ ) {
-      for ( j = 0, jl = this.endpoints.length; j < jl; j++ ) {
-        point = this.endpoints[j];
-        if ( i === 1 && point.angle > maxAngle ) {
+    var i, il;
+    for ( var pass = 0; pass < 2; pass++ ) {
+      for ( i = 0, il = this.endpoints.length; i < il; i++ ) {
+        point = this.endpoints[i];
+        if ( pass === 1 && point.angle > maxAngle ) {
           break;
         }
 
         previous = this.open.isEmpty() ? null : this.open.head.data;
+
         if ( point.begin ) {
           node = this.open.head;
           while ( node && point.segment.frontOf( node.data, this.center ) ) {
@@ -142,7 +143,7 @@ define([
 
         current = this.open.isEmpty() ? null : this.open.head.data;
         if ( previous !== current ) {
-          if ( i === 1 ) {
+          if ( pass === 1 ) {
             this.triangle( startAngle, point.angle, previous );
           }
 
@@ -178,7 +179,7 @@ define([
       p3.x, p3.y,
       p0.x, p0.y,
       p1.x, p1.y
-    );
+    ) || { x: 0, y: 0 };
 
     p1.x = p0.x + Math.cos( angle1 );
     p1.y = p0.y + Math.sin( angle1 );
@@ -188,7 +189,7 @@ define([
       p3.x, p3.y,
       p0.x, p0.y,
       p1.x, p1.y
-    );
+    ) || { x: 0, y: 0 };
 
     this.output.push( pointBegin );
     this.output.push( pointEnd );
