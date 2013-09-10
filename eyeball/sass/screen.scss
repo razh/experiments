@@ -1,0 +1,55 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+@import "compass/css3/box-shadow";
+
+@mixin circle($diameter) {
+  position: absolute;
+
+  width: $diameter;
+  height: $diameter;
+
+  margin-top: -0.5 * $diameter;
+  margin-left: -0.5 * $diameter;
+
+  border-radius: 50%;
+}
+
+.eyeball {
+  @include circle(100px);
+  @include box-shadow(inset 0 0 20px black);
+  background-color: white;
+  top: 50%;
+}
+
+.pupil {
+  @include circle(20px);
+  background-color: black;
+  top: 50%;
+}
+
+.left {
+  left: calc(50% - 65px);
+}
+
+.right {
+  left: calc(50% + 65px);
+}
+
+.mouth {
+  @include box-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+  position: absolute;
+
+  width: 100px;
+  height: 2px;
+
+  top: calc(50% + 80px);
+  left: 50%;
+
+  margin-left: -50px;
+
+  background-color: black;
+}
