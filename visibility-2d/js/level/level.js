@@ -179,7 +179,11 @@ define([
       p3.x, p3.y,
       p0.x, p0.y,
       p1.x, p1.y
-    ) || { x: 0, y: 0 };
+    );
+
+    if ( !pointBegin ) {
+      return;
+    }
 
     p1.x = p0.x + Math.cos( angle1 );
     p1.y = p0.y + Math.sin( angle1 );
@@ -189,7 +193,11 @@ define([
       p3.x, p3.y,
       p0.x, p0.y,
       p1.x, p1.y
-    ) || { x: 0, y: 0 };
+    );
+
+    if ( !pointEnd ) {
+      return;
+    }
 
     this.output.push( pointBegin );
     this.output.push( pointEnd );
