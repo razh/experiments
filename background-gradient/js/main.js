@@ -1,3 +1,4 @@
+/*globals requirejs, define*/
 requirejs.config({
   shim: {
     'underscore': {
@@ -20,41 +21,102 @@ requirejs.config({
 define(function( require ) {
   'use strict';
 
+  function round( value, precision ) {
+    return parseFloat( value.toFixed( precision ) );
+  }
+
+  function limit( value, min, max ) {
+    return Math.min( Math.max( value, min ), max );
+  }
+
+  function randomInt( min, max ) {
+    return Math.round( min + Math.random() * ( max - min ) );
+  }
+
   var _        = require( 'underscore' ),
       Backbone = require( 'backbone' );
+
+  var RGBAColor = Backbone.Model.extend({
+    defaults: function() {
+      return {
+        red:   0,
+        green: 0,
+        blue:  0,
+        alpha: 0.0
+      };
+    },
+
+    css: function( totalAlpha ) {
+      totalAlpha = _.isUndefined( totalAlpha ) ? 1 : totalAlpha;
+
+      return 'rgba(' +
+        Math.round( limit( this.get( 'red'   ), 0, 255 ) ) + ', ' +
+        Math.round( limit( this.get( 'green' ), 0, 255 ) ) + ', ' +
+        Math.round( limit( this.get( 'blue'  ), 0, 255 ) ) + ', ' +
+        round( this.get( 'alpha' ) / totalAlpha, 2 ) +
+      ')';
+    }
+  });
+
+  var HSLAColor = Backbone.Model.extend({
+    defaults: function() {
+      return {
+        hue:        0,
+        saturation: 0,
+        lightness:  0,
+        alpha:      0.0
+      };
+    },
+
+    css: function( totalAlpha ) {
+      totalAlpha = _.isUndefined( totalAlpha ) ? 1 : totalAlpha;
+
+      return 'hsla(' +
+        Math.round( limit( this.get( 'hue' ), 0, 360 ) ) + ', ' +
+        this.get( 'saturation' ).toFixed(0) + '%, ' +
+        this.get( 'lightness' ).toFixed(0)  + '%, ' +
+        round( this.get( 'alpha' ) / totalAlpha, 2 ) +
+      ')';
+    }
+  });
 
   var ColorStop = Backbone.Model.extend({
     defaults: function() {
       return {
-        color: '',
+        color: new RGBAColor(),
         position: ''
       };
     },
 
-    css: function() {
-      return color + ' ' + position;
-    }
-  });
+    css: function( totalAlpha ) {
+      var color    = this.get( 'color' ).css( totalAlpha ),
+          position = this.position ? ' ' + this.position : '';
 
-  var ColorStops = Backbone.Collection.extend({
-    model: ColorStop,
-
-    css: function() {
-      return this.map(function( colorStop ) {
-        return colorStop.css();
-      }).join( ', ' );
+      return color + position;
     }
   });
 
   var Gradient = Backbone.Model.extend({
     defaults: function() {
       return {
-        colorStops: new ColorStops(),
+        colorStops: [],
         repeating: false
       };
     },
 
-    css: function() {}
+    css: function() {},
+
+    colorStopsString: function( totalAlpha ) {
+      return this.get( 'colorStops' ).map(function( colorStop ) {
+        return colorStop.css( totalAlpha );
+      }).join( ', ' );
+    },
+
+    maxAlpha: function() {
+      return Math.max.apply( this, this.get( 'colorStops' ).map(function( colorStop ) {
+        return colorStop.get( 'alpha' );
+      }));
+    }
   });
 
   var LinearGradient = Gradient.extend({
@@ -64,8 +126,13 @@ define(function( require ) {
       return defaults;
     },
 
-    css: function() {
-      return 'linear-gradient();';
+    css: function( totalAlpha ) {
+      var angle = this.get( 'angle' );
+      angle = angle ? angle + ', ' : '';
+
+      var colorStopsString = this.colorStopsString( totalAlpha );
+
+      return 'linear-gradient(' + angle + colorStopsString + ')';
     }
   });
 
@@ -91,8 +158,25 @@ define(function( require ) {
   });
 
   var RadialGradient = Gradient.extend({
-    css: function() {
-      return 'radial-gradient();';
+    defaults: function() {
+      var defaults = Gradient.prototype.defaults();
+      defaults.position = '';
+      defaults.angle    = '';
+      defaults.shape    = '';
+      defaults.size     = '';
+      return defaults;
+    },
+
+    css: function( totalAlpha ) {
+      var position = this.get( 'position' );
+      position = position ? position + ', ' : '';
+
+      var shape = this.get( 'shape' );
+      shape = shape ? shape + ', ' : '';
+
+      var colorStopsString = this.colorStopsString( totalAlpha );
+
+      return 'radial-gradient(' + position + shape + colorStopsString + ')';
     }
   });
 
@@ -108,5 +192,21 @@ define(function( require ) {
     FARTHEST_CORNER: 3
   };
 
-  var Background = Backbone.Model.extend({});
+  var Background = Backbone.Model.extend({
+    defaults: function() {
+      return {
+        gradients: []
+      };
+    },
+
+    css: function() {
+      var totalAlpha = this.get( 'gradients' ).reduce(function( previousValue, gradient ) {
+        return previousValue + gradient.maxAlpha();
+      }, 0 );
+
+      return this.gradients.map(function( gradient ) {
+        return gradient.css( totalAlpha );
+      }).join( ', ' );
+    }
+  });
 });
