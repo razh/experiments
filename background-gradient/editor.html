@@ -9,17 +9,22 @@
       margin: 0;
     }
 
-    #gradient {
-      position: absolute;
-      background: linear-gradient(45deg, rgba(255, 0, 0, 1), rgba(255, 255, 128, 1));
+    .gradient {
+      position: relative;
 
       width: 400px;
       height: 300px;
 
-      top: 100px;
-      left: 100px;
-
       border: 2px solid black;
+
+      margin-bottom: 50px;
+      margin-left: 100px;
+    }
+
+    #gradient-0 {
+      background: linear-gradient(45deg, rgba(255, 0, 0, 1), rgba(255, 255, 128, 1));
+
+      margin-top: 50px;
     }
 
     .colorstop {
@@ -31,28 +36,82 @@
       margin-top: -10px;
       margin-left: -20px;
 
+      border: 2px solid black;
+    }
+
+    #gradient-0 > #colorstop-0 {
+      background-color: rgba(255, 0, 0, 1);
+      top: 100%;
+      left: 0%;
+
       -webkit-transform: rotateZ(45deg);
       transform: rotateZ(45deg);
     }
 
-    #colorstop-0 {
-      background-color: rgba(255, 0, 0, 1);
-      top: 100%;
-      left: 0%;
-      border: 2px solid black;
-    }
-
-    #colorstop-1 {
+    #gradient-0 > #colorstop-1 {
       background-color: rgba(255, 255, 128, 1);
       top: 0%;
       left: 100%;
-      border: 2px solid black;
+
+
+      -webkit-transform: rotatez(45deg);
+      transform: rotateZ(45deg);
+    }
+
+    #gradient-1 {
+      background: linear-gradient(rgba(255, 0, 255, 1), rgba(0, 255, 128, 1));
+
+      margin-bottom: 100px;
+    }
+
+    #gradient-1 > #colorstop-0 {
+      background-color: rgba(255, 0, 255, 1);
+      top: 0%;
+      left: 50%;
+    }
+
+    #gradient-1 > #colorstop-1 {
+      background-color: rgba(0, 255, 128, 1);
+     top: 100%;
+     left: 50%;
+    }
+
+    #gradient-2 {
+      background: linear-gradient(90deg, rgba(255, 0, 128, 1), rgba(128, 0, 255, 1));
+    }
+
+    #gradient-2 > #colorstop-0 {
+      background-color: rgba(255, 0, 128, 1);
+      top: 50%;
+      left: 0%;
+
+      -webkit-transform: rotatez(90deg);
+      transform: rotateZ(90deg);
+    }
+
+    #gradient-2 > #colorstop-1 {
+      background-color: rgba(128, 0, 255, 1);
+      top: 50%;
+      left: 100%;
+
+      -webkit-transform: rotatez(90deg);
+      transform: rotateZ(90deg);
     }
   </style>
 </head>
 <body>
 
-  <div id="gradient">
+  <div class="gradient" id="gradient-0">
+    <div class="colorstop" id="colorstop-0"></div>
+    <div class="colorstop" id="colorstop-1"></div>
+  </div>
+
+  <div class="gradient" id="gradient-1">
+    <div class="colorstop" id="colorstop-0"></div>
+    <div class="colorstop" id="colorstop-1"></div>
+  </div>
+
+  <div class="gradient" id="gradient-2">
     <div class="colorstop" id="colorstop-0"></div>
     <div class="colorstop" id="colorstop-1"></div>
   </div>
