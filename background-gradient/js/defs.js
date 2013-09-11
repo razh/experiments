@@ -1,5 +1,8 @@
 'use strict';
 
+var RAD_TO_DEG = 180 / Math.PI,
+    DEG_TO_RAD = Math.PI / 180;
+
 function round( value, precision ) {
   return parseFloat( value.toFixed( precision ) );
 }
@@ -32,6 +35,13 @@ RGBAColor.prototype.css = function( totalAlpha ) {
   ')';
 };
 
+function RGBColor( red, green, blue ) {
+  RGBAColor.call( this, red, green, blue, 1 );
+}
+
+RGBColor.prototype = new RGBAColor();
+RGBColor.prototype.constructor = RGBColor;
+
 function HSLAColor( hue, saturation, lightness, alpha ) {
   this.hue        = hue        || 0;
   this.saturation = saturation || 0.0;
@@ -51,6 +61,13 @@ HSLAColor.prototype.css = function( totalAlpha ) {
     round( this.alpha / totalAlpha, 2 ) +
   ')';
 };
+
+function HSLColor( hue, saturation, lightness ) {
+  HSLAColor.call( this, hue, saturation, lightness );
+}
+
+HSLColor.prototype = new HSLAColor();
+HSLColor.prototype.constructor = HSLColor;
 
 function ColorStop( color, position ) {
   this.color    = color || new RGBAColor();
