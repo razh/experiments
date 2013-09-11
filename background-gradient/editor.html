@@ -21,10 +21,12 @@
       margin-left: 100px;
     }
 
-    #gradient-0 {
-      background: linear-gradient(45deg, rgba(255, 0, 0, 1), rgba(255, 255, 128, 1));
-
+    .gradient:first-of-type {
       margin-top: 50px;
+    }
+
+    #gradient-0 {
+      background: linear-gradient(45deg, rgb(255, 0, 0), rgb(255, 255, 128));
     }
 
     .colorstop {
@@ -39,67 +41,88 @@
       border: 2px solid black;
     }
 
-    #gradient-0 > #colorstop-0 {
-      background-color: rgba(255, 0, 0, 1);
-      top: 100%;
-      left: 0%;
-
+    #gradient-0 > .colorstop {
       -webkit-transform: rotateZ(45deg);
       transform: rotateZ(45deg);
     }
 
+    #gradient-0 > #colorstop-0 {
+      background-color: rgb(255, 0, 0);
+      top: 100%;
+    }
+
     #gradient-0 > #colorstop-1 {
-      background-color: rgba(255, 255, 128, 1);
-      top: 0%;
+      background-color: rgb(255, 255, 128);
       left: 100%;
-
-
-      -webkit-transform: rotatez(45deg);
-      transform: rotateZ(45deg);
     }
 
     #gradient-1 {
-      background: linear-gradient(rgba(255, 0, 255, 1), rgba(0, 255, 128, 1));
-
-      margin-bottom: 100px;
+      background: linear-gradient(rgb(255, 0, 255), rgb(0, 255, 128));
     }
 
     #gradient-1 > #colorstop-0 {
-      background-color: rgba(255, 0, 255, 1);
-      top: 0%;
+      background-color: rgb(255, 0, 255);
       left: 50%;
     }
 
     #gradient-1 > #colorstop-1 {
-      background-color: rgba(0, 255, 128, 1);
+      background-color: rgb(0, 255, 128);
      top: 100%;
      left: 50%;
     }
 
     #gradient-2 {
-      background: linear-gradient(90deg, rgba(255, 0, 128, 1), rgba(128, 0, 255, 1));
+      background: linear-gradient(90deg, rgb(255, 0, 128), rgb(128, 0, 255));
+    }
+
+    #gradient-2 > .colorstop {
+      -webkit-transform: rotatez(90deg);
+      transform: rotateZ(90deg);
     }
 
     #gradient-2 > #colorstop-0 {
-      background-color: rgba(255, 0, 128, 1);
+      background-color: rgb(255, 0, 128);
       top: 50%;
-      left: 0%;
-
-      -webkit-transform: rotatez(90deg);
-      transform: rotateZ(90deg);
     }
 
     #gradient-2 > #colorstop-1 {
-      background-color: rgba(128, 0, 255, 1);
+      background-color: rgb(128, 0, 255);
       top: 50%;
       left: 100%;
-
-      -webkit-transform: rotatez(90deg);
-      transform: rotateZ(90deg);
     }
+
+    #gradient-3 {
+      background: linear-gradient(210deg, rgb(128, 0, 0), rgb(0, 255, 255) 30%, rgb(255, 128, 0))
+    }
+
+    #gradient-3 > .colorstop {
+      -webkit-transform: rotatez(210deg);
+      transform: rotateZ(210deg);
+    }
+
+    #gradient-3 > #colorstop-0 {
+      background-color: rgb(128, 0, 0);
+      left: 100%;
+    }
+
+    #gradient-3 > #colorstop-1 {
+      background-color: rgb(0, 255, 255);
+      top: 30%;
+      left: 70%;
+    }
+
+    #gradient-3 > #colorstop-2 {
+      background-color: rgb(255, 128, 0);
+      top: 100%;
+    }
+
   </style>
 </head>
 <body>
+
+  <div class="gradient" id="gradient-canvas">
+    <canvas id="canvas"></canvas>
+  </div>
 
   <div class="gradient" id="gradient-0">
     <div class="colorstop" id="colorstop-0"></div>
@@ -116,5 +139,14 @@
     <div class="colorstop" id="colorstop-1"></div>
   </div>
 
+  <div class="gradient" id="gradient-3">
+    <div class="colorstop" id="colorstop-0"></div>
+    <div class="colorstop" id="colorstop-1"></div>
+    <div class="colorstop" id="colorstop-2"></div>
+  </div>
+
+  <script src="../app/components/jquery/jquery.js"></script>
+  <script src="./js/defs.js"></script>
+  <script src="./js/editor-test.js"></script>
 </body>
 </html>
