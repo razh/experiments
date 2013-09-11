@@ -3,8 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <title>Background Gradient Editor</title>
+
+  <style>
+    body {
+      margin: 0;
+    }
+
+    #gradient {
+      position: absolute;
+      background: linear-gradient(45deg, rgba(255, 0, 0, 1), rgba(255, 255, 128, 1));
+
+      width: 400px;
+      height: 300px;
+
+      top: 100px;
+      left: 100px;
+
+      border: 2px solid black;
+    }
+
+    .colorstop {
+      position: absolute;
+
+      width: 40px;
+      height: 20px;
+
+      margin-top: -10px;
+      margin-left: -20px;
+
+      -webkit-transform: rotateZ(45deg);
+      transform: rotateZ(45deg);
+    }
+
+    #colorstop-0 {
+      background-color: rgba(255, 0, 0, 1);
+      top: 100%;
+      left: 0%;
+      border: 2px solid black;
+    }
+
+    #colorstop-1 {
+      background-color: rgba(255, 255, 128, 1);
+      top: 0%;
+      left: 100%;
+      border: 2px solid black;
+    }
+  </style>
 </head>
 <body>
+
+  <div id="gradient">
+    <div class="colorstop" id="colorstop-0"></div>
+    <div class="colorstop" id="colorstop-1"></div>
+  </div>
 
 </body>
 </html>
