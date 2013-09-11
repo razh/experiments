@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Robot Eyeball</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Courier New", "Courier", monospace;
+      font-weight: bold;
+    }
+
+    .warning {
+      position: absolute;
+      top: 30px;
+      width: 500px;
+
+      text-align: center;
+      font-size: 2em;
+    }
+
+    canvas {
+      position: absolute;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <div class="warning">CITIZEN, DO NOT MOVE.</div>
+  <canvas id="eyeball"></canvas>
+
+  <script src="../app/components/jquery/jquery.js"></script>
+  <script src="./js/robot.js"></script>
+</body>
+</html>

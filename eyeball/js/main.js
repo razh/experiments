@@ -28,12 +28,18 @@
 
     positionLeft  = parseInt( $eyeballLeft.css( 'left' ), 10 );
     positionRight = parseInt( $eyeballRight.css( 'left' ), 10 );
+
+    update();
   }
 
-  function update( event ) {
+  function onMouseMove( event ) {
     mouse.x = event.pageX;
     mouse.y = event.pageY;
 
+    update();
+  }
+
+  function update() {
     $pupilLeft.css({
       left: mouse.x + 'px',
       top:  mouse.y + 'px'
@@ -73,5 +79,5 @@
   resize();
 
   $( window ).on( 'resize', resize );
-  $( document ).on( 'mousemove', update );
+  $( document ).on( 'mousemove', onMouseMove );
 }) ( jQuery, window, document );
