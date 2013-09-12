@@ -3,6 +3,8 @@
 var RAD_TO_DEG = 180 / Math.PI,
     DEG_TO_RAD = Math.PI / 180;
 
+var PI2 = 2 * Math.PI;
+
 function round( value, precision ) {
   return parseFloat( value.toFixed( precision ) );
 }
