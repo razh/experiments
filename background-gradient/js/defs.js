@@ -58,8 +58,8 @@ HSLAColor.prototype.css = function( totalAlpha ) {
 
   return 'hsla(' +
     Math.round( limit( this.hue, 0, 360 ) ) + ', ' +
-    this.saturation.toFixed(0) + '%, ' +
-    this.lightness.toFixed(0)  + '%, ' +
+    Math.round( this.saturation ) + '%, ' +
+    Math.round( this.lightness  ) + '%, ' +
     round( this.alpha / totalAlpha, 2 ) +
   ')';
 };

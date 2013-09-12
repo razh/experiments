@@ -75,7 +75,7 @@ $(function() {
     var dx = mouse.x - this.x,
         dy = mouse.y - this.y;
 
-    this.gradientAngle = ( normalizeAngle( Math.atan2( dy, dx ) ) * RAD_TO_DEG ).toFixed(0) % 360;
+    this.gradientAngle = Math.round( normalizeAngle( Math.atan2( dy, dx ) ) * RAD_TO_DEG ) % 360;
     gradient.angle = this.gradientAngle + 'deg';
     $gradient.css( 'background', gradient.css() );
 
@@ -95,8 +95,8 @@ $(function() {
         inPixels = true;
 
         pixels = parseInt( colorStop.position, 10 );
-        xPixels = Math.abs( pixels * Math.sin( gradientAngle * DEG_TO_RAD ) ).toFixed(0);
-        yPixels = Math.abs( pixels * Math.cos( gradientAngle * DEG_TO_RAD ) ).toFixed(0);
+        xPixels = Math.round( Math.abs( pixels * Math.sin( gradientAngle * DEG_TO_RAD ) ) );
+        yPixels = Math.round( Math.abs( pixels * Math.cos( gradientAngle * DEG_TO_RAD ) ) );
       } else {
         inPercent = true;
       }

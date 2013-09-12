@@ -73,8 +73,8 @@ define(function( require ) {
 
       return 'hsla(' +
         Math.round( limit( this.get( 'hue' ), 0, 360 ) ) + ', ' +
-        this.get( 'saturation' ).toFixed(0) + '%, ' +
-        this.get( 'lightness' ).toFixed(0)  + '%, ' +
+        Math.round( this.get( 'saturation' ) ) + '%, ' +
+        Math.round( this.get( 'lightness'  ) ) + '%, ' +
         round( this.get( 'alpha' ) / totalAlpha, 2 ) +
       ')';
     }
