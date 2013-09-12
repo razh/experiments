@@ -54,80 +54,44 @@ $(function() {
       var top, left;
       // TODO: Clean this stuff up!
       // This only handles percentages right now.
-      if ( quadrant === 0 ) {
-        top  = ( ( colorStopCount - index ) / colorStopCount ) * 100 + '%';
+      if ( quadrant === 0 || quadrant === 1 ) {
         left = ( index / colorStopCount ) * 100 + '%';
 
         if ( colorStop.position ) {
-          top = ( 100 - parseInt( colorStop.position, 10 ) ) + '%';
           left = colorStop.position;
         }
       }
 
-      if ( quadrant === 1 ) {
+      if ( quadrant === 1 || quadrant === 2 ) {
         top  = ( index / colorStopCount ) * 100 + '%';
-        left = ( index / colorStopCount ) * 100 + '%';
 
         if ( colorStop.position ) {
           top = colorStop.position;
-          left = colorStop.position;
         }
       }
 
-      if ( quadrant === 2 ) {
-        top  = ( index / colorStopCount ) * 100 + '%';
-        left = ( ( colorStopCount - index ) / colorStopCount ) * 100 + '%';
-
-        if ( colorStop.position ) {
-          top = colorStop.position;
-          left = ( 100 - parseInt( colorStop.position, 10 ) ) + '%';
-        }
-      }
-
-      if ( quadrant === 3 ) {
+      if ( quadrant === 0 || quadrant === 3 ) {
         top  = ( ( colorStopCount - index ) / colorStopCount ) * 100 + '%';
-        left = ( ( colorStopCount - index ) / colorStopCount ) * 100 + '%';
-
-        if ( colorStop.position ) {
-          top = ( 100 - parseInt( colorStop.position, 10 ) ) + '%';
-          left = ( 100 - parseInt( colorStop.position, 10 ) ) + '%';
-        }
-      }
-
-      if ( gradient.angle === '0deg' ) {
-        top = ( ( colorStopCount - index ) / colorStopCount ) * 100 + '%';
-        left = '50%';
 
         if ( colorStop.position ) {
           top = ( 100 - parseInt( colorStop.position, 10 ) ) + '%';
         }
       }
 
-      if ( gradient.angle === '90deg' ) {
-        top = '50%';
-        left = ( index / colorStopCount ) * 100 + '%';
-
-        if ( colorStop.position ) {
-          left = colorStop.position;
-        }
-      }
-
-      if ( gradient.angle === '180deg' ) {
-        top = ( index / colorStopCount ) * 100 + '%';
-        left = '50%';
-
-        if ( colorStop.position ) {
-          top = colorStop.position;
-        }
-      }
-
-      if ( gradient.angle === '270deg' ) {
-        top = '50%';
+      if ( quadrant === 2 || quadrant === 3 ) {
         left = ( ( colorStopCount - index ) / colorStopCount ) * 100 + '%';
 
         if ( colorStop.position ) {
           left = ( 100 - parseInt( colorStop.position, 10 ) ) + '%';
         }
+      }
+
+      if ( gradient.angle === '0deg' || gradient.angle === '180deg' ) {
+        left = '50%';
+      }
+
+      if ( gradient.angle === '90deg' || gradient.angle === '270deg' ) {
+        top = '50%';
       }
 
       $colorStop.css({
