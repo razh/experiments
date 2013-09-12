@@ -1,4 +1,4 @@
-/*globals $, PI2, LinearGradient, ColorStop, RGBColor, RAD_TO_DEG, DEG_TO_RAD*/
+/*globals $, PI2, Background, LinearGradient, ColorStop, RGBColor, RAD_TO_DEG, DEG_TO_RAD*/
 $(function() {
   'use strict';
 
@@ -48,7 +48,7 @@ $(function() {
   var editors = [];
 
   function Editor( options ) {
-    this.$gradient = $( options.id );
+    this.$gradient = $( options.el );
 
     this.$canvas = this.$gradient.find( '#canvas' );
     this.canvas  = this.$canvas[0];
@@ -181,8 +181,19 @@ $(function() {
     ctx.fillText( this.gradientAngle, 20, canvas.height - 20 );
   };
 
+
+  function Output( options ) {
+    this.$image = $( options.el );
+    this.background = new Background();
+  }
+
+  Output.prototype.update = function() {
+    this.$image.css( 'background', this.background.css() );
+  };
+
+
   var editor0 = new Editor({
-    id: '#gradient-canvas-0'
+    el: '#gradient-canvas-0'
   });
 
   editors.push( editor0 );
@@ -196,7 +207,7 @@ $(function() {
 
 
   var editor1 = new Editor({
-    id: '#gradient-canvas-1'
+    el: '#gradient-canvas-1'
   });
 
   editors.push( editor1 );
@@ -207,6 +218,13 @@ $(function() {
 
   editor1.update();
 
+  var output0 = new Output({
+    el: '#gradient-output'
+  });
+
+  output0.background.gradients.push( editor0.gradient );
+  output0.background.gradients.push( editor1.gradient );
+
 
   function onMouseMove( event ) {
     mouse.x = event.pageX;
@@ -215,6 +233,8 @@ $(function() {
     editors.forEach(function( editor ) {
       editor.update();
     });
+
+    output0.update();
   }
 
   $( window ).on({
