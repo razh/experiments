@@ -76,7 +76,7 @@
     }
 
     #gradient-2 > .colorstop {
-      -webkit-transform: rotatez(90deg);
+      -webkit-transform: rotateZ(90deg);
       transform: rotateZ(90deg);
     }
 
@@ -96,7 +96,7 @@
     }
 
     #gradient-3 > .colorstop {
-      -webkit-transform: rotatez(210deg);
+      -webkit-transform: rotateZ(210deg);
       transform: rotateZ(210deg);
     }
 
@@ -116,30 +116,68 @@
       top: 100%;
     }
 
+    #gradient-4 {
+      background: linear-gradient(90deg, rgb(255, 32, 32), rgb(255, 0, 255) 80px, rgb(64, 64, 255));
+    }
+
+    #gradient-4 > .colorstop {
+      -webkit-transform: rotateZ(90deg);
+      transform: rotateZ(90deg);
+    }
+
+    #gradient-4 > #colorstop-0 {
+      background-color: rgb(255, 32, 32);
+      top: 50%;
+    }
+
+    #gradient-4 > #colorstop-1 {
+      background-color: rgb(255, 0, 255);
+      top: 50%;
+      left: 80px;
+    }
+
+    #gradient-4 > #colorstop-2 {
+      background-color: rgb(64, 64, 255);
+      top: 50%;
+      left: 100%;
+    }
+
   </style>
 </head>
 <body>
 
+  <!-- Editor testbed. -->
   <div class="gradient" id="gradient-canvas">
     <canvas id="canvas"></canvas>
   </div>
 
+  <!-- Simple gradient. 45deg. -->
   <div class="gradient" id="gradient-0">
     <div class="colorstop" id="colorstop-0"></div>
     <div class="colorstop" id="colorstop-1"></div>
   </div>
 
+  <!-- Simple gradient. 0deg. -->
   <div class="gradient" id="gradient-1">
     <div class="colorstop" id="colorstop-0"></div>
     <div class="colorstop" id="colorstop-1"></div>
   </div>
 
+  <!-- Simple gradient. 90deg. -->
   <div class="gradient" id="gradient-2">
     <div class="colorstop" id="colorstop-0"></div>
     <div class="colorstop" id="colorstop-1"></div>
   </div>
 
+  <!-- Simple gradient. 3 colorstops, non-default percentage positions. -->
   <div class="gradient" id="gradient-3">
+    <div class="colorstop" id="colorstop-0"></div>
+    <div class="colorstop" id="colorstop-1"></div>
+    <div class="colorstop" id="colorstop-2"></div>
+  </div>
+
+  <!-- Simple gradient. 3 colorsstops, non-default pixel positions. -->
+  <div class="gradient" id="gradient-4">
     <div class="colorstop" id="colorstop-0"></div>
     <div class="colorstop" id="colorstop-1"></div>
     <div class="colorstop" id="colorstop-2"></div>

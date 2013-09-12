@@ -41,6 +41,30 @@ $(function() {
     return 3;
   }
 
+  /**
+   * Percent or pixels.
+   *
+   * These regexps are very liberal in the values they accept. For example, the
+   * following values are accepted:
+   *
+   *  abc10% -> 10%
+   *  abc100px -> 100px
+   */
+  var percentRegex = /\d+\%/,
+      pixelRegex = /\d+px/;
+
+  function unitsOf( string ) {
+    if ( percentRegex.test( string ) ) {
+      return '%';
+    }
+
+    if ( pixelRegex.test( string ) ) {
+      return 'px';
+    }
+
+    return null;
+  }
+
   function update() {
     // Clean-up.
     $gradient.children( '.colorstop' ).remove();
