@@ -25,8 +25,8 @@ $(function() {
    *  abc10% -> 10%
    *  abc100px -> 100px
    */
-  var percentRegex = /\d+\%/,
-      pixelRegex   = /\d+px/;
+  var percentRegex = /(\d+)(\%)/,
+      pixelRegex   = /(\d+)(px)/;
 
   function unitsOf( string ) {
     if ( percentRegex.test( string ) ) {
@@ -82,11 +82,24 @@ $(function() {
     // Clean-up.
     $gradient.children( '.colorstop' ).remove();
 
-    var quadrant = quadrantOf( this.gradientAngle * DEG_TO_RAD );
+    var gradientAngle = this.gradientAngle,
+        quadrant = quadrantOf( gradientAngle * DEG_TO_RAD ),
+        colorStopCount = gradient.colorStops.length - 1;
 
-    var colorStopCount = gradient.colorStops.length - 1;
     gradient.colorStops.forEach(function( colorStop, index ) {
       var $colorStop = $( '<div class="colorstop" id="colorstop-' + index + '"></div>' );
+
+      var inPercent, inPixels = false;
+      var pixels, xPixels, yPixels;
+      if ( unitsOf( colorStop.position ) === 'px' ) {
+        inPixels = true;
+
+        pixels = parseInt( colorStop.position, 10 );
+        xPixels = Math.abs( pixels * Math.sin( gradientAngle * DEG_TO_RAD ) ).toFixed(0);
+        yPixels = Math.abs( pixels * Math.cos( gradientAngle * DEG_TO_RAD ) ).toFixed(0);
+      } else {
+        inPercent = true;
+      }
 
       var top, left;
       // TODO: Clean this stuff up!
@@ -96,6 +109,9 @@ $(function() {
 
         if ( colorStop.position ) {
           left = colorStop.position;
+          if ( inPixels ) {
+            left = xPixels + 'px';
+          }
         }
       }
 
@@ -104,6 +120,9 @@ $(function() {
 
         if ( colorStop.position ) {
           top = colorStop.position;
+          if ( inPixels ) {
+            top = yPixels + 'px';
+          }
         }
       }
 
@@ -112,6 +131,9 @@ $(function() {
 
         if ( colorStop.position ) {
           top = ( 100 - parseInt( colorStop.position, 10 ) ) + '%';
+          if ( inPixels ) {
+            top = 'calc(100% - ' + yPixels + 'px)';
+          }
         }
       }
 
@@ -120,6 +142,9 @@ $(function() {
 
         if ( colorStop.position ) {
           left = ( 100 - parseInt( colorStop.position, 10 ) ) + '%';
+          if ( inPixels ) {
+            left = 'calc(100% - ' + xPixels + 'px)';
+          }
         }
       }
 
