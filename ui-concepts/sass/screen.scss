@@ -1,0 +1,83 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+
+@import "compass/css3/box";
+
+$oblv-width: 128px;
+$oblv-height: 48px;
+
+$oblv-node-radius: 3px;
+
+html, body {
+  height: 100%;
+}
+
+.section {
+  width: 100%;
+  height: 100%;
+}
+
+.oblivion {
+  background-color: black;
+
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 0 7px rgba(0, 255, 255, 0.75);
+
+  font-family: "nudista-web", Monaco, Consolas, "Courier New", Courier, monospace;
+  font-family: "proxima-nova";
+  font-weight: 100;
+  font-size: 1.25em;
+  letter-spacing: 0.1em;
+
+  .button {
+    @include display-box;
+    @include box-align(center);
+
+    position: absolute;
+
+    width: $oblv-width;
+    height: $oblv-height;
+
+    top: 50%;
+    left: 50%;
+
+    margin-left: -0.5 * $oblv-width;
+    margin-top: -0.5 * $oblv-height;
+
+    text-align: center;
+    border: 1px solid rgba(192, 224, 255, 0.5);
+
+    border-top: transparent;
+    border-bottom: transparent;
+
+    .text {
+      width: 100%;
+    }
+
+    .node {
+      position: absolute;
+      width: $oblv-node-radius;
+      height: $oblv-node-radius;
+      margin-left: -0.5 * $oblv-node-radius;
+      margin-top: -0.5 * $oblv-node-radius;
+      background-color: rgba(192, 240, 255, 1);
+
+      &:nth-of-type(2) {
+        left: 100%;
+      }
+
+      &:nth-of-type(3) {
+        top: 100%;
+      }
+
+      &:nth-of-type(4) {
+        top: 100%;
+        left: 100%;
+      }
+    }
+  }
+}
