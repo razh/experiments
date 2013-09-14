@@ -147,19 +147,35 @@ html, body {
 .oblivion #css-dashed-circle .tick {
   position: absolute;
   width: 20px;
-  height: 2px;
+  height: 1px;
   margin-left: -10px;
-  margin-top: -1px;
+  margin-top: -0.5px;
   box-shadow: 0 0 3px #00c0ff;
   background-color: white;
-  font-size: 8pt;
-  text-align: right;
+  color: lightcyan;
 }
-/* line 103, ../sass/screen.scss */
+/* line 100, ../sass/screen.scss */
+.oblivion #css-dashed-circle .tick .angle {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+  position: absolute;
+  left: 120%;
+  margin-top: -4px;
+  font-size: 9pt;
+}
+/* line 109, ../sass/screen.scss */
 .oblivion #css-dashed-circle .minor {
   width: 10px;
   height: 1px;
   margin-left: -5px;
   margin-top: -0.5px;
   background-color: rgba(255, 255, 255, 0.5);
+  color: rgba(192, 224, 255, 0.75);
+}
+/* line 117, ../sass/screen.scss */
+.oblivion #css-dashed-circle .minor .angle {
+  font-size: 7pt;
 }

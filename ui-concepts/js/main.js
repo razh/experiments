@@ -163,8 +163,8 @@ $(function() {
 
     var fragment = document.createDocumentFragment();
 
-    var el;
-    var x, y, angle;
+    var el, textEl;
+    var x, y, angle, transform;
     for ( var i = 0; i < tickCount; i++ ) {
       el = document.createElement( 'div' );
       el.classList.add( 'tick' );
@@ -179,10 +179,17 @@ $(function() {
 
       angle = round( angle * RAD_TO_DEG, 1 );
 
-      el.style.webkitTransform = 'translate(' + x + 'px, ' + y + 'px) rotate(' + angle +  'deg)';
+      transform = 'translate(' + x + 'px, ' + y + 'px) rotate(' + angle +  'deg)';
+      el.style.webkitTransform = transform;
+      el.style.transform = transform;
 
       el.setAttribute( 'data-index', i );
-      el.appendChild( document.createTextNode( angle ) );
+
+      textEl = document.createElement( 'div' );
+      textEl.classList.add( 'angle' );
+      textEl.appendChild( document.createTextNode( angle ) );
+      el.appendChild( textEl );
+
       fragment.appendChild( el );
       this.tickElements.push( el );
     }
@@ -200,25 +207,6 @@ $(function() {
     this.$el.css({
       transform: 'rotate(' + round( this.rotation * RAD_TO_DEG, 1 ) + 'deg) translateZ(0)'
     });
-    // var startAngle = this.startAngle,
-    //     tickAngle  = this.tickAngle,
-    //     radius     = this.radius,
-    //     rotation   = this.rotation;
-
-    // var x, y, angle;
-    // this.tickElements.forEach(function( tickElement, index ) {
-    //   angle = index * tickAngle + startAngle + rotation;
-
-    //   x = round( Math.cos( angle ) * radius, 2 );
-    //   y = round( Math.sin( angle ) * radius, 2 );
-
-    //   angle = round( angle * RAD_TO_DEG, 2 );
-
-    //   var css = 'translate(' + x + 'px, ' + y + 'px) rotate(' + angle +  'deg)';
-    //   $( tickElement ).css({
-    //     transform: css
-    //   });
-    // });
   };
 
   var vdCircleCSS = new VerticalDashedCircleCSS({
@@ -314,5 +302,5 @@ $(function() {
   }
 
   init();
-  tick();
+  // tick();
 });
