@@ -67,18 +67,18 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 15, ../sass/screen.scss */
+/* line 16, ../sass/screen.scss */
 html, body {
   height: 100%;
 }
 
-/* line 19, ../sass/screen.scss */
+/* line 20, ../sass/screen.scss */
 .section {
   width: 100%;
   height: 100%;
 }
 
-/* line 24, ../sass/screen.scss */
+/* line 25, ../sass/screen.scss */
 .oblivion {
   background-color: black;
   color: rgba(255, 255, 255, 0.9);
@@ -89,7 +89,7 @@ html, body {
   font-size: 1.25em;
   letter-spacing: 0.1em;
 }
-/* line 36, ../sass/screen.scss */
+/* line 37, ../sass/screen.scss */
 .oblivion .button {
   display: -webkit-box;
   display: -moz-box;
@@ -111,11 +111,11 @@ html, body {
   border-top: transparent;
   border-bottom: transparent;
 }
-/* line 57, ../sass/screen.scss */
+/* line 58, ../sass/screen.scss */
 .oblivion .button .text {
   width: 100%;
 }
-/* line 61, ../sass/screen.scss */
+/* line 62, ../sass/screen.scss */
 .oblivion .button .node {
   position: absolute;
   width: 3px;
@@ -124,16 +124,42 @@ html, body {
   margin-top: -1.5px;
   background-color: #c0f0ff;
 }
-/* line 69, ../sass/screen.scss */
+/* line 70, ../sass/screen.scss */
 .oblivion .button .node:nth-of-type(2) {
   left: 100%;
 }
-/* line 73, ../sass/screen.scss */
+/* line 74, ../sass/screen.scss */
 .oblivion .button .node:nth-of-type(3) {
   top: 100%;
 }
-/* line 77, ../sass/screen.scss */
+/* line 78, ../sass/screen.scss */
 .oblivion .button .node:nth-of-type(4) {
   top: 100%;
   left: 100%;
+}
+/* line 85, ../sass/screen.scss */
+.oblivion #css-dashed-circle {
+  position: relative;
+  top: 50%;
+  left: 50%;
+}
+/* line 90, ../sass/screen.scss */
+.oblivion #css-dashed-circle .tick {
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  margin-left: -10px;
+  margin-top: -1px;
+  box-shadow: 0 0 3px #00c0ff;
+  background-color: white;
+  font-size: 8pt;
+  text-align: right;
+}
+/* line 103, ../sass/screen.scss */
+.oblivion #css-dashed-circle .minor {
+  width: 10px;
+  height: 1px;
+  margin-left: -5px;
+  margin-top: -0.5px;
+  background-color: rgba(255, 255, 255, 0.5);
 }

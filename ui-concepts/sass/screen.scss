@@ -6,6 +6,7 @@
 @import "compass/reset";
 
 @import "compass/css3/box";
+@import "compass/css3/transform";
 
 $oblv-width: 128px;
 $oblv-height: 48px;
@@ -78,6 +79,33 @@ html, body {
         top: 100%;
         left: 100%;
       }
+    }
+  }
+
+  #css-dashed-circle {
+    position: relative;
+    top: 50%;
+    left: 50%;
+
+    .tick {
+      position: absolute;
+      width: 20px;
+      height: 2px;
+      margin-left: -10px;
+      margin-top: -1px;
+      box-shadow: 0 0 3px rgba(0, 192, 255, 1);
+      background-color: white;
+
+      font-size: 8pt;
+      text-align: right;
+    }
+
+    .minor {
+      width: 10px;
+      height: 1px;
+      margin-left: -5px;
+      margin-top: -0.5px;
+      background-color: rgba(255, 255, 255, 0.5);
     }
   }
 }

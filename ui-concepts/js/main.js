@@ -9,6 +9,10 @@ $(function() {
 
   var EPSILON = 1e-3;
 
+  function round( value, precision ) {
+    return parseFloat( value.toFixed( precision ) );
+  }
+
   /**
    *  Components for Oblivion-esque UI.
    */
@@ -126,16 +130,116 @@ $(function() {
     ctx.restore();
   };
 
+  /**
+   * This uses HTML and CSS rather than Canvas.
+   */
+  function VerticalDashedCircleCSS( options ) {
+    this.el = options.el || null;
+    this.$el = $( this.el );
+
+    this.rotation = 0;
+    this.radius = options.radius || 0;
+
+    this.startAngle = options.startAngle || 0;
+    this.endAngle = typeof options.endAngle !== 'undefined' ? options.endAngle : PI2;
+    this.anticlockwise = options.anticlockwise || false;
+
+    this.tickAngle = options.tickAngle || 0;
+    this.tickSubdivisions = options.tickSubdivisions || 0;
+
+    this.tickElements = [];
+
+    this.init();
+  }
+
+  VerticalDashedCircleCSS.prototype.init = function() {
+    var startAngle = this.startAngle,
+        tickAngle  = this.tickAngle,
+        radius     = this.radius,
+        rotation   = this.rotation;
+
+    var tickSubdivisions = this.tickSubdivisions,
+        tickCount = Math.floor( ( this.endAngle - startAngle ) / tickAngle );
+
+    var fragment = document.createDocumentFragment();
+
+    var el;
+    var x, y, angle;
+    for ( var i = 0; i < tickCount; i++ ) {
+      el = document.createElement( 'div' );
+      el.classList.add( 'tick' );
+      if ( i % tickSubdivisions !== 0 ) {
+        el.classList.add( 'minor' );
+      }
+
+      angle = i * tickAngle + startAngle + rotation;
+
+      x = round( Math.cos( angle ) * radius, 1 );
+      y = round( Math.sin( angle ) * radius, 1 );
+
+      angle = round( angle * RAD_TO_DEG, 1 );
+
+      el.style.webkitTransform = 'translate(' + x + 'px, ' + y + 'px) rotate(' + angle +  'deg)';
+
+      el.setAttribute( 'data-index', i );
+      el.appendChild( document.createTextNode( angle ) );
+      fragment.appendChild( el );
+      this.tickElements.push( el );
+    }
+
+    this.$el.append( fragment );
+    this.$el.css({
+      width: 0,
+      height: 0,
+      transform: 'translateZ(0)',
+      'transform-origin': 'left top',
+    });
+  };
+
+  VerticalDashedCircleCSS.prototype.update = function() {
+    this.$el.css({
+      transform: 'rotate(' + round( this.rotation * RAD_TO_DEG, 1 ) + 'deg) translateZ(0)'
+    });
+    // var startAngle = this.startAngle,
+    //     tickAngle  = this.tickAngle,
+    //     radius     = this.radius,
+    //     rotation   = this.rotation;
+
+    // var x, y, angle;
+    // this.tickElements.forEach(function( tickElement, index ) {
+    //   angle = index * tickAngle + startAngle + rotation;
+
+    //   x = round( Math.cos( angle ) * radius, 2 );
+    //   y = round( Math.sin( angle ) * radius, 2 );
+
+    //   angle = round( angle * RAD_TO_DEG, 2 );
+
+    //   var css = 'translate(' + x + 'px, ' + y + 'px) rotate(' + angle +  'deg)';
+    //   $( tickElement ).css({
+    //     transform: css
+    //   });
+    // });
+  };
+
+  var vdCircleCSS = new VerticalDashedCircleCSS({
+    el: '#css-dashed-circle',
+    tickAngle: 10 * DEG_TO_RAD,
+    radius: 200,
+    tickSubdivisions: 3
+  });
+
+  var $oblvButton = $( '#oblv-button' );
+
   var vdCircle = new VerticalDashedCircle({
-    x: 300,
-    y: 300,
-    lineWidth: 1,
+    x: $oblvButton.offset().left + 0.5 * $oblvButton.width(),
+    y: $oblvButton.offset().top + 0.5 * $oblvButton.height(),
+    lineWidth: 0.5,
     majorLineWidth: 2,
     tickLength: 10,
     majorTickLength: 20,
     radius: 200,
     tickAngle: 10 * DEG_TO_RAD,
-    tickSubdivisions: 4
+    tickSubdivisions: 3
   });
 
   var $vdCanvas = $( '#dashed-circle' ),
@@ -145,14 +249,29 @@ $(function() {
   vdCanvas.width = $vdCanvas.parent().width();
   vdCanvas.height = $vdCanvas.parent().height();
 
-  var running = true;
+  var prevTime = Date.now(),
+      currTime,
+      running = true;
 
   function tick() {
     if ( !running ) {
       return;
     }
 
+    currTime = Date.now();
+    var dt = currTime - prevTime;
+    prevTime = currTime;
+
+    if ( dt > 1e2 ) {
+      dt = 1e2;
+    }
+
+    dt *= 1e-3;
+
     draw( vdContext );
+    vdCircleCSS.rotation += 30 * DEG_TO_RAD * dt;
+    vdCircleCSS.update();
+
     window.requestAnimationFrame( tick );
   }
 
@@ -162,7 +281,6 @@ $(function() {
     vdCircle.draw( ctx );
   }
 
-  draw( vdContext );
 
   function onMouseMove( event ) {
     var dx = event.pageX - vdCircle.x,
@@ -170,11 +288,31 @@ $(function() {
 
     vdCircle.rotation = Math.atan2( dy, dx );
     draw( vdContext );
+
+    vdCircleCSS.update();
+  }
+
+  function onMouseMoveCSS( event ) {
+    var dx = event.pageX - vdCircleCSS.$el.offset().left,
+        dy = event.pageY - vdCircleCSS.$el.offset().top;
+
+    vdCircleCSS.rotation = Math.atan2( dy, dx );
+    vdCircleCSS.update();
   }
 
   $vdCanvas.on({
     mousemove: onMouseMove
   });
 
-  // tick();
+  $( '.oblivion-css' ).on({
+    mousemove: onMouseMoveCSS
+  });
+
+  function init() {
+    draw( vdContext );
+    vdCircleCSS.update();
+  }
+
+  init();
+  tick();
 });
