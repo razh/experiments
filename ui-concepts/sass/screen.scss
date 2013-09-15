@@ -33,12 +33,64 @@ html, body {
   font-weight: 100;
   font-size: 1.25em;
   letter-spacing: 0.1em;
+}
+
+.oblivion-css {
+  #css-dashed-circle {
+    position: relative;
+    top: 50%;
+    left: 50%;
+
+    .tick {
+      position: absolute;
+      width: 20px;
+      height: 1px;
+      margin-left: -10px;
+      margin-top: -0.5px;
+      box-shadow: 0 0 3px rgba(0, 192, 255, 1);
+      background-color: white;
+      color: rgba(224, 255, 255, 1);
+
+      .angle {
+        @include transform(rotate(90deg));
+        position: absolute;
+        left: 120%;
+        margin-top: -4px;
+        font-size: 9pt;
+      }
+    }
+
+    .minor {
+      width: 10px;
+      height: 1px;
+      margin-left: -5px;
+      margin-top: -0.5px;
+      background-color: rgba(255, 255, 255, 0.5);
+      color: rgba(192, 224, 255, 0.75);
+
+      .angle {
+        // display: none;
+        font-size: 7pt;
+      }
+    }
+  }
+
+  #css-canvas {
+    position: absolute;
+  }
+}
+
+.oblivion-canvas {
+  overflow: hidden;
+  #dashed-circle {
+    position: relative;
+  }
 
   .button {
     @include display-box;
     @include box-align(center);
 
-    position: absolute;
+    position: relative;
 
     width: $oblv-width;
     height: $oblv-height;
@@ -78,45 +130,6 @@ html, body {
       &:nth-of-type(4) {
         top: 100%;
         left: 100%;
-      }
-    }
-  }
-
-  #css-dashed-circle {
-    position: relative;
-    top: 50%;
-    left: 50%;
-
-    .tick {
-      position: absolute;
-      width: 20px;
-      height: 1px;
-      margin-left: -10px;
-      margin-top: -0.5px;
-      box-shadow: 0 0 3px rgba(0, 192, 255, 1);
-      background-color: white;
-      color: rgba(224, 255, 255, 1);
-
-      .angle {
-        @include transform(rotate(90deg));
-        position: absolute;
-        left: 120%;
-        margin-top: -4px;
-        font-size: 9pt;
-      }
-    }
-
-    .minor {
-      width: 10px;
-      height: 1px;
-      margin-left: -5px;
-      margin-top: -0.5px;
-      background-color: rgba(255, 255, 255, 0.5);
-      color: rgba(192, 224, 255, 0.75);
-
-      .angle {
-        // display: none;
-        font-size: 7pt;
       }
     }
   }

@@ -89,8 +89,64 @@ html, body {
   font-size: 1.25em;
   letter-spacing: 0.1em;
 }
-/* line 37, ../sass/screen.scss */
-.oblivion .button {
+
+/* line 39, ../sass/screen.scss */
+.oblivion-css #css-dashed-circle {
+  position: relative;
+  top: 50%;
+  left: 50%;
+}
+/* line 44, ../sass/screen.scss */
+.oblivion-css #css-dashed-circle .tick {
+  position: absolute;
+  width: 20px;
+  height: 1px;
+  margin-left: -10px;
+  margin-top: -0.5px;
+  box-shadow: 0 0 3px #00c0ff;
+  background-color: white;
+  color: lightcyan;
+}
+/* line 54, ../sass/screen.scss */
+.oblivion-css #css-dashed-circle .tick .angle {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+  position: absolute;
+  left: 120%;
+  margin-top: -4px;
+  font-size: 9pt;
+}
+/* line 63, ../sass/screen.scss */
+.oblivion-css #css-dashed-circle .minor {
+  width: 10px;
+  height: 1px;
+  margin-left: -5px;
+  margin-top: -0.5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: rgba(192, 224, 255, 0.75);
+}
+/* line 71, ../sass/screen.scss */
+.oblivion-css #css-dashed-circle .minor .angle {
+  font-size: 7pt;
+}
+/* line 78, ../sass/screen.scss */
+.oblivion-css #css-canvas {
+  position: absolute;
+}
+
+/* line 83, ../sass/screen.scss */
+.oblivion-canvas {
+  overflow: hidden;
+}
+/* line 85, ../sass/screen.scss */
+.oblivion-canvas #dashed-circle {
+  position: relative;
+}
+/* line 89, ../sass/screen.scss */
+.oblivion-canvas .button {
   display: -webkit-box;
   display: -moz-box;
   display: -ms-box;
@@ -99,7 +155,7 @@ html, body {
   -moz-box-align: center;
   -ms-box-align: center;
   box-align: center;
-  position: absolute;
+  position: relative;
   width: 128px;
   height: 48px;
   top: 50%;
@@ -111,12 +167,12 @@ html, body {
   border-top: transparent;
   border-bottom: transparent;
 }
-/* line 58, ../sass/screen.scss */
-.oblivion .button .text {
+/* line 110, ../sass/screen.scss */
+.oblivion-canvas .button .text {
   width: 100%;
 }
-/* line 62, ../sass/screen.scss */
-.oblivion .button .node {
+/* line 114, ../sass/screen.scss */
+.oblivion-canvas .button .node {
   position: absolute;
   width: 3px;
   height: 3px;
@@ -124,58 +180,16 @@ html, body {
   margin-top: -1.5px;
   background-color: #c0f0ff;
 }
-/* line 70, ../sass/screen.scss */
-.oblivion .button .node:nth-of-type(2) {
+/* line 122, ../sass/screen.scss */
+.oblivion-canvas .button .node:nth-of-type(2) {
   left: 100%;
 }
-/* line 74, ../sass/screen.scss */
-.oblivion .button .node:nth-of-type(3) {
+/* line 126, ../sass/screen.scss */
+.oblivion-canvas .button .node:nth-of-type(3) {
   top: 100%;
 }
-/* line 78, ../sass/screen.scss */
-.oblivion .button .node:nth-of-type(4) {
+/* line 130, ../sass/screen.scss */
+.oblivion-canvas .button .node:nth-of-type(4) {
   top: 100%;
   left: 100%;
-}
-/* line 85, ../sass/screen.scss */
-.oblivion #css-dashed-circle {
-  position: relative;
-  top: 50%;
-  left: 50%;
-}
-/* line 90, ../sass/screen.scss */
-.oblivion #css-dashed-circle .tick {
-  position: absolute;
-  width: 20px;
-  height: 1px;
-  margin-left: -10px;
-  margin-top: -0.5px;
-  box-shadow: 0 0 3px #00c0ff;
-  background-color: white;
-  color: lightcyan;
-}
-/* line 100, ../sass/screen.scss */
-.oblivion #css-dashed-circle .tick .angle {
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  transform: rotate(90deg);
-  position: absolute;
-  left: 120%;
-  margin-top: -4px;
-  font-size: 9pt;
-}
-/* line 109, ../sass/screen.scss */
-.oblivion #css-dashed-circle .minor {
-  width: 10px;
-  height: 1px;
-  margin-left: -5px;
-  margin-top: -0.5px;
-  background-color: rgba(255, 255, 255, 0.5);
-  color: rgba(192, 224, 255, 0.75);
-}
-/* line 117, ../sass/screen.scss */
-.oblivion #css-dashed-circle .minor .angle {
-  font-size: 7pt;
 }

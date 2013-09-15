@@ -219,8 +219,8 @@ $(function() {
   var $oblvButton = $( '#oblv-button' );
 
   var vdCircle = new VerticalDashedCircle({
-    x: $oblvButton.offset().left + 0.5 * $oblvButton.width(),
-    y: $oblvButton.offset().top + 0.5 * $oblvButton.height(),
+    x: $oblvButton.offset().left + 0.5 * $oblvButton.width() - $oblvButton.parent().offset().left,
+    y: $oblvButton.offset().top - $oblvButton.parent().offset().top,
     lineWidth: 0.5,
     majorLineWidth: 2,
     tickLength: 10,
@@ -236,6 +236,20 @@ $(function() {
 
   vdCanvas.width = $vdCanvas.parent().width();
   vdCanvas.height = $vdCanvas.parent().height();
+
+  // The canvas context for the css version of VerticalDashedCircle.
+  var $cssCanvas = $( '#css-canvas' ),
+      cssCanvas  = $cssCanvas[0],
+      cssContext = cssCanvas.getContext( '2d' );
+
+  cssCanvas.width = $cssCanvas.parent().width();
+  cssCanvas.height = $cssCanvas.parent().height();
+
+  var paths = {
+    arcGroups: [],
+    rectGroups: [],
+    segmentGroups: []
+  };
 
   var prevTime = Date.now(),
       currTime,
@@ -269,10 +283,50 @@ $(function() {
     vdCircle.draw( ctx );
   }
 
+  function drawPaths( ctx ) {
+    ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
+
+    paths.arcGroups.forEach(function( arcGroup ) {
+      ctx.lineWidth = arcGroup.lineWidth;
+      ctx.strokeStyle = arcGroup.color;
+
+      arcGroup.arcs.forEach(function( arc ) {
+        ctx.beginPath();
+        ctx.arc.apply( ctx, arc );
+        ctx.stroke();
+      });
+    });
+
+    paths.segmentGroups.forEach(function( segmentGroup ) {
+      ctx.beginPath();
+
+      segmentGroup.segments.forEach(function( segment ) {
+        ctx.moveTo( segment[0][0], segment[0][1] );
+        ctx.lineTo( segment[1][0], segment[1][1] );
+      });
+
+      ctx.lineWidth = segmentGroup.lineWidth;
+      ctx.strokeStyle = segmentGroup.color;
+      ctx.stroke();
+    });
+
+    paths.rectGroups.forEach(function( rectGroup ) {
+      ctx.beginPath();
+
+      rectGroup.rects.forEach(function( rect ) {
+        ctx.rect.apply( ctx, rect );
+      });
+
+      ctx.lineWidth = rectGroup.lineWidth;
+      ctx.strokeStyle = rectGroup.color;
+      ctx.stroke();
+    });
+  }
+
 
   function onMouseMove( event ) {
     var dx = event.pageX - vdCircle.x,
-        dy = event.pageY - vdCircle.y;
+        dy = event.pageY - vdCircle.y - $vdCanvas.offset().top;
 
     vdCircle.rotation = Math.atan2( dy, dx );
     draw( vdContext );
@@ -296,9 +350,143 @@ $(function() {
     mousemove: onMouseMoveCSS
   });
 
+  $( window ).on( 'resize', function() {
+    cssCanvas.width = $cssCanvas.parent().width();
+    cssCanvas.height = $cssCanvas.parent().height();
+
+    initPaths();
+    drawPaths( cssContext );
+  });
+
   function init() {
     draw( vdContext );
     vdCircleCSS.update();
+
+    initPaths();
+    drawPaths( cssContext );
+  }
+
+  function initPaths() {
+    paths.arcGroups = [];
+    paths.rectGroups = [];
+    paths.segmentGroups = [];
+
+    var x = vdCircleCSS.$el.offset().left,
+        y = vdCircleCSS.$el.offset().top - vdCircleCSS.$el.parent().offset().top;
+
+    var innerRadius = 150;
+    var outerRadius = 250;
+    var reticuleRadius = 15;
+
+    var halfTargetHeight = 25;
+
+    paths.arcGroups = paths.arcGroups.concat([
+      {
+        color: '#6ab',
+        lineWidth: 1,
+        arcs: [
+          // Main circle.
+          [ x, y, 200, 0, PI2 ],
+          // Outer circle.
+          [ x, y, outerRadius, 0, Math.PI ],
+          // Inner left.
+          [ x, y, innerRadius, 0.75 * Math.PI, 1.25 * Math.PI ],
+          // Inner right.
+          [ x, y, innerRadius, 1.75 * Math.PI, 2.25 * Math.PI ],
+          // Reticule.
+          [ x, y, reticuleRadius, 0, PI2 ]
+        ]
+      },
+      {
+        color: '#9df',
+        lineWidth: 3,
+        arcs: [
+          [ x, y, innerRadius - 6, 0.75 * Math.PI, Math.PI ]
+        ]
+      },
+      {
+        color: '#dff',
+        lineWidth: 5,
+        arcs: [
+          // Thick inner circle.
+          [ x, y, 170, 0, PI2 ]
+        ]
+      }
+    ]);
+
+    paths.rectGroups = paths.rectGroups.concat([
+      {
+        color: '#dff',
+        lineWidth: 1,
+        rects: [
+        ]
+      }
+    ]);
+
+    paths.segmentGroups = paths.segmentGroups.concat([
+      {
+        color: '#6ab',
+        lineWidth: 1,
+        segments: [
+          // Outer left terminal.
+          [
+            [ x - outerRadius - 10, y ],
+            [ x - outerRadius + 10, y ]
+          ],
+          // Outer right terminal.
+          [
+            [ x + outerRadius - 10, y ],
+            [ x + outerRadius + 10, y ]
+          ],
+          /**
+           * Target left
+           */
+          // Horizontal start.
+          [
+            [ x - 30, y ],
+            [ x - 100, y ]
+          ],
+          // Vertical.
+          [
+            [ x - 30, y - halfTargetHeight ],
+            [ x - 30, y + halfTargetHeight ]
+          ],
+          // Terminal top.
+          [
+            [ x - 30, y - halfTargetHeight ],
+            [ x - 25, y - halfTargetHeight ]
+          ],
+          // Terminal bottom.
+          [
+            [ x - 30, y + halfTargetHeight ],
+            [ x - 25, y + halfTargetHeight ]
+          ],
+          /**
+           * Target right
+           */
+          // Horizontal start.
+          [
+            [ x + 30, y ],
+            [ x + 100, y ]
+          ],
+          // Vertical.
+          [
+            [ x + 30, y - halfTargetHeight ],
+            [ x + 30, y + halfTargetHeight ]
+          ],
+          // Terminal top.
+          [
+            [ x + 30, y - halfTargetHeight ],
+            [ x + 25, y - halfTargetHeight ]
+          ],
+          // Terminal bottom.
+          [
+            [ x + 30, y + halfTargetHeight ],
+            [ x + 25, y + halfTargetHeight ]
+          ]
+        ]
+      }
+    ]);
   }
 
   init();
