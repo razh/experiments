@@ -494,7 +494,7 @@ $(function() {
     keydown: onKeyDown
   });
 
-  $canvas.css( 'position', 'absolute' );
+  // $canvas.css( 'position', 'absolute' );
   canvas.width = 1920; // window.innerWidth;
   canvas.height = window.innerHeight;
 

@@ -5,13 +5,100 @@
   <title>Sphere Shadow</title>
 
   <style>
-    body {
+    html, body {
       margin: 0;
+      height: 100%;
+      background-color: black;
+
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 1.5em;
+      font-weight: 100;
+    }
+
+    .css-spheres {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .css-spheres:after {
+      content: "CSS";
+      position: absolute;
+      top: 1em;
+      left: 1em;
+      color: white;
+    }
+
+    .css-spheres > .sphere {
+      position: absolute;
+      float: left;
+
+      width: 200px;
+      height: 200px;
+
+      top: 50%;
+      margin-top: -100px;
+      margin-left: -100px;
+
+      border-radius: 50%;
+      background-color: #FA7850;
+    }
+
+    .css-spheres > .sphere:nth-of-type(1) {
+      left: 300px;
+      box-shadow: inset -15px -15px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .css-spheres > .sphere:nth-of-type(2) {
+      left: 700px;
+      box-shadow: inset 30px 30px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .css-spheres > .sphere:nth-of-type(3) {
+      left: 1100px;
+      box-shadow: inset 0 -50px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .css-spheres > .sphere:nth-of-type(4) {
+      left: 1500px;
+      box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .css-spheres > .sphere:nth-of-type(4):after {
+      content: 'Hover over me!';
+      position: absolute;
+
+      top: 110%;
+      width: 100%;
+
+      color: white;
+      font-size: 0.5em;
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+
+    .css-spheres > .sphere:nth-of-type(4):hover {
+      -webkit-animation: shadow 1.5s ease-in-out infinite alternate;
+      animation: shadow 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes shadow {
+      100% { box-shadow: inset 200px 0 0 rgba(0, 0, 0, 0.3); }
+    }
+
+    @-webkit-keyframes shadow {
+      100% { box-shadow: inset 200px 0 0 rgba(0, 0, 0, 0.3); }
     }
   </style>
 </head>
 <body>
   <canvas id="canvas"></canvas>
+  <div class="css-spheres">
+    <div class="sphere" id="sphere-00"></div>
+    <div class="sphere" id="sphere-01"></div>
+    <div class="sphere" id="sphere-02"></div>
+    <div class="sphere" id="sphere-03"></div>
+  </div>
 
   <script src="../app/components/jquery/jquery.js"></script>
   <script src="./js/main.js"></script>
