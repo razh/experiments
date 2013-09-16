@@ -2,6 +2,11 @@
 $(function() {
   'use strict';
 
+  /**
+   * WARNING: This is horrible spaghetti code, optimized for development speed,
+   * rather than extensibility, readability, and debugging. Sorry.
+   */
+
   var PI2 = 2 * Math.PI;
 
   var DEG_TO_RAD = Math.PI / 180,
@@ -209,6 +214,9 @@ $(function() {
     });
   };
 
+  /**
+   * Instances.
+   */
   var vdCircleCSS = new VerticalDashedCircleCSS({
     el: '#css-dashed-circle',
     tickAngle: 10 * DEG_TO_RAD,
@@ -245,12 +253,9 @@ $(function() {
   cssCanvas.width = $cssCanvas.parent().width();
   cssCanvas.height = $cssCanvas.parent().height();
 
-  var paths = {
-    arcGroups: [],
-    rectGroups: [],
-    segmentGroups: []
-  };
-
+  /**
+   * Loop.
+   */
   var prevTime = Date.now(),
       currTime,
       running = true;
@@ -283,47 +288,6 @@ $(function() {
     vdCircle.draw( ctx );
   }
 
-  function drawPaths( ctx ) {
-    ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
-
-    paths.arcGroups.forEach(function( arcGroup ) {
-      ctx.lineWidth = arcGroup.lineWidth;
-      ctx.strokeStyle = arcGroup.color;
-
-      arcGroup.arcs.forEach(function( arc ) {
-        ctx.beginPath();
-        ctx.arc.apply( ctx, arc );
-        ctx.stroke();
-      });
-    });
-
-    paths.segmentGroups.forEach(function( segmentGroup ) {
-      ctx.beginPath();
-
-      segmentGroup.segments.forEach(function( segment ) {
-        ctx.moveTo( segment[0][0], segment[0][1] );
-        ctx.lineTo( segment[1][0], segment[1][1] );
-      });
-
-      ctx.lineWidth = segmentGroup.lineWidth;
-      ctx.strokeStyle = segmentGroup.color;
-      ctx.stroke();
-    });
-
-    paths.rectGroups.forEach(function( rectGroup ) {
-      ctx.beginPath();
-
-      rectGroup.rects.forEach(function( rect ) {
-        ctx.rect.apply( ctx, rect );
-      });
-
-      ctx.lineWidth = rectGroup.lineWidth;
-      ctx.strokeStyle = rectGroup.color;
-      ctx.stroke();
-    });
-  }
-
-
   function onMouseMove( event ) {
     var dx = event.pageX - vdCircle.x,
         dy = event.pageY - vdCircle.y - $vdCanvas.offset().top;
@@ -354,25 +318,56 @@ $(function() {
     cssCanvas.width = $cssCanvas.parent().width();
     cssCanvas.height = $cssCanvas.parent().height();
 
-    initPaths();
-    drawPaths( cssContext );
+    initCanvas();
+    drawCanvas( cssContext );
   });
 
+
+  /**
+   * Initialization.
+   */
   function init() {
     draw( vdContext );
     vdCircleCSS.update();
 
-    initPaths();
-    drawPaths( cssContext );
+    initCanvas();
+    drawCanvas( cssContext );
   }
 
-  function initPaths() {
+  /**
+   * Canvas overlay for CSS section.
+   */
+  var paths = {
+    arcGroups: [],
+    rectGroups: [],
+    segmentGroups: []
+  };
+
+  var shapes = {
+    arcGroups: [],
+    rectGroups: [],
+    polyGroups: []
+  };
+
+  function initCanvas() {
+    var x = vdCircleCSS.$el.offset().left,
+        y = vdCircleCSS.$el.offset().top - vdCircleCSS.$el.parent().offset().top;
+
+    initPaths( x, y );
+    initShapes( x, y );
+  }
+
+  function drawCanvas( ctx ) {
+    ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
+
+    drawPaths( ctx );
+    drawShapes( ctx );
+  }
+
+  function initPaths( x, y) {
     paths.arcGroups = [];
     paths.rectGroups = [];
     paths.segmentGroups = [];
-
-    var x = vdCircleCSS.$el.offset().left,
-        y = vdCircleCSS.$el.offset().top - vdCircleCSS.$el.parent().offset().top;
 
     var innerRadius = 150;
     var outerRadius = 250;
@@ -401,7 +396,8 @@ $(function() {
         color: '#9df',
         lineWidth: 3,
         arcs: [
-          [ x, y, innerRadius - 6, 0.75 * Math.PI, Math.PI ]
+          [ x, y, innerRadius - 6, 0.75 * Math.PI, Math.PI ],
+          [ x, y, innerRadius - 6, 1.75 * Math.PI, 2 * Math.PI ]
         ]
       },
       {
@@ -425,8 +421,8 @@ $(function() {
 
     paths.segmentGroups = paths.segmentGroups.concat([
       {
-        color: '#6ab',
-        lineWidth: 1,
+        color: '#dff',
+        lineWidth: 1.5,
         segments: [
           // Outer left terminal.
           [
@@ -487,6 +483,151 @@ $(function() {
         ]
       }
     ]);
+  }
+
+  function drawPaths( ctx ) {
+    paths.arcGroups.forEach(function( arcGroup ) {
+      ctx.lineWidth = arcGroup.lineWidth;
+      ctx.strokeStyle = arcGroup.color;
+
+      arcGroup.arcs.forEach(function( arc ) {
+        ctx.beginPath();
+        ctx.arc.apply( ctx, arc );
+        ctx.stroke();
+      });
+    });
+
+    paths.segmentGroups.forEach(function( segmentGroup ) {
+      ctx.beginPath();
+
+      segmentGroup.segments.forEach(function( segment ) {
+        ctx.moveTo( segment[0][0], segment[0][1] );
+        ctx.lineTo( segment[1][0], segment[1][1] );
+      });
+
+      ctx.lineWidth = segmentGroup.lineWidth;
+      ctx.strokeStyle = segmentGroup.color;
+      ctx.stroke();
+    });
+
+    paths.rectGroups.forEach(function( rectGroup ) {
+      ctx.beginPath();
+
+      rectGroup.rects.forEach(function( rect ) {
+        ctx.rect.apply( ctx, rect );
+      });
+
+      ctx.lineWidth = rectGroup.lineWidth;
+      ctx.strokeStyle = rectGroup.color;
+      ctx.stroke();
+    });
+  }
+
+
+  function initShapes( x, y ) {
+    shapes.arcGroups = [];
+    shapes.rectGroups = [];
+    shapes.polyGroups = [];
+
+    shapes.arcGroups = shapes.arcGroups.concat([
+      {
+        color: '#dff',
+        arcs: [
+          [ x, y, 2, 0, PI2 ]
+        ]
+      }
+    ]);
+
+    shapes.rectGroups = shapes.rectGroups.concat([
+      {
+        color: '#6ab',
+        // Grid.
+        rects: generateGridPoints({
+          x: x - 75,
+          y: y + 50,
+          width: 50,
+          height: 30,
+          xSpacing: 10,
+          ySpacing: 10,
+          args: [ 1, 1 ]
+        })
+      }
+    ]);
+
+    shapes.polyGroups = shapes.polyGroups.concat([
+      {
+        color: '#f64',
+        polys: [
+          [
+            [ x, y - 28 ],
+            [ x - 6, y - 35 ],
+            [ x + 6, y - 35 ]
+          ]
+        ]
+      }
+    ]);
+  }
+
+  function drawShapes( ctx )  {
+    shapes.arcGroups.forEach(function( arcGroup ) {
+      ctx.beginPath();
+
+      arcGroup.arcs.forEach(function( arc ) {
+        ctx.arc.apply( ctx, arc );
+      });
+
+      ctx.fillStyle = arcGroup.color;
+      ctx.fill();
+    });
+
+    shapes.rectGroups.forEach(function( rectGroup ) {
+      ctx.beginPath();
+
+      rectGroup.rects.forEach(function( rect ) {
+        ctx.rect.apply( ctx, rect );
+      });
+
+      ctx.fillStyle = rectGroup.color;
+      ctx.fill();
+    });
+
+    shapes.polyGroups.forEach(function( polyGroup ) {
+      ctx.beginPath();
+
+      polyGroup.polys.forEach(function( poly ) {
+        ctx.moveTo( poly[0][0], poly[0][1] );
+        for ( var i = 1; i < poly.length; i++ ) {
+          ctx.lineTo( poly[i][0], poly[i][1] );
+        }
+      });
+
+      ctx.fillStyle = polyGroup.color;
+      ctx.fill();
+    });
+  }
+
+  function generateGridPoints( options ) {
+    var x = options.x || 0,
+        y = options.y || 0,
+        width = options.width || 0,
+        height = options.height || 0,
+        xSpacing = options.xSpacing || 0,
+        ySpacing = options.ySpacing || 0,
+        args = options.args || [];
+
+    var xCount = width / xSpacing,
+        yCount = height / ySpacing;
+
+    var grid = [];
+
+    var i, j;
+    for ( i = 0; i < xCount; i++ ) {
+      for ( j = 0; j < yCount; j++ ) {
+        grid.push( [ x + i * xSpacing, y + j * ySpacing ].concat( args ) );
+      }
+    }
+
+    return grid;
   }
 
   init();
