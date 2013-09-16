@@ -1,0 +1,527 @@
+[
+  {
+    "symbol": "H",
+    "atomicMass": "1.00794",
+    "atomicNumber": 1,
+    "electronConfiguration": "1",
+    "oxidationStates": [ "+1", "-1" ]
+  },
+  {
+    "symbol": "He",
+    "atomicMass": "4.00260",
+    "atomicNumber": 2,
+    "electronConfiguration": "2",
+    "oxidationStates": [ "0" ]
+  },
+  {
+    "symbol": "Li",
+    "atomicMass": "6.941",
+    "atomicNumber": 3,
+    "electronConfiguration": "2-1",
+    "oxidationStates": [ "+1" ]
+  },
+  {
+    "symbol": "Be",
+    "atomicMass": "9.01218",
+    "atomicNumber": 4,
+    "electronConfiguration": "2-2",
+    "oxidationStates": [ "+2" ]
+  },
+  {
+    "symbol": "B",
+    "atomicMass": "10.81",
+    "atomicNumber": 5,
+    "electronConfiguration": "2-3",
+    "oxidationStates": [ "+3" ]
+  },
+  {
+    "symbol": "C",
+    "atomicMass": "12.0111",
+    "atomicNumber": 6,
+    "electronConfiguration": "2-4",
+    "oxidationStates": [ "-4", "+2", "+4" ]
+  },
+  {
+    "symbol": "N",
+    "atomicMass": "14.0067",
+    "atomicNumber": 7,
+    "electronConfiguration": "2-5",
+    "oxidationStates": [ "-3", "-2", "-1", "+1", "+2", "+3", "+4", "+5" ]
+  },
+  {
+    "symbol": "O",
+    "atomicMass": "15.9994",
+    "atomicNumber": 8,
+    "electronConfiguration": "2-6",
+    "oxidationStates": [ "-2" ]
+  },
+  {
+    "symbol": "F",
+    "atomicMass": "18.998403",
+    "atomicNumber": 9,
+    "electronConfiguration": "2-7",
+    "oxidationStates": [ "-1" ]
+  },
+  {
+    "symbol": "Ne",
+    "atomicMass": "20.179",
+    "atomicNumber": 10,
+    "electronConfiguration": "2-8",
+    "oxidationStates": [ "0" ]
+  },
+  {
+    "symbol": "Na",
+    "atomicMass": "22.98977",
+    "atomicNumber": 11,
+    "electronConfiguration": "2-8-1",
+    "oxidationStates": [ "+1" ]
+  },
+  {
+    "symbol": "Mg",
+    "atomicMass": "24.305",
+    "atomicNumber": 12,
+    "electronConfiguration": "2-8-2",
+    "oxidationStates": [ "+2" ]
+  },
+  {
+    "symbol": "Al",
+    "atomicMass": "26.98154",
+    "atomicNumber": 13,
+    "electronConfiguration": "2-8-3",
+    "oxidationStates": [ "+3" ]
+  },
+  {
+    "symbol": "Si",
+    "atomicMass": "28.0855",
+    "atomicNumber": 14,
+    "electronConfiguration": "2-8-4",
+    "oxidationStates": [ "-4", "+2", "+4" ]
+  },
+  {
+    "symbol": "P",
+    "atomicMass": "30.97376",
+    "atomicNumber": 15,
+    "electronConfiguration": "2-8-5",
+    "oxidationStates": [ "-3", "+3", "+5" ]
+  },
+  {
+    "symbol": "S",
+    "atomicMass": "32.06",
+    "atomicNumber": 16,
+    "electronConfiguration": "2-8-6",
+    "oxidationStates": [ "-2", "+4", "+6" ]
+  },
+  {
+    "symbol": "Cl",
+    "atomicMass": "35.453",
+    "atomicNumber": 17,
+    "electronConfiguration": "2-8-7",
+    "oxidationStates": [ "-1", "+1", "+3", "+5", "+7" ]
+  },
+  {
+    "symbol": "Ar",
+    "atomicMass": "39.948",
+    "atomicNumber": 18,
+    "electronConfiguration": "2-8-8",
+    "oxidationStates": [ "0" ]
+  },
+  {
+    "symbol": "K",
+    "atomicMass": "39.0983",
+    "atomicNumber": 19,
+    "electronConfiguration": "2-8-8-1",
+    "oxidationStates": [ "+1" ]
+  },
+  {
+    "symbol": "Ca",
+    "atomicMass": "40.08",
+    "atomicNumber": 20,
+    "electronConfiguration": "2-8-8-2",
+    "oxidationStates": [ "+2" ]
+  },
+  {
+    "symbol": "Sc",
+    "atomicMass": "44.9559",
+    "atomicNumber": 21,
+    "electronConfiguration": "2-8-9-2",
+    "oxidationStates": [ "+3" ]
+  },
+  {
+    "symbol": "Ti",
+    "atomicMass": "47.88",
+    "atomicNumber": 22,
+    "electronConfiguration": "2-8-10-2",
+    "oxidationStates": [ "+2", "+3", "+4" ]
+  },
+  {
+    "symbol": "V",
+    "atomicMass": "50.9415",
+    "atomicNumber": 23,
+    "electronConfiguration": "2-8-11-2",
+    "oxidationStates": [ "+2", "+3", "+4", "+5" ]
+  },
+  {
+    "symbol": "Cr",
+    "atomicMass": "51.996",
+    "atomicNumber": 24,
+    "electronConfiguration": "2-8-13-1",
+    "oxidationStates": [ "+2", "+3", "+6" ]
+  },
+  {
+    "symbol": "Mn",
+    "atomicMass": "54.9380",
+    "atomicNumber": 25,
+    "electronConfiguration": "2-8-13-2",
+    "oxidationStates": [ "+2", "+3", "+4", "+7" ]
+  },
+  {
+    "symbol": "Fe",
+    "atomicMass": "55.847",
+    "atomicNumber": 26,
+    "electronConfiguration": "2-8-14-2",
+    "oxidationStates": [ "+2", "+3" ]
+  },
+  {
+    "symbol": "Co",
+    "atomicMass": "58.9332",
+    "atomicNumber": 27,
+    "electronConfiguration": "2-8-15-2",
+    "oxidationStates": [ "+2", "+3" ]
+  },
+  {
+    "symbol": "Ni",
+    "atomicMass": "58.69",
+    "atomicNumber": 28,
+    "electronConfiguration": "2-8-16-2",
+    "oxidationStates": [ "+2", "+3" ]
+  },
+  {
+    "symbol": "Cu",
+    "atomicMass": "63.546",
+    "atomicNumber": 29,
+    "electronConfiguration": "2-8-18-1",
+    "oxidationStates": [ "+1", "+2" ]
+  },
+  {
+    "symbol": "Zn",
+    "atomicMass": "65.39",
+    "atomicNumber": 30,
+    "electronConfiguration": "2-8-18-2",
+    "oxidationStates": [ "+2" ]
+  },
+  {
+    "symbol": "Ga",
+    "atomicMass": "69.72",
+    "atomicNumber": 31,
+    "electronConfiguration": "2-8-18-3",
+    "oxidationStates": [ "+3" ]
+  },
+  {
+    "symbol": "Ge",
+    "atomicMass": "72.59",
+    "atomicNumber": 32,
+    "electronConfiguration": "2-8-18-4",
+    "oxidationStates": [ "-4", "+2", "+4" ]
+  },
+  {
+    "symbol": "As",
+    "atomicMass": "74.9216",
+    "atomicNumber": 33,
+    "electronConfiguration": "2-8-18-5",
+    "oxidationStates": [ "-3", "+3", "+5" ]
+  },
+  {
+    "symbol": "Se",
+    "atomicMass": "78.96",
+    "atomicNumber": 34,
+    "electronConfiguration": "2-8-18-6",
+    "oxidationStates": [ "-2", "+4", "+6" ]
+  },
+  {
+    "symbol": "Br",
+    "atomicMass": "79.904",
+    "atomicNumber": 35,
+    "electronConfiguration": "2-8-18-7",
+    "oxidationStates": [ "-1", "+1", "+5" ]
+  },
+  {
+    "symbol": "Kr",
+    "atomicMass": "83.80",
+    "atomicNumber": 36,
+    "electronConfiguration": "2-8-18-8",
+    "oxidationStates": [ "0", "+2" ]
+  },
+  {
+    "symbol": "Rb",
+    "atomicMass": "85.4678",
+    "atomicNumber": 37,
+    "electronConfiguration": "2-8-18-8-1",
+    "oxidationStates": [ "+1" ]
+  },
+  {
+    "symbol": "Sr",
+    "atomicMass": "87.62",
+    "atomicNumber": 38,
+    "electronConfiguration": "2-8-18-8-2",
+    "oxidationStates": [ "+2" ]
+  },
+  {
+    "symbol": "Y",
+    "atomicMass": "88.9059",
+    "atomicNumber": 39,
+    "electronConfiguration": "2-8-18-9-2",
+    "oxidationStates": [ "+3" ]
+  },
+  {
+    "symbol": "Zr",
+    "atomicMass": "91.224",
+    "atomicNumber": 40,
+    "electronConfiguration": "2-8-18-10-2",
+    "oxidationStates": [ "+4" ]
+  },
+  {
+    "symbol": "Nb",
+    "atomicMass": "92.9064",
+    "atomicNumber": 41,
+    "electronConfiguration": "2-8-18-12-1",
+    "oxidationStates": [ "+3", "+5" ]
+  },
+  {
+    "symbol": "Mo",
+    "atomicMass": "95.94",
+    "atomicNumber": 42,
+    "electronConfiguration": "2-8-18-13-1",
+    "oxidationStates": [ "+3", "+6" ]
+  },
+  {
+    "symbol": "Tc",
+    "atomicMass": "(98)",
+    "atomicNumber": 43,
+    "electronConfiguration": "2-8-18-14-1",
+    "oxidationStates": [ "+4", "+6", "+7" ]
+  },
+  {
+    "symbol": "Ru",
+    "atomicMass": "101.07",
+    "atomicNumber": 44,
+    "electronConfiguration": "2-8-18-15-1",
+    "oxidationStates": [ "+3" ]
+  },
+  {
+    "symbol": "Rh",
+    "atomicMass": "102.906",
+    "atomicNumber": 45,
+    "electronConfiguration": "2-8-18-16-1",
+    "oxidationStates": [ "+3" ]
+  },
+  {
+    "symbol": "Pd",
+    "atomicMass": "106.42",
+    "atomicNumber": 46,
+    "electronConfiguration": "2-8-18-18",
+    "oxidationStates": [ "+2", "+4" ]
+  },
+  {
+    "symbol": "Ag",
+    "atomicMass": "107.868",
+    "atomicNumber": 47,
+    "electronConfiguration": "2-8-18-18-1",
+    "oxidationStates": [ "+1" ]
+  },
+  {
+    "symbol": "Cd",
+    "atomicMass": "112.41",
+    "atomicNumber": 48,
+    "electronConfiguration": "2-8-18-18-2",
+    "oxidationStates": [ "+2" ]
+  },
+  {
+    "symbol": "In",
+    "atomicMass": "114.82",
+    "atomicNumber": 49,
+    "electronConfiguration": "2-8-18-18-3",
+    "oxidationStates": [ "+3" ]
+  },
+  {
+    "symbol": "Sn",
+    "atomicMass": "118.71",
+    "atomicNumber": 50,
+    "electronConfiguration": "2-8-18-18-4",
+    "oxidationStates": [ "+2", "+4" ]
+  },
+  {
+    "symbol": "Sb",
+    "atomicMass": "121.75",
+    "atomicNumber": 51,
+    "electronConfiguration": "2-8-18-18-5",
+    "oxidationStates": [ "-3", "+3", "+5" ]
+  },
+  {
+    "symbol": "Te",
+    "atomicMass": "127.60",
+    "atomicNumber": 52,
+    "electronConfiguration": "2-8-18-18-6",
+    "oxidationStates": [ "-2", "+4", "+6" ]
+  },
+  {
+    "symbol": "I",
+    "atomicMass": "126.905",
+    "atomicNumber": 53,
+    "electronConfiguration": "2-8-18-18-7",
+    "oxidationStates": [ "-1", "+1", "+5", "+7" ]
+  },
+  {
+    "symbol": "Xe",
+    "atomicMass": "131.29",
+    "atomicNumber": 54,
+    "electronConfiguration": "2-8-18-18-8",
+    "oxidationStates": [ "0", "+2", "+4", "+6" ]
+  },
+  {
+    "symbol": "Cs",
+    "atomicMass": "132.905",
+    "atomicNumber": 55,
+    "electronConfiguration": "2-8-18-18-8-1",
+    "oxidationStates": [ "+1" ]
+  },
+  {
+    "symbol": "Ba",
+    "atomicMass": "137.33",
+    "atomicNumber": 56,
+    "electronConfiguration": "2-8-18-18-8-2",
+    "oxidationStates": [ "+2" ]
+  },
+  {
+    "symbol": "La",
+    "atomicMass": "138.906",
+    "atomicNumber": 57,
+    "electronConfiguration": "2-8-18-18-9-2",
+    "oxidationStates": [ "+3" ]
+  },
+  {
+    "symbol": "Hf",
+    "atomicMass": "178.49",
+    "atomicNumber": 72,
+    "electronConfiguration": "**18-32-10-2",
+    "oxidationStates": [ "+4" ]
+  },
+  {
+    "symbol": "Ta",
+    "atomicMass": "180.948",
+    "atomicNumber": 73,
+    "electronConfiguration": "-18-32-11-2",
+    "oxidationStates": [ "+5" ]
+  },
+  {
+    "symbol": "W",
+    "atomicMass": "183.85",
+    "atomicNumber": 74,
+    "electronConfiguration": "-18-32-12-2",
+    "oxidationStates": [ "+6" ]
+  },
+  {
+    "symbol": "Re",
+    "atomicMass": "186.207",
+    "atomicNumber": 75,
+    "electronConfiguration": "-18-32-13-2",
+    "oxidationStates": [ "+4", "+6", "+7" ]
+  },
+  {
+    "symbol": "Os",
+    "atomicMass": "190.2",
+    "atomicNumber": 76,
+    "electronConfiguration": "-18-32-14-2",
+    "oxidationStates": [ "+3", "+4" ]
+  },
+  {
+    "symbol": "Ir",
+    "atomicMass": "192.22",
+    "atomicNumber": 77,
+    "electronConfiguration": "-18-32-15-2",
+    "oxidationStates": [ "+3", "+4" ]
+  },
+  {
+    "symbol": "Pt",
+    "atomicMass": "195.08",
+    "atomicNumber": 78,
+    "electronConfiguration": "-18-32-17-1",
+    "oxidationStates": [ "+2", "+4" ]
+  },
+  {
+    "symbol": "Au",
+    "atomicMass": "196.967",
+    "atomicNumber": 79,
+    "electronConfiguration": "-18-32-18-1",
+    "oxidationStates": [ "+1", "+3" ]
+  },
+  {
+    "symbol": "Hg",
+    "atomicMass": "200.59",
+    "atomicNumber": 80,
+    "electronConfiguration": "-18-32-18-2",
+    "oxidationStates": [ "+1", "+2" ]
+  },
+  {
+    "symbol": "Tl",
+    "atomicMass": "204.383",
+    "atomicNumber": 81,
+    "electronConfiguration": "-18-32-18-3",
+    "oxidationStates": [ "+1", "+3" ]
+  },
+  {
+    "symbol": "Pb",
+    "atomicMass": "207.2",
+    "atomicNumber": 82,
+    "electronConfiguration": "-18-32-18-4",
+    "oxidationStates": [ "+2", "+4" ]
+  },
+  {
+    "symbol": "Bi",
+    "atomicMass": "208.980",
+    "atomicNumber": 83,
+    "electronConfiguration": "-18-32-18-5",
+    "oxidationStates": [ "+2", "+4" ]
+  },
+  {
+    "symbol": "Po",
+    "atomicMass": "(209)",
+    "atomicNumber": 84,
+    "electronConfiguration": "-18-32-18-6",
+    "oxidationStates": [ "+2", "+4" ]
+  },
+  {
+    "symbol": "At",
+    "atomicMass": "(210)",
+    "atomicNumber": 85,
+    "electronConfiguration": "-18-32-18-7",
+    "oxidationStates": []
+  },
+  {
+    "symbol": "Rn",
+    "atomicMass": "(222)",
+    "atomicNumber": 86,
+    "electronConfiguration": "-18-32-18-8",
+    "oxidationStates": [ "0" ]
+  },
+  {
+    "symbol": "Fr",
+    "atomicMass": "(223)",
+    "atomicNumber": 87,
+    "electronConfiguration": "-18-32-18-8-1",
+    "oxidationStates": [ "+1" ]
+  },
+  {
+    "symbol": "Ra",
+    "atomicMass": "226.025",
+    "atomicNumber": 88,
+    "electronConfiguration": "-18-32-18-8-2",
+    "oxidationStates": [ "+2" ]
+  },
+  {
+    "symbol": "Ac",
+    "atomicMass": "227.028",
+    "atomicNumber": 89,
+    "electronConfiguration": "-18-32-18-9-2",
+    "oxidationStates": [ "+3" ]
+  }
+]
