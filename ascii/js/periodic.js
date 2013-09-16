@@ -1,6 +1,28 @@
 (function( window, document, undefined ) {
   'use strict';
 
+  function calculateBrightness( ctx ) {
+    var width  = ctx.canvas.width,
+        height = ctx.canvas.height;
+
+    var imageData = ctx.getImageData( 0, 0, width, height ).data;
+
+    var brightness = 0;
+
+    var i, il;
+    var r, g, b, a;
+    for ( i = 0, il = imageData.length; i < il; i += 4 ) {
+      r = imageData[ i ];
+      g = imageData[ i + 1 ];
+      b = imageData[ i + 2 ];
+      a = imageData[ i + 3 ];
+
+      brightness += 0.299 * r + 0.587 * g + 0.114 * b;
+    }
+
+    return brightness / ( width * height );
+  }
+
   var normalCanvas  = document.getElementById( 'normal-canvas' ),
       normalContext = normalCanvas.getContext( '2d' );
 
@@ -65,9 +87,10 @@
     ctx.fillText( br.electronConfiguration, 15, 230 );
     // Draw oxidation states.
     ctx.font = '16pt Helvetica';
-    ctx.fillText( '-1', 228, 30 );
-    ctx.fillText( '+1', 223, 54 );
-    ctx.fillText( '+5', 223, 80 );
+    ctx.textAlign = 'right';
+    br.oxidationStates.forEach(function( state, index ) {
+      ctx.fillText( state, 246, 30 + index * 25 );
+    });
   }
 
   var elements = [];
@@ -82,6 +105,9 @@
         elements = JSON.parse( this.responseText );
         drawNormal( normalContext );
         drawDiff( diffContext );
+
+        console.log( 'norm: ' + calculateBrightness( normalContext ) );
+        console.log( 'diff: ' + calculateBrightness( diffContext ) );
       }
     };
 
