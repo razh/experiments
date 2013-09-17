@@ -108,6 +108,27 @@
       });
     }
 
+    function symbolBrightness() {
+      var brightnessArray = [];
+
+      var testCanvas = document.createElement( 'canvas' ),
+          testCtx    = testCanvas.getContext( '2d' );
+
+      testCanvas.width = 256;
+      testCanvas.height = 256;
+
+      elements.forEach(function( element ) {
+        testCtx.clearRect( 0, 0, testCtx.canvas.width, testCtx.canvas.height );
+        drawLogo( testCtx, element.symbol );
+        brightnessArray.push({
+          symbol: element.symbol,
+          brightness: calculateBrightness( testCtx )
+        });
+      });
+
+      return brightnessArray;
+    }
+
     var elements = [];
 
     image.src = './img/br.png';
@@ -128,6 +149,12 @@
 
           var current = 12.7373641815189;
           console.log( current - calculateBrightness( diffContext ) );
+
+          console.log( symbolBrightness().sort(function( a, b ) {
+            return a.brightness - b.brightness;
+          }).map(function( element ) {
+            return element.symbol + ': ' + element.brightness;
+          }).join( ', ' ));
         }
       };
 
@@ -194,12 +221,34 @@
       }
     }
 
-    brightnessArray.forEach(function( row, rowIndex ) {
+    return brightnessArray;
+  }
+
+  function drawBrightnessArray( ctx, array, width, height) {
+    array.forEach(function( row, rowIndex ) {
       row.forEach(function( col, colIndex ) {
         ctx.beginPath();
         ctx.rect( rowIndex * width, colIndex * height, width, height );
         ctx.fillStyle = 'hsl(0, 0%, ' + 100 * ( col / 255 ) + '%)';
         ctx.fill();
+      });
+    });
+  }
+
+  function drawBrightnessASCII( ctx, array, width, height ) {
+    ctx.fillStyle = 'white';
+    ctx.fillRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
+
+    ctx.font = height + 'px + Monaco';
+    ctx.fillStyle = 'black';
+
+    var chars = ' .,:;i1tfLCG08@';
+
+    var index;
+    array.forEach(function( row, rowIndex ) {
+      row.forEach(function( col, colIndex ) {
+        index = Math.round( chars.length * ( col / 255 ) );
+        ctx.fillText( chars.charAt( index ), rowIndex * width, colIndex * height );
       });
     });
   }
@@ -211,6 +260,12 @@
     canvas.width = 256;
     canvas.height = 256;
 
+    var asciiCanvas = document.getElementById( 'ascii-canvas' ),
+        asciiContext = asciiCanvas.getContext( '2d' );
+
+    asciiCanvas.width = 512;
+    asciiCanvas.height = 512;
+
     function draw( ctx, image ) {
       ctx.clearRect( 0, 0, canvas.width, canvas.height );
       ctx.drawImage( image, 0, 0, canvas.width, canvas.height );
@@ -219,8 +274,14 @@
     var image = new Image();
     image.src = './img/br.png';
     image.onload = function() {
+      var width  = 4,
+          height = 4;
+
       draw( context, image );
-      partitionBrightness( context, 2, 2 );
+
+      var brightnessArray = partitionBrightness( context, width, height );
+      drawBrightnessArray( context, brightnessArray, width, height );
+      drawBrightnessASCII( asciiContext, brightnessArray, 8, 8 );
     };
   }) ();
 

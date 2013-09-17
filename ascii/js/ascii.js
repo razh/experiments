@@ -2,6 +2,8 @@
 (function( window, document, undefined ) {
   'use strict';
 
+  // Measuring text height:
+  // http://stackoverflow.com/questions/1134586/how-can-you-find-the-height-of-text-on-an-html-canvas
   function verticalBounds( data, width, height ) {
     var first = false,
         last  = false,
@@ -81,41 +83,10 @@
     var imageData = ctx.getImageData( 0, 0, width, height );
     var data = imageData.data;
 
-    var ymax = 0;
-
-    var first = false,
-        last = false,
-        row = height,
-        col = 0;
-
-    // Measuring text height:
-    // http://stackoverflow.com/questions/1134586/how-can-you-find-the-height-of-text-on-an-html-canvas
-    while ( !last && row ) {
-      row--;
-      for ( col = 0; col < width; col++ ) {
-        if ( data[ row * width * 4 + col * 4 + 3 ] ) {
-          last = row;
-          break;
-        }
-      }
-    }
-
-    while ( row ) {
-      row--;
-      for ( col = 0; col < width; col++ ) {
-        if ( data[ row * width * 4 + col * 4 + 3 ] ) {
-          first = row;
-          break;
-        }
-      }
-
-      if ( first !== row ) {
-        ymax = last - first;
-        break;
-      }
-    }
-
-    console.log(ymax);
+    var bounds = verticalBounds( data, width, height );
+    var first = bounds.y;
+    var last  = bounds.y + bounds.height;
+    console.log( bounds.height );
 
     ctx.beginPath();
 
@@ -127,7 +98,7 @@
 
     ctx.beginPath();
     for ( i = 0; i < text.length; i += 2 ) {
-      ctx.rect( i * charWidth, first, charWidth, ymax );
+      ctx.rect( i * charWidth, first, charWidth, last );
     }
 
     ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
@@ -141,7 +112,7 @@
     var brightnessArray = [];
     var brightness;
     for ( i = 0; i < text.length; i++ ) {
-      imageData = ctx.getImageData( i * charWidth, first, charWidth, ymax );
+      imageData = ctx.getImageData( i * charWidth, first, charWidth, last );
       data = imageData.data;
 
       brightness = 0;
@@ -159,9 +130,9 @@
     var min = Number.POSITIVE_INFINITY;
     var minIndex;
     i = text.indexOf( '{' );
-    var charData = ctx.getImageData( i * charWidth, first, charWidth, ymax ).data;
+    var charData = ctx.getImageData( i * charWidth, first, charWidth, last ).data;
     for ( i = 0; i < text.length; i++ ) {
-      imageData = ctx.getImageData( i * charWidth, first, charWidth, ymax );
+      imageData = ctx.getImageData( i * charWidth, first, charWidth, last );
       data = imageData.data;
 
       diff = 0;
@@ -195,12 +166,11 @@
     testCtx.fillStyle = 'black';
     testCtx.fillText( '{', charWidth, 0 );
     testCtx.fillText( '1', 3 * charWidth, 0 );
-
     min = Number.POSITIVE_INFINITY;
     minIndex = null;
-    var inverseData = testCtx.getImageData( 0, first, charWidth, ymax ).data;
+    var inverseData = testCtx.getImageData( 0, first, charWidth, last ).data;
     for ( i = 0; i < text.length; i++ ) {
-      imageData = ctx.getImageData( i * charWidth, first, charWidth, ymax );
+      imageData = ctx.getImageData( i * charWidth, first, charWidth, last );
       data = imageData.data;
 
       diff = 0;
@@ -215,10 +185,10 @@
     }
 
     ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
-    ctx.fillRect( minIndex * charWidth, first, charWidth, ymax );
+    ctx.fillRect( minIndex * charWidth, first, charWidth, last );
 
     testCtx.fillStyle = 'rgba(255, 0, 0, 0.5)';
-    testCtx.fillRect( 0, first, charWidth, ymax );
+    testCtx.fillRect( 0, first, charWidth, last );
 
     console.log( min + ', ' + minIndex + ', ' + text.charAt( minIndex ) );
   });
