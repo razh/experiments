@@ -239,7 +239,7 @@
     ctx.fillStyle = 'white';
     ctx.fillRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
 
-    ctx.font = height + 'px + Monaco';
+    ctx.font = height + 'px Monaco';
     ctx.fillStyle = 'black';
 
     var chars = ' .,:;i1tfLCG08@';
