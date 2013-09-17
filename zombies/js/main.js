@@ -1,4 +1,16 @@
-/*globals define*/
+/*globals requirejs, define*/
+requirejs.config({
+  shim: {
+    'quadtree': {
+      exports: 'Quadtree'
+    }
+  },
+
+  paths: {
+    'quadtree': '../../point-quadtree/js/quadtree'
+  }
+});
+
 define([
   'game',
   'config',

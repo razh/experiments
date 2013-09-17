@@ -1,7 +1,7 @@
 /*globals define*/
 define([
   'config',
-  'math/quadtree'
+  'quadtree'
 ], function( config, Quadtree ) {
   'use strict';
 
