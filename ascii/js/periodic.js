@@ -1,131 +1,227 @@
 (function( window, document, undefined ) {
   'use strict';
 
-  function calculateBrightness( ctx ) {
-    var width  = ctx.canvas.width,
-        height = ctx.canvas.height;
+  function brightnessRGB( r, g, b ) {
+    return 0.299 * r + 0.587 * g + 0.114 * b;
+  }
 
-    var imageData = ctx.getImageData( 0, 0, width, height ).data;
+  (function() {
+    function calculateBrightness( ctx ) {
+      var width  = ctx.canvas.width,
+          height = ctx.canvas.height;
 
-    var brightness = 0;
+      var imageData = ctx.getImageData( 0, 0, width, height ).data;
 
-    var i, il;
-    var r, g, b, a;
-    for ( i = 0, il = imageData.length; i < il; i += 4 ) {
-      r = imageData[ i ];
-      g = imageData[ i + 1 ];
-      b = imageData[ i + 2 ];
-      a = imageData[ i + 3 ];
+      var brightness = 0;
 
-      brightness += 0.299 * r + 0.587 * g + 0.114 * b;
+      var i, il;
+      var r, g, b, a;
+      for ( i = 0, il = imageData.length; i < il; i += 4 ) {
+        r = imageData[ i ];
+        g = imageData[ i + 1 ];
+        b = imageData[ i + 2 ];
+        a = imageData[ i + 3 ];
+
+        brightness += brightnessRGB( r, g, b );
+      }
+
+      return brightness / ( width * height );
     }
 
-    return brightness / ( width * height );
-  }
+    var normalCanvas  = document.getElementById( 'normal-canvas' ),
+        normalContext = normalCanvas.getContext( '2d' );
 
-  var normalCanvas  = document.getElementById( 'normal-canvas' ),
-      normalContext = normalCanvas.getContext( '2d' );
+    var diffCanvas  = document.getElementById( 'diff-canvas' ),
+        diffContext = diffCanvas.getContext( '2d' );
 
-  var diffCanvas  = document.getElementById( 'diff-canvas' ),
-      diffContext = diffCanvas.getContext( '2d' );
+    var logoCanvas = document.createElement( 'canvas' ),
+        logoContext = logoCanvas.getContext( '2d' );
 
-  var logoCanvas = document.createElement( 'canvas' ),
-      logoContext = logoCanvas.getContext( '2d' );
+    var image = document.getElementById( 'periodic-img' );
 
-  var image = document.getElementById( 'periodic-img' );
+    var WIDTH  = image.width  = normalCanvas.width  = diffCanvas.width  = 256,
+        HEIGHT = image.height = normalCanvas.height = diffCanvas.height = 256;
 
-  var WIDTH  = image.width  = normalCanvas.width  = diffCanvas.width  = 256,
-      HEIGHT = image.height = normalCanvas.height = diffCanvas.height = 256;
+    logoCanvas.width = WIDTH;
+    logoCanvas.height = HEIGHT;
 
-  logoCanvas.width = WIDTH;
-  logoCanvas.height = HEIGHT;
+    function drawNormal( ctx, symbol ) {
+      drawLogo( logoContext, symbol );
+      ctx.drawImage( logoCanvas, 0, 0, WIDTH, HEIGHT );
+    }
 
-  function drawNormal( ctx, symbol, options ) {
-    drawLogo( logoContext, symbol, options );
-    ctx.drawImage( logoCanvas, 0, 0, WIDTH, HEIGHT );
-  }
+    function drawDiff( ctx, symbol ) {
+      ctx.globalCompositeOperation = 'normal';
 
-  function drawDiff( ctx, symbol, options ) {
-    ctx.globalCompositeOperation = 'normal';
+      ctx.clearRect( 0, 0, WIDTH, HEIGHT );
+      ctx.drawImage( image, 0, 0, WIDTH, HEIGHT );
 
-    ctx.clearRect( 0, 0, WIDTH, HEIGHT );
-    ctx.drawImage( image, 0, 0, WIDTH, HEIGHT );
+      ctx.globalCompositeOperation = 'difference';
 
-    ctx.globalCompositeOperation = 'difference';
+      drawLogo( logoContext, symbol );
+      ctx.drawImage( logoCanvas, 0, 0, WIDTH, HEIGHT );
+    }
 
-    drawLogo( logoContext, symbol, options );
-    ctx.drawImage( logoCanvas, 0, 0, WIDTH, HEIGHT );
-  }
+    function drawLogo( ctx, symbol ) {
+      ctx.beginPath();
+      ctx.rect( 4, 4, WIDTH - 8, HEIGHT - 8 );
 
-  function drawLogo( ctx, symbol, options ) {
-    ctx.beginPath();
-    ctx.rect( 4, 4, WIDTH - 8, HEIGHT - 8 );
+      ctx.lineWidth = 8;
+      ctx.strokeStyle = 'white';
+      ctx.stroke();
 
-    ctx.lineWidth = 8;
-    ctx.strokeStyle = 'white';
-    ctx.stroke();
+      var grad = ctx.createLinearGradient( 0, 0, WIDTH, HEIGHT );
+      grad.addColorStop( 0, 'rgb(121, 184, 124)' );
+      grad.addColorStop( 1, 'rgb(25, 38, 6)' );
 
-    var grad = ctx.createLinearGradient( 0, 0, WIDTH, HEIGHT );
-    grad.addColorStop( 0, 'rgb(121, 184, 124)' );
-    grad.addColorStop( 1, 'rgb(25, 38, 6)' );
+      ctx.fillStyle = grad;
+      ctx.fill();
 
-    ctx.fillStyle = grad;
-    ctx.fill();
+      var el = elements.filter(function( element ) {
+        return element.symbol === symbol;
+      })[0];
 
-    var el = elements.filter(function( element ) {
-      return element.symbol === symbol;
-    })[0];
+      // Draw symbol.
+      ctx.font = 'bold 130px Helvetica'; // Smaller font for wide symbols.
+      ctx.font = 'bold 150px Helvetica';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#fff';
+      ctx.fillText( el.symbol, 0.5 * WIDTH, 0.5 * HEIGHT - 3 );
 
-    // Draw symbol.
-    ctx.font = 'bold 130px Helvetica'; // Smaller font for wide symbols.
-    ctx.font = 'bold 150px Helvetica';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillStyle = '#fff';
-    ctx.fillText( el.symbol, 0.5 * WIDTH, 0.5 * HEIGHT - 3 );
+      ctx.textAlign = 'left';
 
-    ctx.textAlign = 'left';
+      // Draw atomic mass.
+      ctx.font = '21px Helvetica';
+      ctx.fillText( el.atomicMass, 18, 30 );
+      // Draw atomic number.
+      ctx.font = '31px Helvetica';
+      ctx.fillText( el.atomicNumber, 13, 195 );
+      // Draw electron configuration.
+      ctx.font = '20px Helvetica';
+      ctx.fillText( el.electronConfiguration, 15, 230 );
+      // Draw oxidation states.
+      ctx.font = '21px Helvetica';
+      ctx.textAlign = 'right';
+      el.oxidationStates.forEach(function( state, index ) {
+        ctx.fillText( state, 246, 30 + index * 25 );
+      });
+    }
 
-    // Draw atomic mass.
-    ctx.font = '21px Helvetica';
-    ctx.fillText( el.atomicMass, 18, 30 );
-    // Draw atomic number.
-    ctx.font = '31px Helvetica';
-    ctx.fillText( el.atomicNumber, 13, 195 );
-    // Draw electron configuration.
-    ctx.font = '20px Helvetica';
-    ctx.fillText( el.electronConfiguration, 15, 230 );
-    // Draw oxidation states.
-    ctx.font = '21px Helvetica';
-    ctx.textAlign = 'right';
-    el.oxidationStates.forEach(function( state, index ) {
-      ctx.fillText( state, 246, 30 + index * 25 );
+    var elements = [];
+
+    image.src = './img/br.png';
+    image.onload = function() {
+      var xhr = new XMLHttpRequest();
+      xhr.open( 'GET', './json/elements.json', true );
+
+      xhr.onreadystatechange = function() {
+        if ( this.readyState === 4 && this.status === 200 ) {
+          elements = JSON.parse( this.responseText );
+
+          var symbol = 'Br';
+          drawNormal( normalContext, symbol );
+          drawDiff( diffContext, symbol );
+
+          console.log( 'norm: ' + calculateBrightness( normalContext ) );
+          console.log( 'diff: ' + calculateBrightness( diffContext ) );
+
+          var current = 12.7373641815189;
+          console.log( current - calculateBrightness( diffContext ) );
+        }
+      };
+
+      xhr.send();
+    };
+  }) ();
+
+  /**
+   * Given an canvas context, calculate the intensities of a given region size
+   * and dispaly them.
+   */
+  function partitionBrightness( ctx, width, height ) {
+    var imageData = ctx.getImageData( 0, 0, ctx.canvas.width, ctx.canvas.height ),
+        data = imageData.data;
+
+    var WIDTH = imageData.width,
+        HEIGHT = imageData.height;
+
+    var xCount = Math.ceil( WIDTH / width ),
+        yCount = Math.ceil( HEIGHT / height );
+
+    var brightnessArray = [],
+        countArray = [];
+
+    var i, j;
+    var brightnessRow,
+        countRow;
+
+    for ( i = 0; i < xCount; i++ ) {
+      brightnessRow = [];
+      countRow = [];
+
+      for ( j = 0; j < yCount; j++ ) {
+        brightnessRow.push(0);
+        countRow.push(0);
+      }
+
+      brightnessArray.push( brightnessRow );
+      countArray.push( countRow );
+    }
+
+    var index;
+    var xIndex, yIndex;
+    var r, g, b;
+    for ( i = 0; i < WIDTH; i++ ) {
+      for ( j = 0; j < HEIGHT; j++ ) {
+        index = 4 * ( WIDTH * j + i );
+        xIndex = Math.floor( i / width );
+        yIndex = Math.floor( j / height );
+        countArray[ xIndex ][ yIndex ]++;
+
+        r = data[ index ];
+        g = data[ index + 1 ];
+        b = data[ index + 2 ];
+
+        brightnessArray[ xIndex ][ yIndex ] += brightnessRGB( r, g, b );
+      }
+    }
+
+    var il, jl;
+    for ( i = 0, il = brightnessArray.length; i < il; i++ ) {
+      for ( j = 0, jl = brightnessArray[i].length; j < jl; j++ ) {
+        brightnessArray[i][j] /= countArray[i][j];
+      }
+    }
+
+    brightnessArray.forEach(function( row, rowIndex ) {
+      row.forEach(function( col, colIndex ) {
+        ctx.beginPath();
+        ctx.rect( rowIndex * width, colIndex * height, width, height );
+        ctx.fillStyle = 'hsl(0, 0%, ' + 100 * ( col / 255 ) + '%)';
+        ctx.fill();
+      });
     });
   }
 
-  var elements = [];
+  (function() {
+    var canvas = document.getElementById( 'brightness-canvas' ),
+        context = canvas.getContext( '2d' );
 
-  image.src = './img/br.png';
-  image.onload = function() {
-    var xhr = new XMLHttpRequest();
-    xhr.open( 'GET', './json/elements.json', true );
+    canvas.width = 256;
+    canvas.height = 256;
 
-    xhr.onreadystatechange = function() {
-      if ( this.readyState === 4 && this.status === 200 ) {
-        elements = JSON.parse( this.responseText );
+    function draw( ctx, image ) {
+      ctx.clearRect( 0, 0, canvas.width, canvas.height );
+      ctx.drawImage( image, 0, 0, canvas.width, canvas.height );
+    }
 
-        var symbol = 'Br';
-        drawNormal( normalContext, symbol );
-        drawDiff( diffContext, symbol );
-
-        console.log( 'norm: ' + calculateBrightness( normalContext ) );
-        console.log( 'diff: ' + calculateBrightness( diffContext ) );
-
-        var current = 12.7373641815189;
-        console.log( current - calculateBrightness( diffContext ) );
-      }
+    var image = new Image();
+    image.src = './img/br.png';
+    image.onload = function() {
+      draw( context, image );
+      partitionBrightness( context, 2, 2 );
     };
+  }) ();
 
-    xhr.send();
-  };
 }) ( window, document );
