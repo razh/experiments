@@ -153,7 +153,7 @@
           console.log( symbolBrightness().sort(function( a, b ) {
             return a.brightness - b.brightness;
           }).map(function( element ) {
-            return element.symbol + ': ' + element.brightness;
+            return element.symbol + ': ' + Math.round( element.brightness );
           }).join( ', ' ));
         }
       };
@@ -242,15 +242,39 @@
     ctx.font = height + 'px Monaco';
     ctx.fillStyle = 'black';
 
-    var chars = ' .,:;i1tfLCG08@';
+    var chars = '@80GCLft1i;:,. ';
 
     var index;
+
+    var min = Number.POSITIVE_INFINITY,
+        max = Number.NEGATIVE_INFINITY;
+
+    array.forEach(function( row ) {
+      row.forEach(function( col ) {
+        if ( col < min ) {
+          min = col;
+        }
+
+        if ( col > max ) {
+          max = col;
+        }
+      });
+    });
+
+    var bins = [];
     array.forEach(function( row, rowIndex ) {
       row.forEach(function( col, colIndex ) {
-        index = Math.round( chars.length * ( col / 255 ) );
+        index = Math.round( chars.length * ( ( col - min ) / ( max - min ) ) );
+        if ( typeof bins[index] === 'undefined' ) {
+          bins[index] = 0;
+        }
+        bins[index]++;
+
         ctx.fillText( chars.charAt( index ), rowIndex * width, colIndex * height );
       });
     });
+
+    console.log( bins );
   }
 
   (function() {

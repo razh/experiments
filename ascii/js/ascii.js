@@ -123,7 +123,21 @@
       brightnessArray[ text.charAt(i).charCodeAt(0) ] = brightness;
     }
 
-    console.log(brightnessArray);
+    console.log( brightnessArray );
+
+    var sortedBrightnessArray = brightnessArray.map(function( brightness, index ) {
+      return {
+        index: index,
+        brightness: brightness,
+        character: String.fromCharCode( index )
+      };
+    }).sort(function( a, b ) {
+      return a.brightness - b.brightness;
+    });
+
+    console.log(sortedBrightnessArray.map(function( element ) {
+      return element.character;
+    }).reverse().join( '' ));
 
     // Visual diff.
     var diff = 0;
