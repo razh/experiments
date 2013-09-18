@@ -1,27 +1,27 @@
-/* line 16, ../sass/mainframe.scss */
+/* line 18, ../sass/mainframe.scss */
 html, body {
   height: 100%;
 }
 
-/* line 20, ../sass/mainframe.scss */
+/* line 22, ../sass/mainframe.scss */
 body {
   margin: 0;
   background-color: #e42;
 }
 
-/* line 25, ../sass/mainframe.scss */
+/* line 27, ../sass/mainframe.scss */
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 29, ../sass/mainframe.scss */
+/* line 31, ../sass/mainframe.scss */
 .container {
   width: 100%;
   height: 100%;
 }
-/* line 33, ../sass/mainframe.scss */
+/* line 35, ../sass/mainframe.scss */
 .container .mainframe {
   position: absolute;
   width: 768px;
@@ -33,36 +33,45 @@ body {
   background-color: #332222;
   border-radius: 16px;
 }
-/* line 48, ../sass/mainframe.scss */
+/* line 50, ../sass/mainframe.scss */
 .container .mainframe .component {
   width: 256px;
   height: 100%;
   float: left;
-  padding: 48px;
+  padding-top: 48px;
+  padding-left: 48px;
 }
-/* line 55, ../sass/mainframe.scss */
+/* line 58, ../sass/mainframe.scss */
 .container .mainframe .component:first-of-type {
   border-top-left-radius: 16px;
   border-bottom-left-radius: 16px;
 }
-/* line 60, ../sass/mainframe.scss */
+/* line 63, ../sass/mainframe.scss */
 .container .mainframe .component:last-of-type {
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
+  padding-right: 48px;
 }
-/* line 66, ../sass/mainframe.scss */
+/* line 70, ../sass/mainframe.scss */
 .container .mainframe #component-left .grid {
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   display: inline-block;
   background-color: #fff;
-  margin: 8px;
+  margin: 4px;
+  -webkit-box-shadow: 0 0 7px rgba(255, 255, 255, 0.5);
+  -moz-box-shadow: 0 0 7px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 7px rgba(255, 255, 255, 0.5);
 }
-/* line 74, ../sass/mainframe.scss */
+/* line 79, ../sass/mainframe.scss */
 .container .mainframe #component-left .grid:nth-of-type(7) {
   background-color: red;
 }
 /* line 80, ../sass/mainframe.scss */
+.container .mainframe #component-left .grid:nth-of-type(18) {
+  background-color: yellow;
+}
+/* line 84, ../sass/mainframe.scss */
 .container .mainframe #component-center .dial {
   width: 42px;
   height: 42px;
@@ -75,7 +84,7 @@ body {
   -moz-box-shadow: inset -6px -6px 0 rgba(0, 0, 0, 0.3);
   box-shadow: inset -6px -6px 0 rgba(0, 0, 0, 0.3);
 }
-/* line 92, ../sass/mainframe.scss */
+/* line 94, ../sass/mainframe.scss */
 .container .mainframe #component-center .dial:after {
   content: '';
   position: absolute;
@@ -88,33 +97,54 @@ body {
   -moz-box-shadow: 1px 1px 0 black;
   box-shadow: 1px 1px 0 black;
 }
-/* line 106, ../sass/mainframe.scss */
+/* line 108, ../sass/mainframe.scss */
 .container .mainframe #component-right .face {
   background-color: black;
   width: 128px;
   height: 128px;
   border-radius: 8px;
+  border: 3px solid white;
   padding: 32px;
 }
-/* line 113, ../sass/mainframe.scss */
+/* line 116, ../sass/mainframe.scss */
 .container .mainframe #component-right .face .eye {
   width: 12px;
   height: 24px;
   background-color: #fff;
+  border-radius: 2px;
 }
-/* line 119, ../sass/mainframe.scss */
+/* line 123, ../sass/mainframe.scss */
 .container .mainframe #component-right .face #eye-left {
   float: left;
 }
-/* line 123, ../sass/mainframe.scss */
+/* line 127, ../sass/mainframe.scss */
 .container .mainframe #component-right .face #eye-right {
   float: right;
 }
-/* line 127, ../sass/mainframe.scss */
+/* line 131, ../sass/mainframe.scss */
 .container .mainframe #component-right .face .mouth {
   margin-top: 32px;
   width: 64px;
   height: 12px;
+  border-radius: 2px;
   background-color: #fff;
   float: left;
+}
+/* line 141, ../sass/mainframe.scss */
+.container .mainframe #component-right .big-red-button {
+  margin: 20px;
+  width: 96px;
+  height: 96px;
+  background-color: red;
+  border-radius: 50%;
+  -webkit-box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.3), 0 6px 0 rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.3), 0 6px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.3), 0 6px 0 rgba(0, 0, 0, 0.3);
+}
+/* line 152, ../sass/mainframe.scss */
+.container .mainframe #component-right .big-red-button:hover {
+  margin-top: 24px;
+  -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
 }

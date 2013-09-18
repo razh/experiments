@@ -6,12 +6,14 @@ $background-color: #322;
 
 $mainframe-width: 768px;
 $mainframe-height: 448px;
-$mainframe-radius: 16px;
+$mainframe-diameter: 16px;
 $mainframe-padding: 48px;
 
-$grid-element-size: 16px;
+$grid-element-size: 12px;
 
-$dial-radius: 42px;
+$dial-diameter: 42px;
+
+$big-red-button-diameter: 96px;
 
 html, body {
   height: 100%;
@@ -43,23 +45,25 @@ body {
     margin-left: -0.5 * $mainframe-width;
 
     background-color: $background-color;
-    border-radius: $mainframe-radius;
+    border-radius: $mainframe-diameter;
 
     .component {
       width: $mainframe-width / 3;
       height: 100%;
       float: left;
-      padding: $mainframe-padding;
+      padding-top: $mainframe-padding;
+      padding-left: $mainframe-padding;
     }
 
     .component:first-of-type {
-      border-top-left-radius: $mainframe-radius;
-      border-bottom-left-radius: $mainframe-radius;
+      border-top-left-radius: $mainframe-diameter;
+      border-bottom-left-radius: $mainframe-diameter;
     }
 
     .component:last-of-type {
-      border-top-right-radius: $mainframe-radius;
-      border-bottom-right-radius: $mainframe-radius;
+      border-top-right-radius: $mainframe-diameter;
+      border-bottom-right-radius: $mainframe-diameter;
+      padding-right: $mainframe-padding;
     }
 
     #component-left {
@@ -68,34 +72,32 @@ body {
         height: $grid-element-size;
         display: inline-block;
         background-color: #fff;
-        margin: 8px;
+        margin: 4px;
+        @include box-shadow(0 0 7px rgba(255, 255, 255, 0.5));
       }
 
-      .grid:nth-of-type(7) {
-        background-color: red;
-      }
+      .grid:nth-of-type(7) { background-color: red; }
+      .grid:nth-of-type(18) { background-color: yellow; }
     }
 
     #component-center {
       .dial {
-        width: $dial-radius;
-        height: $dial-radius;
+        width: $dial-diameter;
+        height: $dial-diameter;
         background-color: #555;
         border-radius: 50%;
         display: inline-block;
         margin: 4px;
         border: 3px solid white;
-        @include box-shadow(
-          inset -6px -6px 0 rgba(0, 0, 0, 0.3)
-        );
+        @include box-shadow(inset -6px -6px 0 rgba(0, 0, 0, 0.3));
 
         &:after {
           content: '';
           position: absolute;
-          width: 0.3 * $dial-radius;
+          width: 0.3 * $dial-diameter;
           height: 3px;
-          margin-top: 0.5 * $dial-radius - 5px;
-          margin-left: 0.5 * $dial-radius;
+          margin-top: 0.5 * $dial-diameter - 5px;
+          margin-left: 0.5 * $dial-diameter;
           background-color: red;
           @include box-shadow(1px 1px 0 black);
         }
@@ -108,12 +110,14 @@ body {
         width: 128px;
         height: 128px;
         border-radius: 8px;
+        border: 3px solid white;
         padding: 32px;
 
         .eye {
           width: 12px;
           height: 24px;
           background-color: #fff;
+          border-radius: 2px;
         }
 
         #eye-left {
@@ -128,8 +132,28 @@ body {
           margin-top: 32px;
           width: 64px;
           height: 12px;
+          border-radius: 2px;
           background-color: #fff;
           float: left;
+        }
+      }
+
+      .big-red-button {
+        margin: 20px;
+        width: $big-red-button-diameter;
+        height: $big-red-button-diameter;
+        background-color: red;
+        border-radius: 50%;
+        @include box-shadow(
+          inset 0 -4px 0 rgba(0, 0, 0, 0.3),
+          0 6px 0 rgba(0, 0, 0, 0.3)
+        );
+
+        &:hover {
+          margin-top: 24px;
+          @include box-shadow(
+            0 2px 0 rgba(0, 0, 0, 0.3)
+          );
         }
       }
     }
