@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Polygon Text</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    .container {
+      margin: 0 20px;
+    }
+
+    .warning {
+      margin: 20px;
+      padding: 20px;
+
+      background-color: #d55;
+      color: white;
+
+      border-radius: 5px;
+    }
+
+    .editor {
+      width: 200px;
+      height: 200px;
+
+      padding: 10px;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+
+      resize: both;
+      overflow: auto;
+    }
+
+    .shape {
+      -webkit-shape-inside: polygon(0 0, 0 100%, 100% 100%);
+    }
+
+    #canvas-overlay {
+      position: absolute;
+      background-color: rgba(255, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="warning">This requires enabling CSS3 Shapes.</div>
+
+    <div class="editor" id="editor">
+      <div class="shape" id="shape" contenteditable="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, tenetur, officia, culpa, adipisci ab quo dolorum tempora deserunt veritatis velit qui maxime debitis inventore. Fugit, corrupti facilis sunt minus deserunt?</div>
+      <canvas id="canvas-overlay"></canvas>
+    </div>
+
+    <button id="toggle-editing">Toggle editing.</button>
+  </div>
+
+  <script src="../app/components/jquery/jquery.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+</html>
