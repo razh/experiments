@@ -1,0 +1,138 @@
+@import "compass/css3/box-shadow";
+@import "compass/css3/box-sizing";
+@import "compass/css3/transform";
+
+$background-color: #322;
+
+$mainframe-width: 768px;
+$mainframe-height: 448px;
+$mainframe-radius: 16px;
+$mainframe-padding: 48px;
+
+$grid-element-size: 16px;
+
+$dial-radius: 42px;
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #e42;
+}
+
+* {
+  @include box-sizing(border-box);
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+
+  .mainframe {
+    position: absolute;
+
+    width: $mainframe-width;
+    height: $mainframe-height;
+
+    top: 50%;
+    left: 50%;
+
+    margin-top: -0.5 * $mainframe-height;
+    margin-left: -0.5 * $mainframe-width;
+
+    background-color: $background-color;
+    border-radius: $mainframe-radius;
+
+    .component {
+      width: $mainframe-width / 3;
+      height: 100%;
+      float: left;
+      padding: $mainframe-padding;
+    }
+
+    .component:first-of-type {
+      border-top-left-radius: $mainframe-radius;
+      border-bottom-left-radius: $mainframe-radius;
+    }
+
+    .component:last-of-type {
+      border-top-right-radius: $mainframe-radius;
+      border-bottom-right-radius: $mainframe-radius;
+    }
+
+    #component-left {
+      .grid {
+        width: $grid-element-size;
+        height: $grid-element-size;
+        display: inline-block;
+        background-color: #fff;
+        margin: 8px;
+      }
+
+      .grid:nth-of-type(7) {
+        background-color: red;
+      }
+    }
+
+    #component-center {
+      .dial {
+        width: $dial-radius;
+        height: $dial-radius;
+        background-color: #555;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 4px;
+        border: 3px solid white;
+        @include box-shadow(
+          inset -6px -6px 0 rgba(0, 0, 0, 0.3)
+        );
+
+        &:after {
+          content: '';
+          position: absolute;
+          width: 0.3 * $dial-radius;
+          height: 3px;
+          margin-top: 0.5 * $dial-radius - 5px;
+          margin-left: 0.5 * $dial-radius;
+          background-color: red;
+          @include box-shadow(1px 1px 0 black);
+        }
+      }
+    }
+
+    #component-right {
+      .face {
+        background-color: black;
+        width: 128px;
+        height: 128px;
+        border-radius: 8px;
+        padding: 32px;
+
+        .eye {
+          width: 12px;
+          height: 24px;
+          background-color: #fff;
+        }
+
+        #eye-left {
+          float: left;
+        }
+
+        #eye-right {
+          float: right;
+        }
+
+        .mouth {
+          margin-top: 32px;
+          width: 64px;
+          height: 12px;
+          background-color: #fff;
+          float: left;
+        }
+      }
+    }
+  }
+}
+

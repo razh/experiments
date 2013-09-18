@@ -1,0 +1,120 @@
+/* line 16, ../sass/mainframe.scss */
+html, body {
+  height: 100%;
+}
+
+/* line 20, ../sass/mainframe.scss */
+body {
+  margin: 0;
+  background-color: #e42;
+}
+
+/* line 25, ../sass/mainframe.scss */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 29, ../sass/mainframe.scss */
+.container {
+  width: 100%;
+  height: 100%;
+}
+/* line 33, ../sass/mainframe.scss */
+.container .mainframe {
+  position: absolute;
+  width: 768px;
+  height: 448px;
+  top: 50%;
+  left: 50%;
+  margin-top: -224px;
+  margin-left: -384px;
+  background-color: #332222;
+  border-radius: 16px;
+}
+/* line 48, ../sass/mainframe.scss */
+.container .mainframe .component {
+  width: 256px;
+  height: 100%;
+  float: left;
+  padding: 48px;
+}
+/* line 55, ../sass/mainframe.scss */
+.container .mainframe .component:first-of-type {
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+}
+/* line 60, ../sass/mainframe.scss */
+.container .mainframe .component:last-of-type {
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+/* line 66, ../sass/mainframe.scss */
+.container .mainframe #component-left .grid {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  background-color: #fff;
+  margin: 8px;
+}
+/* line 74, ../sass/mainframe.scss */
+.container .mainframe #component-left .grid:nth-of-type(7) {
+  background-color: red;
+}
+/* line 80, ../sass/mainframe.scss */
+.container .mainframe #component-center .dial {
+  width: 42px;
+  height: 42px;
+  background-color: #555;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 4px;
+  border: 3px solid white;
+  -webkit-box-shadow: inset -6px -6px 0 rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: inset -6px -6px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: inset -6px -6px 0 rgba(0, 0, 0, 0.3);
+}
+/* line 92, ../sass/mainframe.scss */
+.container .mainframe #component-center .dial:after {
+  content: '';
+  position: absolute;
+  width: 12.6px;
+  height: 3px;
+  margin-top: 16px;
+  margin-left: 21px;
+  background-color: red;
+  -webkit-box-shadow: 1px 1px 0 black;
+  -moz-box-shadow: 1px 1px 0 black;
+  box-shadow: 1px 1px 0 black;
+}
+/* line 106, ../sass/mainframe.scss */
+.container .mainframe #component-right .face {
+  background-color: black;
+  width: 128px;
+  height: 128px;
+  border-radius: 8px;
+  padding: 32px;
+}
+/* line 113, ../sass/mainframe.scss */
+.container .mainframe #component-right .face .eye {
+  width: 12px;
+  height: 24px;
+  background-color: #fff;
+}
+/* line 119, ../sass/mainframe.scss */
+.container .mainframe #component-right .face #eye-left {
+  float: left;
+}
+/* line 123, ../sass/mainframe.scss */
+.container .mainframe #component-right .face #eye-right {
+  float: right;
+}
+/* line 127, ../sass/mainframe.scss */
+.container .mainframe #component-right .face .mouth {
+  margin-top: 32px;
+  width: 64px;
+  height: 12px;
+  background-color: #fff;
+  float: left;
+}
