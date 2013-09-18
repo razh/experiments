@@ -123,6 +123,55 @@ $(function() {
            y0 <= y && y <= y1;
   }
 
+  function lerp( a, b, t ) {
+    return a + t * ( b - a );
+  }
+
+  function distanceSquared( x0, y0, x1, y1 ) {
+    var dx = x1 - x0,
+        dy = y1 - y0;
+
+    return dx * dx + dy * dy;
+  }
+
+  function nearestPointOnSegment( x, y, x0, y0, x1, y1, radius ) {
+    var radiusSquared = radius * radius;
+
+    var lengthSquared = distanceSquared( x0, y0, x1, y1 );
+    if ( !lengthSquared ) {
+      if ( distanceSquared( x, y, x0, y0 ) < radiusSquared ) {
+        return [ x0, y0 ];
+      }
+
+      return null;
+    }
+
+    var t = ( ( x - x0 ) * ( x1 - x0 ) + ( y - y0 ) * ( y1 - y0 ) ) / lengthSquared;
+    if ( t <= 0 ) {
+      if ( distanceSquared( x, y, x0, y0 ) < radiusSquared ) {
+        return [ x0, y0 ];
+      }
+
+      return null;
+    }
+
+    if ( t >= 1 ) {
+      if ( distanceSquared( x, y, x1, y1 ) < radiusSquared ) {
+        return [ x1, y1 ];
+      }
+
+      return null;
+    }
+
+    var xt = lerp( x0, x1, t ),
+        yt = lerp( y0, y1, t );
+    if ( distanceSquared( x, y, xt, yt ) < radiusSquared ) {
+      return [ xt, yt ];
+    }
+
+    return null;
+  }
+
   $canvas.on({
     mousedown: function( event ) {
       var offset = $canvas.offset();
@@ -144,6 +193,25 @@ $(function() {
           ]);
         }
       });
+
+      var i, il;
+      var point;
+      var x0, y0, x1, y1;
+      if ( !selected.length )  {
+        for ( i = 0, il = polygon.length; i < il; i += 2 ) {
+          x0 = polygon[i][0];
+          y0 = polygon[i][1];
+          x1 = polygon[ ( i + 1 ) % il ][0];
+          y1 = polygon[ ( i + 1 ) % il ][1];
+
+          point = nearestPointOnSegment( x, y, x0, y0, x1, y1, 5 );
+          if ( point ) {
+            console.log( point );
+            polygon.splice( i, 0, point );
+            break;
+          }
+        }
+      }
 
       draw( context );
     },
