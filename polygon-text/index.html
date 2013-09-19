@@ -11,17 +11,25 @@
     }
 
     .container {
-      margin: 0 20px;
+      margin: 20px;
     }
 
     .warning {
-      margin: 20px;
       padding: 20px;
 
       background-color: #d55;
-      color: white;
+      color: #fdd;
 
       border-radius: 5px;
+    }
+
+    .warning > a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .warning > a:hover {
+      text-decoration: underline;
     }
 
     .commands {
@@ -46,13 +54,14 @@
     }
 
     #canvas-overlay {
-      background-color: rgba(255, 0, 0, 0.5);
+      margin-left: 20px;
+      background-color: rgba(221, 85, 85, 0.5);
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="warning" id="shapes-warning"><strong>Oops!</strong> It looks like your browser doesn't support CSS3 shapes.</div>
+    <div class="warning" id="shapes-warning"><strong>Oops!</strong> It looks like your browser doesn't support <a href="http://html.adobe.com/webplatform/enable/">CSS3 shapes</a>.</div>
 
     <ul class="commands">
       <li>Click: move point.</li>

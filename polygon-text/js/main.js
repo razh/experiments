@@ -26,6 +26,8 @@ $(function() {
     $warning.show();
   }
 
+  var PI2 = 2 * Math.PI;
+
   var $editor = $( '#editor' ),
       $shape  = $( '#shape' );
 
@@ -39,25 +41,24 @@ $(function() {
   var shapeWidth = $shape.width(),
       shapeHeight = $shape.height();
 
+  var editorPadding = parseInt( $editor.css( 'padding' ), 10 );
+
   var polygon = [
-    [ 10, 10 ],
-    [ 10, editorHeight - 10 ],
-    [ editorWidth - 10, editorHeight - 10 ],
-    [ editorWidth - 10, 10 ]
+    [ editorPadding, editorPadding ],
+    [ editorPadding, editorHeight - editorPadding ],
+    [ editorWidth - editorPadding, editorHeight - editorPadding ],
+    [ editorWidth - editorPadding, editorPadding ]
   ];
 
   var selected = [],
       offsets = [];
 
-  var pointSize = 10,
-      halfPointSize = 0.5 * pointSize;
+  var pointRadius = 8,
+      pointInnerRadius = pointRadius - 2;
+
+  var segmentRadius = 5;
 
   function resizeCanvas() {
-    $canvas.css({
-      left: $editor.offset().left + 300,
-      top: $editor.offset().top
-    });
-
     canvas.width = editorWidth;
     canvas.height = editorHeight;
 
@@ -100,8 +101,10 @@ $(function() {
       return;
     }
 
-    function drawPoint( point ) {
-      ctx.rect( point[0] - halfPointSize, point[1] - halfPointSize, pointSize, pointSize );
+    function drawPoint( point, radius ) {
+      ctx.beginPath();
+      ctx.arc( point[0], point[1], radius, 0, PI2 );
+      ctx.fill();
     }
 
     ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
@@ -121,20 +124,22 @@ $(function() {
     ctx.stroke();
 
     // Draw points.
-    ctx.beginPath();
+    polygon.forEach(function( point ) {
+      ctx.fillStyle = 'white';
+      drawPoint( point, pointRadius );
 
-    polygon.forEach( drawPoint );
-
-    ctx.fillStyle = 'rgba(0, 0, 0, 1)';
-    ctx.fill();
+      ctx.fillStyle = 'black';
+      drawPoint( point, pointInnerRadius );
+    });
 
     // Draw selected points.
-    ctx.beginPath();
+    selected.forEach(function( point ) {
+      ctx.fillStyle = 'white';
+      drawPoint( point, pointRadius );
 
-    selected.forEach( drawPoint );
-
-    ctx.fillStyle = 'red';
-    ctx.fill();
+      ctx.fillStyle = '#d55';
+      drawPoint( point, pointInnerRadius );
+    });
 
     var polygonCSS = polygonToCSS( polygon );
 
@@ -203,6 +208,14 @@ $(function() {
     return null;
   }
 
+  function addToSelected( object, x, y ) {
+    selected.push( object );
+    offsets.push([
+      object[0] - x,
+      object[1] - y
+    ]);
+  }
+
   $canvas.on({
     mousedown: function( event ) {
       var offset = $canvas.offset();
@@ -211,12 +224,7 @@ $(function() {
           y = event.pageY - offset.top;
 
       var hit = polygon.filter(function( point ) {
-        var x0 = point[0] - halfPointSize,
-            y0 = point[1] - halfPointSize,
-            x1 = point[0] + halfPointSize,
-            y1 = point[1] + halfPointSize;
-
-        return inRect( x, y, x0, y0, x1, y1 );
+        return inCircle( x, y, point[0], point[1], pointRadius );
       });
 
       if ( event.altKey ) {
@@ -230,14 +238,11 @@ $(function() {
       } else {
         // Otherwise, add to selection.
         hit.forEach(function( point ) {
-          selected.push( point );
-          offsets.push([
-            point[0] - x,
-            point[1] - y
-          ]);
+          addToSelected( point, x, y );
         });
       }
 
+      // Add a point if nothing is selected, but we're on a line segment.
       var i, il;
       var point;
       var x0, y0, x1, y1;
@@ -248,7 +253,7 @@ $(function() {
           x1 = polygon[ ( i + 1 ) % il ][0];
           y1 = polygon[ ( i + 1 ) % il ][1];
 
-          point = nearestPointOnSegment( x, y, x0, y0, x1, y1, 5 );
+          point = nearestPointOnSegment( x, y, x0, y0, x1, y1, segmentRadius );
 
           if ( point ) {
             point[0] = Math.round( point[0] );
@@ -256,12 +261,7 @@ $(function() {
 
             console.log( point );
             polygon.splice( i + 1, 0, point );
-            selected.push( point );
-            offsets.push([
-              point[0] - x,
-              point[1] - y
-            ]);
-
+            addToSelected( point, x, y );
             break;
           }
         }
@@ -284,8 +284,8 @@ $(function() {
           y = event.pageY - offset.top;
 
       selected.forEach(function( point, index ) {
-        point[0] = x - offsets[index][0];
-        point[1] = y - offsets[index][1];
+        point[0] = Math.round( x - offsets[index][0] );
+        point[1] = Math.round( y - offsets[index][1] );
       });
 
       draw( context );
