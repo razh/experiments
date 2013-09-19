@@ -183,11 +183,11 @@
     var brightnessRow,
         countRow;
 
-    for ( i = 0; i < xCount; i++ ) {
+    for ( i = 0; i < yCount; i++ ) {
       brightnessRow = [];
       countRow = [];
 
-      for ( j = 0; j < yCount; j++ ) {
+      for ( j = 0; j < xCount; j++ ) {
         brightnessRow.push(0);
         countRow.push(0);
       }
@@ -199,18 +199,18 @@
     var index;
     var xIndex, yIndex;
     var r, g, b;
-    for ( i = 0; i < WIDTH; i++ ) {
-      for ( j = 0; j < HEIGHT; j++ ) {
+    for ( i = 0; i < HEIGHT; i++ ) {
+      for ( j = 0; j < WIDTH; j++ ) {
         index = 4 * ( WIDTH * j + i );
         xIndex = Math.floor( i / width );
         yIndex = Math.floor( j / height );
-        countArray[ xIndex ][ yIndex ]++;
+        countArray[ yIndex ][ xIndex ]++;
 
         r = data[ index ];
         g = data[ index + 1 ];
         b = data[ index + 2 ];
 
-        brightnessArray[ xIndex ][ yIndex ] += brightnessRGB( r, g, b );
+        brightnessArray[ yIndex ][ xIndex ] += brightnessRGB( r, g, b );
       }
     }
 
@@ -228,7 +228,7 @@
     array.forEach(function( row, rowIndex ) {
       row.forEach(function( col, colIndex ) {
         ctx.beginPath();
-        ctx.rect( rowIndex * width, colIndex * height, width, height );
+        ctx.rect( colIndex * width, rowIndex * height, width, height );
         ctx.fillStyle = 'hsl(0, 0%, ' + 100 * ( col / 255 ) + '%)';
         ctx.fill();
       });
@@ -270,7 +270,7 @@
         }
         bins[index]++;
 
-        ctx.fillText( chars.charAt( index ), rowIndex * width, colIndex * height );
+        ctx.fillText( chars.charAt( index ), colIndex * width, rowIndex * height );
       });
     });
 
