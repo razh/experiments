@@ -1,10 +1,13 @@
-@import "compass/css3/images";
+@import "compass/css3/box";
 @import "compass/css3/box-shadow";
+@import "compass/css3/images";
 
 $skyline-height: 85%;
+$ground-color: #112;
 
 $bg-building-color: #9aa;
 $mg-building-color: #233;
+$fg-building-color: $ground-color;
 
 html, body {
   height: 100%;
@@ -27,72 +30,65 @@ body {
   );
 }
 
-@mixin building($left, $width, $height, $color) {
-  left: $left;
+@mixin container($width, $height, $left) {
+  position: absolute;
   width: $width;
   height: $height;
-  @include background(linear-gradient($color, darken($color, 5%)));
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
+
+  bottom: 100% - $skyline-height;
+  left: $left;
+
+  display: flex;
+  align-items: flex-end;
 }
 
-@mixin building-with-spire($left, $width, $height, $color, $spire-height) {
-  @include building($left, $width, $height, $color);
-
-  &:after {
-    content: '';
-    position: absolute;
-
-    width: 2px;
-    height: $spire-height;
-
-    left: 50%;
-    bottom: 100%;
-
-    margin-left: -1px;
-
-    background-color: $color;
+@mixin building($index, $width, $height, $margin-left: 0) {
+  .building:nth-of-type(#{$index}) {
+    width: $width;
+    height: $height;
+    margin-left: $margin-left;
   }
 }
 
 .background {
-  .building {
-    position: absolute;
-    bottom: 15%;
-  }
+  .container {
+    @include container(400px, 300px, 100px);
 
-  .building:nth-of-type(1) {
-    @include building(90px, 300px, 35px, $bg-building-color);
-  }
+    .building {
+      background-color: $bg-building-color;
+    }
 
-  .building:nth-of-type(2) {
-    @include building(100px, 15px, 50px, $bg-building-color);
-  }
-
-  .building:nth-of-type(3) {
-    @include building-with-spire(140px, 17px, 150px, $bg-building-color, 20px);
-  }
-
-  .building:nth-of-type(4) {
-    @include building(160px, 20px, 100px, $bg-building-color);
-  }
-
-  .building:nth-of-type(5) {
-    @include building-with-spire(190px, 25px, 195px, $bg-building-color, 20px);
-  }
-
-  .building:nth-of-type(6) {
-    @include building(220px, 40px, 85px, $bg-building-color);
+    @include building(1, 20px, 150px);
+    @include building(2, 20px, 200px);
+    @include building(3, 20px, 220px);
+    @include building(4, 20px, 250px);
+    @include building(5, 20px, 210px);
   }
 }
 
 .midground {
-  .building {
-    position: absolute;
-    bottom: 15%;
-  }
+  .container {
+    @include container(400px, 200px, 100px);
 
-  .building:nth-of-type(1) {
-    @include building(75px, 100px, 30px, $mg-building-color);
+    .building {
+      background-color: $mg-building-color;
+    }
+
+    @include building(1, 30px, 125px);
+  }
+}
+
+.foreground {
+  .container {
+    @include container(400px, 150px, 100px);
+
+    .building {
+      background-color: $fg-building-color;
+    }
+
+    @include building(1, 20px, 25px);
+    @include building(2, 25px, 35px);
+    @include building(3, 30px, 27px);
+    @include building(4, 25px, 25px);
   }
 }
