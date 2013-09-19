@@ -1,0 +1,98 @@
+@import "compass/css3/images";
+@import "compass/css3/box-shadow";
+
+$skyline-height: 85%;
+
+$bg-building-color: #9aa;
+$mg-building-color: #233;
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.skyline {
+  height: $skyline-height;
+  @include background(linear-gradient(#acd, #fca));
+}
+
+.ground {
+  height: 100% - $skyline-height;
+  background-color: #112;
+  @include box-shadow(
+    -2px 0 5px #d33
+  );
+}
+
+@mixin building($left, $width, $height, $color) {
+  left: $left;
+  width: $width;
+  height: $height;
+  @include background(linear-gradient($color, darken($color, 5%)));
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+
+@mixin building-with-spire($left, $width, $height, $color, $spire-height) {
+  @include building($left, $width, $height, $color);
+
+  &:after {
+    content: '';
+    position: absolute;
+
+    width: 2px;
+    height: $spire-height;
+
+    left: 50%;
+    bottom: 100%;
+
+    margin-left: -1px;
+
+    background-color: $color;
+  }
+}
+
+.background {
+  .building {
+    position: absolute;
+    bottom: 15%;
+  }
+
+  .building:nth-of-type(1) {
+    @include building(90px, 300px, 35px, $bg-building-color);
+  }
+
+  .building:nth-of-type(2) {
+    @include building(100px, 15px, 50px, $bg-building-color);
+  }
+
+  .building:nth-of-type(3) {
+    @include building-with-spire(140px, 17px, 150px, $bg-building-color, 20px);
+  }
+
+  .building:nth-of-type(4) {
+    @include building(160px, 20px, 100px, $bg-building-color);
+  }
+
+  .building:nth-of-type(5) {
+    @include building-with-spire(190px, 25px, 195px, $bg-building-color, 20px);
+  }
+
+  .building:nth-of-type(6) {
+    @include building(220px, 40px, 85px, $bg-building-color);
+  }
+}
+
+.midground {
+  .building {
+    position: absolute;
+    bottom: 15%;
+  }
+
+  .building:nth-of-type(1) {
+    @include building(75px, 100px, 30px, $mg-building-color);
+  }
+}
