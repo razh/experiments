@@ -2,6 +2,30 @@
 $(function() {
   'use strict';
 
+  function detectShapeInside() {
+    var el = document.createElement( 'div' );
+
+    el.style.cssText = '-webkit-shape-inside: polygon(0 0, 0 100%, 100% 100%);';
+    if ( el.style.length ) {
+      return true;
+    }
+
+    el.style.cssText = '-shape-inside: polygo(0 0, 0 100%, 100% 100%);';
+    if ( el.style.length ) {
+      return true;
+    }
+
+    return false;
+  }
+
+  var $warning = $( '#shapes-warning' );
+
+  if ( detectShapeInside() ) {
+    $warning.hide();
+  } else {
+    $warning.show();
+  }
+
   var $editor = $( '#editor' ),
       $shape  = $( '#shape' );
 
@@ -45,7 +69,6 @@ $(function() {
 
   $editor.on({
     mousemove: function() {
-
       if ( $editor.width()  !== editorWidth ||
            $editor.height() !== editorHeight ||
            $shape.width()   !== shapeWidth ||
@@ -113,14 +136,21 @@ $(function() {
     ctx.fillStyle = 'red';
     ctx.fill();
 
+    var polygonCSS = polygonToCSS( polygon );
+
     $shape.css({
-      '-webkit-shape-inside': polygonToCSS( polygon )
+      '-webkit-shape-inside': polygonCSS,
+      '-shape-inside': polygonCSS
     });
   }
 
   function inRect( x, y, x0, y0, x1, y1 ) {
     return x0 <= x && x <= x1 &&
            y0 <= y && y <= y1;
+  }
+
+  function inCircle( x, y, cx, cy, radius ) {
+    return distanceSquared( x, y, cx, cy ) < radius * radius;
   }
 
   function lerp( a, b, t ) {
@@ -165,6 +195,7 @@ $(function() {
 
     var xt = lerp( x0, x1, t ),
         yt = lerp( y0, y1, t );
+
     if ( distanceSquared( x, y, xt, yt ) < radiusSquared ) {
       return [ xt, yt ];
     }
@@ -179,35 +210,58 @@ $(function() {
       var x = event.pageX - offset.left,
           y = event.pageY - offset.top;
 
-      polygon.forEach(function( point ) {
+      var hit = polygon.filter(function( point ) {
         var x0 = point[0] - halfPointSize,
             y0 = point[1] - halfPointSize,
             x1 = point[0] + halfPointSize,
             y1 = point[1] + halfPointSize;
 
-        if ( inRect( x, y, x0, y0, x1, y1 ) ) {
+        return inRect( x, y, x0, y0, x1, y1 );
+      });
+
+      if ( event.altKey ) {
+        // Delete points.
+        hit.forEach(function( point ) {
+          var index = polygon.indexOf( point );
+          if ( index !== -1 ) {
+            polygon.splice( index, 1 );
+          }
+        });
+      } else {
+        // Otherwise, add to selection.
+        hit.forEach(function( point ) {
           selected.push( point );
           offsets.push([
             point[0] - x,
             point[1] - y
           ]);
-        }
-      });
+        });
+      }
 
       var i, il;
       var point;
       var x0, y0, x1, y1;
       if ( !selected.length )  {
-        for ( i = 0, il = polygon.length; i < il; i += 2 ) {
+        for ( i = 0, il = polygon.length; i < il; i++ ) {
           x0 = polygon[i][0];
           y0 = polygon[i][1];
           x1 = polygon[ ( i + 1 ) % il ][0];
           y1 = polygon[ ( i + 1 ) % il ][1];
 
           point = nearestPointOnSegment( x, y, x0, y0, x1, y1, 5 );
+
           if ( point ) {
+            point[0] = Math.round( point[0] );
+            point[1] = Math.round( point[1] );
+
             console.log( point );
-            polygon.splice( i, 0, point );
+            polygon.splice( i + 1, 0, point );
+            selected.push( point );
+            offsets.push([
+              point[0] - x,
+              point[1] - y
+            ]);
+
             break;
           }
         }

@@ -24,7 +24,13 @@
       border-radius: 5px;
     }
 
+    .commands {
+      font-size: 0.8em;
+    }
+
     .editor {
+      float: left;
+
       width: 200px;
       height: 200px;
 
@@ -40,22 +46,25 @@
     }
 
     #canvas-overlay {
-      position: absolute;
       background-color: rgba(255, 0, 0, 0.5);
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="warning">This requires enabling CSS3 Shapes.</div>
+    <div class="warning" id="shapes-warning"><strong>Oops!</strong> It looks like your browser doesn't support CSS3 shapes.</div>
+
+    <ul class="commands">
+      <li>Click: move point.</li>
+      <li>Click on line segment: add point.</li>
+      <li>Alt + click: remove point.</li>
+    </ul>
 
     <div class="editor" id="editor">
       <div class="shape" id="shape" contenteditable="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, tenetur, officia, culpa, adipisci ab quo dolorum tempora deserunt veritatis velit qui maxime debitis inventore. Fugit, corrupti facilis sunt minus deserunt?</div>
-      <canvas id="canvas-overlay"></canvas>
     </div>
-
-    <button id="toggle-editing">Toggle editing.</button>
   </div>
+  <canvas id="canvas-overlay"></canvas>
 
   <script src="../app/components/jquery/jquery.js"></script>
   <script src="./js/main.js"></script>
