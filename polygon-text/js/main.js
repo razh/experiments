@@ -10,7 +10,7 @@ $(function() {
       return true;
     }
 
-    el.style.cssText = '-shape-inside: polygo(0 0, 0 100%, 100% 100%);';
+    el.style.cssText = '-shape-inside: polygon(0 0, 0 100%, 100% 100%);';
     if ( el.style.length ) {
       return true;
     }
@@ -29,7 +29,8 @@ $(function() {
   var PI2 = 2 * Math.PI;
 
   var $editor = $( '#editor' ),
-      $shape  = $( '#shape' );
+      $shape  = $( '#shape' ),
+      $css    = $( '#css' );
 
   var $canvas = $( '#canvas-overlay' ),
       canvas  = $canvas[0],
@@ -147,6 +148,8 @@ $(function() {
       '-webkit-shape-inside': polygonCSS,
       '-shape-inside': polygonCSS
     });
+
+    $css.text( polygonCSS );
   }
 
   function inRect( x, y, x0, y0, x1, y1 ) {
@@ -284,8 +287,8 @@ $(function() {
           y = event.pageY - offset.top;
 
       selected.forEach(function( point, index ) {
-        point[0] = Math.round( x - offsets[index][0] );
-        point[1] = Math.round( y - offsets[index][1] );
+        point[0] = Math.round( x + offsets[index][0] );
+        point[1] = Math.round( y + offsets[index][1] );
       });
 
       draw( context );
