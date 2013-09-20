@@ -34,6 +34,46 @@ body {
   );
 }
 
+$clouds-array: (
+  // x y radius.
+  (
+    20px 40px 10px
+  ) 200px 150px 100px 200px, // x y width height of cloud container.
+  (
+  )
+);
+
+@mixin cloudlet($index, $x, $y, $radius) {
+
+}
+
+@mixin cloud($cloud) {
+  @for $i from 0 to length($cloud) {
+    $index: $i + 1;
+
+    $cloudlet: nth($cloud, $index);
+
+    $x: nth($cloudlet, 1);
+    $y: nth($cloudlet, 2);
+    $radius: nth($cloudlet, 3);
+
+    @include cloudlet($index, $x, $y, $radius);
+  }
+}
+
+@mixin clouds($clouds) {
+  @for $i from 0 to length($clouds) {
+    $index: $i + 1;
+
+    $cloud: nth($clouds, $index);
+
+    $x: nth($cloud, 1);
+    $y: nth($cloud, 2);
+
+    @include cloud($index, $x, $y, $radius);
+  }
+}
+
 @mixin container($width, $height, $left) {
   position: absolute;
   width: $width;
@@ -75,17 +115,19 @@ body {
 
 @mixin buildings($buildings) {
   @for $i from 0 to length($buildings) {
-     $building: nth($buildings, $i + 1);
+    $index: $i + 1;
 
-     $width: nth($building, 1);
-     $height: nth($building, 2);
-     $margin-left: 0;
+    $building: nth($buildings, $index);
 
-     @if length($building) > 2 {
-       $margin-left: nth($building, 3);
-     }
+    $width: nth($building, 1);
+    $height: nth($building, 2);
+    $margin-left: 0;
 
-     @include building($i + 1, $width, $height, $margin-left);
+    @if length($building) > 2 {
+      $margin-left: nth($building, 3);
+    }
+
+    @include building($index, $width, $height, $margin-left);
    }
 }
 
@@ -95,7 +137,7 @@ $background-buildings: (
   12px 60px,
   18px 90px,
   14px 140px 10px,
-  16px 230px 23px,
+  16px 230px 22px,
   20px 80px -1px,
   10px 110px 10px,
   16px 130px,
@@ -115,13 +157,19 @@ $background-buildings: (
 
     .building {
       background-color: $bg-building-color;
+      @include background(
+        linear-gradient(
+          $bg-building-color,
+          darken($bg-building-color, 8%) 150px
+        )
+      );
     }
 
     @include buildings($background-buildings);
 
     .building:nth-of-type(5) {
       @include spire($bg-building-color, 2px, 40px);
-      @include rotate3d(1, 0, -0.05, 40deg);
+      @include rotate3d(1, 0, -0.07, 40deg);
     }
 
     .building:nth-of-type(4),
@@ -136,11 +184,11 @@ $midground-buildings: (
   20px 48px 40px,
   20px 65px,
   10px 85px,
-  25px 115px 8px,
+  25px 105px 8px,
   18px 65px 10px,
   20px 45px,
   22px 75px 20px,
-  15px 65px,
+  15px 65px -1px,
   17px 55px,
   20px 45px 5px,
   20px 35px -1px,
@@ -166,11 +214,14 @@ $midground-buildings: (
 
     .building:nth-of-type(4),
     .building:nth-of-type(5),
-    .building:nth-of-type(7),
+    .building:nth-of-type(7) {
+      border-left: 1px solid $sky-red;
+      @include rotate3d(1, 0, -0.1, 5deg);
+    }
+
     .building:nth-of-type(10),
     .building:nth-of-type(13) {
       border-left: 1px solid $sky-red;
-      @include rotate3d(1, 0, -0.1, 5deg);
     }
   }
 }
@@ -199,15 +250,10 @@ $foreground-buildings: (
 .foreground {
   .container {
     @include container(400px, 150px, 100px);
-    margin-bottom: -1px;
-
-    @include perspective-origin(top);
-    @include perspective(250px);
+    margin-bottom: -2px;
 
     .building {
       background-color: $fg-building-color;
-      @include rotateX(5deg);
-
     }
 
     @include buildings($foreground-buildings);
