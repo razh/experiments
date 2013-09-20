@@ -37,27 +37,61 @@ body {
 $clouds-array: (
   // x y radius.
   (
-    20px 40px 10px
-  ) 200px 150px 100px 200px, // x y width height of cloud container.
+    50px 15px 40px,
+    80px 30px 50px,
+    130px 10px 30px,
+    170px 10px 20px
+  ) 400px 50px 200px 100px, // x y width height of cloud container.
   (
-  )
+    40px 10px 20px,
+    80px 10px 40px,
+    120px 10px 30px
+  ) 20px 150px 300px 70px
 );
 
 @mixin cloudlet($index, $x, $y, $radius) {
+  .cloudlet:nth-of-type(#{$index}) {
+    $diameter: 2 * $radius;
 
+    position: absolute;
+
+    left: $x;
+    bottom: $y;
+
+    width: $diameter;
+    height: $diameter;
+
+    margin-bottom: -$radius;
+    margin-left: -$radius;
+
+    border-radius: 50%;
+  }
 }
 
-@mixin cloud($cloud) {
-  @for $i from 0 to length($cloud) {
-    $index: $i + 1;
+@mixin cloud($index, $cloudlets, $x, $y, $width, $height) {
+  .cloud:nth-of-type(#{$index}) {
+    position: absolute;
+    overflow: hidden;
 
-    $cloudlet: nth($cloud, $index);
+    left: $x;
+    bottom: $y;
 
-    $x: nth($cloudlet, 1);
-    $y: nth($cloudlet, 2);
-    $radius: nth($cloudlet, 3);
+    width: $width;
+    height: $height;
 
-    @include cloudlet($index, $x, $y, $radius);
+    @debug length($cloudlets);
+
+    @for $i from 0 to length($cloudlets) {
+      $cloudlet-index: $i + 1;
+
+      $cloudlet: nth($cloudlets, $cloudlet-index);
+
+      $cloudlet-x: nth($cloudlet, 1);
+      $cloudlet-y: nth($cloudlet, 2);
+      $radius: nth($cloudlet, 3);
+
+      @include cloudlet($cloudlet-index, $cloudlet-x, $cloudlet-y, $radius);
+    }
   }
 }
 
@@ -67,10 +101,27 @@ $clouds-array: (
 
     $cloud: nth($clouds, $index);
 
-    $x: nth($cloud, 1);
-    $y: nth($cloud, 2);
+    $cloudlets: nth($cloud, 1);
+    $x: nth($cloud, 2);
+    $y: nth($cloud, 3);
+    $width: nth($cloud, 4);
+    $height: nth($cloud, 5);
 
-    @include cloud($index, $x, $y, $radius);
+    @include cloud($index, $cloudlets, $x, $y, $width, $height);
+  }
+}
+
+.clouds {
+  position: absolute;
+  bottom: 100% - $skyline-height;
+
+  @include clouds($clouds-array);
+  .cloud {
+    opacity: 0.5;
+
+    .cloudlet {
+      background-color: white;
+    }
   }
 }
 
