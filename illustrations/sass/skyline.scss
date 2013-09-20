@@ -1,13 +1,17 @@
 @import "compass/css3/box";
 @import "compass/css3/box-shadow";
 @import "compass/css3/images";
+@import "compass/css3/transform";
 
 $skyline-height: 85%;
 $ground-color: #112;
 
-$bg-building-color: #9aa;
+$bg-building-color: #677;
 $mg-building-color: #233;
 $fg-building-color: $ground-color;
+
+$sky-blue: #acd;
+$sky-red: #fca;
 
 html, body {
   height: 100%;
@@ -19,7 +23,7 @@ body {
 
 .skyline {
   height: $skyline-height;
-  @include background(linear-gradient(#acd, #fca));
+  @include background(linear-gradient($sky-blue, $sky-red));
 }
 
 .ground {
@@ -42,53 +46,174 @@ body {
   align-items: flex-end;
 }
 
+@mixin spire($color, $width, $height, $left: 50%) {
+  &:after {
+    content: '';
+    position: absolute;
+
+    width: $width;
+    height: $height;
+
+    bottom: 100%;
+    left: $left;
+    margin-left: -0.5 * $width;
+
+    background-color: $color;
+  }
+}
+
 @mixin building($index, $width, $height, $margin-left: 0) {
   .building:nth-of-type(#{$index}) {
     width: $width;
     height: $height;
-    margin-left: $margin-left;
+
+    @if $margin-left != 0 {
+      margin-left: $margin-left;
+    }
   }
 }
+
+@mixin buildings($buildings) {
+  @for $i from 0 to length($buildings) {
+     $building: nth($buildings, $i + 1);
+
+     $width: nth($building, 1);
+     $height: nth($building, 2);
+     $margin-left: 0;
+
+     @if length($building) > 2 {
+       $margin-left: nth($building, 3);
+     }
+
+     @include building($i + 1, $width, $height, $margin-left);
+   }
+}
+
+// The format is width, height, margin-left.
+$background-buildings: (
+  8px 50px 40px,
+  12px 60px,
+  18px 90px,
+  14px 140px 10px,
+  16px 230px 23px,
+  20px 80px -1px,
+  10px 110px 10px,
+  16px 130px,
+  15px 80px 15px,
+  2px 120px 5px,
+  10px 90px,
+  15px 50px
+);
+
 
 .background {
   .container {
     @include container(400px, 300px, 100px);
 
+    @include perspective-origin(top);
+    @include perspective(1000px);
+
     .building {
       background-color: $bg-building-color;
     }
 
-    @include building(1, 20px, 150px);
-    @include building(2, 20px, 200px);
-    @include building(3, 20px, 220px);
-    @include building(4, 20px, 250px);
-    @include building(5, 20px, 210px);
+    @include buildings($background-buildings);
+
+    .building:nth-of-type(5) {
+      @include spire($bg-building-color, 2px, 40px);
+      @include rotate3d(1, 0, -0.05, 40deg);
+    }
+
+    .building:nth-of-type(4),
+    .building:nth-of-type(8) {
+      @include spire($bg-building-color, 2px, 20px);
+      @include translateZ(0);
+    }
   }
 }
+
+$midground-buildings: (
+  20px 48px 40px,
+  20px 65px,
+  10px 85px,
+  25px 115px 8px,
+  18px 65px 10px,
+  20px 45px,
+  22px 75px 20px,
+  15px 65px,
+  17px 55px,
+  20px 45px 5px,
+  20px 35px -1px,
+  10px 25px,
+  12px 35px,
+  12px 13px,
+  10px 8px
+);
 
 .midground {
   .container {
     @include container(400px, 200px, 100px);
 
+    @include perspective-origin(top);
+    @include perspective(750px);
+
     .building {
       background-color: $mg-building-color;
+      border-top: 1px solid $sky-red;
     }
 
-    @include building(1, 30px, 125px);
+    @include buildings($midground-buildings);
+
+    .building:nth-of-type(4),
+    .building:nth-of-type(5),
+    .building:nth-of-type(7),
+    .building:nth-of-type(10),
+    .building:nth-of-type(13) {
+      border-left: 1px solid $sky-red;
+      @include rotate3d(1, 0, -0.1, 5deg);
+    }
   }
 }
+
+$foreground-buildings: (
+  10px 10px,
+  15px 15px,
+  17px 30px,
+  15px 25px,
+  25px 35px,
+  24px 30px,
+  15px 15px,
+  20px 45px,
+  30px 25px,
+  22px 30px,
+  22px 12px,
+  12px 18px,
+  12px 30px,
+  22px 10px,
+  22px 15px,
+  20px 9px,
+  8px 16px,
+  12px 7px
+);
 
 .foreground {
   .container {
     @include container(400px, 150px, 100px);
+    margin-bottom: -1px;
+
+    @include perspective-origin(top);
+    @include perspective(250px);
 
     .building {
       background-color: $fg-building-color;
+      @include rotateX(5deg);
+
     }
 
-    @include building(1, 20px, 25px);
-    @include building(2, 25px, 35px);
-    @include building(3, 30px, 27px);
-    @include building(4, 25px, 25px);
+    @include buildings($foreground-buildings);
+
+    .building:nth-of-type(1) {
+      border-left: 1px solid $sky-red;
+    }
   }
 }

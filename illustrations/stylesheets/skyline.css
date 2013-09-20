@@ -1,14 +1,14 @@
-/* line 12, ../sass/skyline.scss */
+/* line 16, ../sass/skyline.scss */
 html, body {
   height: 100%;
 }
 
-/* line 16, ../sass/skyline.scss */
+/* line 20, ../sass/skyline.scss */
 body {
   margin: 0;
 }
 
-/* line 20, ../sass/skyline.scss */
+/* line 24, ../sass/skyline.scss */
 .skyline {
   height: 85%;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #aaccdd), color-stop(100%, #ffccaa));
@@ -18,7 +18,7 @@ body {
   background: linear-gradient(#aaccdd, #ffccaa);
 }
 
-/* line 25, ../sass/skyline.scss */
+/* line 29, ../sass/skyline.scss */
 .ground {
   height: 15%;
   background-color: #112;
@@ -27,7 +27,7 @@ body {
   box-shadow: -2px 0 5px #dd3333;
 }
 
-/* line 54, ../sass/skyline.scss */
+/* line 110, ../sass/skyline.scss */
 .background .container {
   position: absolute;
   width: 400px;
@@ -36,43 +36,130 @@ body {
   left: 100px;
   display: flex;
   align-items: flex-end;
+  -webkit-perspective-origin: top;
+  -moz-perspective-origin: top;
+  -ms-perspective-origin: top;
+  -o-perspective-origin: top;
+  perspective-origin: top;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  -ms-perspective: 1000px;
+  -o-perspective: 1000px;
+  perspective: 1000px;
 }
-/* line 57, ../sass/skyline.scss */
+/* line 116, ../sass/skyline.scss */
 .background .container .building {
-  background-color: #99aaaa;
+  background-color: #667777;
 }
-/* line 46, ../sass/skyline.scss */
+/* line 66, ../sass/skyline.scss */
 .background .container .building:nth-of-type(1) {
-  width: 20px;
-  height: 150px;
-  margin-left: 0;
+  width: 8px;
+  height: 50px;
+  margin-left: 40px;
 }
-/* line 46, ../sass/skyline.scss */
+/* line 66, ../sass/skyline.scss */
 .background .container .building:nth-of-type(2) {
-  width: 20px;
-  height: 200px;
-  margin-left: 0;
+  width: 12px;
+  height: 60px;
 }
-/* line 46, ../sass/skyline.scss */
+/* line 66, ../sass/skyline.scss */
 .background .container .building:nth-of-type(3) {
-  width: 20px;
-  height: 220px;
-  margin-left: 0;
+  width: 18px;
+  height: 90px;
 }
-/* line 46, ../sass/skyline.scss */
+/* line 66, ../sass/skyline.scss */
 .background .container .building:nth-of-type(4) {
-  width: 20px;
-  height: 250px;
-  margin-left: 0;
+  width: 14px;
+  height: 140px;
+  margin-left: 10px;
 }
-/* line 46, ../sass/skyline.scss */
+/* line 66, ../sass/skyline.scss */
 .background .container .building:nth-of-type(5) {
+  width: 16px;
+  height: 230px;
+  margin-left: 23px;
+}
+/* line 66, ../sass/skyline.scss */
+.background .container .building:nth-of-type(6) {
   width: 20px;
-  height: 210px;
-  margin-left: 0;
+  height: 80px;
+  margin-left: -1px;
+}
+/* line 66, ../sass/skyline.scss */
+.background .container .building:nth-of-type(7) {
+  width: 10px;
+  height: 110px;
+  margin-left: 10px;
+}
+/* line 66, ../sass/skyline.scss */
+.background .container .building:nth-of-type(8) {
+  width: 16px;
+  height: 130px;
+}
+/* line 66, ../sass/skyline.scss */
+.background .container .building:nth-of-type(9) {
+  width: 15px;
+  height: 80px;
+  margin-left: 15px;
+}
+/* line 66, ../sass/skyline.scss */
+.background .container .building:nth-of-type(10) {
+  width: 2px;
+  height: 120px;
+  margin-left: 5px;
+}
+/* line 66, ../sass/skyline.scss */
+.background .container .building:nth-of-type(11) {
+  width: 10px;
+  height: 90px;
+}
+/* line 66, ../sass/skyline.scss */
+.background .container .building:nth-of-type(12) {
+  width: 15px;
+  height: 50px;
+}
+/* line 122, ../sass/skyline.scss */
+.background .container .building:nth-of-type(5) {
+  -webkit-transform: rotate3d(1, 0, -0.05, 40deg);
+  -moz-transform: rotate3d(1, 0, -0.05, 40deg);
+  -ms-transform: rotate3d(1, 0, -0.05, 40deg);
+  -o-transform: rotate3d(1, 0, -0.05, 40deg);
+  transform: rotate3d(1, 0, -0.05, 40deg);
+}
+/* line 50, ../sass/skyline.scss */
+.background .container .building:nth-of-type(5):after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 40px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -1px;
+  background-color: #667777;
+}
+/* line 128, ../sass/skyline.scss */
+.background .container .building:nth-of-type(4),
+.background .container .building:nth-of-type(8) {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+}
+/* line 50, ../sass/skyline.scss */
+.background .container .building:nth-of-type(4):after,
+.background .container .building:nth-of-type(8):after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -1px;
+  background-color: #667777;
 }
 
-/* line 70, ../sass/skyline.scss */
+/* line 154, ../sass/skyline.scss */
 .midground .container {
   position: absolute;
   width: 400px;
@@ -81,19 +168,118 @@ body {
   left: 100px;
   display: flex;
   align-items: flex-end;
+  -webkit-perspective-origin: top;
+  -moz-perspective-origin: top;
+  -ms-perspective-origin: top;
+  -o-perspective-origin: top;
+  perspective-origin: top;
+  -webkit-perspective: 750px;
+  -moz-perspective: 750px;
+  -ms-perspective: 750px;
+  -o-perspective: 750px;
+  perspective: 750px;
 }
-/* line 73, ../sass/skyline.scss */
+/* line 160, ../sass/skyline.scss */
 .midground .container .building {
   background-color: #223333;
+  border-top: 1px solid #ffccaa;
 }
-/* line 46, ../sass/skyline.scss */
+/* line 66, ../sass/skyline.scss */
 .midground .container .building:nth-of-type(1) {
-  width: 30px;
-  height: 125px;
-  margin-left: 0;
+  width: 20px;
+  height: 48px;
+  margin-left: 40px;
+}
+/* line 66, ../sass/skyline.scss */
+.midground .container .building:nth-of-type(2) {
+  width: 20px;
+  height: 65px;
+}
+/* line 66, ../sass/skyline.scss */
+.midground .container .building:nth-of-type(3) {
+  width: 10px;
+  height: 85px;
+}
+/* line 66, ../sass/skyline.scss */
+.midground .container .building:nth-of-type(4) {
+  width: 25px;
+  height: 115px;
+  margin-left: 8px;
+}
+/* line 66, ../sass/skyline.scss */
+.midground .container .building:nth-of-type(5) {
+  width: 18px;
+  height: 65px;
+  margin-left: 10px;
+}
+/* line 66, ../sass/skyline.scss */
+.midground .container .building:nth-of-type(6) {
+  width: 20px;
+  height: 45px;
+}
+/* line 66, ../sass/skyline.scss */
+.midground .container .building:nth-of-type(7) {
+  width: 22px;
+  height: 75px;
+  margin-left: 20px;
+}
+/* line 66, ../sass/skyline.scss */
+.midground .container .building:nth-of-type(8) {
+  width: 15px;
+  height: 65px;
+}
+/* line 66, ../sass/skyline.scss */
+.midground .container .building:nth-of-type(9) {
+  width: 17px;
+  height: 55px;
+}
+/* line 66, ../sass/skyline.scss */
+.midground .container .building:nth-of-type(10) {
+  width: 20px;
+  height: 45px;
+  margin-left: 5px;
+}
+/* line 66, ../sass/skyline.scss */
+.midground .container .building:nth-of-type(11) {
+  width: 20px;
+  height: 35px;
+  margin-left: -1px;
+}
+/* line 66, ../sass/skyline.scss */
+.midground .container .building:nth-of-type(12) {
+  width: 10px;
+  height: 25px;
+}
+/* line 66, ../sass/skyline.scss */
+.midground .container .building:nth-of-type(13) {
+  width: 12px;
+  height: 35px;
+}
+/* line 66, ../sass/skyline.scss */
+.midground .container .building:nth-of-type(14) {
+  width: 12px;
+  height: 13px;
+}
+/* line 66, ../sass/skyline.scss */
+.midground .container .building:nth-of-type(15) {
+  width: 10px;
+  height: 8px;
+}
+/* line 171, ../sass/skyline.scss */
+.midground .container .building:nth-of-type(4),
+.midground .container .building:nth-of-type(5),
+.midground .container .building:nth-of-type(7),
+.midground .container .building:nth-of-type(10),
+.midground .container .building:nth-of-type(13) {
+  border-left: 1px solid #ffccaa;
+  -webkit-transform: rotate3d(1, 0, -0.1, 5deg);
+  -moz-transform: rotate3d(1, 0, -0.1, 5deg);
+  -ms-transform: rotate3d(1, 0, -0.1, 5deg);
+  -o-transform: rotate3d(1, 0, -0.1, 5deg);
+  transform: rotate3d(1, 0, -0.1, 5deg);
 }
 
-/* line 82, ../sass/skyline.scss */
+/* line 200, ../sass/skyline.scss */
 .foreground .container {
   position: absolute;
   width: 400px;
@@ -102,32 +288,118 @@ body {
   left: 100px;
   display: flex;
   align-items: flex-end;
+  margin-bottom: -1px;
+  -webkit-perspective-origin: top;
+  -moz-perspective-origin: top;
+  -ms-perspective-origin: top;
+  -o-perspective-origin: top;
+  perspective-origin: top;
+  -webkit-perspective: 250px;
+  -moz-perspective: 250px;
+  -ms-perspective: 250px;
+  -o-perspective: 250px;
+  perspective: 250px;
 }
-/* line 85, ../sass/skyline.scss */
+/* line 207, ../sass/skyline.scss */
 .foreground .container .building {
   background-color: #111122;
+  -webkit-transform: rotateX(5deg);
+  -moz-transform: rotateX(5deg);
+  -ms-transform: rotateX(5deg);
+  -o-transform: rotateX(5deg);
+  transform: rotateX(5deg);
 }
-/* line 46, ../sass/skyline.scss */
+/* line 66, ../sass/skyline.scss */
 .foreground .container .building:nth-of-type(1) {
-  width: 20px;
-  height: 25px;
-  margin-left: 0;
+  width: 10px;
+  height: 10px;
 }
-/* line 46, ../sass/skyline.scss */
+/* line 66, ../sass/skyline.scss */
 .foreground .container .building:nth-of-type(2) {
+  width: 15px;
+  height: 15px;
+}
+/* line 66, ../sass/skyline.scss */
+.foreground .container .building:nth-of-type(3) {
+  width: 17px;
+  height: 30px;
+}
+/* line 66, ../sass/skyline.scss */
+.foreground .container .building:nth-of-type(4) {
+  width: 15px;
+  height: 25px;
+}
+/* line 66, ../sass/skyline.scss */
+.foreground .container .building:nth-of-type(5) {
   width: 25px;
   height: 35px;
-  margin-left: 0;
 }
-/* line 46, ../sass/skyline.scss */
-.foreground .container .building:nth-of-type(3) {
+/* line 66, ../sass/skyline.scss */
+.foreground .container .building:nth-of-type(6) {
+  width: 24px;
+  height: 30px;
+}
+/* line 66, ../sass/skyline.scss */
+.foreground .container .building:nth-of-type(7) {
+  width: 15px;
+  height: 15px;
+}
+/* line 66, ../sass/skyline.scss */
+.foreground .container .building:nth-of-type(8) {
+  width: 20px;
+  height: 45px;
+}
+/* line 66, ../sass/skyline.scss */
+.foreground .container .building:nth-of-type(9) {
   width: 30px;
-  height: 27px;
-  margin-left: 0;
-}
-/* line 46, ../sass/skyline.scss */
-.foreground .container .building:nth-of-type(4) {
-  width: 25px;
   height: 25px;
-  margin-left: 0;
+}
+/* line 66, ../sass/skyline.scss */
+.foreground .container .building:nth-of-type(10) {
+  width: 22px;
+  height: 30px;
+}
+/* line 66, ../sass/skyline.scss */
+.foreground .container .building:nth-of-type(11) {
+  width: 22px;
+  height: 12px;
+}
+/* line 66, ../sass/skyline.scss */
+.foreground .container .building:nth-of-type(12) {
+  width: 12px;
+  height: 18px;
+}
+/* line 66, ../sass/skyline.scss */
+.foreground .container .building:nth-of-type(13) {
+  width: 12px;
+  height: 30px;
+}
+/* line 66, ../sass/skyline.scss */
+.foreground .container .building:nth-of-type(14) {
+  width: 22px;
+  height: 10px;
+}
+/* line 66, ../sass/skyline.scss */
+.foreground .container .building:nth-of-type(15) {
+  width: 22px;
+  height: 15px;
+}
+/* line 66, ../sass/skyline.scss */
+.foreground .container .building:nth-of-type(16) {
+  width: 20px;
+  height: 9px;
+}
+/* line 66, ../sass/skyline.scss */
+.foreground .container .building:nth-of-type(17) {
+  width: 8px;
+  height: 16px;
+}
+/* line 66, ../sass/skyline.scss */
+.foreground .container .building:nth-of-type(18) {
+  width: 12px;
+  height: 7px;
+}
+/* line 215, ../sass/skyline.scss */
+.foreground .container .building:nth-of-type(1) {
+  border-left: 1px solid #ffccaa;
 }
