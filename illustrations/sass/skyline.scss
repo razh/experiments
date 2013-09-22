@@ -13,12 +13,85 @@ $fg-building-color: $ground-color;
 $sky-blue: #acd;
 $sky-red: #fca;
 
+$clouds-array: (
+  // x y radius.
+  (
+    50px 15px 40px,
+    80px 30px 50px,
+    130px 10px 30px,
+    170px 10px 20px
+  ) 400px 50px 200px 100px, // x y width height of cloud container.
+  (
+    40px 10px 20px,
+    80px 10px 40px,
+    120px 10px 30px
+  ) 20px 150px 300px 70px
+);
+
+// The format is width, height, margin-left.
+$background-buildings: (
+  8px 50px 40px,
+  12px 60px,
+  18px 90px,
+  14px 140px 10px,
+  16px 230px 22px,
+  20px 80px -1px,
+  10px 110px 10px,
+  16px 130px,
+  15px 80px 15px,
+  2px 120px 5px,
+  10px 90px,
+  15px 50px
+);
+
+$midground-buildings: (
+  20px 48px 40px,
+  20px 65px,
+  10px 85px,
+  25px 105px 8px,
+  18px 65px 10px,
+  20px 45px,
+  22px 75px 20px,
+  15px 65px -1px,
+  17px 55px,
+  20px 45px 5px,
+  20px 35px -1px,
+  10px 25px,
+  12px 35px,
+  12px 13px,
+  10px 8px
+);
+
+$foreground-buildings: (
+  10px 10px,
+  15px 15px,
+  17px 30px,
+  15px 25px,
+  25px 35px,
+  24px 30px,
+  15px 15px,
+  20px 45px,
+  30px 25px,
+  22px 30px,
+  22px 12px,
+  12px 18px,
+  12px 30px,
+  22px 10px,
+  22px 15px,
+  20px 9px,
+  8px 16px,
+  12px 7px
+);
+
+
 html, body {
   height: 100%;
 }
 
 body {
   margin: 0;
+  width: 100%;
+  overflow: hidden;
 }
 
 .skyline {
@@ -45,21 +118,7 @@ body {
   opacity: 0.07;
 }
 
-$clouds-array: (
-  // x y radius.
-  (
-    50px 15px 40px,
-    80px 30px 50px,
-    130px 10px 30px,
-    170px 10px 20px
-  ) 400px 50px 200px 100px, // x y width height of cloud container.
-  (
-    40px 10px 20px,
-    80px 10px 40px,
-    120px 10px 30px
-  ) 20px 150px 300px 70px
-);
-
+// Cloud mixins.
 @mixin cloudlet($index, $x, $y, $radius) {
   .cloudlet:nth-of-type(#{$index}) {
     $diameter: 2 * $radius;
@@ -136,6 +195,7 @@ $clouds-array: (
   }
 }
 
+// Building mixins.
 @mixin container($width, $height, $left) {
   position: absolute;
   width: $width;
@@ -193,23 +253,6 @@ $clouds-array: (
    }
 }
 
-// The format is width, height, margin-left.
-$background-buildings: (
-  8px 50px 40px,
-  12px 60px,
-  18px 90px,
-  14px 140px 10px,
-  16px 230px 22px,
-  20px 80px -1px,
-  10px 110px 10px,
-  16px 130px,
-  15px 80px 15px,
-  2px 120px 5px,
-  10px 90px,
-  15px 50px
-);
-
-
 .background {
   .container {
     @include container(400px, 300px, 100px);
@@ -242,24 +285,6 @@ $background-buildings: (
   }
 }
 
-$midground-buildings: (
-  20px 48px 40px,
-  20px 65px,
-  10px 85px,
-  25px 105px 8px,
-  18px 65px 10px,
-  20px 45px,
-  22px 75px 20px,
-  15px 65px -1px,
-  17px 55px,
-  20px 45px 5px,
-  20px 35px -1px,
-  10px 25px,
-  12px 35px,
-  12px 13px,
-  10px 8px
-);
-
 .midground {
   .container {
     @include container(400px, 200px, 100px);
@@ -287,27 +312,6 @@ $midground-buildings: (
     }
   }
 }
-
-$foreground-buildings: (
-  10px 10px,
-  15px 15px,
-  17px 30px,
-  15px 25px,
-  25px 35px,
-  24px 30px,
-  15px 15px,
-  20px 45px,
-  30px 25px,
-  22px 30px,
-  22px 12px,
-  12px 18px,
-  12px 30px,
-  22px 10px,
-  22px 15px,
-  20px 9px,
-  8px 16px,
-  12px 7px
-);
 
 .foreground {
   .container {
