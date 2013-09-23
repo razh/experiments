@@ -1,0 +1,23 @@
+!!! 5
+%html(lang="en")
+  %head
+    %meta(charset="UTF-8")
+    %title Test
+
+    %link(rel="stylesheet" href="./stylesheets/mainframe.css")
+  %body
+    .container
+      .mainframe
+        .component#component-left
+          -(1..120).each do |i|
+            .grid
+        .component#component-center
+          -(1..6).each do |i|
+            .dial
+        .component#component-right
+          .face
+            .eye#eye-left
+            .eye#eye-right
+            .mouth
+          .big-red-button
+
