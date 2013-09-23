@@ -5,6 +5,15 @@ $(function() {
   var $editor = $( '#editor' ),
       $preview = $( '#preview' );
 
+  // Inputs.
+  var $fontWeightInput    = $( 'input[name="font-weight"]' ),
+      $letterSpacingInput = $( 'input[name="letter-spacing"]' ),
+      $lineHeightInput    = $( 'input[name="line-height"]' );
+
+  var fontWeight    = $fontWeightInput.val(),
+      letterSpacing = $letterSpacingInput.val(),
+      lineHeight    = $lineHeightInput.val();
+
   var textWidth = (function() {
     var div = $( '<div></div>' )
       .css({
@@ -15,9 +24,9 @@ $(function() {
       })
       .appendTo( $( 'body' ) );
 
-    return function( text, font ) {
+    return function( text, options ) {
       div.text( text );
-      div.css( 'font', font );
+      div.css( options );
 
       return div.width();
     };
@@ -48,7 +57,15 @@ $(function() {
 
       while ( low <= high ) {
         fontSize = Math.round( 0.5 * ( low + high ) );
-        currentWidth = textWidth( text, 'bold ' + fontSize + 'px Helvetica' );
+
+        currentWidth = textWidth( text, {
+          'font-weight': fontWeight,
+          'font-size': fontSize + 'px',
+          'font-family': 'Helvetica Neue',
+          'letter-spacing': letterSpacing + 'px',
+          'line-height': lineHeight
+        });
+
         if ( currentWidth < previewWidth ) {
           low = fontSize + 1;
         } else if ( currentWidth > previewWidth ) {
@@ -63,16 +80,32 @@ $(function() {
       }
 
       if ( currentWidth !== previewWidth ) {
-        low = textWidth( text, 'bold ' + (fontSize - 1) + 'px Helvetica' );
-        high = textWidth( text, 'bold ' + (fontSize + 1) + 'px Helvetica' );
+        low = textWidth( text, {
+          'font-weight': fontWeight,
+          'font-size': ( fontSize - 1) + 'px',
+          'font-family': 'Helvetica Neue',
+          'letter-spacing': letterSpacing + 'px',
+          'line-height': lineHeight
+        });
+
+        high = textWidth( text, {
+          'font-weight': fontWeight,
+          'font-size': ( fontSize + 1) + 'px',
+          'font-family': 'Helvetica Neue',
+          'letter-spacing': letterSpacing + 'px',
+          'line-height': lineHeight
+        });
+
         console.log(currentWidth + ', ' + previewWidth + ', [' + low + ', ' + high + ']');
       }
 
       var $line = $( '<div>' + text + '</div>' );
       $line.css({
-        'font-weight': 'bold',
+        'font-weight': fontWeight,
         'font-size': fontSize + 'px',
-        'font-family': 'Helvetica'
+        'font-family': 'Helvetica Neue',
+        'letter-spacing': letterSpacing + 'px',
+        'line-height': lineHeight
       });
 
       $preview.append( $line );
@@ -81,15 +114,28 @@ $(function() {
 
   function update() {
     var text = $editor.html();
-    if ( editorText !== text ) {
-      editorText = text;
-      editorTextArray = toTextArray( editorText );
-      console.log(editorTextArray);
+    editorText = text;
+    editorTextArray = toTextArray( editorText );
+    console.log(editorTextArray);
 
-      updatePreview( editorTextArray );
-    }
+    updatePreview( editorTextArray );
   }
 
   update();
   $editor.on('input', update );
+
+  $fontWeightInput.on( 'change', function() {
+    fontWeight = $fontWeightInput.val();
+    update();
+  });
+
+  $letterSpacingInput.on( 'change', function() {
+    letterSpacing = $letterSpacingInput.val();
+    update();
+  });
+
+  $lineHeightInput.on( 'change', function() {
+    lineHeight = $lineHeightInput.val();
+    update();
+  });
 });

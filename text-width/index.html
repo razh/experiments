@@ -20,9 +20,23 @@
       width: 50%;
       height: 100%;
     }
+
+    .inputs {
+      clear: both;
+    }
   </style>
 </head>
 <body>
+  <div class="inputs">
+    <label for="font-weight">Font weight</label>
+    <input type="number" name="font-weight" min="100" max="900" step="100" value="400">
+
+    <label for="letter-spacing">Letter spacing</label>
+    <input type="number" name="letter-spacing" min="0" max="10" step="1" value="0">
+
+    <label for="line-height">Line height</label>
+    <input type="number" name="line-height" min="0" max="10" step="0.01" value="1">
+  </div>
   <div id="editor" contenteditable="true">The quick brown<div>fox</div><div>jumps over</div><div>the lazy dog</div></div>
   <div id="preview"></div>
 
