@@ -1,3 +1,4 @@
+/*globals Quadtree*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -10,6 +11,8 @@
   var prevTime = Date.now(),
       currTime,
       running = true;
+
+  var padding = 10;
 
   var points = [],
       pointQuadtree = new Quadtree( 0, 0, Math.max( canvas.width, canvas.height ) );
@@ -33,26 +36,26 @@
     var width  = canvas.width,
         height = canvas.height;
 
-    this.x += this.vx + dt;
-    this.y += this.vy + dt;
+    this.x += this.vx * dt;
+    this.y += this.vy * dt;
 
-    if ( 0 > this.x ) {
-      this.x = 0;
+    if ( padding > this.x ) {
+      this.x = padding;
       this.vx = -this.vx;
     }
 
-    if ( this.x > width ) {
-      this.x = width;
+    if ( this.x > width - padding ) {
+      this.x = width - padding;
       this.vx = -this.vx;
     }
 
-    if ( 0 > this.y ) {
-      this.y = 0;
+    if ( padding > this.y ) {
+      this.y = padding;
       this.vy = -this.vy;
     }
 
-    if ( this.y > height ) {
-      this.y = height;
+    if ( this.y > height - padding ) {
+      this.y = height - padding;
       this.vy = -this.vy;
     }
   };
@@ -96,16 +99,20 @@
     ctx.fillStyle = 'black';
     ctx.strokeStyle = 'black';
 
+    var thinLines  = [],
+        thickLines = [];
+
+    ctx.beginPath();
+    var count = 0;
     points.forEach(function( point ) {
       var x0 = point.x,
           y0 = point.y;
 
-      ctx.beginPath();
       ctx.rect( x0 - 1, y0 - 1, 2, 2 );
-      ctx.fill();
 
       // Draw lines.
       var inRange = pointQuadtree.retrieve( x0 - 30, y0 - 30, 60, 60 );
+      count += inRange.length;
       inRange.forEach(function( otherPoint ) {
         var x1 = otherPoint.x,
             y1 = otherPoint.y;
@@ -113,20 +120,34 @@
         if ( point !== otherPoint ) {
           var currDistanceSquared = distanceSquared( x0, y0, x1, y1 );
           if ( currDistanceSquared < maxDistanceSquared ) {
-            ctx.moveTo( x0, y0 );
-            ctx.lineTo( x1, y1 );
-
             if ( currDistanceSquared < minDistanceSquared ) {
-              ctx.lineWidth = 1;
+              thickLines.push( [ point, otherPoint ] );
             } else {
-              ctx.lineWidth = 0.2;
+              thinLines.push( [ point, otherPoint ] );
             }
-
-            ctx.stroke();
           }
         }
       });
     });
+    ctx.fill();
+
+    function drawSegment( segment ) {
+      ctx.moveTo( segment[0].x, segment[0].y );
+      ctx.lineTo( segment[1].x, segment[1].y );
+    }
+
+    ctx.beginPath();
+    thinLines.forEach( drawSegment );
+    ctx.lineWidth = 0.1;
+    ctx.stroke();
+
+    ctx.beginPath();
+    thickLines.forEach( drawSegment );
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+
+    ctx.font = '100 24px Helvetica Neue';
+    ctx.fillText( 'thin: ' + thinLines.length + ', thick: ' + thickLines.length + ', comparisons: ' + count, 10, 30 );
   }
 
   function init() {
@@ -134,12 +155,12 @@
         height = canvas.height;
 
     var x, y, vx, vy;
-    var pointCount = 100;
+    var pointCount = 250;
     while ( pointCount-- ) {
       x = Math.random() * width;
       y = Math.random() * height;
-      vx = ( Math.random() > 0.5 ? 1 : -1 ) * ( Math.random() * 2 + 2 );
-      vy = ( Math.random() > 0.5 ? 1 : -1 ) * ( Math.random() * 2 + 2 );
+      vx = ( Math.random() > 0.5 ? 1 : -1 ) * ( Math.random() * 50 + 25 );
+      vy = ( Math.random() > 0.5 ? 1 : -1 ) * ( Math.random() * 50 + 25 );
       points.push( new Point( x, y, vx, vy ) );
     }
 
