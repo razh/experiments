@@ -3,6 +3,9 @@
 
   var EPSILON = 1e-3;
 
+  var DEG_TO_RAD = Math.PI / 180,
+      RAD_TO_DEG = 180 / Math.PI;
+
   var canvas = document.getElementById( 'canvas' ),
       context = canvas.getContext( '2d' );
 
@@ -42,30 +45,23 @@
   }
 
   Bone.prototype.update = function( dt ) {
-    var length = distance( this.src.x, this.src.y, this.dst.x, this.dst.y );
-    if ( Math.abs( length - this.length ) > EPSILON ) {
-      var ratio = this.length / length;
-      this.dst.x = this.src.x + ( this.dst.x - this.src.x ) * ratio;
-      this.dst.y = this.src.y + ( this.dst.y - this.src.y ) * ratio;
+    if ( !this.src || !this.dst ) {
+      return;
     }
 
-    if ( this.angle ) {
-      var dx = this.dst.x - this.src.x,
-          dy = this.dst.y - this.src.y;
+    if ( this.parent ) {
+      var parent = this.parent,
+          parentAngle = Math.atan2( parent.dst.y - parent.src.y, parent.dst.x - parent.src.x );
 
-      var angle = Math.atan2( dy, dx );
+      this.dst.x = this.src.x + Math.cos( this.angle + parentAngle ) * this.length;
+      this.dst.y = this.src.y + Math.sin( this.angle + parentAngle ) * this.length;
+    } else {
+      var length = distance( this.src.x, this.src.y, this.dst.x, this.dst.y );
 
-      var parent = this.parent;
-
-      var pdx = parent.dst.x - parent.src.x,
-          pdy = parent.dst.y - parent.src.y;
-
-      var parentAngle = Math.atan2( pdy, pdx );
-
-      var dAngle = angle - parentAngle;
-      if ( Math.abs( dAngle - this.angle ) < EPSILON ) {
-        this.dst.x = this.src.x + Math.cos( dAngle ) * this.length;
-        this.dst.y = this.src.y + Math.sin( dAngle ) * this.length;
+      if ( Math.abs( length - this.length ) > EPSILON ) {
+        var ratio = this.length / length;
+        this.dst.x = this.src.x + ( this.dst.x - this.src.x ) * ratio;
+        this.dst.y = this.src.y + ( this.dst.y - this.src.y ) * ratio;
       }
     }
 
@@ -87,6 +83,10 @@
     ctx.strokeStyle = 'black';
     ctx.stroke();
 
+    ctx.font = '12px Helvetica';
+    ctx.fillStyle = 'black';
+    ctx.fillText( ( this.angle * RAD_TO_DEG ).toFixed(0), this.dst.x, this.dst.y );
+
     this.children.forEach(function( child ) {
       child.draw( ctx );
     });
@@ -95,8 +95,9 @@
   Bone.prototype.attach = function( bone ) {
     this.children.push( bone );
     bone.parent = this;
-    bone.angle = Math.atan2( bone.dst.y - bone.src.y, bone.dst.x - bone.src.x ) -
-      Math.atan2( this.dst.y - this.src.y, this.dst.x - this.src.x );
+    bone.angle = Math.atan2( this.dst.y - this.src.y, this.dst.x - this.src.x ) -
+      Math.atan2( bone.dst.y - bone.src.y, bone.dst.x - bone.src.x );
+
     return this;
   };
 
@@ -152,7 +153,8 @@
           new Point( 140, 200 )
         )
       )
-    ).attach(
+    )
+    .attach(
       new Bone(
         new Point( 100, 120 ),
         new Point( 70, 170 )
