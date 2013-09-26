@@ -15,7 +15,30 @@ define([
   Circle.prototype.constructor = Circle;
 
   Circle.prototype.draw = function( ctx ) {
+    ctx.moveTo( this.x + this.radius, this.y );
     ctx.arc( this.x, this.y, this.radius, 0, Geometry.PI2 );
+  };
+
+  function Ellipse( x, y, rx, ry ) {
+    Point.call( this, x, y );
+    this.rx = rx || 0;
+    this.ry = ry || 0;
+  }
+
+  Ellipse.prototype = new Point();
+  Ellipse.prototype.constructor = Ellipse;
+
+  Ellipse.prototype.draw = function( ctx ) {
+    // ctx.ellipse() method is not currently available in most browsers.
+    ctx.save();
+
+    ctx.translate( this.x, this.y );
+    ctx.scale( this.rx, this.ry );
+
+    ctx.moveTo( 1, 0 );
+    ctx.arc( 0, 0, 1, 0, Geometry.PI2 );
+
+    ctx.restore();
   };
 
   var canvas = document.getElementById( 'canvas' ),
@@ -38,6 +61,7 @@ define([
   var maxSpeed = 300;
 
   var circle,
+      ellipse,
       points = [];
 
   function tick() {
@@ -120,6 +144,7 @@ define([
 
     ctx.beginPath();
 
+    ellipse.draw( ctx );
     circle.draw( ctx );
     points.forEach(function( point ) {
       point.draw( ctx );
@@ -143,6 +168,8 @@ define([
     canvas.addEventListener( 'mousedown', Input.onMouseDown );
     canvas.addEventListener( 'mousemove', Input.onMouseMove );
     canvas.addEventListener( 'mouseup', Input.onMouseUp );
+
+    ellipse = new Ellipse( 150, 150, 20, 40, Geometry.PI2 );
 
     circle = new Circle( canvas.width * 0.5, canvas.height * 0.5, 50 );
     Input.mouse.x = circle.x;
