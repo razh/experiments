@@ -2,9 +2,8 @@
 define([
   'math/geometry',
   'input',
-  'point',
-  'constraint'
-], function( Geometry, Input, Point, Constraint ) {
+  'point'
+], function( Geometry, Input, Point ) {
   'use strict';
 
   function Circle( x, y, radius ) {
@@ -36,6 +35,8 @@ define([
 
   var spacing = 10;
 
+  var maxSpeed = 300;
+
   var circle,
       points = [];
 
@@ -52,12 +53,14 @@ define([
   function updatePoints( dt ) {
     var i, j;
 
-    for ( i = 0; i < xCount; i++ ) {
-      var angle = -Math.PI * ( i / xCount );
-      points[i].pin(
-        circle.x + Math.cos( angle ) * ( circle.radius + spacing ),
-        circle.y + Math.sin( angle ) * ( circle.radius + spacing )
-      );
+    if ( circle.x !== circle.px || circle.y !== circle.py ) {
+      for ( i = 0; i < xCount; i++ ) {
+        var angle = -Math.PI * ( i / xCount );
+        points[i].pin(
+          circle.x + Math.cos( angle ) * ( circle.radius + spacing ),
+          circle.y + Math.sin( angle ) * ( circle.radius + spacing )
+        );
+      }
     }
 
     i = iterationCount;
@@ -87,8 +90,28 @@ define([
 
     dt *= 1e-3;
 
-    circle.x = Input.mouse.x;
-    circle.y = Input.mouse.y;
+    circle.px = circle.x;
+    circle.py = circle.y;
+
+    var mouseDistance = Geometry.distance( circle.x, circle.y, Input.mouse.x, Input.mouse.y );
+    if ( mouseDistance > 1 ) {
+      var dx = Input.mouse.x - circle.x,
+          dy = Input.mouse.y - circle.y;
+
+      var distanceInverse = 1 / mouseDistance;
+
+      var speed = Math.min( 3 * mouseDistance, maxSpeed ) * dt;
+
+      dx *= distanceInverse * speed;
+      dy *= distanceInverse * speed;
+
+      circle.x += dx;
+      circle.y += dy;
+    } else {
+      circle.x = Input.mouse.x;
+      circle.y = Input.mouse.y;
+    }
+
     updatePoints( dt );
   }
 
