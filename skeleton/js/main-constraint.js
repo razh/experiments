@@ -23,6 +23,8 @@ define([
       currTime,
       running = true;
 
+  var padding = 10;
+
   function tick() {
     if ( !running ) {
       return;
@@ -33,22 +35,7 @@ define([
     window.requestAnimationFrame( tick );
   }
 
-  function update() {
-    if ( Input.keys[ 27 ] ) {
-      running = false;
-      return;
-    }
-
-    currTime = Date.now();
-    var dt = currTime - prevTime;
-    prevTime = currTime;
-
-    if ( dt > 1e2 ) {
-      dt = 1e2;
-    }
-
-    dt *= 1e-3;
-
+  function updatePoints( dt ) {
     var i, j;
     i = iterationCount;
 
@@ -61,17 +48,59 @@ define([
       }
     }
 
+    var xmin = padding,
+        ymin = padding,
+        xmax = canvas.width - padding,
+        ymax = canvas.height - padding;
+
     points.forEach(function( point ) {
+      // Mouse input.
       if ( Input.mouse.down ) {
         var distanceSquared = Geometry.distanceSquared( point.x, point.y, Input.mouse.x, Input.mouse.y );
-        if ( distanceSquared < 100 ) {
-          point.px = point.x - 1.8 * ( Input.mouse.x - Input.mouse.px );
-          point.py = point.y - 1.8 * ( Input.mouse.y - Input.mouse.py );
+        // Alt key.
+        if ( !Input.keys[ 18 ] ) {
+          if ( distanceSquared < 400 ) {
+            point.px = point.x - 1.8 * ( Input.mouse.x - Input.mouse.px );
+            point.py = point.y - 1.8 * ( Input.mouse.y - Input.mouse.py );
+          }
+        } else if ( distanceSquared < 25 ) {
+          point.constraints = [];
         }
       }
 
       point.update( dt );
+
+      // Keep the pounds in bounds.
+      if ( point.x < xmin ) {
+        point.x = xmin;
+      }
+
+      if ( point.y < ymin ) {
+        point.y = ymin;
+      }
+
+      if ( point.x > xmax ) {
+        point.x = xmax;
+      }
+
+      if ( point.y > ymax ) {
+        point.y = ymax;
+      }
     });
+  }
+
+  function update() {
+    currTime = Date.now();
+    var dt = currTime - prevTime;
+    prevTime = currTime;
+
+    if ( dt > 1e2 ) {
+      dt = 1e2;
+    }
+
+    dt *= 1e-3;
+
+    updatePoints( dt );
   }
 
   function draw( ctx ) {
@@ -87,7 +116,15 @@ define([
   }
 
   function init() {
-    document.addEventListener( 'keydown', Input.onKeyDown );
+    document.addEventListener( 'keydown', function( event ) {
+      Input.onKeyDown( event );
+
+      if ( Input.keys[ 27 ] ) {
+        running = false;
+        return;
+      }
+    });
+
     document.addEventListener( 'keyup', Input.onKeyUp );
 
     canvas.addEventListener( 'mousedown', Input.onMouseDown );
