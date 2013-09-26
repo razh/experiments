@@ -90,6 +90,14 @@
     pointQuadtree.insertAll( points );
   }
 
+  function drawSegment( ctx, lineWidth, segment ) {
+    ctx.beginPath();
+    ctx.moveTo( segment[0].x, segment[0].y );
+    ctx.lineTo( segment[1].x, segment[1].y );
+    ctx.lineWidth = lineWidth;
+    ctx.stroke();
+  }
+
   function draw( ctx ) {
     ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
 
@@ -131,20 +139,9 @@
     });
     ctx.fill();
 
-    function drawSegment( segment ) {
-      ctx.moveTo( segment[0].x, segment[0].y );
-      ctx.lineTo( segment[1].x, segment[1].y );
-    }
 
-    ctx.beginPath();
-    thinLines.forEach( drawSegment );
-    ctx.lineWidth = 0.1;
-    ctx.stroke();
-
-    ctx.beginPath();
-    thickLines.forEach( drawSegment );
-    ctx.lineWidth = 0.5;
-    ctx.stroke();
+    thinLines.forEach( drawSegment.bind( null, ctx, 0.1 ) );
+    thickLines.forEach( drawSegment.bind( null, ctx, 0.5 ) );
 
     ctx.font = '100 24px Helvetica Neue';
     ctx.fillText( 'thin: ' + thinLines.length + ', thick: ' + thickLines.length + ', comparisons: ' + count, 10, 30 );
