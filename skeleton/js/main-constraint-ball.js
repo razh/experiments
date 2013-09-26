@@ -34,8 +34,7 @@ define([
 
   var iterationCount = 5;
 
-  var spacing = 10,
-      padding = 10;
+  var spacing = 10;
 
   var circle,
       points = [];
@@ -71,30 +70,8 @@ define([
       }
     }
 
-    var xmin = padding,
-        ymin = padding,
-        xmax = canvas.width - padding,
-        ymax = canvas.height - padding;
-
     points.forEach(function( point ) {
       point.update( dt );
-
-      // Keep the pounds in bounds.
-      if ( point.x < xmin ) {
-        point.x = xmin;
-      }
-
-      if ( point.y < ymin ) {
-        point.y = ymin;
-      }
-
-      if ( point.x > xmax ) {
-        point.x = xmax;
-      }
-
-      if ( point.y > ymax ) {
-        point.y = ymax;
-      }
     });
   }
 
