@@ -1,9 +1,8 @@
 /*globals define*/
 define([
   'input',
-  'constraint',
-  'math/geometry'
-], function( Input, Constraint, Geometry ) {
+  'constraint'
+], function( Input, Constraint ) {
   'use strict';
 
   function Point( x, y ) {
@@ -36,15 +35,14 @@ define([
     this.constraints.push( new Constraint( this, point ) );
   };
 
-  Point.prototype.update = function( dt ) {
-    if ( Input.mouse.down ) {
-      var distanceSquared = Geometry.distanceSquared( this.x, this.y, Input.mouse.x, Input.mouse.y );
-      if ( distanceSquared < 10 * 10 ) {
-        this.px = this.x - ( Input.mouse.x - Input.mouse.px ) * 1.8;
-        this.py = this.y - ( Input.mouse.y - Input.mouse.py ) * 1.8;
-      }
+  Point.prototype.remove = function( constraint ) {
+    var index = this.constraints.indexOf( constraint );
+    if ( index !== -1 ) {
+      this.constraints.splice( index, 1 );
     }
+  };
 
+  Point.prototype.update = function( dt ) {
     this.force( 0, 1200 );
 
     var dtSquared = dt * dt;

@@ -1,9 +1,9 @@
 /*globals define*/
 define([
+  'math/geometry',
   'input',
-  'point',
-  'constraint'
-], function( Input, Point, Constraint ) {
+  'point'
+], function( Geometry, Input, Point ) {
   'use strict';
 
   console.log( 'An implementation of Stuffit\'s Tear-able Cloth codepen project.' );
@@ -49,16 +49,27 @@ define([
 
     dt *= 1e-3;
 
-    var i = iterationCount;
+    var i, j;
+    i = iterationCount;
+
+    var length = points.length;
 
     while( i-- ) {
-      var p = points.length;
-      while ( p-- ) {
-        points[p].resolve();
+      j = length;
+      while ( j-- ) {
+        points[j].resolve();
       }
     }
 
     points.forEach(function( point ) {
+      if ( Input.mouse.down ) {
+        var distanceSquared = Geometry.distanceSquared( point.x, point.y, Input.mouse.x, Input.mouse.y );
+        if ( distanceSquared < 100 ) {
+          point.px = point.x - 1.8 * ( Input.mouse.x - Input.mouse.px );
+          point.py = point.y - 1.8 * ( Input.mouse.y - Input.mouse.py );
+        }
+      }
+
       point.update( dt );
     });
   }
@@ -83,10 +94,10 @@ define([
     canvas.addEventListener( 'mousemove', Input.onMouseMove );
     canvas.addEventListener( 'mouseup', Input.onMouseUp );
 
-    var xCount = 15,
-        yCount = 10;
+    var xCount = 25,
+        yCount = 25;
 
-    var spacing = 15;
+    var spacing = 10;
 
     var i, j;
     for ( j = 0; j < yCount; j++ ) {
