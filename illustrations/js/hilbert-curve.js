@@ -14,19 +14,18 @@
   var signX = [ -1, +1, +1, -1 ],
       signY = [ -1, -1, +1, +1 ];
 
-  function Hilbert2D( size, depth ) {
-    this.size  = size  = size  || 0;
-    this.depth = depth = depth || 0;
+  function Hilbert2D( options ) {
+    this.size  = options.size  || 0;
+    this.depth = options.depth || 0;
 
     this.vertices = [];
 
     this.dx = [];
     this.dy = [];
 
-    size *= 0.5;
-
+    var size = 0.5 * this.size;
     var i, j;
-    for ( i = depth - 1; i >= 0; i--, size *= 0.5 ) {
+    for ( i = this.depth - 1; i >= 0; i--, size *= 0.5 ) {
       this.dx[i] = [];
       this.dy[i] = [];
 
@@ -36,9 +35,7 @@
       }
     }
 
-    this._index = 0;
-    this.generate( 0, 0, depth, 0, 1, 2, 3 );
-    delete this._index;
+    this.generate( 0, 0, this.depth, 0, 1, 2, 3 );
   }
 
   Hilbert2D.prototype.draw = function( ctx ) {
@@ -46,32 +43,15 @@
       return;
     }
 
-    var xmin = this.vertices[0][0],
-        ymin = this.vertices[0][1],
-        xmax = xmin,
-        ymax = ymin;
-
     ctx.moveTo( this.vertices[0][0], this.vertices[0][1] );
-    var i, il;
-    for ( i = 1, il = this.vertices.length; i < il; i++ ) {
+    for ( var i = 1, il = this.vertices.length; i < il; i++ ) {
       ctx.lineTo( this.vertices[i][0], this.vertices[i][1] );
-
-      var x = this.vertices[i][0],
-          y = this.vertices[i][1];
-
-      if ( x < xmin ) { xmin = x; }
-      if ( x > xmax ) { xmax = x; }
-      if ( y < ymin ) { ymin = y; }
-      if ( y > ymax ) { ymax = y; }
     }
-
-    console.log( '(' + xmin + ', ' + ymin + '), (' + xmax + ', ' +  ymax + ')' );
   };
 
   Hilbert2D.prototype.generate = function( x, y, depth, a, b, c, d ) {
     if ( !depth ) {
-      this.vertices[ this._index ] = [ x, y ];
-      this._index++;
+      this.vertices[ this.vertices.length ] = [ x, y ];
     } else {
       depth--;
 
@@ -85,8 +65,40 @@
     }
   };
 
+  Hilbert2D.prototype.aabb = function() {
+    if ( !this.vertices.length ) {
+      return;
+    }
+
+    var x0 = this.vertices[0][0],
+        y0 = this.vertices[0][1],
+        x1 = x0,
+        y1 = y0;
+
+    var x, y;
+    for ( var i = 1, il = this.vertices.length; i < il; i++ ) {
+      x = this.vertices[i][0];
+      y = this.vertices[i][1];
+
+      if ( x < x0 ) { x0 = x; }
+      if ( x > x1 ) { x1 = x; }
+      if ( y < y0 ) { y0 = y; }
+      if ( y > y1 ) { y1 = y; }
+    }
+
+    return {
+      x0: x0,
+      y0: y0,
+      x1: x1,
+      y1: y1
+    };
+  };
+
   var curveWidth = 200;
-  var hilbertCurve2d = new Hilbert2D( curveWidth, 5 );
+  var hilbertCurve2d = new Hilbert2D({
+    size: curveWidth,
+    depth: 5
+  });
 
   function draw( ctx ) {
     ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
@@ -97,6 +109,14 @@
     ctx.lineWidth = 1;
     ctx.strokeStyle = 'black';
     ctx.stroke();
+
+    var aabb = hilbertCurve2d.aabb();
+    console.log( '(' +
+      aabb.x0 + ', ' +
+      aabb.y0 + '), (' +
+      aabb.x1 + ', ' +
+      aabb.y1 + ')'
+    );
   }
 
   draw( context );
