@@ -97,7 +97,7 @@
   };
 
   var curveWidth = 200;
-  var hilbertCurve2d = new Hilbert2D({
+  var h2d = new Hilbert2D({
     size: curveWidth,
     depth: 5
   });
@@ -106,13 +106,13 @@
     ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
     ctx.translate( curveWidth, curveWidth );
 
-    hilbertCurve2d.draw( ctx );
+    h2d.draw( ctx );
 
     ctx.lineWidth = 1;
     ctx.strokeStyle = 'black';
     ctx.stroke();
 
-    var aabb = hilbertCurve2d.aabb();
+    var aabb = h2d.aabb();
     console.log( '(' +
       aabb.x0 + ', ' +
       aabb.y0 + '), (' +
@@ -145,9 +145,9 @@
       this.dz[i] = [];
 
       for ( j = 0; j < 8; j++ ) {
-        this.dx[i][j] = Hilbert2D.sign.x[j] * size;
-        this.dy[i][j] = Hilbert2D.sign.y[j] * size;
-        this.dz[i][j] = Hilbert2D.sign.z[j] * size;
+        this.dx[i][j] = Hilbert3D.sign.x[j] * size;
+        this.dy[i][j] = Hilbert3D.sign.y[j] * size;
+        this.dz[i][j] = Hilbert3D.sign.z[j] * size;
       }
     }
 
@@ -180,5 +180,123 @@
       this.generate( x + dx[h], y + dy[h], z + dz[h], depth, g, f, c, b, a, d, e, h );
     }
   };
+
+
+  function distanceSquared3D( x0, y0, z0, x1, y1, z1 ) {
+    var dx = x1 - x0,
+        dy = y1 - y0,
+        dz = z1 - z0;
+
+    return dx * dx + dy * dy + dz * dz;
+  }
+
+  function distance3D( x0, y0, z0, x1, y1, z1 ) {
+    return Math.sqrt( distanceSquared3D( x0, y0, z0, x1, y1, z1 ) );
+  }
+
+  var Axis = {
+    X: 1,
+    Y: 2,
+    Z: 4
+  };
+
+  function axisOf( x0, y0, z0, x1, y1, z1 ) {
+    if ( x1 - x0 ) {
+      return Axis.X;
+    } else if ( y1 - y0 ) {
+      return Axis.Y;
+    } else if ( z1 - z0 ) {
+      return Axis.Z;
+    }
+
+    return null;
+  }
+
+  function pointsToSegments( points ) {
+    var segments = [];
+
+    for ( var i = 0, il = points.length - 1; i < il; i++ ) {
+      // Copy by value.
+      segments.push([
+        [
+          points[i][0],
+          points[i][1],
+          points[i][2]
+        ],
+        [
+          points[ i + 1 ][0],
+          points[ i + 1 ][1],
+          points[ i + 1 ][2]
+        ]
+      ]);
+    }
+
+    return segments;
+  }
+
+  function segmentsToDivs( segments ) {
+    var divs = document.createElement( 'div' );
+
+    var div;
+    var x0, y0, z0, x1, y1, z1;
+    var segment, distance, axis, transform;
+    for ( var i = 0, il = segments.length; i < il; i++ ) {
+      div = document.createElement( 'div' );
+      div.classList.add( 'segment' );
+
+      segment = segments[i];
+
+      x0 = segment[0][0];
+      y0 = segment[0][1];
+      z0 = segment[0][2];
+
+      x1 = segment[1][0];
+      y1 = segment[1][1];
+      z1 = segment[1][2];
+
+      distance = distance3D( x0, y0, z0, x1, y1, z1 );
+      axis = axisOf( x0, y0, z0, x1, y1, z1 );
+
+      div.style.width = distance + 'px';
+      div.style.height = '1px';
+
+      div.style.position = 'absolute';
+
+      transform = 'translate3d(' +
+        x0 + 'px, ' +
+        y0 + 'px, ' +
+        z0 + 'px)';
+
+      div.style.webkitTransform = transform;
+      div.style.transform = transform;
+
+      divs.appendChild( div );
+    }
+
+    return divs;
+  }
+
+  var h3d = new Hilbert3D({
+    size: 200,
+    depth: 2
+  });
+
+  var h3dDivs = segmentsToDivs([
+    [
+      [ 100, 100, 100 ],
+      [ 200, 100, 100 ]
+    ]
+  ]);
+
+  h3dDivs = segmentsToDivs( pointsToSegments( h3d.vertices ) );
+
+  var h3dDiv = document.getElementById( 'hilbert3d' );
+  h3dDiv.appendChild( h3dDivs );
+  h3dDiv.style.persepective = 1000;
+
+  var h3dTransform = 'translate(200px, 200px) rotateX(0deg)';
+  h3dDivs.style.webkitTransform = h3dTransform;
+  h3dDivs.style.transform = h3dTransform;
+
 
 }) ( window, document );

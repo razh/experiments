@@ -6,6 +6,22 @@
 }
 
 /* line 7, ../sass/hilbert-curve.scss */
+html, body {
+  height: 100%;
+}
+
+/* line 11, ../sass/hilbert-curve.scss */
 body {
   margin: 0;
+}
+
+/* line 15, ../sass/hilbert-curve.scss */
+.section {
+  width: 100%;
+  height: 100%;
+}
+
+/* line 20, ../sass/hilbert-curve.scss */
+.segment {
+  background-color: black;
 }
