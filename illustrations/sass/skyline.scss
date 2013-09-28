@@ -210,7 +210,7 @@ body {
 
 @mixin spire($color, $width, $height, $left: 50%) {
   &:after {
-    content: '';
+    content: "";
     position: absolute;
 
     width: $width;

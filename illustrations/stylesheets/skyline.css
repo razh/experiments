@@ -254,7 +254,7 @@ body {
 }
 /* line 212, ../sass/skyline.scss */
 .background .container .building:nth-of-type(5):after {
-  content: '';
+  content: "";
   position: absolute;
   width: 2px;
   height: 40px;
@@ -275,7 +275,7 @@ body {
 /* line 212, ../sass/skyline.scss */
 .background .container .building:nth-of-type(4):after,
 .background .container .building:nth-of-type(8):after {
-  content: '';
+  content: "";
   position: absolute;
   width: 2px;
   height: 20px;

@@ -86,7 +86,7 @@ body {
 }
 /* line 94, ../sass/mainframe.scss */
 .container .mainframe #component-center .dial:after {
-  content: '';
+  content: "";
   position: absolute;
   width: 12.6px;
   height: 3px;
