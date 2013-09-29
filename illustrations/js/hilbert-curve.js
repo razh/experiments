@@ -238,8 +238,9 @@
     var divs = document.createElement( 'div' );
 
     var div;
+    var dx, dy, dz;
     var x0, y0, z0, x1, y1, z1;
-    var segment, distance, axis, transform;
+    var segment, distance, axis, transform, transformOrigin;
     for ( var i = 0, il = segments.length; i < il; i++ ) {
       div = document.createElement( 'div' );
       div.classList.add( 'segment' );
@@ -254,12 +255,14 @@
       y1 = segment[1][1];
       z1 = segment[1][2];
 
+      dx = x1 - x0;
+      dy = y1 - y0;
+      dz = z1 - z0;
+
       distance = distance3D( x0, y0, z0, x1, y1, z1 );
       axis = axisOf( x0, y0, z0, x1, y1, z1 );
 
       div.style.width = distance + 'px';
-      div.style.height = '1px';
-
       div.style.position = 'absolute';
 
       transform = 'translate3d(' +
@@ -267,8 +270,32 @@
         y0 + 'px, ' +
         z0 + 'px)';
 
+      if ( axis === Axis.X && dx < 0 ) {
+        transform += 'rotateZ(180deg)';
+      }
+
+      if ( axis === Axis.Y ) {
+        if ( dy > 0 ) {
+          transform += ' rotateZ(90deg)';
+        } else {
+          transform += ' rotateZ(-90deg)';
+        }
+      }
+
+      if ( axis === Axis.Z ) {
+        if ( dz > 0 ) {
+          transform += ' rotateY(-90deg)';
+        } else {
+          transform += ' rotateY(90deg)';
+        }
+      }
+
       div.style.webkitTransform = transform;
       div.style.transform = transform;
+
+      transformOrigin = '0 50% 0';
+      div.style.webkitTransformOrigin = transformOrigin;
+      div.style.transformOrigin = transformOrigin;
 
       divs.appendChild( div );
     }
@@ -292,11 +319,21 @@
 
   var h3dDiv = document.getElementById( 'hilbert3d' );
   h3dDiv.appendChild( h3dDivs );
-  h3dDiv.style.persepective = 1000;
 
-  var h3dTransform = 'translate(200px, 200px) rotateX(0deg)';
+  var h3dTransform = 'translate(200px, 200px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)';
   h3dDivs.style.webkitTransform = h3dTransform;
   h3dDivs.style.transform = h3dTransform;
 
+  var h3dTransformStyle = 'preserve-3d';
+  h3dDivs.style.webkitTransformStyle = h3dTransformStyle;
+  h3dDivs.style.transformStyle = h3dTransformStyle;
+
+  var h3dPerspective = 1000;
+  h3dDivs.style.webkitPerspective = h3dPerspective;
+  h3dDivs.style.perspective = h3dPerspective;
+
+  var h3dPerspectiveOrigin = 'left top';
+  h3dDivs.style.webkitPerspectiveOrigin = h3dPerspectiveOrigin;
+  h3dDivs.style.perspectiveOrigin = h3dPerspectiveOrigin;
 
 }) ( window, document );

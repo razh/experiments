@@ -24,4 +24,23 @@ body {
 /* line 20, ../sass/hilbert-curve.scss */
 .segment {
   background-color: black;
+  height: 2px;
+}
+/* line 24, ../sass/hilbert-curve.scss */
+.segment:first-of-type {
+  background-color: red;
+}
+/* line 28, ../sass/hilbert-curve.scss */
+.segment:last-of-type {
+  background-color: blue;
+}
+/* line 32, ../sass/hilbert-curve.scss */
+.segment:after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  margin-top: -2px;
+  margin-left: -2px;
+  background-color: black;
 }

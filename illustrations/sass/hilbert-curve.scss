@@ -19,4 +19,23 @@ body {
 
 .segment {
   background-color: black;
+  height: 2px;
+
+  &:first-of-type {
+    background-color: red;
+  }
+
+  &:last-of-type {
+    background-color: blue;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    margin-top: -2px;
+    margin-left: -2px;
+    background-color: black;
+  }
 }
