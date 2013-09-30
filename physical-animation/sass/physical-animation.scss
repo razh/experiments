@@ -1,0 +1,13 @@
+@import "compass/reset";
+
+.test {
+  width: 100px;
+  height: 100px;
+  background-color: #888;
+
+  -webkit-filter: #{"custom(
+    url(../shaders/shader.vs)
+    mix(url(../shaders/shader.fs) normal source-atop),
+    16 16
+  )"};
+}
