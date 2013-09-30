@@ -70,125 +70,20 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   box-sizing: border-box;
 }
 
-@-webkit-keyframes forward-rotation {
-  /* line 33, ../sass/loading-animations.scss */
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-
-  /* line 34, ../sass/loading-animations.scss */
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
+/* line 32, ../sass/loading-animations.scss */
+html, body {
+  height: 100%;
 }
 
-@keyframes forward-rotation {
-  /* line 33, ../sass/loading-animations.scss */
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-
-  /* line 34, ../sass/loading-animations.scss */
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-@-webkit-keyframes backward-rotation {
-  /* line 38, ../sass/loading-animations.scss */
-  0% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-
-  /* line 39, ../sass/loading-animations.scss */
-  100% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-}
-
-@keyframes backward-rotation {
-  /* line 38, ../sass/loading-animations.scss */
-  0% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-
-  /* line 39, ../sass/loading-animations.scss */
-  100% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
+/* line 36, ../sass/loading-animations.scss */
+.animation {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 /* line 42, ../sass/loading-animations.scss */
-body {
-  background-color: #222;
-}
-
-/* line 46, ../sass/loading-animations.scss */
-.circle {
-  position: absolute;
-  width: 250px;
-  height: 250px;
-  margin-top: -125px;
-  margin-left: -125px;
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  border: 2px solid transparent;
-  border-left: 2px solid #f43;
-  -webkit-animation: forward-rotation 2s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
-  animation: forward-rotation 2s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
-}
-
-/* line 58, ../sass/loading-animations.scss */
-.circle-b {
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  margin-top: -150px;
-  margin-left: -150px;
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  border: 2px solid transparent;
-  border-left: 2px solid #fff;
-  -webkit-animation: backward-rotation 5s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
-  animation: backward-rotation 5s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
-}
-
-/* line 70, ../sass/loading-animations.scss */
-.text {
+.counter {
   position: absolute;
   width: 100px;
   height: 100px;
@@ -201,4 +96,167 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 100;
   text-align: center;
+}
+
+@-webkit-keyframes forward-rotation {
+  /* line 66, ../sass/loading-animations.scss */
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  /* line 67, ../sass/loading-animations.scss */
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes forward-rotation {
+  /* line 66, ../sass/loading-animations.scss */
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  /* line 67, ../sass/loading-animations.scss */
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes backward-rotation {
+  /* line 71, ../sass/loading-animations.scss */
+  0% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+  /* line 72, ../sass/loading-animations.scss */
+  100% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes backward-rotation {
+  /* line 71, ../sass/loading-animations.scss */
+  0% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+  /* line 72, ../sass/loading-animations.scss */
+  100% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+/* line 75, ../sass/loading-animations.scss */
+.animation#animation-00 {
+  background-color: #222;
+}
+/* line 78, ../sass/loading-animations.scss */
+.animation#animation-00 .circle {
+  top: 50%;
+  left: 50%;
+  border: 2px solid transparent;
+}
+/* line 85, ../sass/loading-animations.scss */
+.animation#animation-00 .circle#inner {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  margin-top: -125px;
+  margin-left: -125px;
+  border-radius: 50%;
+  border-left: 2px solid #f43;
+  -webkit-animation: forward-rotation 2s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+  animation: forward-rotation 2s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+/* line 92, ../sass/loading-animations.scss */
+.animation#animation-00 .circle#outer {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  margin-top: -150px;
+  margin-left: -150px;
+  border-radius: 50%;
+  border-left: 2px solid #fff;
+  -webkit-animation: backward-rotation 5s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+  animation: backward-rotation 5s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+@-webkit-keyframes line-stretch-shrink {
+  /* line 101, ../sass/loading-animations.scss */
+  0% {
+    width: 0px;
+  }
+
+  /* line 102, ../sass/loading-animations.scss */
+  100% {
+    width: 200px;
+  }
+}
+
+@keyframes line-stretch-shrink {
+  /* line 101, ../sass/loading-animations.scss */
+  0% {
+    width: 0px;
+  }
+
+  /* line 102, ../sass/loading-animations.scss */
+  100% {
+    width: 200px;
+  }
+}
+
+/* line 105, ../sass/loading-animations.scss */
+.animation#animation-01 {
+  background-color: #333;
+}
+/* line 108, ../sass/loading-animations.scss */
+.animation#animation-01 .line {
+  position: absolute;
+}
+/* line 112, ../sass/loading-animations.scss */
+.animation#animation-01 .line#left {
+  width: 200px;
+  height: 1px;
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  -webkit-transform: rotateZ(-45deg);
+  -moz-transform: rotateZ(-45deg);
+  -ms-transform: rotateZ(-45deg);
+  -o-transform: rotateZ(-45deg);
+  transform: rotateZ(-45deg);
+  -webkit-animation: line-stretch-shrink 1s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+  animation: line-stretch-shrink 1s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
 }

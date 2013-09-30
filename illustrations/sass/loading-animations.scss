@@ -29,45 +29,17 @@
   @include box-sizing(border-box);
 }
 
-@include keyframes(forward-rotation) {
-  0% { @include rotate(0deg); }
-  100% { @include rotate(360deg); }
+html, body {
+  height: 100%;
 }
 
-@include keyframes(backward-rotation) {
-  0% { @include rotate(360deg); }
-  100% { @include rotate(0deg); }
+.animation {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-body {
-  background-color: #222;
-}
-
-.circle {
-  @include circle(250px);
-
-  top: 50%;
-  left: 50%;
-
-  border: 2px solid transparent;
-  border-left: 2px solid #f43;
-
-  @include animation(forward-rotation 2s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite);
-}
-
-.circle-b {
-  @include circle(300px);
-
-  top: 50%;
-  left: 50%;
-
-  border: 2px solid transparent;
-  border-left: 2px solid #fff;
-
-  @include animation(backward-rotation 5s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite);
-}
-
-.text {
+.counter {
   position: absolute;
 
   width: 100px;
@@ -84,9 +56,69 @@ body {
 
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 100;
-
   // background-color: #555;
 
   text-align: center;
-  // vertical-align: middle;
+}
+
+
+@include keyframes(forward-rotation) {
+  0% { @include rotate(0deg); }
+  100% { @include rotate(360deg); }
+}
+
+@include keyframes(backward-rotation) {
+  0% { @include rotate(360deg); }
+  100% { @include rotate(0deg); }
+}
+
+.animation#animation-00 {
+  background-color: #222;
+
+  .circle {
+    top: 50%;
+    left: 50%;
+
+    border: 2px solid transparent;
+  }
+
+  .circle#inner {
+    @include circle(250px);
+    border-left: 2px solid #f43;
+
+    @include animation(forward-rotation 2s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite);
+  }
+
+  .circle#outer {
+    @include circle(300px);
+    border-left: 2px solid #fff;
+
+    @include animation(backward-rotation 5s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite);
+  }
+}
+
+@include keyframes(line-stretch-shrink) {
+  0% { width: 0px };
+  100% { width: 200px };
+}
+
+.animation#animation-01 {
+  background-color: #333;
+
+  .line {
+    position: absolute;
+  }
+
+  .line#left {
+    width: 200px;
+    height: 1px;
+
+    top: 50%;
+    left: 50%;
+
+    background-color: white;
+
+    @include transform(rotateZ(-45deg));
+    @include animation(line-stretch-shrink 1s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite);
+  }
 }

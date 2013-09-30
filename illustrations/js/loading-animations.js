@@ -1,11 +1,13 @@
 (function( window, document, undefined ) {
   'use strict';
 
-  var counter = document.getElementById( 'percentage' );
+  var counters = [].slice.call( document.getElementsByClassName( 'counter' ) );
 
   document.addEventListener( 'mousemove', function( event ) {
     var x = Math.round( event.pageX / window.innerWidth * 100 );
-    counter.innerHTML = x;
+    counters.forEach(function( counter ) {
+      counter.innerHTML = x;
+    });
   });
 
 }) ( window, document );
