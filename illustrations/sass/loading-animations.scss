@@ -1,0 +1,92 @@
+@import "compass/reset";
+
+@import "compass/css3/box-sizing";
+@import "compass/css3/transform";
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} { @content; }
+  @keyframes #{$name} { @content; }
+}
+
+@mixin animation($animation) {
+  -webkit-animation: #{$animation};
+          animation: #{$animation};
+}
+
+@mixin circle($radius) {
+  position: absolute;
+
+  width: $radius;
+  height: $radius;
+
+  margin-top: -0.5 * $radius;
+  margin-left: -0.5 * $radius;
+
+  border-radius: 50%;
+}
+
+* {
+  @include box-sizing(border-box);
+}
+
+@include keyframes(forward-rotation) {
+  0% { @include rotate(0deg); }
+  100% { @include rotate(360deg); }
+}
+
+@include keyframes(backward-rotation) {
+  0% { @include rotate(360deg); }
+  100% { @include rotate(0deg); }
+}
+
+body {
+  background-color: #222;
+}
+
+.circle {
+  @include circle(250px);
+
+  top: 50%;
+  left: 50%;
+
+  border: 2px solid transparent;
+  border-left: 2px solid #f43;
+
+  @include animation(forward-rotation 2s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite);
+}
+
+.circle-b {
+  @include circle(300px);
+
+  top: 50%;
+  left: 50%;
+
+  border: 2px solid transparent;
+  border-left: 2px solid #fff;
+
+  @include animation(backward-rotation 5s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite);
+}
+
+.text {
+  position: absolute;
+
+  width: 100px;
+  height: 100px;
+
+  top: 50%;
+  left: 50%;
+
+  margin-top: -50px;
+  margin-left: -50px;
+
+  color: white;
+  font-size: 100px;
+
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 100;
+
+  // background-color: #555;
+
+  text-align: center;
+  // vertical-align: middle;
+}

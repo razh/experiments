@@ -83,20 +83,19 @@ html, body {
   background-color: black;
   color: rgba(255, 255, 255, 0.9);
   text-shadow: 0 0 7px rgba(0, 255, 255, 0.75);
-  font-family: "nudista-web", Monaco, Consolas, "Courier New", Courier, monospace;
-  font-family: "proxima-nova";
+  font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 100;
   font-size: 1.25em;
   letter-spacing: 0.1em;
 }
 
-/* line 39, ../sass/screen.scss */
+/* line 38, ../sass/screen.scss */
 .oblivion-css #css-dashed-circle {
   position: relative;
   top: 50%;
   left: 50%;
 }
-/* line 44, ../sass/screen.scss */
+/* line 43, ../sass/screen.scss */
 .oblivion-css #css-dashed-circle .tick {
   position: absolute;
   width: 20px;
@@ -107,7 +106,7 @@ html, body {
   background-color: white;
   color: lightcyan;
 }
-/* line 54, ../sass/screen.scss */
+/* line 53, ../sass/screen.scss */
 .oblivion-css #css-dashed-circle .tick .angle {
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
@@ -119,7 +118,7 @@ html, body {
   margin-top: -4px;
   font-size: 9pt;
 }
-/* line 63, ../sass/screen.scss */
+/* line 62, ../sass/screen.scss */
 .oblivion-css #css-dashed-circle .minor {
   width: 10px;
   height: 1px;
@@ -128,24 +127,24 @@ html, body {
   background-color: rgba(255, 255, 255, 0.5);
   color: rgba(192, 224, 255, 0.75);
 }
-/* line 71, ../sass/screen.scss */
+/* line 70, ../sass/screen.scss */
 .oblivion-css #css-dashed-circle .minor .angle {
   font-size: 7pt;
 }
-/* line 78, ../sass/screen.scss */
+/* line 77, ../sass/screen.scss */
 .oblivion-css #css-canvas {
   position: absolute;
 }
 
-/* line 83, ../sass/screen.scss */
+/* line 82, ../sass/screen.scss */
 .oblivion-canvas {
   overflow: hidden;
 }
-/* line 85, ../sass/screen.scss */
+/* line 84, ../sass/screen.scss */
 .oblivion-canvas #dashed-circle {
   position: relative;
 }
-/* line 89, ../sass/screen.scss */
+/* line 88, ../sass/screen.scss */
 .oblivion-canvas .button {
   display: -webkit-box;
   display: -moz-box;
@@ -167,11 +166,11 @@ html, body {
   border-top: transparent;
   border-bottom: transparent;
 }
-/* line 110, ../sass/screen.scss */
+/* line 109, ../sass/screen.scss */
 .oblivion-canvas .button .text {
   width: 100%;
 }
-/* line 114, ../sass/screen.scss */
+/* line 113, ../sass/screen.scss */
 .oblivion-canvas .button .node {
   position: absolute;
   width: 3px;
@@ -180,15 +179,15 @@ html, body {
   margin-top: -1.5px;
   background-color: #c0f0ff;
 }
-/* line 122, ../sass/screen.scss */
+/* line 121, ../sass/screen.scss */
 .oblivion-canvas .button .node:nth-of-type(2) {
   left: 100%;
 }
-/* line 126, ../sass/screen.scss */
+/* line 125, ../sass/screen.scss */
 .oblivion-canvas .button .node:nth-of-type(3) {
   top: 100%;
 }
-/* line 130, ../sass/screen.scss */
+/* line 129, ../sass/screen.scss */
 .oblivion-canvas .button .node:nth-of-type(4) {
   top: 100%;
   left: 100%;
