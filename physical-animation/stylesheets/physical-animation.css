@@ -65,8 +65,13 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 /* line 3, ../sass/physical-animation.scss */
 .test {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   background-color: #888;
-  -webkit-filter: custom( url(../shaders/shader.vs) mix(url(../shaders/shader.fs) normal source-atop), 16 16 );
+  -webkit-transition: -webkit-filter 1s linear;
+  -webkit-filter: custom( url(../shaders/shader.vs) mix(url(../shaders/shader.fs) normal source-atop), 16 16, time 0, green 0 );
+}
+/* line 16, ../sass/physical-animation.scss */
+.test:hover {
+  -webkit-filter: custom( url(../shaders/shader.vs) mix(url(../shaders/shader.fs) normal source-atop), 16 16, time 1, green 1 );
 }
