@@ -21,3 +21,15 @@
     )"};
   }
 }
+
+
+.warp-test {
+  width: 200px;
+  height: 200px;
+  background-color: #888;
+
+  -webkit-filter: #{"custom(
+    url(../shaders/warp.vs)
+    mix(url(../shaders/shader.fs) normal source-atop)
+  )"};
+}
