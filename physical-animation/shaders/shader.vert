@@ -1,3 +1,4 @@
+/* spec: css */
 precision mediump float;
 
 attribute vec4 a_position;

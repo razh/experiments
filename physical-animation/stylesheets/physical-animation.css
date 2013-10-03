@@ -69,11 +69,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   height: 200px;
   background-color: #888;
   -webkit-transition: -webkit-filter 1s linear;
-  -webkit-filter: custom( url(../shaders/shader.vs) mix(url(../shaders/shader.fs) normal source-atop), 16 16, time 0, green 0 );
+  -webkit-filter: custom( url(../shaders/shader.vert) mix(url(../shaders/shader.frag) normal source-atop), 16 16, time 0, green 0 );
 }
 /* line 16, ../sass/physical-animation.scss */
 .test:hover {
-  -webkit-filter: custom( url(../shaders/shader.vs) mix(url(../shaders/shader.fs) normal source-atop), 16 16, time 1, green 1 );
+  -webkit-filter: custom( url(../shaders/shader.vert) mix(url(../shaders/shader.frag) normal source-atop), 16 16, time 1, green 1 );
 }
 
 /* line 26, ../sass/physical-animation.scss */
@@ -82,9 +82,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   height: 200px;
   background-color: #888;
   -webkit-transition: -webkit-filter 0.2s linear;
-  -webkit-filter: custom( url(../shaders/warp.vs) mix(url(../shaders/warp.fs) normal source-atop), 32 32, k array(0.5, 0.9, 0, 0.6, 0.5, 0, 0.3, 0.5, 0, 0.5) );
+  -webkit-filter: custom( url(../shaders/warp.vert) mix(url(../shaders/warp.frag) normal source-atop), 8 8, k array(0.5, 0.9, 0, 0.6) );
 }
 /* line 40, ../sass/physical-animation.scss */
 .warp-test:hover {
-  -webkit-filter: custom( url(../shaders/warp.vs) mix(url(../shaders/warp.fs) normal source-atop), 32 32, k array(0.9, 0, 0.6, 0.5, 0, 0.3, 0.5, 0, 0.5, 0.5) );
+  -webkit-filter: custom( url(../shaders/warp.vert) mix(url(../shaders/warp.frag) normal source-atop), 8 8, k array(0.9, 0, 0.6, 0.5) );
 }

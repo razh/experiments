@@ -1,3 +1,4 @@
+/* spec: css */
 precision mediump float;
 
 varying vec2 v_meshCoord;
