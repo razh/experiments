@@ -63,33 +63,74 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 3, ../sass/physical-animation.scss */
+/* line 14, ../sass/physical-animation.scss */
 .test {
+  float: left;
+  color: white;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 4em;
+}
+
+/* line 23, ../sass/physical-animation.scss */
+.transition-test {
   width: 200px;
   height: 200px;
   background-color: #888;
   -webkit-transition: -webkit-filter 1s linear;
   -webkit-filter: custom( url(../shaders/shader.vert) mix(url(../shaders/shader.frag) normal source-atop), 16 16, time 0, green 0 );
 }
-/* line 16, ../sass/physical-animation.scss */
-.test:hover {
+/* line 36, ../sass/physical-animation.scss */
+.transition-test:hover {
   -webkit-filter: custom( url(../shaders/shader.vert) mix(url(../shaders/shader.frag) normal source-atop), 16 16, time 1, green 1 );
 }
 
-/* line 26, ../sass/physical-animation.scss */
+/* line 65, ../sass/physical-animation.scss */
 .warp-test {
   width: 200px;
   height: 200px;
-  color: white;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 4em;
   display: flex;
   align-items: center;
   text-align: center;
   -webkit-transition: -webkit-filter 0.2s linear;
   -webkit-filter: custom( url(../shaders/warp.vert) mix(url(../shaders/warp.frag) normal destination-over), 8 8, k array(0.5, 0.9, 0, 0.6), matrix perspective(20) scale(0.5) rotateX(0deg) rotateY(0deg) rotateZ(0deg) );
 }
-/* line 49, ../sass/physical-animation.scss */
+/* line 77, ../sass/physical-animation.scss */
 .warp-test:hover {
   -webkit-filter: custom( url(../shaders/warp.vert) mix(url(../shaders/warp.frag) normal destination-over), 8 8, k array(0.9, 0, 0.6, 0.5), matrix perspective(20) scale(0.25) rotateX(10deg) rotateY(0deg) rotateZ(90deg) );
+}
+
+@-webkit-keyframes animation {
+  /* line 84, ../sass/physical-animation.scss */
+  0% {
+    -webkit-filter: custom( url(../shaders/warp.vert) mix(url(../shaders/warp.frag) normal destination-over), 8 8, k array(0.5, 0.9, 0, 0.6), matrix perspective(20) scale(0.5) rotateX(0deg) rotateY(0deg) rotateZ(0deg) );
+  }
+
+  /* line 85, ../sass/physical-animation.scss */
+  100% {
+    -webkit-filter: custom( url(../shaders/warp.vert) mix(url(../shaders/warp.frag) normal destination-over), 8 8, k array(0.9, 0, 0.6, 0.5), matrix perspective(20) scale(0.25) rotateX(10deg) rotateY(0deg) rotateZ(90deg) );
+  }
+}
+
+@keyframes animation {
+  /* line 84, ../sass/physical-animation.scss */
+  0% {
+    -webkit-filter: custom( url(../shaders/warp.vert) mix(url(../shaders/warp.frag) normal destination-over), 8 8, k array(0.5, 0.9, 0, 0.6), matrix perspective(20) scale(0.5) rotateX(0deg) rotateY(0deg) rotateZ(0deg) );
+  }
+
+  /* line 85, ../sass/physical-animation.scss */
+  100% {
+    -webkit-filter: custom( url(../shaders/warp.vert) mix(url(../shaders/warp.frag) normal destination-over), 8 8, k array(0.9, 0, 0.6, 0.5), matrix perspective(20) scale(0.25) rotateX(10deg) rotateY(0deg) rotateZ(90deg) );
+  }
+}
+
+/* line 88, ../sass/physical-animation.scss */
+.animation-test {
+  width: 200px;
+  height: 200px;
+  -webkit-filter: custom( url(../shaders/warp.vert) mix(url(../shaders/warp.frag) normal destination-over), 8 8, k array(0.9, 0, 0.6, 0.5), matrix perspective(20) scale(0.25) rotateX(10deg) rotateY(0deg) rotateZ(90deg) );
+}
+/* line 92, ../sass/physical-animation.scss */
+.animation-test:hover {
+  -webkit-animation: animation 1s cubic-bezier(0.645, 0.045, 0.355, 1) infinite alternate;
+  animation: animation 1s cubic-bezier(0.645, 0.045, 0.355, 1) infinite alternate;
 }

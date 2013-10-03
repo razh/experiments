@@ -1,6 +1,26 @@
 @import "compass/reset";
 
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} { @content; }
+  @keyframes #{$name} { @content; }
+}
+
+@mixin animation($animation) {
+  -webkit-animation: #{$animation};
+          animation: #{$animation};
+}
+
+
 .test {
+  float: left;
+
+  color: white;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 4em;
+}
+
+
+.transition-test {
   width: 200px;
   height: 200px;
   background-color: #888;
@@ -23,13 +43,28 @@
 }
 
 
+$shader-00-start: "custom(
+  url(../shaders/warp.vert)
+  mix(url(../shaders/warp.frag) normal destination-over),
+  8 8,
+  k array(0.5, 0.9, 0, 0.6),
+  matrix perspective(20) scale(0.5) rotateX(0deg) rotateY(0deg) rotateZ(0deg)
+)";
+
+$shader-00-end: "custom(
+  url(../shaders/warp.vert)
+  mix(url(../shaders/warp.frag) normal destination-over),
+  8 8,
+  k array(0.9, 0, 0.6, 0.5),
+  matrix perspective(20) scale(0.25) rotateX(10deg) rotateY(0deg) rotateZ(90deg)
+)";
+
+$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+
 .warp-test {
   width: 200px;
   height: 200px;
-
-  color: white;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 4em;
 
   // Center text.
   display: flex;
@@ -37,22 +72,26 @@
   text-align: center;
 
   -webkit-transition: -webkit-filter 0.2s linear;
-
-  -webkit-filter: #{"custom(
-    url(../shaders/warp.vert)
-    mix(url(../shaders/warp.frag) normal destination-over),
-    8 8,
-    k array(0.5, 0.9, 0, 0.6),
-    matrix perspective(20) scale(0.5) rotateX(0deg) rotateY(0deg) rotateZ(0deg)
-  )"};
+  -webkit-filter: #{$shader-00-start};
 
   &:hover {
-    -webkit-filter: #{"custom(
-      url(../shaders/warp.vert)
-      mix(url(../shaders/warp.frag) normal destination-over),
-      8 8,
-      k array(0.9, 0, 0.6, 0.5),
-      matrix perspective(20) scale(0.25) rotateX(10deg) rotateY(0deg) rotateZ(90deg)
-    )"};
+    -webkit-filter: #{$shader-00-end};
   }
+}
+
+
+@include keyframes(animation) {
+  0%   { -webkit-filter: #{$shader-00-start}; }
+  100% { -webkit-filter: #{$shader-00-end};   }
+}
+
+.animation-test {
+  width: 200px;
+  height: 200px;
+
+  &:hover {
+    @include animation(animation 1s $ease-in-out-cubic infinite alternate);
+  }
+
+  -webkit-filter: #{$shader-00-end};
 }
