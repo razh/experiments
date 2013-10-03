@@ -20,8 +20,8 @@ varying vec4 v_color;
 void main() {
   vec4 position = a_position;
   float value = k[int(a_meshCoord.x * 4.0)];
-  position.y += 0.5 * value;
-  v_color = vec4(value, 0.0, 0.0, 1.0);
+  position.z += 10.0 * value;
+  v_color = vec4(value, 0.5, 0.5, 1.0);
   // gl_Position = u_projectionMatrix * a_position;
-  gl_Position = u_projectionMatrix * position;
+  gl_Position = u_projectionMatrix * matrix * position;
 }
