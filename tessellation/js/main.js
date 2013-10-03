@@ -17,6 +17,9 @@
   previewCanvas.width = window.innerWidth;
   previewCanvas.height = window.innerHeight;
 
+  var color = [ 0, 0, 0, 1.0 ];
+  var colorPicker = document.getElementById( 'color' );
+
   var mouse = {
     x: 0,
     y: 0,
@@ -67,7 +70,7 @@
       image[y] = [];
     }
 
-    image[y][x] = [ 0, 0, 0, 1.0 ];
+    image[y][x] = [ color[0], color[1], color[2], color[3] ];
   }
 
   var drawFn = function( ctx, x, y ) {
@@ -155,4 +158,14 @@
   canvas.addEventListener( 'mousedown', onMouseDown );
   canvas.addEventListener( 'mousemove', onMouseMove );
   canvas.addEventListener( 'mouseup', onMouseUp );
+
+  var hexRegex = /([a-f\d]{2})/gi;
+  colorPicker.addEventListener( 'change', function( event ) {
+    var hex = event.target.value.match( hexRegex );
+    hex.forEach(function( value, index ) {
+      if ( index < 3 ) {
+        color[ index ] = parseInt( value, 16 );
+      }
+    });
+  });
 }) ( window, document );
