@@ -95,3 +95,17 @@ $ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
 
   -webkit-filter: #{$shader-00-end};
 }
+
+.mouse-test {
+  width: 200px;
+  height: 200px;
+  background-color: black;
+  color: white;
+
+  -webkit-filter: #{"custom(
+    url(../shaders/mouse.vert)
+    mix(url(../shaders/mouse.frag) multiply source-atop),
+    16 16,
+    mouse 0.0 0.0
+  )"};
+}

@@ -134,3 +134,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   -webkit-animation: animation 1s cubic-bezier(0.645, 0.045, 0.355, 1) infinite alternate;
   animation: animation 1s cubic-bezier(0.645, 0.045, 0.355, 1) infinite alternate;
 }
+
+/* line 99, ../sass/physical-animation.scss */
+.mouse-test {
+  width: 200px;
+  height: 200px;
+  background-color: black;
+  color: white;
+  -webkit-filter: custom( url(../shaders/mouse.vert) mix(url(../shaders/mouse.frag) multiply source-atop), 16 16, mouse 0.0 0.0 );
+}
