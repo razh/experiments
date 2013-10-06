@@ -4,11 +4,36 @@
   <head>
     <meta charset='UTF-8'>
     <title>Hilbert Curve</title>
+    <link href='../app/components/bootstrap/dist/css/bootstrap.css' rel='stylesheet'>
     <link href='./stylesheets/hilbert-curve.css' rel='stylesheet'>
   </head>
   <body>
-    <canvas id='canvas'></canvas>
+    <div class='section'>
+      <canvas id='canvas'></canvas>
+    </div>
     <div class='section' id='hilbert3d'></div>
+    <form role='form'>
+      <div class='form-group'>
+        <label for='x'>x</label>
+        <input id='x' max='500' min='0' type='range' value='200'>
+      </div>
+      <div class='form-group'>
+        <label for='y'>y</label>
+        <input id='y' max='500' min='0' type='range' value='200'>
+      </div>
+      <div class='form-group'>
+        <label for='rotateX'>rotateX</label>
+        <input id='rotateX' max='359' min='0' type='range' value='0'>
+      </div>
+      <div class='form-group'>
+        <label for='rotateY'>rotateY</label>
+        <input id='rotateY' max='359' min='0' type='range' value='0'>
+      </div>
+      <div class='form-group'>
+        <label for='rotateZ'>rotateZ</label>
+        <input id='rotateZ' max='359' min='0' type='range' value='0'>
+      </div>
+    </form>
     <script src='./js/hilbert-curve.js'></script>
   </body>
 </html>

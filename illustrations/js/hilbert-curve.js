@@ -1,11 +1,13 @@
 (function( window, document, undefined ) {
   'use strict';
 
+  var curveWidth = 200;
+
   var canvas = document.getElementById( 'canvas' ),
       context = canvas.getContext( '2d' );
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  canvas.width  = 2.5 * curveWidth;
+  canvas.height = 2.5 * curveWidth;
 
   /**
    * Thomas Diewald's Hilbert curve algorithm.
@@ -96,7 +98,6 @@
     };
   };
 
-  var curveWidth = 200;
   var h2d = new Hilbert2D({
     size: curveWidth,
     depth: 5
@@ -336,4 +337,9 @@
   h3dDivs.style.webkitPerspectiveOrigin = h3dPerspectiveOrigin;
   h3dDivs.style.perspectiveOrigin = h3dPerspectiveOrigin;
 
+  // Handlers.
+  var inputs = [].slice.call( document.getElementsByTagName( 'input' ) );
+  inputs.forEach(function( input ) {
+    console.log(input.value);
+  });
 }) ( window, document );

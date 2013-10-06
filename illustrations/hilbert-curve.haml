@@ -5,8 +5,20 @@
     %meta(charset="UTF-8")
     %title Hilbert Curve
 
+    %link(rel="stylesheet" href="../app/components/bootstrap/dist/css/bootstrap.css")
     %link(rel="stylesheet" href="./stylesheets/hilbert-curve.css")
   %body
-    %canvas#canvas
+    .section
+      %canvas#canvas
     .section#hilbert3d
+    %form{:role=>"form"}
+      -["x", "y"].each do |i|
+        .form-group
+          %label{:for=>"#{i}"} #{i}
+          %input{:type=>"range", :id=>"#{i}", :value=>"200", :min=>"0", :max=>"500"}
+
+      -["rotateX", "rotateY", "rotateZ"].each do |axis|
+        .form-group
+          %label{:for=>"#{axis}"} #{axis}
+          %input{:type=>"range", :id=>"#{axis}", :value=>"0", :min=>"0", :max=>"359"}
     %script(src="./js/hilbert-curve.js")

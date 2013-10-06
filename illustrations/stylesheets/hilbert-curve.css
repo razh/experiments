@@ -1,40 +1,42 @@
-/* line 3, ../sass/hilbert-curve.scss */
+/* line 5, ../sass/hilbert-curve.scss */
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 7, ../sass/hilbert-curve.scss */
+/* line 9, ../sass/hilbert-curve.scss */
 html, body {
   height: 100%;
 }
 
-/* line 11, ../sass/hilbert-curve.scss */
+/* line 13, ../sass/hilbert-curve.scss */
 body {
   margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* line 15, ../sass/hilbert-curve.scss */
+/* line 18, ../sass/hilbert-curve.scss */
 .section {
-  width: 100%;
-  height: 100%;
+  float: left;
+  width: 450px;
+  height: 450px;
 }
 
-/* line 20, ../sass/hilbert-curve.scss */
+/* line 24, ../sass/hilbert-curve.scss */
 .segment {
   background-color: black;
   height: 2px;
 }
-/* line 24, ../sass/hilbert-curve.scss */
+/* line 28, ../sass/hilbert-curve.scss */
 .segment:first-of-type {
   background-color: red;
 }
-/* line 28, ../sass/hilbert-curve.scss */
+/* line 32, ../sass/hilbert-curve.scss */
 .segment:last-of-type {
   background-color: blue;
 }
-/* line 32, ../sass/hilbert-curve.scss */
+/* line 36, ../sass/hilbert-curve.scss */
 .segment:after {
   content: "";
   position: absolute;
