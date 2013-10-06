@@ -6,8 +6,8 @@
   var canvas = document.getElementById( 'canvas' ),
       context = canvas.getContext( '2d' );
 
-  canvas.width  = 2.5 * curveWidth;
-  canvas.height = 2.5 * curveWidth;
+  canvas.width  = canvas.parentNode.clientWidth;
+  canvas.height = canvas.parentNode.clientHeight;
 
   /**
    * Thomas Diewald's Hilbert curve algorithm.
@@ -321,25 +321,67 @@
   var h3dDiv = document.getElementById( 'hilbert3d' );
   h3dDiv.appendChild( h3dDivs );
 
-  var h3dTransform = 'translate(200px, 200px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)';
-  h3dDivs.style.webkitTransform = h3dTransform;
-  h3dDivs.style.transform = h3dTransform;
+  var h3dTransform = {
+    translateX: 200,
+    translateY: 200,
+
+    rotateX: 0,
+    rotateY: 0,
+    rotateZ: 0,
+
+    perspective: 1000
+  };
+
+  function setTransformAndPerspective( el, options ) {
+    options = options ? options : {};
+
+    var translateX = options.translateX || 0,
+        translateY = options.translateY || 0,
+
+        rotateX = options.rotateX || 0,
+        rotateY = options.rotateY || 0,
+        rotateZ = options.rotateZ || 0,
+
+        perspective = options.perspective || 0;
+
+    el.style.webkitTransform = el.style.transform = 'translate(' +
+      translateX + 'px, ' +
+      translateY + 'px) rotateX(' +
+      rotateX + 'deg) rotateY(' +
+      rotateY + 'deg) rotateZ(' +
+      rotateZ + 'deg)';
+
+    el.style.webkitPerspective = el.style.perspective = perspective + 'px';
+  }
+
+  setTransformAndPerspective( h3dDivs, h3dTransform );
 
   var h3dTransformStyle = 'preserve-3d';
   h3dDivs.style.webkitTransformStyle = h3dTransformStyle;
   h3dDivs.style.transformStyle = h3dTransformStyle;
-
-  var h3dPerspective = 1000;
-  h3dDivs.style.webkitPerspective = h3dPerspective;
-  h3dDivs.style.perspective = h3dPerspective;
 
   var h3dPerspectiveOrigin = 'left top';
   h3dDivs.style.webkitPerspectiveOrigin = h3dPerspectiveOrigin;
   h3dDivs.style.perspectiveOrigin = h3dPerspectiveOrigin;
 
   // Handlers.
-  var inputs = [].slice.call( document.getElementsByTagName( 'input' ) );
-  inputs.forEach(function( input ) {
-    console.log(input.value);
+  var formGroups = [].slice.call( document.getElementsByClassName( 'form-group' ) );
+  formGroups.forEach(function( formGroup ) {
+    var value = formGroup.getElementsByClassName( 'value' )[0],
+        input = formGroup.getElementsByTagName( 'input' )[0],
+        units = input.getAttribute( 'units' );
+
+    // Set initial values.
+    input.value = h3dTransform[ input.id ];
+
+    function onChange() {
+      h3dTransform[ input.id ] = parseInt( input.value, 10 );
+      setTransformAndPerspective( h3dDivs, h3dTransform );
+
+      value.innerHTML = h3dTransform[ input.id ] + units;
+    }
+
+    input.addEventListener( 'change', onChange );
+    onChange();
   });
 }) ( window, document );

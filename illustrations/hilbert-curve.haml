@@ -5,20 +5,30 @@
     %meta(charset="UTF-8")
     %title Hilbert Curve
 
-    %link(rel="stylesheet" href="../app/components/bootstrap/dist/css/bootstrap.css")
     %link(rel="stylesheet" href="./stylesheets/hilbert-curve.css")
   %body
     .section
       %canvas#canvas
-    .section#hilbert3d
-    %form{:role=>"form"}
-      -["x", "y"].each do |i|
-        .form-group
-          %label{:for=>"#{i}"} #{i}
-          %input{:type=>"range", :id=>"#{i}", :value=>"200", :min=>"0", :max=>"500"}
 
-      -["rotateX", "rotateY", "rotateZ"].each do |axis|
+    .section#hilbert3d
+
+    .section#controls
+      %form{:role=>"form"}
+        -["translateX", "translateY"].each do |translate|
+          .form-group
+            %label{:for=>"#{translate}"} #{translate}
+            %input{:type=>"range", :id=>"#{translate}", :min=>"0", :max=>"500", :units=>"px"}
+            .value
+
+        -["rotateX", "rotateY", "rotateZ"].each do |axis|
+          .form-group
+            %label{:for=>"#{axis}"} #{axis}
+            %input{:type=>"range", :id=>"#{axis}", :min=>"-180", :max=>"180", :units=>"deg"}
+            .value
+
         .form-group
-          %label{:for=>"#{axis}"} #{axis}
-          %input{:type=>"range", :id=>"#{axis}", :value=>"0", :min=>"0", :max=>"359"}
+          %label{:for=>"perspective"} perspective
+          %input{:type=>"range", :id=>"perspective", :min=>"0", :max=>"5000", :units=>"px"}
+          .value
+
     %script(src="./js/hilbert-curve.js")
