@@ -25,41 +25,39 @@
   height: 200px;
   background-color: #888;
 
-  -webkit-transition: -webkit-filter 1s linear;
+  -webkit-transition: -webkit-filter 0.3s;
 
   -webkit-filter: #{"custom(
     url(../shaders/shader.vert)
     mix(url(../shaders/shader.frag) normal source-atop),
-    16 16, time 0, green 0
+    16 16, time 0.0, green 0.0
   )"};
 
   &:hover {
     -webkit-filter: #{"custom(
       url(../shaders/shader.vert)
       mix(url(../shaders/shader.frag) normal source-atop),
-      16 16, time 1, green 1
+      16 16, time 1.0, green 1.0
     )"};
   }
 }
 
 
-$shader-00-start: "custom(
+$warp-start: "custom(
   url(../shaders/warp.vert)
   mix(url(../shaders/warp.frag) normal destination-over),
   8 8,
-  k array(0.5, 0.9, 0, 0.6),
+  k array(0.5, 0.9, 0.0, 0.6),
   matrix perspective(20) scale(0.5) rotateX(0deg) rotateY(0deg) rotateZ(0deg)
 )";
 
-$shader-00-end: "custom(
+$warp-end: "custom(
   url(../shaders/warp.vert)
   mix(url(../shaders/warp.frag) normal destination-over),
   8 8,
-  k array(0.9, 0, 0.6, 0.5),
+  k array(0.9, 0.0, 0.6, 0.5),
   matrix perspective(20) scale(0.25) rotateX(10deg) rotateY(0deg) rotateZ(90deg)
 )";
-
-$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
 
 
 .warp-test {
@@ -71,18 +69,18 @@ $ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
   align-items: center;
   text-align: center;
 
-  -webkit-transition: -webkit-filter 0.2s linear;
-  -webkit-filter: #{$shader-00-start};
+  -webkit-transition: -webkit-filter 0.2s;
+  -webkit-filter: #{$warp-start};
 
   &:hover {
-    -webkit-filter: #{$shader-00-end};
+    -webkit-filter: #{$warp-end};
   }
 }
 
 
 @include keyframes(animation) {
-  0%   { -webkit-filter: #{$shader-00-start}; }
-  100% { -webkit-filter: #{$shader-00-end};   }
+  0%   { -webkit-filter: #{$warp-start}; }
+  100% { -webkit-filter: #{$warp-end};   }
 }
 
 .animation-test {
@@ -90,10 +88,10 @@ $ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
   height: 200px;
 
   &:hover {
-    @include animation(animation 1s $ease-in-out-cubic infinite alternate);
+    @include animation(animation 0.6s infinite alternate);
   }
 
-  -webkit-filter: #{$shader-00-end};
+  -webkit-filter: #{$warp-end};
 }
 
 .mouse-test {

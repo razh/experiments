@@ -37,7 +37,7 @@
       compositeMode + '), ' +
       cols + ' ' + rows + ', ' +
       'mouse ' +
-      mouseX + '  ' +
+      mouseX + ' ' +
       mouseY +
     ')';
   });
