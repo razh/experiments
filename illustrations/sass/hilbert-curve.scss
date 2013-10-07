@@ -1,6 +1,7 @@
 @import "compass/css3/box-sizing";
 
 $section-size: 450px;
+$margin: 10px;
 
 * {
   @include box-sizing(border-box);
@@ -19,8 +20,22 @@ body {
   float: left;
   width: $section-size;
   height: $section-size;
-  margin: 10px;
+  margin: $margin;
 }
+
+.controls {
+  float: left;
+  margin: $margin;
+
+  form {
+    width: 0.7 * $section-size;
+  }
+
+  .value {
+    float: right;
+  }
+}
+
 
 .segment {
   background-color: black;
@@ -43,12 +58,4 @@ body {
     margin-left: -2px;
     background-color: black;
   }
-}
-
-form {
-  width: 0.7 * $section-size;
-}
-
-.value {
-  float: right;
 }

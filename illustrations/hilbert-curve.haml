@@ -12,7 +12,7 @@
 
     .section#hilbert3d
 
-    .section#controls
+    .controls
       %form{:role=>"form"}
         -["translateX", "translateY"].each do |translate|
           .form-group
@@ -32,5 +32,9 @@
           .value
 
         %button#reset-btn Reset
+
+
+    .section
+      %canvas#canvas-3d
 
     %script(src="./js/hilbert-curve.js")

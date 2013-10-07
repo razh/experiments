@@ -182,11 +182,66 @@
     }
   };
 
-  Hilbert3D.prototype.draw = function( ctx ) {
+  Hilbert3D.prototype.draw = function( ctx, matrix ) {
+    ctx.beginPath();
 
+    var vertex = mulMat4Vec3( matrix, this.vertices[0] );
+    ctx.moveTo( vertex[0], vertex[1] );
+
+    for ( var i = 0, il = this.vertices.length; i < il; i++ ) {
+      vertex = mulMat4Vec3( matrix, this.vertices[i] );
+      ctx.lineTo( vertex[0], vertex[1] );
+    }
   };
 
 
+  // Matrix functions.
+  function mulMat4Vec3( mat4, vec3 ) {
+    var x = vec3[0],
+        y = vec3[1],
+        z = vec3[2];
+
+    return [
+      mat4[0] * x + mat4[4] * y + mat4[8]  * z + mat4[12],
+      mat4[1] * x + mat4[5] * y + mat4[9]  * z + mat4[13],
+      mat4[2] * x + mat4[6] * y + mat4[10] * z + mat4[14]
+    ];
+  }
+
+  function mulMat4Mat4( a, b ) {
+    return [
+      a[0] * b[ 0] + a[4] * b[ 1] + a[ 8] * b[ 2] + a[12] * b[ 3],
+      a[0] * b[ 4] + a[4] * b[ 5] + a[ 8] * b[ 6] + a[12] * b[ 7],
+      a[0] * b[ 8] + a[4] * b[ 9] + a[ 8] * b[10] + a[12] * b[11],
+      a[0] * b[12] + a[4] * b[13] + a[ 8] * b[14] + a[12] * b[15],
+
+      a[1] * b[ 0] + a[5] * b[ 1] + a[ 9] * b[ 2] + a[13] * b[ 3],
+      a[1] * b[ 4] + a[5] * b[ 5] + a[ 9] * b[ 6] + a[13] * b[ 7],
+      a[1] * b[ 8] + a[5] * b[ 9] + a[ 9] * b[10] + a[13] * b[11],
+      a[1] * b[12] + a[5] * b[13] + a[ 9] * b[14] + a[13] * b[15],
+
+      a[2] * b[ 0] + a[6] * b[ 1] + a[10] * b[ 2] + a[14] * b[ 3],
+      a[2] * b[ 4] + a[6] * b[ 5] + a[10] * b[ 6] + a[14] * b[ 7],
+      a[2] * b[ 8] + a[6] * b[ 9] + a[10] * b[10] + a[14] * b[11],
+      a[2] * b[12] + a[6] * b[13] + a[10] * b[14] + a[14] * b[15],
+
+      a[3] * b[ 0] + a[7] * b[ 1] + a[11] * b[ 2] + a[15] * b[ 3],
+      a[3] * b[ 4] + a[7] * b[ 5] + a[11] * b[ 6] + a[15] * b[ 7],
+      a[3] * b[ 8] + a[7] * b[ 9] + a[11] * b[10] + a[15] * b[11],
+      a[3] * b[12] + a[7] * b[13] + a[11] * b[14] + a[15] * b[15]
+    ];
+  }
+
+  function matrixToMatrix3D( matrix ) {
+    return [
+      matrix[0], matrix[1], 0, 0,
+      matrix[2], matrix[3], 0, 0,
+      0, 0, 1, 0,
+      matrix[4], matrix[5], 0, 1
+    ];
+  }
+
+  // 3D utility functions.
   function distanceSquared3D( x0, y0, z0, x1, y1, z1 ) {
     var dx = x1 - x0,
         dy = y1 - y0,
@@ -313,18 +368,10 @@
     depth: 2
   });
 
-  var h3dDivs = segmentsToDivs([
-    [
-      [ 100, 100, 100 ],
-      [ 200, 100, 100 ]
-    ]
-  ]);
-
-  h3dDivs = segmentsToDivs( pointsToSegments( h3d.vertices ) );
+  var h3dDivs = segmentsToDivs( pointsToSegments( h3d.vertices ) );
 
   var h3dDiv = document.getElementById( 'hilbert3d' );
   h3dDiv.appendChild( h3dDivs );
-
   var h3dTransform = {
     translateX: 200,
     translateY: 200,
@@ -335,6 +382,13 @@
 
     perspective: 1000
   };
+
+  var h3dMatrix = [
+    1, 0, 0, 0,
+    0, 1, 0, 0,
+    0, 0, 1, 0,
+    0, 0, 0, 1
+  ];
 
   function setTransformAndPerspective( el, options ) {
     options = options ? options : {};
@@ -368,6 +422,28 @@
   h3dDivs.style.webkitPerspectiveOrigin = h3dPerspectiveOrigin;
   h3dDivs.style.perspectiveOrigin = h3dPerspectiveOrigin;
 
+
+  // Hilbert3D canvas.
+  var h3dCanvas = document.getElementById( 'canvas-3d' ),
+      h3dCtx    = h3dCanvas.getContext( '2d' );
+
+  h3dCanvas.width  = h3dCanvas.parentNode.clientWidth;
+  h3dCanvas.height = h3dCanvas.parentNode.clientHeight;
+
+  function draw3d( ctx ) {
+    ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
+    // ctx.translate( curveWidth, curveWidth );
+
+    h3d.draw( ctx, h3dMatrix );
+
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'black';
+    ctx.stroke();
+  }
+
+  draw3d( h3dCtx );
+
+
   // Input handlers.
   (function() {
     var mat2dRegex = /^matrix\(.*/,
@@ -378,13 +454,16 @@
         matSuffixLen   = ')'.length;
 
     function extractMatrix( str ) {
+      var prefixLen;
       if ( str.match( mat3dRegex ) ) {
-        return str.substring( mat3dPrefixLen, str.length - matSuffixLen ).split( ', ' );
+        prefixLen = mat3dPrefixLen;
       } else if ( str.match( mat2dRegex ) ) {
-        return str.substring( mat2dPrefixLen, str.length - matSuffixLen ).split( ', ' );
+        prefixLen = mat2dPrefixLen;
+      } else {
+        return null;
       }
 
-      return null;
+      return str.substring( prefixLen, str.length - matSuffixLen ).split( ', ' );
     }
 
     var formGroups = [].slice.call( document.getElementsByClassName( 'form-group' ) );
@@ -402,10 +481,29 @@
 
         value.innerHTML = h3dTransform[ input.id ] + units;
 
+        // Grab the computed transform matrix and draw the canvas Hilbert3D.
         var computedStyle = window.getComputedStyle( h3dDivs ),
             transformString = computedStyle.webkitTransform || computedStyle.transform;
 
-        console.log( extractMatrix( transformString ).map( function( value ) { return parseFloat( value ); }) );
+        var matrix = extractMatrix( transformString );
+        if ( matrix && matrix.length ) {
+          matrix = matrix.map(function( value ) {
+            return parseFloat( value );
+          });
+
+          // In matrix(a, b, c, d, tx, ty) shorthand form.
+          if ( matrix.length === 6 ) {
+            matrix = matrixToMatrix3D( matrix );
+          }
+
+          if ( matrix.length !== 16 ) {
+            return;
+          }
+
+          h3dMatrix = matrix;
+        }
+
+        draw3d( h3dCtx );
       }
 
       input.addEventListener( 'change', onChange );
@@ -430,6 +528,17 @@
       h3dTransform.perspective = 1000;
 
       setTransformAndPerspective( h3dDivs, h3dTransform );
+
+      var changeEvent = new CustomEvent( 'change' );
+
+      // Hacky way of updating displayed values by triggering a change event.
+      var formGroups = [].slice.call( document.getElementsByClassName( 'form-group' ) );
+      formGroups.forEach(function( formGroup ) {
+        var input = formGroup.getElementsByTagName( 'input' )[0];
+        input.value = h3dTransform[ input.id ];
+
+        input.dispatchEvent( changeEvent );
+      });
     });
   }) ();
 }) ( window, document );
