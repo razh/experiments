@@ -182,6 +182,10 @@
     }
   };
 
+  Hilbert3D.prototype.draw = function( ctx ) {
+
+  };
+
 
   function distanceSquared3D( x0, y0, z0, x1, y1, z1 ) {
     var dx = x1 - x0,
@@ -364,24 +368,68 @@
   h3dDivs.style.webkitPerspectiveOrigin = h3dPerspectiveOrigin;
   h3dDivs.style.perspectiveOrigin = h3dPerspectiveOrigin;
 
-  // Handlers.
-  var formGroups = [].slice.call( document.getElementsByClassName( 'form-group' ) );
-  formGroups.forEach(function( formGroup ) {
-    var value = formGroup.getElementsByClassName( 'value' )[0],
-        input = formGroup.getElementsByTagName( 'input' )[0],
-        units = input.getAttribute( 'units' );
+  // Input handlers.
+  (function() {
+    var mat2dRegex = /^matrix\(.*/,
+        mat3dRegex = /^matrix3d\(.*/;
 
-    // Set initial values.
-    input.value = h3dTransform[ input.id ];
+    var mat3dPrefixLen = 'matrix3d('.length,
+        mat2dPrefixLen = 'matrix('.length,
+        matSuffixLen   = ')'.length;
 
-    function onChange() {
-      h3dTransform[ input.id ] = parseInt( input.value, 10 );
-      setTransformAndPerspective( h3dDivs, h3dTransform );
+    function extractMatrix( str ) {
+      if ( str.match( mat3dRegex ) ) {
+        return str.substring( mat3dPrefixLen, str.length - matSuffixLen ).split( ', ' );
+      } else if ( str.match( mat2dRegex ) ) {
+        return str.substring( mat2dPrefixLen, str.length - matSuffixLen ).split( ', ' );
+      }
 
-      value.innerHTML = h3dTransform[ input.id ] + units;
+      return null;
     }
 
-    input.addEventListener( 'change', onChange );
-    onChange();
-  });
+    var formGroups = [].slice.call( document.getElementsByClassName( 'form-group' ) );
+    formGroups.forEach(function( formGroup ) {
+      var value = formGroup.getElementsByClassName( 'value' )[0],
+          input = formGroup.getElementsByTagName( 'input' )[0],
+          units = input.getAttribute( 'units' );
+
+      // Set initial values.
+      input.value = h3dTransform[ input.id ];
+
+      function onChange() {
+        h3dTransform[ input.id ] = parseInt( input.value, 10 );
+        setTransformAndPerspective( h3dDivs, h3dTransform );
+
+        value.innerHTML = h3dTransform[ input.id ] + units;
+
+        var computedStyle = window.getComputedStyle( h3dDivs ),
+            transformString = computedStyle.webkitTransform || computedStyle.transform;
+
+        console.log( extractMatrix( transformString ).map( function( value ) { return parseFloat( value ); }) );
+      }
+
+      input.addEventListener( 'change', onChange );
+      onChange();
+    });
+  }) ();
+
+  // Button handlers.
+  (function() {
+    var resetBtn = document.getElementById( 'reset-btn' );
+
+    resetBtn.addEventListener( 'click', function( event ) {
+      event.preventDefault();
+
+      h3dTransform.translateX = 200;
+      h3dTransform.translateY = 200;
+
+      h3dTransform.rotateX = 0;
+      h3dTransform.rotateY = 0;
+      h3dTransform.rotateZ = 0;
+
+      h3dTransform.perspective = 1000;
+
+      setTransformAndPerspective( h3dDivs, h3dTransform );
+    });
+  }) ();
 }) ( window, document );
