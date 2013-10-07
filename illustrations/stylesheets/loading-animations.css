@@ -63,26 +63,26 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 28, ../sass/loading-animations.scss */
+/* line 29, ../sass/loading-animations.scss */
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 32, ../sass/loading-animations.scss */
+/* line 33, ../sass/loading-animations.scss */
 html, body {
   height: 100%;
 }
 
-/* line 36, ../sass/loading-animations.scss */
+/* line 37, ../sass/loading-animations.scss */
 .animation {
   position: relative;
   width: 100%;
   height: 100%;
 }
 
-/* line 42, ../sass/loading-animations.scss */
+/* line 43, ../sass/loading-animations.scss */
 .counter {
   position: absolute;
   width: 100px;
@@ -99,7 +99,7 @@ html, body {
 }
 
 @-webkit-keyframes forward-rotation {
-  /* line 66, ../sass/loading-animations.scss */
+  /* line 67, ../sass/loading-animations.scss */
   0% {
     -webkit-transform: rotate(0deg);
     -moz-transform: rotate(0deg);
@@ -108,7 +108,7 @@ html, body {
     transform: rotate(0deg);
   }
 
-  /* line 67, ../sass/loading-animations.scss */
+  /* line 68, ../sass/loading-animations.scss */
   100% {
     -webkit-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
@@ -119,7 +119,7 @@ html, body {
 }
 
 @keyframes forward-rotation {
-  /* line 66, ../sass/loading-animations.scss */
+  /* line 67, ../sass/loading-animations.scss */
   0% {
     -webkit-transform: rotate(0deg);
     -moz-transform: rotate(0deg);
@@ -128,7 +128,7 @@ html, body {
     transform: rotate(0deg);
   }
 
-  /* line 67, ../sass/loading-animations.scss */
+  /* line 68, ../sass/loading-animations.scss */
   100% {
     -webkit-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
@@ -139,7 +139,7 @@ html, body {
 }
 
 @-webkit-keyframes backward-rotation {
-  /* line 71, ../sass/loading-animations.scss */
+  /* line 72, ../sass/loading-animations.scss */
   0% {
     -webkit-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
@@ -148,7 +148,7 @@ html, body {
     transform: rotate(360deg);
   }
 
-  /* line 72, ../sass/loading-animations.scss */
+  /* line 73, ../sass/loading-animations.scss */
   100% {
     -webkit-transform: rotate(0deg);
     -moz-transform: rotate(0deg);
@@ -159,7 +159,7 @@ html, body {
 }
 
 @keyframes backward-rotation {
-  /* line 71, ../sass/loading-animations.scss */
+  /* line 72, ../sass/loading-animations.scss */
   0% {
     -webkit-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
@@ -168,7 +168,7 @@ html, body {
     transform: rotate(360deg);
   }
 
-  /* line 72, ../sass/loading-animations.scss */
+  /* line 73, ../sass/loading-animations.scss */
   100% {
     -webkit-transform: rotate(0deg);
     -moz-transform: rotate(0deg);
@@ -178,17 +178,17 @@ html, body {
   }
 }
 
-/* line 75, ../sass/loading-animations.scss */
+/* line 78, ../sass/loading-animations.scss */
 .animation#animation-00 {
   background-color: #222;
 }
-/* line 78, ../sass/loading-animations.scss */
+/* line 81, ../sass/loading-animations.scss */
 .animation#animation-00 .circle {
   top: 50%;
   left: 50%;
   border: 2px solid transparent;
 }
-/* line 85, ../sass/loading-animations.scss */
+/* line 88, ../sass/loading-animations.scss */
 .animation#animation-00 .circle#inner {
   position: absolute;
   width: 250px;
@@ -200,7 +200,7 @@ html, body {
   -webkit-animation: forward-rotation 2s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
   animation: forward-rotation 2s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
 }
-/* line 92, ../sass/loading-animations.scss */
+/* line 95, ../sass/loading-animations.scss */
 .animation#animation-00 .circle#outer {
   position: absolute;
   width: 300px;
@@ -213,50 +213,164 @@ html, body {
   animation: backward-rotation 5s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
 }
 
-@-webkit-keyframes line-stretch-shrink {
-  /* line 101, ../sass/loading-animations.scss */
-  0% {
-    width: 0px;
-  }
-
-  /* line 102, ../sass/loading-animations.scss */
-  100% {
-    width: 200px;
-  }
-}
-
-@keyframes line-stretch-shrink {
-  /* line 101, ../sass/loading-animations.scss */
-  0% {
-    width: 0px;
-  }
-
-  /* line 102, ../sass/loading-animations.scss */
-  100% {
-    width: 200px;
-  }
-}
-
-/* line 105, ../sass/loading-animations.scss */
+/* line 112, ../sass/loading-animations.scss */
 .animation#animation-01 {
   background-color: #333;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  -ms-perspective: 1000px;
+  -o-perspective: 1000px;
+  perspective: 1000px;
+  -webkit-perspective-origin: center center;
+  -moz-perspective-origin: center center;
+  -ms-perspective-origin: center center;
+  -o-perspective-origin: center center;
+  perspective-origin: center center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
-/* line 108, ../sass/loading-animations.scss */
-.animation#animation-01 .line {
-  position: absolute;
+/* line 125, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(1) .box:nth-of-type(1) {
+  -webkit-transition-duration: 1.5s;
+  -moz-transition-duration: 1.5s;
+  -o-transition-duration: 1.5s;
+  transition-duration: 1.5s;
 }
-/* line 112, ../sass/loading-animations.scss */
-.animation#animation-01 .line#left {
-  width: 200px;
-  height: 1px;
-  top: 50%;
-  left: 50%;
-  background-color: white;
-  -webkit-transform: rotateZ(-45deg);
-  -moz-transform: rotateZ(-45deg);
-  -ms-transform: rotateZ(-45deg);
-  -o-transform: rotateZ(-45deg);
-  transform: rotateZ(-45deg);
-  -webkit-animation: line-stretch-shrink 1s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
-  animation: line-stretch-shrink 1s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+/* line 125, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(1) .box:nth-of-type(2) {
+  -webkit-transition-duration: 1.2s;
+  -moz-transition-duration: 1.2s;
+  -o-transition-duration: 1.2s;
+  transition-duration: 1.2s;
+}
+/* line 125, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(1) .box:nth-of-type(3) {
+  -webkit-transition-duration: 0.9s;
+  -moz-transition-duration: 0.9s;
+  -o-transition-duration: 0.9s;
+  transition-duration: 0.9s;
+}
+/* line 125, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(1) .box:nth-of-type(4) {
+  -webkit-transition-duration: 1.2s;
+  -moz-transition-duration: 1.2s;
+  -o-transition-duration: 1.2s;
+  transition-duration: 1.2s;
+}
+/* line 125, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(2) .box:nth-of-type(1) {
+  -webkit-transition-duration: 1.3s;
+  -moz-transition-duration: 1.3s;
+  -o-transition-duration: 1.3s;
+  transition-duration: 1.3s;
+}
+/* line 125, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(2) .box:nth-of-type(2) {
+  -webkit-transition-duration: 1s;
+  -moz-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  transition-duration: 1s;
+}
+/* line 125, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(2) .box:nth-of-type(3) {
+  -webkit-transition-duration: 0.7s;
+  -moz-transition-duration: 0.7s;
+  -o-transition-duration: 0.7s;
+  transition-duration: 0.7s;
+}
+/* line 125, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(2) .box:nth-of-type(4) {
+  -webkit-transition-duration: 1s;
+  -moz-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  transition-duration: 1s;
+}
+/* line 125, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(3) .box:nth-of-type(1) {
+  -webkit-transition-duration: 1.1s;
+  -moz-transition-duration: 1.1s;
+  -o-transition-duration: 1.1s;
+  transition-duration: 1.1s;
+}
+/* line 125, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(3) .box:nth-of-type(2) {
+  -webkit-transition-duration: 0.8s;
+  -moz-transition-duration: 0.8s;
+  -o-transition-duration: 0.8s;
+  transition-duration: 0.8s;
+}
+/* line 125, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(3) .box:nth-of-type(3) {
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+/* line 125, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(3) .box:nth-of-type(4) {
+  -webkit-transition-duration: 0.8s;
+  -moz-transition-duration: 0.8s;
+  -o-transition-duration: 0.8s;
+  transition-duration: 0.8s;
+}
+/* line 125, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(4) .box:nth-of-type(1) {
+  -webkit-transition-duration: 1.3s;
+  -moz-transition-duration: 1.3s;
+  -o-transition-duration: 1.3s;
+  transition-duration: 1.3s;
+}
+/* line 125, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(4) .box:nth-of-type(2) {
+  -webkit-transition-duration: 1s;
+  -moz-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  transition-duration: 1s;
+}
+/* line 125, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(4) .box:nth-of-type(3) {
+  -webkit-transition-duration: 0.7s;
+  -moz-transition-duration: 0.7s;
+  -o-transition-duration: 0.7s;
+  transition-duration: 0.7s;
+}
+/* line 125, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(4) .box:nth-of-type(4) {
+  -webkit-transition-duration: 1s;
+  -moz-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  transition-duration: 1s;
+}
+/* line 132, ../sass/loading-animations.scss */
+.animation#animation-01 .row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* line 135, ../sass/loading-animations.scss */
+.animation#animation-01 .row .box {
+  background-color: #fff;
+  border-radius: 5px;
+  width: 50px;
+  height: 50px;
+  margin: 15px;
+  -webkit-transform: translate3d(0, 0, 1000px);
+  -moz-transform: translate3d(0, 0, 1000px);
+  -ms-transform: translate3d(0, 0, 1000px);
+  -o-transform: translate3d(0, 0, 1000px);
+  transform: translate3d(0, 0, 1000px);
+  -webkit-transition: all;
+  -moz-transition: all;
+  -o-transition: all;
+  transition: all;
+}
+/* line 149, ../sass/loading-animations.scss */
+.animation#animation-01:hover .row .box {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }

@@ -2,6 +2,7 @@
 
 @import "compass/css3/box-sizing";
 @import "compass/css3/transform";
+@import "compass/css3/transition";
 
 @mixin keyframes($name) {
   @-webkit-keyframes #{$name} { @content; }
@@ -72,6 +73,8 @@ html, body {
   100% { @include rotate(0deg); }
 }
 
+$ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+
 .animation#animation-00 {
   background-color: #222;
 
@@ -86,39 +89,66 @@ html, body {
     @include circle(250px);
     border-left: 2px solid #f43;
 
-    @include animation(forward-rotation 2s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite);
+    @include animation(forward-rotation 2s $ease-in-out-circ infinite);
   }
 
   .circle#outer {
     @include circle(300px);
     border-left: 2px solid #fff;
 
-    @include animation(backward-rotation 5s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite);
+    @include animation(backward-rotation 5s $ease-in-out-circ infinite);
   }
 }
 
-@include keyframes(line-stretch-shrink) {
-  0% { width: 0px };
-  100% { width: 200px };
+@mixin flex-center() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+$row-count: 4;
+$box-count: 4;
 
 .animation#animation-01 {
   background-color: #333;
+  @include perspective(1000px);
+  @include perspective-origin(center center);
 
-  .line {
-    position: absolute;
+  @include flex-center();
+  flex-direction: column;
+
+  @for $i from 1 to $row-count + 1 {
+    .row:nth-of-type(#{$i}) {
+      @for $j from 1 to $box-count + 1 {
+        $delay: abs($i - 3) * 0.2s + abs($j - 3) * 0.3s;
+
+        .box:nth-of-type(#{$j}) {
+          @include transition-duration(0.5s + $delay);
+        }
+      }
+    }
   }
 
-  .line#left {
-    width: 200px;
-    height: 1px;
+  .row {
+    @include flex-center();
 
-    top: 50%;
-    left: 50%;
+    .box {
+      background-color: #fff;
+      border-radius: 5px;
+      width: 50px;
+      height: 50px;
+      margin: 15px;
 
-    background-color: white;
+      @include translate3d(0, 0, 1000px);
+      @include transition(all);
+    }
+  }
 
-    @include transform(rotateZ(-45deg));
-    @include animation(line-stretch-shrink 1s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite);
+  &:hover {
+    .row {
+      .box {
+        @include translate3d(0, 0, 0);
+      }
+    }
   }
 }

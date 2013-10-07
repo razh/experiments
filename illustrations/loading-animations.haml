@@ -12,9 +12,10 @@
       .counter 0
 
     .animation#animation-01
-      .line#left
-      .line#center
-      .line#right
+      -(1..4).each do |i|
+        .row
+          -(1..4).each do |j|
+            .box
 
     %script(src="./js/loading-animations.js")
 
