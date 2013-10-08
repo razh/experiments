@@ -86,7 +86,7 @@ body {
   height: 100%;
 }
 
-/* line 36, ../sass/social.scss */
+/* line 37, ../sass/social.scss */
 .section#section-00 {
   font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #88f;
@@ -96,14 +96,14 @@ body {
   align-items: center;
   justify-content: center;
 }
-/* line 37, ../sass/social.scss */
+/* line 38, ../sass/social.scss */
 .section#section-00 * {
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   -o-transition: all 0.5s;
   transition: all 0.5s;
 }
-/* line 48, ../sass/social.scss */
+/* line 49, ../sass/social.scss */
 .section#section-00 .login-box {
   width: 320px;
   height: 480px;
@@ -113,8 +113,11 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
-/* line 57, ../sass/social.scss */
+/* line 60, ../sass/social.scss */
 .section#section-00 .login-box .face {
   width: 100px;
   height: 100px;
@@ -126,14 +129,14 @@ body {
   align-items: center;
   justify-content: center;
 }
-/* line 67, ../sass/social.scss */
+/* line 70, ../sass/social.scss */
 .section#section-00 .login-box .face .eyes {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-/* line 71, ../sass/social.scss */
+/* line 74, ../sass/social.scss */
 .section#section-00 .login-box .face .eyes .eye {
   float: left;
   width: 20px;
@@ -143,7 +146,7 @@ body {
   margin: 5px;
   margin-top: -7px;
 }
-/* line 82, ../sass/social.scss */
+/* line 85, ../sass/social.scss */
 .section#section-00 .login-box .face .mouth {
   position: absolute;
   width: 60px;
@@ -156,7 +159,7 @@ body {
   border-right: 8px solid transparent;
   border-bottom: 8px solid #6688ee;
 }
-/* line 101, ../sass/social.scss */
+/* line 104, ../sass/social.scss */
 .section#section-00 .login-box hr {
   width: 80%;
   height: 2px;
@@ -164,16 +167,19 @@ body {
   background-color: rgba(0, 0, 0, 0.1);
   margin: 30px;
 }
-/* line 109, ../sass/social.scss */
+/* line 112, ../sass/social.scss */
 .section#section-00 .login-box .form-group {
   width: 80%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-/* line 114, ../sass/social.scss */
+/* line 117, ../sass/social.scss */
 .section#section-00 .login-box input {
-  margin: 5px 15px;
+  margin-top: 5px;
+  margin-right: 0;
+  margin-bottom: 5px;
+  margin-left: 10px;
   padding: 7px;
   border: 2px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
@@ -181,12 +187,14 @@ body {
   -moz-box-shadow: none;
   box-shadow: none;
   font-size: 16px;
+  color: #888;
 }
-/* line 122, ../sass/social.scss */
+/* line 132, ../sass/social.scss */
 .section#section-00 .login-box input:focus {
   outline: none;
+  border: 2px solid #6688ee;
 }
-/* line 127, ../sass/social.scss */
+/* line 138, ../sass/social.scss */
 .section#section-00 .login-box .log-in {
   width: 80%;
   height: 50px;
@@ -196,6 +204,7 @@ body {
   background-color: #ff5544;
   color: white;
   font-size: 1em;
+  font-weight: bold;
   -webkit-box-shadow: 0 5px 0 #dd1400;
   -moz-box-shadow: 0 5px 0 #dd1400;
   box-shadow: 0 5px 0 #dd1400;
@@ -204,14 +213,14 @@ body {
   -o-transition: all 0.1s;
   transition: all 0.1s;
 }
-/* line 141, ../sass/social.scss */
+/* line 153, ../sass/social.scss */
 .section#section-00 .login-box .log-in:focus {
   outline: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
 }
-/* line 146, ../sass/social.scss */
+/* line 158, ../sass/social.scss */
 .section#section-00 .login-box .log-in:active {
   -webkit-transform: translateY(5px);
   -moz-transform: translateY(5px);
@@ -221,4 +230,41 @@ body {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+}
+
+/* line 166, ../sass/social.scss */
+.section#section-01 {
+  background-color: #444;
+  font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+/* line 170, ../sass/social.scss */
+.section#section-01 .navbar {
+  width: 100%;
+  height: 50px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* line 179, ../sass/social.scss */
+.section#section-01 .navbar .home {
+  flex: 1 auto;
+  margin-left: 20px;
+  font-weight: bold;
+}
+/* line 185, ../sass/social.scss */
+.section#section-01 .navbar .links {
+  display: flex;
+  justify-content: space-around;
+  margin-right: 20px;
+}
+/* line 190, ../sass/social.scss */
+.section#section-01 .navbar .links li {
+  margin: 0 10px;
+  display: inline;
+}
+/* line 196, ../sass/social.scss */
+.section#section-01 .navbar a, .section#section-01 .navbar a:active, .section#section-01 .navbar a:visited {
+  color: #f45;
+  text-decoration: none;
 }
