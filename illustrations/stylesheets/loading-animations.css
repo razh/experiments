@@ -213,8 +213,13 @@ html, body {
   animation: backward-rotation 5s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
 }
 
-/* line 112, ../sass/loading-animations.scss */
+/* line 124, ../sass/loading-animations.scss */
 .animation#animation-01 {
+  color: white;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 100;
+  letter-spacing: 0.1em;
+  font-size: 0.7em;
   background-color: #333;
   -webkit-perspective: 1000px;
   -moz-perspective: 1000px;
@@ -231,131 +236,240 @@ html, body {
   justify-content: center;
   flex-direction: column;
 }
-/* line 125, ../sass/loading-animations.scss */
+/* line 143, ../sass/loading-animations.scss */
 .animation#animation-01 .row:nth-of-type(1) .box:nth-of-type(1) {
-  -webkit-transition-duration: 1.5s;
-  -moz-transition-duration: 1.5s;
-  -o-transition-duration: 1.5s;
-  transition-duration: 1.5s;
+  -webkit-transition-duration: 1.17s;
+  -moz-transition-duration: 1.17s;
+  -o-transition-duration: 1.17s;
+  transition-duration: 1.17s;
 }
-/* line 125, ../sass/loading-animations.scss */
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(1) .box:nth-of-type(1):after {
+  content: "Messages";
+}
+/* line 143, ../sass/loading-animations.scss */
 .animation#animation-01 .row:nth-of-type(1) .box:nth-of-type(2) {
-  -webkit-transition-duration: 1.2s;
-  -moz-transition-duration: 1.2s;
-  -o-transition-duration: 1.2s;
-  transition-duration: 1.2s;
+  -webkit-transition-duration: 0.97s;
+  -moz-transition-duration: 0.97s;
+  -o-transition-duration: 0.97s;
+  transition-duration: 0.97s;
 }
-/* line 125, ../sass/loading-animations.scss */
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(1) .box:nth-of-type(2):after {
+  content: "Calendar";
+}
+/* line 143, ../sass/loading-animations.scss */
 .animation#animation-01 .row:nth-of-type(1) .box:nth-of-type(3) {
-  -webkit-transition-duration: 0.9s;
-  -moz-transition-duration: 0.9s;
-  -o-transition-duration: 0.9s;
-  transition-duration: 0.9s;
+  -webkit-transition-duration: 0.83s;
+  -moz-transition-duration: 0.83s;
+  -o-transition-duration: 0.83s;
+  transition-duration: 0.83s;
 }
-/* line 125, ../sass/loading-animations.scss */
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(1) .box:nth-of-type(3):after {
+  content: "Photos";
+}
+/* line 143, ../sass/loading-animations.scss */
 .animation#animation-01 .row:nth-of-type(1) .box:nth-of-type(4) {
-  -webkit-transition-duration: 1.2s;
-  -moz-transition-duration: 1.2s;
-  -o-transition-duration: 1.2s;
-  transition-duration: 1.2s;
+  -webkit-transition-duration: 1.03s;
+  -moz-transition-duration: 1.03s;
+  -o-transition-duration: 1.03s;
+  transition-duration: 1.03s;
 }
-/* line 125, ../sass/loading-animations.scss */
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(1) .box:nth-of-type(4):after {
+  content: "Camera";
+}
+/* line 143, ../sass/loading-animations.scss */
 .animation#animation-01 .row:nth-of-type(2) .box:nth-of-type(1) {
-  -webkit-transition-duration: 1.3s;
-  -moz-transition-duration: 1.3s;
-  -o-transition-duration: 1.3s;
-  transition-duration: 1.3s;
+  -webkit-transition-duration: 1.02s;
+  -moz-transition-duration: 1.02s;
+  -o-transition-duration: 1.02s;
+  transition-duration: 1.02s;
 }
-/* line 125, ../sass/loading-animations.scss */
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(2) .box:nth-of-type(1):after {
+  content: "Weather";
+}
+/* line 143, ../sass/loading-animations.scss */
 .animation#animation-01 .row:nth-of-type(2) .box:nth-of-type(2) {
-  -webkit-transition-duration: 1s;
-  -moz-transition-duration: 1s;
-  -o-transition-duration: 1s;
-  transition-duration: 1s;
+  -webkit-transition-duration: 0.82s;
+  -moz-transition-duration: 0.82s;
+  -o-transition-duration: 0.82s;
+  transition-duration: 0.82s;
 }
-/* line 125, ../sass/loading-animations.scss */
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(2) .box:nth-of-type(2):after {
+  content: "Clock";
+}
+/* line 143, ../sass/loading-animations.scss */
 .animation#animation-01 .row:nth-of-type(2) .box:nth-of-type(3) {
-  -webkit-transition-duration: 0.7s;
-  -moz-transition-duration: 0.7s;
-  -o-transition-duration: 0.7s;
-  transition-duration: 0.7s;
+  -webkit-transition-duration: 0.68s;
+  -moz-transition-duration: 0.68s;
+  -o-transition-duration: 0.68s;
+  transition-duration: 0.68s;
 }
-/* line 125, ../sass/loading-animations.scss */
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(2) .box:nth-of-type(3):after {
+  content: "Maps";
+}
+/* line 143, ../sass/loading-animations.scss */
 .animation#animation-01 .row:nth-of-type(2) .box:nth-of-type(4) {
-  -webkit-transition-duration: 1s;
-  -moz-transition-duration: 1s;
-  -o-transition-duration: 1s;
-  transition-duration: 1s;
+  -webkit-transition-duration: 0.88s;
+  -moz-transition-duration: 0.88s;
+  -o-transition-duration: 0.88s;
+  transition-duration: 0.88s;
 }
-/* line 125, ../sass/loading-animations.scss */
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(2) .box:nth-of-type(4):after {
+  content: "Video";
+}
+/* line 143, ../sass/loading-animations.scss */
 .animation#animation-01 .row:nth-of-type(3) .box:nth-of-type(1) {
-  -webkit-transition-duration: 1.1s;
-  -moz-transition-duration: 1.1s;
-  -o-transition-duration: 1.1s;
-  transition-duration: 1.1s;
+  -webkit-transition-duration: 0.87s;
+  -moz-transition-duration: 0.87s;
+  -o-transition-duration: 0.87s;
+  transition-duration: 0.87s;
 }
-/* line 125, ../sass/loading-animations.scss */
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(3) .box:nth-of-type(1):after {
+  content: "Notes";
+}
+/* line 143, ../sass/loading-animations.scss */
 .animation#animation-01 .row:nth-of-type(3) .box:nth-of-type(2) {
-  -webkit-transition-duration: 0.8s;
-  -moz-transition-duration: 0.8s;
-  -o-transition-duration: 0.8s;
-  transition-duration: 0.8s;
+  -webkit-transition-duration: 0.67s;
+  -moz-transition-duration: 0.67s;
+  -o-transition-duration: 0.67s;
+  transition-duration: 0.67s;
 }
-/* line 125, ../sass/loading-animations.scss */
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(3) .box:nth-of-type(2):after {
+  content: "Reminders";
+}
+/* line 143, ../sass/loading-animations.scss */
 .animation#animation-01 .row:nth-of-type(3) .box:nth-of-type(3) {
-  -webkit-transition-duration: 0.5s;
-  -moz-transition-duration: 0.5s;
-  -o-transition-duration: 0.5s;
-  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.53s;
+  -moz-transition-duration: 0.53s;
+  -o-transition-duration: 0.53s;
+  transition-duration: 0.53s;
 }
-/* line 125, ../sass/loading-animations.scss */
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(3) .box:nth-of-type(3):after {
+  content: "Stocks";
+}
+/* line 143, ../sass/loading-animations.scss */
 .animation#animation-01 .row:nth-of-type(3) .box:nth-of-type(4) {
-  -webkit-transition-duration: 0.8s;
-  -moz-transition-duration: 0.8s;
-  -o-transition-duration: 0.8s;
-  transition-duration: 0.8s;
+  -webkit-transition-duration: 0.73s;
+  -moz-transition-duration: 0.73s;
+  -o-transition-duration: 0.73s;
+  transition-duration: 0.73s;
 }
-/* line 125, ../sass/loading-animations.scss */
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(3) .box:nth-of-type(4):after {
+  content: "Game Center";
+}
+/* line 143, ../sass/loading-animations.scss */
 .animation#animation-01 .row:nth-of-type(4) .box:nth-of-type(1) {
-  -webkit-transition-duration: 1.3s;
-  -moz-transition-duration: 1.3s;
-  -o-transition-duration: 1.3s;
-  transition-duration: 1.3s;
+  -webkit-transition-duration: 1.02s;
+  -moz-transition-duration: 1.02s;
+  -o-transition-duration: 1.02s;
+  transition-duration: 1.02s;
 }
-/* line 125, ../sass/loading-animations.scss */
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(4) .box:nth-of-type(1):after {
+  content: "Newsstand";
+}
+/* line 143, ../sass/loading-animations.scss */
 .animation#animation-01 .row:nth-of-type(4) .box:nth-of-type(2) {
-  -webkit-transition-duration: 1s;
-  -moz-transition-duration: 1s;
-  -o-transition-duration: 1s;
-  transition-duration: 1s;
+  -webkit-transition-duration: 0.82s;
+  -moz-transition-duration: 0.82s;
+  -o-transition-duration: 0.82s;
+  transition-duration: 0.82s;
 }
-/* line 125, ../sass/loading-animations.scss */
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(4) .box:nth-of-type(2):after {
+  content: "iTunes Store";
+}
+/* line 143, ../sass/loading-animations.scss */
 .animation#animation-01 .row:nth-of-type(4) .box:nth-of-type(3) {
-  -webkit-transition-duration: 0.7s;
-  -moz-transition-duration: 0.7s;
-  -o-transition-duration: 0.7s;
-  transition-duration: 0.7s;
+  -webkit-transition-duration: 0.68s;
+  -moz-transition-duration: 0.68s;
+  -o-transition-duration: 0.68s;
+  transition-duration: 0.68s;
 }
-/* line 125, ../sass/loading-animations.scss */
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(4) .box:nth-of-type(3):after {
+  content: "App Store";
+}
+/* line 143, ../sass/loading-animations.scss */
 .animation#animation-01 .row:nth-of-type(4) .box:nth-of-type(4) {
-  -webkit-transition-duration: 1s;
-  -moz-transition-duration: 1s;
-  -o-transition-duration: 1s;
-  transition-duration: 1s;
+  -webkit-transition-duration: 0.88s;
+  -moz-transition-duration: 0.88s;
+  -o-transition-duration: 0.88s;
+  transition-duration: 0.88s;
 }
-/* line 132, ../sass/loading-animations.scss */
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(4) .box:nth-of-type(4):after {
+  content: "Passbook";
+}
+/* line 143, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(5) .box:nth-of-type(1) {
+  -webkit-transition-duration: 1.17s;
+  -moz-transition-duration: 1.17s;
+  -o-transition-duration: 1.17s;
+  transition-duration: 1.17s;
+}
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(5) .box:nth-of-type(1):after {
+  content: "Compass";
+}
+/* line 143, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(5) .box:nth-of-type(2) {
+  -webkit-transition-duration: 0.97s;
+  -moz-transition-duration: 0.97s;
+  -o-transition-duration: 0.97s;
+  transition-duration: 0.97s;
+}
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(5) .box:nth-of-type(2):after {
+  content: "Settings";
+}
+/* line 143, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(5) .box:nth-of-type(3) {
+  -webkit-transition-duration: 0.83s;
+  -moz-transition-duration: 0.83s;
+  -o-transition-duration: 0.83s;
+  transition-duration: 0.83s;
+}
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(5) .box:nth-of-type(3):after {
+  content: "Safari";
+}
+/* line 143, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(5) .box:nth-of-type(4) {
+  -webkit-transition-duration: 1.03s;
+  -moz-transition-duration: 1.03s;
+  -o-transition-duration: 1.03s;
+  transition-duration: 1.03s;
+}
+/* line 146, ../sass/loading-animations.scss */
+.animation#animation-01 .row:nth-of-type(5) .box:nth-of-type(4):after {
+  content: "Music";
+}
+/* line 154, ../sass/loading-animations.scss */
 .animation#animation-01 .row {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-/* line 135, ../sass/loading-animations.scss */
+/* line 157, ../sass/loading-animations.scss */
 .animation#animation-01 .row .box {
   background-color: #fff;
-  border-radius: 5px;
-  width: 50px;
-  height: 50px;
-  margin: 15px;
+  border-radius: 13px;
+  width: 60px;
+  height: 60px;
+  margin: 8px;
+  margin-bottom: 20px;
   -webkit-transform: translate3d(0, 0, 1000px);
   -moz-transform: translate3d(0, 0, 1000px);
   -ms-transform: translate3d(0, 0, 1000px);
@@ -366,7 +480,16 @@ html, body {
   -o-transition: all;
   transition: all;
 }
-/* line 149, ../sass/loading-animations.scss */
+/* line 168, ../sass/loading-animations.scss */
+.animation#animation-01 .row .box:after {
+  position: absolute;
+  top: 100%;
+  width: 200%;
+  margin-left: -50%;
+  text-align: center;
+  margin-top: 0.4em;
+}
+/* line 181, ../sass/loading-animations.scss */
 .animation#animation-01:hover .row .box {
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);

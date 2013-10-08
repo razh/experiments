@@ -100,16 +100,34 @@ $ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
   }
 }
 
+$icon-names: (
+  "Messages", "Calendar", "Photos", "Camera",
+  "Weather", "Clock", "Maps", "Video",
+  "Notes", "Reminders", "Stocks", "Game Center",
+  "Newsstand", "iTunes Store", "App Store", "Passbook",
+  "Compass", "Settings", "Safari", "Music"
+);
+
 @mixin flex-center() {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-$row-count: 4;
+$row-count: 5;
 $box-count: 4;
 
+$icon-size: 0.5 * 120px;
+$icon-border-radius: 0.5 * 26px;
+$icon-margin: 0.5 * 16px;
+
 .animation#animation-01 {
+  color: white;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 100;
+  letter-spacing: 0.1em;
+  font-size: 0.7em;
+
   background-color: #333;
   @include perspective(1000px);
   @include perspective-origin(center center);
@@ -120,10 +138,14 @@ $box-count: 4;
   @for $i from 1 to $row-count + 1 {
     .row:nth-of-type(#{$i}) {
       @for $j from 1 to $box-count + 1 {
-        $delay: abs($i - 3) * 0.2s + abs($j - 3) * 0.3s;
+        $delay: abs($i - 3) * 0.15s + abs($j - 2.85) * 0.20s;
 
         .box:nth-of-type(#{$j}) {
           @include transition-duration(0.5s + $delay);
+
+          &:after {
+            content: nth($icon-names, ($i - 1) * ($row-count - 1) + ($j - 1) + 1);
+          }
         }
       }
     }
@@ -134,13 +156,23 @@ $box-count: 4;
 
     .box {
       background-color: #fff;
-      border-radius: 5px;
-      width: 50px;
-      height: 50px;
-      margin: 15px;
+      border-radius: $icon-border-radius;
+      width: $icon-size;
+      height: $icon-size;
+      margin: $icon-margin;
+      margin-bottom: 2.5 * $icon-margin;
 
       @include translate3d(0, 0, 1000px);
       @include transition(all);
+
+      &:after {
+        position: absolute;
+        top: 100%;
+        width: 200%;
+        margin-left: -50%;
+        text-align: center;
+        margin-top: 0.4em;
+      }
     }
   }
 
