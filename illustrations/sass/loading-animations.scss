@@ -88,15 +88,21 @@ $ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
   .circle#inner {
     @include circle(250px);
     border-left: 2px solid #f43;
-
-    @include animation(forward-rotation 2s $ease-in-out-circ infinite);
   }
 
   .circle#outer {
     @include circle(300px);
     border-left: 2px solid #fff;
+  }
 
-    @include animation(backward-rotation 5s $ease-in-out-circ infinite);
+  &:hover {
+    .circle#inner {
+      @include animation(forward-rotation 2s $ease-in-out-circ infinite);
+    }
+
+    .circle#outer {
+      @include animation(backward-rotation 5s $ease-in-out-circ infinite);
+    }
   }
 }
 
@@ -127,6 +133,8 @@ $icon-margin: 0.5 * 16px;
   font-weight: 100;
   letter-spacing: 0.1em;
   font-size: 0.7em;
+
+  min-height: $row-count * $icon-size * 2;
 
   background-color: #333;
   @include perspective(1000px);
