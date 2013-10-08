@@ -1,0 +1,224 @@
+/* line 17, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 9, ../sass/social.scss */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 13, ../sass/social.scss */
+html, body {
+  height: 100%;
+}
+
+/* line 17, ../sass/social.scss */
+body {
+  margin: 0;
+}
+
+/* line 21, ../sass/social.scss */
+.section {
+  width: 100%;
+  height: 100%;
+}
+
+/* line 36, ../sass/social.scss */
+.section#section-00 {
+  font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #88f;
+  background-color: #222;
+  min-height: 640px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* line 37, ../sass/social.scss */
+.section#section-00 * {
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+/* line 48, ../sass/social.scss */
+.section#section-00 .login-box {
+  width: 320px;
+  height: 480px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+/* line 57, ../sass/social.scss */
+.section#section-00 .login-box .face {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 10px solid #6688ee;
+  position: relative;
+  background-color: #c2cff8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* line 67, ../sass/social.scss */
+.section#section-00 .login-box .face .eyes {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* line 71, ../sass/social.scss */
+.section#section-00 .login-box .face .eyes .eye {
+  float: left;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #6688ee;
+  margin: 5px;
+  margin-top: -7px;
+}
+/* line 82, ../sass/social.scss */
+.section#section-00 .login-box .face .mouth {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  margin-left: -30px;
+  bottom: 10px;
+  left: 50%;
+  border-radius: 50%;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #6688ee;
+}
+/* line 101, ../sass/social.scss */
+.section#section-00 .login-box hr {
+  width: 80%;
+  height: 2px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin: 30px;
+}
+/* line 109, ../sass/social.scss */
+.section#section-00 .login-box .form-group {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* line 114, ../sass/social.scss */
+.section#section-00 .login-box input {
+  margin: 5px 15px;
+  padding: 7px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  font-size: 16px;
+}
+/* line 122, ../sass/social.scss */
+.section#section-00 .login-box input:focus {
+  outline: none;
+}
+/* line 127, ../sass/social.scss */
+.section#section-00 .login-box .log-in {
+  width: 80%;
+  height: 50px;
+  margin: 25px;
+  border-radius: 5px;
+  border: none;
+  background-color: #ff5544;
+  color: white;
+  font-size: 1em;
+  -webkit-box-shadow: 0 5px 0 #dd1400;
+  -moz-box-shadow: 0 5px 0 #dd1400;
+  box-shadow: 0 5px 0 #dd1400;
+  -webkit-transition: all 0.1s;
+  -moz-transition: all 0.1s;
+  -o-transition: all 0.1s;
+  transition: all 0.1s;
+}
+/* line 141, ../sass/social.scss */
+.section#section-00 .login-box .log-in:focus {
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+/* line 146, ../sass/social.scss */
+.section#section-00 .login-box .log-in:active {
+  -webkit-transform: translateY(5px);
+  -moz-transform: translateY(5px);
+  -ms-transform: translateY(5px);
+  -o-transform: translateY(5px);
+  transform: translateY(5px);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}

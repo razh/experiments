@@ -1,0 +1,152 @@
+@import "compass/reset";
+
+@import "compass/css3/box-shadow";
+@import "compass/css3/box-sizing";
+@import "compass/css3/transform";
+@import "compass/css3/transition";
+@import "compass/css3/user-interface";
+
+* {
+  @include box-sizing(border-box);
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.section {
+  width: 100%;
+  height: 100%;
+}
+
+$face-color: #68e;
+
+$button-red: #f54;
+
+@mixin flex-center() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section#section-00 {
+  * {
+    @include transition(all 0.5s);
+  }
+
+  font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #88f;
+
+  background-color: #222;
+  min-height: 640px;
+  @include flex-center();
+
+  .login-box {
+    width: 320px;
+    height: 480px;
+    background-color: #fff;
+    border-radius: 10px;
+
+    @include flex-center();
+    flex-direction: column;
+
+    .face {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 10px solid $face-color;
+      position: relative;
+      background-color: lighten($face-color, 20%);
+
+      @include flex-center();
+
+      .eyes {
+        width: 100%;
+        @include flex-center();
+
+        .eye {
+          float: left;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background-color: $face-color;
+          margin: 5px;
+          margin-top: -7px;
+        }
+      }
+
+      .mouth {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        margin-left: -30px;
+        bottom: 10px;
+        left: 50%;
+
+
+        border: {
+          radius: 50%;
+
+          left: 8px solid transparent;
+          right: 8px solid transparent;
+          bottom: 8px solid $face-color;
+        }
+      }
+    }
+
+    hr {
+      width: 80%;
+      height: 2px;
+      border: none;
+      background-color: rgba(0, 0, 0, 0.1);
+      margin: 30px;
+    }
+
+    .form-group {
+      width: 80%;
+      @include flex-center();
+    }
+
+    input {
+      margin: 5px 15px;
+      padding: 7px;
+      border: 2px solid rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      @include box-shadow(none);
+      font-size: 16px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .log-in {
+      width: 80%;
+      height: 50px;
+      margin: 25px;
+      border-radius: 5px;
+
+      border: none;
+      background-color: $button-red;
+      color: white;
+      font-size: 1em;
+
+      @include box-shadow(0 5px 0 darken($button-red, 20%));
+      @include transition(all 0.1s);
+
+      &:focus {
+        outline: none;
+        @include user-select(none);
+      }
+
+      &:active {
+        @include translateY(5px);
+        @include box-shadow(none);
+      }
+    }
+  }
+}
