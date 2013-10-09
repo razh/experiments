@@ -63,90 +63,189 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 9, ../sass/social.scss */
+/* line 20, ../sass/social.scss */
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 13, ../sass/social.scss */
+/* line 24, ../sass/social.scss */
 html, body {
   height: 100%;
 }
 
-/* line 17, ../sass/social.scss */
+/* line 28, ../sass/social.scss */
 body {
   margin: 0;
 }
 
-/* line 21, ../sass/social.scss */
+/* line 32, ../sass/social.scss */
 .section {
   width: 100%;
   height: 100%;
 }
 
-/* line 37, ../sass/social.scss */
+@-webkit-keyframes shake {
+  /* line 51, ../sass/social.scss */
+  0% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  /* line 55, ../sass/social.scss */
+  20% {
+    -webkit-transform: translateX(5px);
+    -moz-transform: translateX(5px);
+    -ms-transform: translateX(5px);
+    -o-transform: translateX(5px);
+    transform: translateX(5px);
+  }
+
+  /* line 55, ../sass/social.scss */
+  40% {
+    -webkit-transform: translateX(-5px);
+    -moz-transform: translateX(-5px);
+    -ms-transform: translateX(-5px);
+    -o-transform: translateX(-5px);
+    transform: translateX(-5px);
+  }
+
+  /* line 55, ../sass/social.scss */
+  60% {
+    -webkit-transform: translateX(5px);
+    -moz-transform: translateX(5px);
+    -ms-transform: translateX(5px);
+    -o-transform: translateX(5px);
+    transform: translateX(5px);
+  }
+
+  /* line 59, ../sass/social.scss */
+  100% {
+    -webkit-transform: translateX(0px);
+    -moz-transform: translateX(0px);
+    -ms-transform: translateX(0px);
+    -o-transform: translateX(0px);
+    transform: translateX(0px);
+  }
+}
+
+@keyframes shake {
+  /* line 51, ../sass/social.scss */
+  0% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  /* line 55, ../sass/social.scss */
+  20% {
+    -webkit-transform: translateX(5px);
+    -moz-transform: translateX(5px);
+    -ms-transform: translateX(5px);
+    -o-transform: translateX(5px);
+    transform: translateX(5px);
+  }
+
+  /* line 55, ../sass/social.scss */
+  40% {
+    -webkit-transform: translateX(-5px);
+    -moz-transform: translateX(-5px);
+    -ms-transform: translateX(-5px);
+    -o-transform: translateX(-5px);
+    transform: translateX(-5px);
+  }
+
+  /* line 55, ../sass/social.scss */
+  60% {
+    -webkit-transform: translateX(5px);
+    -moz-transform: translateX(5px);
+    -ms-transform: translateX(5px);
+    -o-transform: translateX(5px);
+    transform: translateX(5px);
+  }
+
+  /* line 59, ../sass/social.scss */
+  100% {
+    -webkit-transform: translateX(0px);
+    -moz-transform: translateX(0px);
+    -ms-transform: translateX(0px);
+    -o-transform: translateX(0px);
+    transform: translateX(0px);
+  }
+}
+
+/* line 62, ../sass/social.scss */
 .section#section-00 {
   font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #88f;
+  color: #99bbee;
   background-color: #222;
   min-height: 640px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-/* line 38, ../sass/social.scss */
+/* line 63, ../sass/social.scss */
 .section#section-00 * {
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   -o-transition: all 0.5s;
   transition: all 0.5s;
 }
-/* line 49, ../sass/social.scss */
+/* line 74, ../sass/social.scss */
 .section#section-00 .login-box {
   width: 320px;
   height: 480px;
   background-color: #fff;
   border-radius: 10px;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
-/* line 60, ../sass/social.scss */
+/* line 86, ../sass/social.scss */
 .section#section-00 .login-box .face {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 10px solid #6688ee;
+  border: 10px solid #99bbee;
   position: relative;
-  background-color: #c2cff8;
+  background-color: #dbe7f9;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-/* line 70, ../sass/social.scss */
+/* line 96, ../sass/social.scss */
 .section#section-00 .login-box .face .eyes {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-/* line 74, ../sass/social.scss */
+/* line 100, ../sass/social.scss */
 .section#section-00 .login-box .face .eyes .eye {
   float: left;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: #6688ee;
+  background-color: #99bbee;
   margin: 5px;
   margin-top: -7px;
 }
-/* line 85, ../sass/social.scss */
+/* line 111, ../sass/social.scss */
 .section#section-00 .login-box .face .mouth {
   position: absolute;
   width: 60px;
@@ -157,9 +256,9 @@ body {
   border-radius: 50%;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
-  border-bottom: 8px solid #6688ee;
+  border-bottom: 8px solid #99bbee;
 }
-/* line 104, ../sass/social.scss */
+/* line 130, ../sass/social.scss */
 .section#section-00 .login-box hr {
   width: 80%;
   height: 2px;
@@ -167,19 +266,16 @@ body {
   background-color: rgba(0, 0, 0, 0.1);
   margin: 30px;
 }
-/* line 112, ../sass/social.scss */
+/* line 138, ../sass/social.scss */
 .section#section-00 .login-box .form-group {
   width: 80%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-/* line 117, ../sass/social.scss */
+/* line 143, ../sass/social.scss */
 .section#section-00 .login-box input {
-  margin-top: 5px;
-  margin-right: 0;
-  margin-bottom: 5px;
-  margin-left: 10px;
+  margin: 5px 0 5px 10%;
   padding: 7px;
   border: 2px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
@@ -187,15 +283,16 @@ body {
   -moz-box-shadow: none;
   box-shadow: none;
   font-size: 16px;
-  color: #888;
+  color: #78a;
 }
-/* line 132, ../sass/social.scss */
+/* line 152, ../sass/social.scss */
 .section#section-00 .login-box input:focus {
+  color: black;
   outline: none;
-  border: 2px solid #6688ee;
+  border: 2px solid #99bbee;
 }
-/* line 138, ../sass/social.scss */
-.section#section-00 .login-box .log-in {
+/* line 159, ../sass/social.scss */
+.section#section-00 .login-box .login-btn {
   width: 80%;
   height: 50px;
   margin: 25px;
@@ -213,15 +310,15 @@ body {
   -o-transition: all 0.1s;
   transition: all 0.1s;
 }
-/* line 153, ../sass/social.scss */
-.section#section-00 .login-box .log-in:focus {
+/* line 174, ../sass/social.scss */
+.section#section-00 .login-box .login-btn:focus {
   outline: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
 }
-/* line 158, ../sass/social.scss */
-.section#section-00 .login-box .log-in:active {
+/* line 179, ../sass/social.scss */
+.section#section-00 .login-box .login-btn:active {
   -webkit-transform: translateY(5px);
   -moz-transform: translateY(5px);
   -ms-transform: translateY(5px);
@@ -231,13 +328,19 @@ body {
   -moz-box-shadow: none;
   box-shadow: none;
 }
+/* line 186, ../sass/social.scss */
+.section#section-00 .shake {
+  -webkit-animation: shake 0.2s;
+  animation: shake 0.2s;
+}
 
-/* line 166, ../sass/social.scss */
+/* line 196, ../sass/social.scss */
 .section#section-01 {
   background-color: #444;
   font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  height: 100px;
 }
-/* line 170, ../sass/social.scss */
+/* line 201, ../sass/social.scss */
 .section#section-01 .navbar {
   width: 100%;
   height: 50px;
@@ -246,25 +349,25 @@ body {
   align-items: center;
   justify-content: center;
 }
-/* line 179, ../sass/social.scss */
+/* line 210, ../sass/social.scss */
 .section#section-01 .navbar .home {
   flex: 1 auto;
   margin-left: 20px;
   font-weight: bold;
 }
-/* line 185, ../sass/social.scss */
+/* line 216, ../sass/social.scss */
 .section#section-01 .navbar .links {
   display: flex;
   justify-content: space-around;
   margin-right: 20px;
 }
-/* line 190, ../sass/social.scss */
+/* line 221, ../sass/social.scss */
 .section#section-01 .navbar .links li {
-  margin: 0 10px;
+  margin: 0 20px;
   display: inline;
 }
-/* line 196, ../sass/social.scss */
+/* line 227, ../sass/social.scss */
 .section#section-01 .navbar a, .section#section-01 .navbar a:active, .section#section-01 .navbar a:visited {
-  color: #f45;
+  color: #ff4455;
   text-decoration: none;
 }

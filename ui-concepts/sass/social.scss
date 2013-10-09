@@ -6,6 +6,17 @@
 @import "compass/css3/transition";
 @import "compass/css3/user-interface";
 
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} { @content; }
+  @keyframes #{$name} { @content; }
+}
+
+@mixin animation($animation) {
+  -webkit-animation: #{$animation};
+          animation: #{$animation};
+}
+
 * {
   @include box-sizing(border-box);
 }
@@ -23,15 +34,29 @@ body {
   height: 100%;
 }
 
-$proxima-nova: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
-
-$face-color: #68e;
-$button-red: #f54;
-
 @mixin flex-center() {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+$proxima-nova: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+// Login box.
+$face-color: #9be;
+$button-red: #f54;
+$button-shadow: 5px;
+
+@include keyframes(shake) {
+  0% { @include translateX(0); }
+
+  $offset: 5px;
+  @for $i from 1 to 4 {
+    #{percentage($i / 5)} { @include translateX($offset); }
+    $offset: -$offset;
+  }
+
+  100% { @include translateX(0px); }
 }
 
 .section#section-00 {
@@ -40,7 +65,7 @@ $button-red: #f54;
   }
 
   font-family: $proxima-nova;
-  color: #88f;
+  color: $face-color;
 
   background-color: #222;
   min-height: 640px;
@@ -51,11 +76,12 @@ $button-red: #f54;
     height: 480px;
     background-color: #fff;
     border-radius: 10px;
+    @include translateZ(0);
 
     @include flex-center();
     flex-direction: column;
 
-    @include box-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+    @include box-shadow(0 0 10px rgba(0, 0, 0, 0.8));
 
     .face {
       width: 100px;
@@ -63,7 +89,7 @@ $button-red: #f54;
       border-radius: 50%;
       border: 10px solid $face-color;
       position: relative;
-      background-color: lighten($face-color, 20%);
+      background-color: lighten($face-color, 15%);
 
       @include flex-center();
 
@@ -115,27 +141,22 @@ $button-red: #f54;
     }
 
     input {
-      margin: {
-        top: 5px;
-        right: 0;
-        bottom: 5px;
-        left: 10px;
-      };
-
+      margin: 5px 0 5px 10%;
       padding: 7px;
       border: 2px solid rgba(0, 0, 0, 0.1);
       border-radius: 5px;
       @include box-shadow(none);
       font-size: 16px;
-      color: #888;
+      color: #78a;
 
       &:focus {
+        color: black;
         outline: none;
         border: 2px solid $face-color;
       }
     }
 
-    .log-in {
+    .login-btn {
       width: 80%;
       height: 50px;
       margin: 25px;
@@ -147,7 +168,7 @@ $button-red: #f54;
       font-size: 1em;
       font-weight: bold;
 
-      @include box-shadow(0 5px 0 darken($button-red, 20%));
+      @include box-shadow(0 $button-shadow 0 darken($button-red, 20%));
       @include transition(all 0.1s);
 
       &:focus {
@@ -156,20 +177,30 @@ $button-red: #f54;
       }
 
       &:active {
-        @include translateY(5px);
+        @include translateY($button-shadow);
         @include box-shadow(none);
       }
     }
   }
+
+  .shake {
+    @include animation(shake 0.2s);
+  }
 }
+
+// Navbar.
+$link-color: #f45;
+$navbar-spacing: 20px;
+$navbar-height: 50px;
 
 .section#section-01 {
   background-color: #444;
   font-family: $proxima-nova;
+  height: 2 * $navbar-height;
 
   .navbar {
     width: 100%;
-    height: 50px;
+    height: $navbar-height;
     background-color: white;
 
     display: flex;
@@ -178,23 +209,23 @@ $button-red: #f54;
 
     .home {
       flex: 1 auto;
-      margin-left: 20px;
+      margin-left: $navbar-spacing;
       font-weight: bold;
     }
 
     .links {
       display: flex;
       justify-content: space-around;
-      margin-right: 20px;
+      margin-right: $navbar-spacing;
 
       li {
-        margin: 0 10px;
+        margin: 0 $navbar-spacing;
         display: inline;
       }
     }
 
     a, a:active, a:visited {
-      color: #f45;
+      color: $link-color;
       text-decoration: none;
     }
   }
