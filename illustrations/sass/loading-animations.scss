@@ -15,13 +15,15 @@
 }
 
 @mixin circle($radius) {
+  $diameter: 2 * $radius;
+
   position: absolute;
 
-  width: $radius;
-  height: $radius;
+  width: $diameter;
+  height: $diameter;
 
-  margin-top: -0.5 * $radius;
-  margin-left: -0.5 * $radius;
+  margin-top: -$radius;
+  margin-left: -$radius;
 
   border-radius: 50%;
 }
@@ -86,12 +88,12 @@ $ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
   }
 
   .circle#inner {
-    @include circle(250px);
+    @include circle(125px);
     border-left: 2px solid #f43;
   }
 
   .circle#outer {
-    @include circle(300px);
+    @include circle(150px);
     border-left: 2px solid #fff;
   }
 
@@ -189,6 +191,59 @@ $icon-margin: 0.5 * 16px;
       .box {
         @include translate3d(0, 0, 0);
       }
+    }
+  }
+}
+
+.animation#animation-02 {
+  background-color: #333;
+
+  $radius: 150px;
+  $diameter: 2 * $radius;
+  $circumference: pi() * $diameter;
+
+  $stroke-width: 2px;
+
+  @include flex-center();
+
+  * {
+    @include transition(all 1s);
+  }
+
+  svg {
+    width: $diameter + 2 * $stroke-width;
+    height: $diameter + 2 * $stroke-width;
+
+    path {
+      @include translate($radius + $stroke-width, $radius + $stroke-width);
+      fill: none;
+      stroke: white;
+      stroke-width: $stroke-width;
+
+      stroke-dasharray: $circumference $circumference;
+      stroke-dashoffset: 0;
+    }
+
+    &:hover {
+      path {
+        stroke-dashoffset: $circumference;
+      }
+    }
+  }
+
+  .circle#inner {
+    @include circle(125px);
+
+    top: 50%;
+    left: 50%;
+
+    border: 2px solid transparent;
+    border-left: 2px solid #f43;
+  }
+
+  &:hover {
+    .circle#inner {
+      @include animation(backward-rotation 2s $ease-in-out-circ infinite);
     }
   }
 }
