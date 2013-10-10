@@ -371,3 +371,61 @@ body {
   color: #ff4455;
   text-decoration: none;
 }
+
+/* line 235, ../sass/social.scss */
+.section#section-02 {
+  background-color: #333;
+  font-family: Monaco, Consolas, "Courier New", Courier, monospace;
+  font-size: 0.6em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-perspective: 500px;
+  -moz-perspective: 500px;
+  -ms-perspective: 500px;
+  -o-perspective: 500px;
+  perspective: 500px;
+}
+/* line 236, ../sass/social.scss */
+.section#section-02 * {
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+/* line 248, ../sass/social.scss */
+.section#section-02 .post {
+  width: 320px;
+  height: 480px;
+  padding: 50px;
+  border: 1px solid #ccc;
+  background-color: white;
+  color: #ccc;
+  display: flex;
+  flex-direction: column;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+}
+/* line 262, ../sass/social.scss */
+.section#section-02 .post .title {
+  font-size: 2em;
+  color: #555;
+  margin-bottom: 15px;
+  letter-spacing: -0.02em;
+  line-height: 1.5;
+}
+/* line 271, ../sass/social.scss */
+.section#section-02 .post .content p {
+  line-height: 2;
+}
+/* line 276, ../sass/social.scss */
+.section#section-02 .post:hover {
+  -webkit-transform: rotateY(30deg);
+  -moz-transform: rotateY(30deg);
+  -ms-transform: rotateY(30deg);
+  -o-transform: rotateY(30deg);
+  transform: rotateY(30deg);
+}

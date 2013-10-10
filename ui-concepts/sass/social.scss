@@ -230,3 +230,51 @@ $navbar-height: 50px;
     }
   }
 }
+
+//
+.section#section-02 {
+  * {
+    @include transition(all 0.2s);
+  }
+
+  background-color: #333;
+  font-family: Monaco, Consolas, "Courier New", Courier, monospace;
+  font-size: 0.6em;
+
+  @include flex-center();
+
+  @include perspective(500px);
+
+  .post {
+    width: 320px;
+    height: 480px;
+    padding: 50px;
+
+    border: 1px solid #ccc;
+    background-color: white;
+    color: #ccc;
+
+    display: flex;
+    flex-direction: column;
+
+    @include transform(translateZ(0));
+
+    .title {
+      font-size: 2em;
+      color: #555;
+      margin-bottom: 15px;
+      letter-spacing: -0.02em;
+      line-height: 1.5;
+    }
+
+    .content {
+      p {
+        line-height: 2;
+      }
+    }
+
+    &:hover {
+      @include transform(rotateY(30deg));
+    }
+  }
+}
