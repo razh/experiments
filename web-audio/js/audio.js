@@ -9,10 +9,11 @@
   canvas.height = window.innerHeight;
   canvas.style.backgroundColor = 'black';
 
-  // AUdio.
+  // Audio.
   var audioContext,
       analyser;
 
+  // Bins for bar chart.
   var binCount,
       levelBins;
 
@@ -29,7 +30,11 @@
       levelsData = [];
 
   var source,
+      delay,
       gain;
+
+  // Delay to sync up audio with visuals.
+  var delayTime = 1.0;
 
   /**
    * Based off of Making Audio Reactive Visuals by Felix Turner.
@@ -41,7 +46,6 @@
 
     analyser.smoothingTimeConstant = 0.8;
     analyser.fftSize = 1024;
-    analyser.connect( audioContext.destination );
 
     binCount = analyser.frequencyBinCount;
     levelBins = Math.floor( binCount / levelsCount );
@@ -53,11 +57,14 @@
       levelHistory.push(0);
     }
 
-    // Actual sound genration.
+    delay = audioContext.createDelayNode( delayTime );
+    delay.connect( audioContext.destination );
+
     gain = audioContext.createGainNode();
-    gain.gain.value = 0.05;
+    gain.gain.value = 0.5;
 
     gain.connect( analyser );
+    gain.connect( delay );
   }
 
   var initAudioTest = (function() {
@@ -82,6 +89,10 @@
         osc.connect( gain );
         osc.start( options.start );
         osc.stop( options.stop );
+
+        osc.onended = function() {
+          osc.disconnect();
+        };
       });
 
       setTimeout(function() {
@@ -97,6 +108,11 @@
       source.buffer = buffer;
       source.connect( gain );
       source.start(0);
+
+      source.onended = function() {
+        source.disconnect();
+        running = false;
+      };
     });
   }
 
@@ -177,8 +193,13 @@
       );
     }
 
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = 'white';
+
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
     ctx.fill();
+
+    ctx.shadowBlur = 0;
 
     // Draw waveform.
     if ( !waveData.length ) {
