@@ -7,6 +7,7 @@
 
   canvas.width  = window.innerWidth;
   canvas.height = window.innerHeight;
+  canvas.style.backgroundColor = 'black';
 
   // AUdio.
   var audioContext,
@@ -38,7 +39,7 @@
     audioContext = new window.webkitAudioContext();
     analyser = audioContext.createAnalyser();
 
-    analyser.smoothinTimeConstant = 0.8;
+    analyser.smoothingTimeConstant = 0.8;
     analyser.fftSize = 1024;
     analyser.connect( audioContext.destination );
 
@@ -132,7 +133,7 @@
       sum += levelsData[j];
     }
 
-    level = sum /levelsCount;
+    level = sum / levelsCount;
 
     levelHistory.push( level );
     levelHistory.shift(1);
@@ -142,18 +143,33 @@
     var width  = ctx.canvas.width,
         height = ctx.canvas.height;
 
+    var halfWidth  = 0.5 * width,
+        halfHeight = 0.5 * height;
+
+    var margin = 5;
+
     ctx.clearRect( 0, 0, width, height );
 
     // Draw bar chart.
     ctx.beginPath();
 
-    var barWidth = width / levelsCount;
+    var barWidth = halfWidth / levelsCount,
+        translateX = margin + 0.5 * halfWidth;
+
+    var levelHeight;
     var i;
     for ( i = 0; i < levelsCount; i++ ) {
-      ctx.rect( i * barWidth, height, barWidth - 10, -levelsData[i] * height );
+      levelHeight = levelsData[i] * height;
+
+      ctx.rect(
+        i * barWidth + translateX,
+        halfHeight - 0.5 * levelHeight,
+        barWidth - margin,
+        levelHeight
+      );
     }
 
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
     ctx.fill();
 
     // Draw waveform.
@@ -165,11 +181,11 @@
 
     ctx.moveTo( 0, ( waveData[0] + 1 ) * 0.5 * height );
     for ( i = 1; i < binCount; i++ ) {
-      ctx.lineTo( i / binCount * width, ( waveData[i] + 1 ) * 0.5 * height );
+      ctx.lineTo( i / binCount * width, ( waveData[i] + 1 ) * halfHeight );
     }
 
     ctx.lineWidth = 1;
-    ctx.strokeStyle = 'black';
+    ctx.strokeStyle = 'white';
     ctx.stroke();
   }
 
