@@ -28,7 +28,7 @@
   var waveData = [],
       levelsData = [];
 
-  var oscillator,
+  var source,
       gain;
 
   /**
@@ -57,37 +57,51 @@
     gain = audioContext.createGainNode();
     gain.gain.value = 0.05;
 
-    oscillator = audioContext.createOscillator();
-    oscillator.frequency.value = 440;
-    oscillator.type = 0;
-
-    oscillator.connect( gain );
     gain.connect( analyser );
+  }
 
-    oscillator.start(0);
-    oscillator.stop( 0.2 );
+  var initAudioTest = (function() {
+    var called = false;
 
-    var osc2 = audioContext.createOscillator();
-    osc2.frequency.value = 220;
-    osc2.type = 2;
+    return function() {
+      if ( called ) {
+        return;
+      }
 
-    osc2.connect( gain );
-    osc2.start(0);
-    osc2.stop( 0.8 );
+      called = true;
 
-    var osc3 = audioContext.createOscillator();
-    osc3.frequency.value = 261.626;
-    osc3.type = 3;
+      [
+        { frequency: 440, type: 0, start: 0, stop: 0.2 },
+        { frequency: 220, type: 2, start: 0, stop: 0.8 },
+        { frequency: 261.626, type: 3, start: 0, stop: 0.9 },
+      ].forEach(function( options ) {
+        var osc = audioContext.createOscillator();
+        osc.frequency.value = options.frequency;
+        osc.type = options.type;
 
-    osc3.connect( gain );
-    osc3.start( 0 );
-    osc3.stop( 0.9 );
+        osc.connect( gain );
+        osc.start( options.start );
+        osc.stop( options.stop );
+      });
+
+      setTimeout(function() {
+        called = false;
+        running = false;
+      }, 1000 );
+    };
+  }) ();
+
+  function initAudioFile( data ) {
+    source = audioContext.createBufferSource();
+    audioContext.decodeAudioData( data, function( buffer ) {
+      source.buffer = buffer;
+      source.connect( gain );
+      source.start(0);
+    });
   }
 
 
   var running = true;
-
-  var startTime;
 
   function tick() {
     if ( !running ) {
@@ -96,11 +110,6 @@
 
     update();
     draw( context );
-
-    if ( Date.now() - startTime > 1000 )  {
-      running = false;
-    }
-
     window.requestAnimationFrame( tick );
   }
 
@@ -127,7 +136,6 @@
     }
 
     // Average level.
-    // sum = 0;
     sum = 0;
     for ( j = 0; j < levelsCount; j++ ) {
       sum += levelsData[j];
@@ -173,7 +181,7 @@
     ctx.fill();
 
     // Draw waveform.
-    if ( !binCount ) {
+    if ( !waveData.length ) {
       return;
     }
 
@@ -195,15 +203,39 @@
       running = false;
       console.log( 'quit' );
     }
+
+    if ( event.which === 'A'.charCodeAt(0) ) {
+      initAudioTest();
+      tick();
+    }
   });
 
-  function init() {
-    initAudio();
+  document.addEventListener( 'drop', function( event ) {
+    event.stopPropagation();
+    event.preventDefault();
 
-    startTime = Date.now();
-    tick();
-  }
+    if ( source ) {
+      source.stop(0);
+      source.disconnect();
+    }
 
-  init();
+    var reader = new FileReader();
+    reader.onload = function( fileEvent ) {
+      initAudioFile( fileEvent.target.result );
+      running = true;
+      tick();
+    };
+
+    var files = event.dataTransfer.files;
+    reader.readAsArrayBuffer( files[0] );
+  });
+
+  // Prevent navigation to audio file.
+  document.addEventListener( 'dragover', function( event ) {
+    event.stopPropagation();
+    event.preventDefault();
+  });
+
+  initAudio();
 
 }) ( window, document );
