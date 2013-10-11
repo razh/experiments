@@ -34,14 +34,21 @@
       gain;
 
   // Delay to sync up audio with visuals.
-  var delayTime = 1.0;
+  var delayTime = 0.8;
 
   /**
    * Based off of Making Audio Reactive Visuals by Felix Turner.
    * http://www.airtightinteractive.com/2013/10/making-audio-reactive-visuals/
    */
   function initAudio() {
-    audioContext = new window.webkitAudioContext();
+    if ( window.webkitAudioContext ) {
+      audioContext = new window.webkitAudioContext();
+    } else if ( window.AudioContext ) {
+      audioContext = new window.AudioContext();
+    } else {
+      return;
+    }
+
     analyser = audioContext.createAnalyser();
 
     analyser.smoothingTimeConstant = 0.8;
@@ -57,10 +64,10 @@
       levelHistory.push(0);
     }
 
-    delay = audioContext.createDelayNode( delayTime );
+    delay = audioContext.createDelay( delayTime );
     delay.connect( audioContext.destination );
 
-    gain = audioContext.createGainNode();
+    gain = audioContext.createGain();
     gain.gain.value = 0.5;
 
     gain.connect( analyser );
