@@ -58,7 +58,7 @@ define([
 
   var spacing = 10;
 
-  var maxSpeed = 300;
+  var maxSpeed = 800;
 
   var circle,
       ellipse,

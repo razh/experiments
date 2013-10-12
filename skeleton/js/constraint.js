@@ -19,6 +19,9 @@ define([
   Constraint.prototype.resolve = function() {
     var distance = Geometry.distance( this.p0.x, this.p0.y, this.p1.x, this.p1.y );
 
+    // Prevent degenerate constraints.
+    distance += 1e-6;
+
     var difference = ( distance - this.length ) / distance;
 
     var px = ( this.p1.x - this.p0.x ) * difference * 0.5,
