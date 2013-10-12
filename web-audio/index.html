@@ -12,10 +12,39 @@
     body {
       margin: 0;
     }
+
+    .info {
+      position: absolute;
+      bottom: 1em;
+      left: 1em;
+
+      color: white;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 2em;
+      font-weight: lighter;
+    }
+
+    .name {
+      font-weight: normal;
+    }
+
+    .time {
+      display: inline-block;
+    }
   </style>
 </head>
 <body>
   <canvas id="canvas"></canvas>
+  <div class="info">
+    <div class="name" id="name">Drag and drop an .mp3 file here.</div>
+    <div class="time" id="current">
+      <span class="minutes">0</span>:<span class="seconds">00</span>
+    </div>
+    /
+    <div class="time" id="duration">
+      <span class="minutes">0</span>:<span class="seconds">00</span>
+    </div>
+  </div>
 
   <script src="./js/audio.js"></script>
 </body>

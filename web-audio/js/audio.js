@@ -9,6 +9,19 @@
   canvas.height = window.innerHeight;
   canvas.style.backgroundColor = 'black';
 
+  // DOM information display elements.
+  var nameElement  = document.getElementById( 'name' ),
+      timeElements = [].slice.call( document.getElementsByClassName( 'time' ) );
+
+  // Break into their component elements.
+  timeElements.forEach(function( el ) {
+    timeElements[ el.id ] = {
+      minutes: el.getElementsByClassName( 'minutes' )[0],
+      seconds: el.getElementsByClassName( 'seconds' )[0]
+    };
+  });
+
+
   // Audio.
   var audioContext,
       analyser;
@@ -35,6 +48,21 @@
 
   // Delay to sync up audio with visuals.
   var delayTime = 0.8;
+
+  // Utility functions.
+  function secondsToMinutes( seconds ) {
+    seconds = Math.round( seconds );
+
+    return {
+      minutes: Math.floor( seconds / 60 ),
+      seconds: seconds % 60
+    };
+  }
+
+  function setTimeElement( el, time ) {
+    el.minutes.innerHTML = time.minutes;
+    el.seconds.innerHTML = ( '0' + time.seconds ).slice( -2 );
+  }
 
   /**
    * Based off of Making Audio Reactive Visuals by Felix Turner.
@@ -115,16 +143,21 @@
       source.buffer = buffer;
       source.connect( gain );
       source.start(0);
+      startTime = Date.now();
+
+      var duration = secondsToMinutes( buffer.duration );
+      setTimeElement( timeElements.duration, duration );
 
       source.onended = function() {
         source.disconnect();
         running = false;
+        startTime = null;
       };
     });
   }
 
-
-  var running = true;
+  var startTime = null,
+      running = true;
 
   function tick() {
     if ( !running ) {
@@ -137,6 +170,14 @@
   }
 
   function update() {
+    // Get current time in seconds.
+    if ( startTime ) {
+      var currentTime = ( Date.now() - startTime ) * 1e-3;
+      currentTime = secondsToMinutes( currentTime );
+      setTimeElement( timeElements.current, currentTime );
+    }
+
+    // Grab frequency and time data.
     analyser.getByteFrequencyData( freqByteData );
     analyser.getByteTimeDomainData( timeByteData );
 
@@ -245,6 +286,7 @@
     if ( source ) {
       source.stop(0);
       source.disconnect();
+      startTime = null;
     }
 
     var reader = new FileReader();
@@ -256,6 +298,10 @@
 
     var files = event.dataTransfer.files;
     reader.readAsArrayBuffer( files[0] );
+
+    // Display file info.
+    nameElement.innerHTML = files[0].name;
+    console.log(files[0])
   });
 
   // Prevent navigation to audio file.
