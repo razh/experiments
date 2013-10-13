@@ -2,7 +2,9 @@
 $(function() {
   'use strict';
 
-  var backgroundCount = 16,
+  var colCount = 4,
+      rowCount = 4,
+      backgroundCount = rowCount * colCount,
       backgrounds = [];
 
   function randomGradient() {
@@ -55,29 +57,40 @@ $(function() {
   console.log( backgrounds[0].css() );
   console.log( $( '#gradient-00' ).css( 'background-image' ) );
 
-  var $window = $( window );
+  var $window   = $( window ),
+      $document = $( document );
 
   var $gradientContainer = $( '.gradient-container' ),
       $gradients = $( '.gradient' ),
       $gradientFullscreen = $( '.gradient-fullscreen' );
 
-  $gradientContainer.css({
-    width: $window.width(),
-    height: $window.height()
-  });
+  function resize() {
+    $gradientContainer.css({
+      width: $window.width(),
+      height: $window.height()
+    });
 
-  var cellWidth = 0.25 * $gradientContainer.width(),
-      cellHeight = 0.25 * $gradientContainer.height();
+    var cellWidth  = $gradientContainer.width()  / colCount,
+        cellHeight = $gradientContainer.height() / rowCount;
 
-  var duration = 200;
+    $gradients.each(function( index, gradient ) {
+      var $gradient = $( gradient );
 
+      $gradient.css({
+        width: cellWidth,
+        height: cellHeight
+      });
+    });
+  }
+
+  $window.on( 'resize', resize );
+
+  var duration = 200,
+      easing   = 'swing';
+
+  // Fullscreen on click.
   $gradients.each(function( index, gradient ) {
     var $gradient = $( gradient );
-
-    $gradient.css({
-      width: cellWidth,
-      height: cellHeight
-    });
 
     $gradient.on( 'click', function() {
       console.log( $gradient.css( 'background-image' ) );
@@ -93,8 +106,16 @@ $(function() {
 
       $gradientFullscreen.animate({
         opacity: 1
-      }, duration, 'swing', function() {
+      }, duration, easing, function() {
+        // Exit fullscreen on click.
         $gradientFullscreen.on( 'click', clickOut );
+
+        // Exit on ESC as well.
+        $document.on( 'keydown', function( event ) {
+          if ( event.which === 27 ) {
+            clickOut();
+          }
+        });
       });
     });
   });
@@ -106,7 +127,7 @@ $(function() {
 
     $gradientFullscreen.animate({
       opacity: 0
-    }, duration, 'swing', function() {
+    }, duration, easing, function() {
       $gradientFullscreen.css({
         'background-image': '',
         'z-index': -1
@@ -114,5 +135,6 @@ $(function() {
     });
 
     $gradientFullscreen.off( 'click' );
+    $document.off( 'keydown' );
   }
 });
