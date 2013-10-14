@@ -24,6 +24,20 @@
       right: 0;
       opacity: 0;
     }
+
+    .gradient-cursor {
+      position: absolute;
+      box-sizing: border-box;
+      border: 0.5em solid rgba(0, 0, 0, 0.5);
+
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+
+      -webkit-transition: all 0.2s;
+      transition: all 0.2s;
+
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -46,6 +60,7 @@
     <div class="gradient" id="gradient-15"></div>
   </div>
 
+  <div class="gradient-cursor"></div>
   <div class="gradient-fullscreen"></div>
 
   <script src="../app/components/jquery/jquery.js"></script>

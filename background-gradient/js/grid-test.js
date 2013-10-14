@@ -1,4 +1,4 @@
-/*globals $, Background, LinearGradient, ColorStop, RGBAColor, randomInt*/
+/*globals $, Background, LinearGradient, ColorStop, RGBAColor, limit, randomInt*/
 $(function() {
   'use strict';
 
@@ -6,6 +6,31 @@ $(function() {
       rowCount = 4,
       backgroundCount = rowCount * colCount,
       backgrounds = [];
+
+  var orderOfMagnitude = Math.ceil( Math.log( backgroundCount ) / Math.LN10 );
+
+  // Number of zeros in the prefix used
+  var prefixZeros = (function() {
+    var prefix = '';
+
+    for ( var i = 0; i < orderOfMagnitude; i++ ) {
+      prefix += '0';
+    }
+
+    return prefix;
+  }) ();
+
+  /**
+   * [getIndexString description]
+   */
+  function getIndexString( index ) {
+    return ( prefixZeros + index ).slice( -orderOfMagnitude );
+  }
+
+  var state = {
+    colIndex: 0,
+    rowIndex: 0
+  };
 
   function randomGradient() {
     var grad = new LinearGradient();
@@ -49,8 +74,7 @@ $(function() {
   var indexString;
   for ( i = 0; i < backgroundCount; i++ ) {
     populateBackground( backgrounds[i] );
-    indexString = i.toString();
-    indexString = ( indexString.length < 2 ) ? '0' + indexString : indexString;
+    indexString = getIndexString( i );
     $( '#gradient-' + indexString ).css( 'background-image', backgrounds[i].css() );
   }
 
@@ -62,7 +86,60 @@ $(function() {
 
   var $gradientContainer = $( '.gradient-container' ),
       $gradients = $( '.gradient' ),
-      $gradientFullscreen = $( '.gradient-fullscreen' );
+      $gradientFullscreen = $( '.gradient-fullscreen' ),
+      $gradientCursor = $( '.gradient-cursor' );
+
+  function updateCursor( options ) {
+    options = options ? options : {};
+
+    var top = options.top || 0,
+        left = options.left || 0,
+
+        width = options.width || 0,
+        height = options.height || 0;
+
+    $gradientCursor.css({
+      top: top,
+      left: left,
+
+      width: width,
+      height: height
+    });
+  }
+
+  /**
+   * Return jQuery object correspdonding to the gradient element at col and row.
+   */
+  function getGradientAt( col, row ) {
+    var index = row * colCount + col,
+        indexString = getIndexString( index );
+
+    return $( '#gradient-' + indexString );
+  }
+
+  function getGradientIndex( $gradient ) {
+    var id = $gradient.attr( 'id' );
+
+    // Extract number from id.
+    var index = parseInt( /(\d+)/.exec( id ), 10 );
+
+    return {
+      col: index % rowCount,
+      row: Math.floor( index / rowCount )
+    };
+  }
+
+  function getGradientDimensions( $gradient ) {
+    var offset = $gradient.offset();
+
+    return {
+      top: offset.top,
+      left: offset.left,
+
+      width: $gradient.width(),
+      height: $gradient.height()
+    };
+  }
 
   function resize() {
     $gradientContainer.css({
@@ -74,13 +151,14 @@ $(function() {
         cellHeight = $gradientContainer.height() / rowCount;
 
     $gradients.each(function( index, gradient ) {
-      var $gradient = $( gradient );
-
-      $gradient.css({
+      $( gradient ).css({
         width: cellWidth,
         height: cellHeight
       });
     });
+
+    var $gradient = getGradientAt( state.colIndex, state.rowIndex );
+    updateCursor( getGradientDimensions( $gradient ) );
   }
 
   $window.on( 'resize', resize );
@@ -88,42 +166,52 @@ $(function() {
   var duration = 200,
       easing   = 'swing';
 
+  function enterFullscreenWithBackgroundImage( backgroundImage ) {
+    console.log( backgroundImage );
+
+    $gradientFullscreen.css({
+      'background-image': backgroundImage,
+      'z-index': 1
+    });
+
+    $gradients.animate({ opacity: 0 });
+    $gradientCursor.css({ opacity: 0 });
+
+    $document.off( 'keydown.navigate' );
+    $gradientFullscreen.animate({
+      opacity: 1
+    }, duration, easing, function() {
+      // Exit fullscreen on click.
+      $gradientFullscreen.on( 'click', exitFullscreen );
+
+      // Exit on ESC as well.
+      $document.on( 'keydown.fullscreen', function( event ) {
+        if ( event.which === 27 ) {
+          exitFullscreen();
+        }
+      });
+    });
+  }
+
   // Fullscreen on click.
   $gradients.each(function( index, gradient ) {
     var $gradient = $( gradient );
 
     $gradient.on( 'click', function() {
-      console.log( $gradient.css( 'background-image' ) );
+      // Set new cursor position.
+      updateCursor( getGradientDimensions( $gradient ) );
 
-      $gradientFullscreen.css({
-        'background-image':  $gradient.css( 'background-image' ),
-        'z-index': 1
-      });
+      var index = getGradientIndex( $gradient );
+      state.colIndex = index.col;
+      state.rowIndex = index.row;
 
-      $gradients.animate({
-        opacity: 0
-      });
-
-      $gradientFullscreen.animate({
-        opacity: 1
-      }, duration, easing, function() {
-        // Exit fullscreen on click.
-        $gradientFullscreen.on( 'click', clickOut );
-
-        // Exit on ESC as well.
-        $document.on( 'keydown', function( event ) {
-          if ( event.which === 27 ) {
-            clickOut();
-          }
-        });
-      });
+      enterFullscreenWithBackgroundImage( $gradient.css( 'background-image' ) );
     });
   });
 
-  function clickOut() {
-    $gradients.animate({
-      opacity: 1
-    }, duration );
+  function exitFullscreen() {
+    $gradients.animate({ opacity: 1 }, duration );
+    $gradientCursor.animate({ opacity: 1 }, duration );
 
     $gradientFullscreen.animate({
       opacity: 0
@@ -135,6 +223,40 @@ $(function() {
     });
 
     $gradientFullscreen.off( 'click' );
-    $document.off( 'keydown' );
+    $document.off( 'keydown.fullscreen' );
+    $document.on( 'keydown.navigate', onKeyDown );
   }
+
+  function onKeyDown( event ) {
+    var colIndex, rowIndex,
+        $gradient;
+
+    if ( event.which === 13 ) {
+      $gradient = getGradientAt( state.colIndex, state.rowIndex );
+      enterFullscreenWithBackgroundImage( $gradient.css( 'background-image' ) );
+    } else {
+      colIndex = state.colIndex;
+      rowIndex = state.rowIndex;
+
+      // Left.
+      if ( event.which === 37 ) { state.colIndex--; }
+      // Top.
+      else if ( event.which === 38 ) { state.rowIndex--; }
+      // Right.
+      else if ( event.which === 39 ) { state.colIndex++; }
+      // Bottom.
+      else if ( event.which === 40 ) { state.rowIndex++; }
+
+      state.colIndex = limit( state.colIndex, 0, colCount - 1 );
+      state.rowIndex = limit( state.rowIndex, 0, rowCount - 1 );
+
+      // Update if indices have changed.
+      if ( state.colIndex !== colIndex ||
+           state.rowIndex !== rowIndex  ) {
+        updateCursor( getGradientDimensions( getGradientAt( state.colIndex, state.rowIndex ) ) );
+      }
+    }
+  }
+
+  $document.on( 'keydown.navigate', onKeyDown );
 });
