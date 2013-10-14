@@ -7,26 +7,6 @@ $(function() {
       backgroundCount = rowCount * colCount,
       backgrounds = [];
 
-  var orderOfMagnitude = Math.ceil( Math.log( backgroundCount ) / Math.LN10 );
-
-  // Number of zeros in the prefix used
-  var prefixZeros = (function() {
-    var prefix = '';
-
-    for ( var i = 0; i < orderOfMagnitude; i++ ) {
-      prefix += '0';
-    }
-
-    return prefix;
-  }) ();
-
-  /**
-   * [getIndexString description]
-   */
-  function getIndexString( index ) {
-    return ( prefixZeros + index ).slice( -orderOfMagnitude );
-  }
-
   var state = {
     colIndex: 0,
     rowIndex: 0
@@ -71,15 +51,13 @@ $(function() {
     backgrounds.push( new Background() );
   }
 
-  var indexString;
   for ( i = 0; i < backgroundCount; i++ ) {
     populateBackground( backgrounds[i] );
-    indexString = getIndexString( i );
-    $( '#gradient-' + indexString ).css( 'background-image', backgrounds[i].css() );
+    $( '#gradient-' + i ).css( 'background-image', backgrounds[i].css() );
   }
 
   console.log( backgrounds[0].css() );
-  console.log( $( '#gradient-00' ).css( 'background-image' ) );
+  console.log( $( '#gradient-0' ).css( 'background-image' ) );
 
   var $window   = $( window ),
       $document = $( document );
@@ -111,10 +89,8 @@ $(function() {
    * Return jQuery object correspdonding to the gradient element at col and row.
    */
   function getGradientAt( col, row ) {
-    var index = row * colCount + col,
-        indexString = getIndexString( index );
-
-    return $( '#gradient-' + indexString );
+    var index = row * colCount + col;
+    return $( '#gradient-' + index );
   }
 
   function getGradientIndex( $gradient ) {
@@ -253,7 +229,8 @@ $(function() {
       // Update if indices have changed.
       if ( state.colIndex !== colIndex ||
            state.rowIndex !== rowIndex  ) {
-        updateCursor( getGradientDimensions( getGradientAt( state.colIndex, state.rowIndex ) ) );
+        $gradient = getGradientAt( state.colIndex, state.rowIndex );
+        updateCursor( getGradientDimensions( $gradient ) );
       }
     }
   }
