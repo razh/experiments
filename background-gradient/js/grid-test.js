@@ -12,6 +12,18 @@ $(function() {
     rowIndex: 0
   };
 
+  var $window   = $( window ),
+      $document = $( document );
+
+  var $gradientContainer = $( '.gradient-container' ),
+      $gradients = $( '.gradient' ),
+      $gradientFullscreen = $( '.gradient-fullscreen' ),
+      $gradientCursor = $( '.gradient-cursor' );
+
+  var duration = 200,
+      easing   = 'swing';
+
+  // Gradient generation.
   function randomGradient() {
     var grad = new LinearGradient();
     var colorStopCount = randomInt( 2, 4 );
@@ -45,45 +57,6 @@ $(function() {
     }
   }
 
-  // Initialize backgrounds.
-  var i;
-  for ( i = 0; i < backgroundCount; i++ ) {
-    backgrounds.push( new Background() );
-  }
-
-  for ( i = 0; i < backgroundCount; i++ ) {
-    populateBackground( backgrounds[i] );
-    $( '#gradient-' + i ).css( 'background-image', backgrounds[i].css() );
-  }
-
-  console.log( backgrounds[0].css() );
-  console.log( $( '#gradient-0' ).css( 'background-image' ) );
-
-  var $window   = $( window ),
-      $document = $( document );
-
-  var $gradientContainer = $( '.gradient-container' ),
-      $gradients = $( '.gradient' ),
-      $gradientFullscreen = $( '.gradient-fullscreen' ),
-      $gradientCursor = $( '.gradient-cursor' );
-
-  function updateCursor( options ) {
-    options = options ? options : {};
-
-    var top = options.top || 0,
-        left = options.left || 0,
-
-        width = options.width || 0,
-        height = options.height || 0;
-
-    $gradientCursor.css({
-      top: top,
-      left: left,
-
-      width: width,
-      height: height
-    });
-  }
 
   /**
    * Return jQuery object correspdonding to the gradient element at col and row.
@@ -117,6 +90,24 @@ $(function() {
     };
   }
 
+  function updateCursor( options ) {
+    options = options ? options : {};
+
+    var top = options.top || 0,
+        left = options.left || 0,
+
+        width = options.width || 0,
+        height = options.height || 0;
+
+    $gradientCursor.css({
+      top: top,
+      left: left,
+
+      width: width,
+      height: height
+    });
+  }
+
   function resize() {
     $gradientContainer.css({
       width: $window.width(),
@@ -137,10 +128,6 @@ $(function() {
     updateCursor( getGradientDimensions( $gradient ) );
   }
 
-  $window.on( 'resize', resize );
-
-  var duration = 200,
-      easing   = 'swing';
 
   function enterFullscreenWithBackgroundImage( backgroundImage ) {
     console.log( backgroundImage );
@@ -169,22 +156,6 @@ $(function() {
     });
   }
 
-  // Fullscreen on click.
-  $gradients.each(function( index, gradient ) {
-    var $gradient = $( gradient );
-
-    $gradient.on( 'click', function() {
-      // Set new cursor position.
-      updateCursor( getGradientDimensions( $gradient ) );
-
-      var index = getGradientIndex( $gradient );
-      state.colIndex = index.col;
-      state.rowIndex = index.row;
-
-      enterFullscreenWithBackgroundImage( $gradient.css( 'background-image' ) );
-    });
-  });
-
   function exitFullscreen() {
     $gradients.animate({ opacity: 1 }, duration );
     $gradientCursor.animate({ opacity: 1 }, duration );
@@ -202,6 +173,7 @@ $(function() {
     $document.off( 'keydown.fullscreen' );
     $document.on( 'keydown.navigate', onKeyDown );
   }
+
 
   function onKeyDown( event ) {
     var colIndex, rowIndex,
@@ -235,5 +207,42 @@ $(function() {
     }
   }
 
-  $document.on( 'keydown.navigate', onKeyDown );
+
+  // Initialize.
+  (function() {
+    // Initialize backgrounds.
+    var i;
+    for ( i = 0; i < backgroundCount; i++ ) {
+      backgrounds.push( new Background() );
+    }
+
+    for ( i = 0; i < backgroundCount; i++ ) {
+      populateBackground( backgrounds[i] );
+      $( '#gradient-' + i ).css( 'background-image', backgrounds[i].css() );
+    }
+
+    console.log( backgrounds[0].css() );
+    console.log( $( '#gradient-0' ).css( 'background-image' ) );
+
+    // Fullscreen on click.
+    $gradients.each(function( index, gradient ) {
+      var $gradient = $( gradient );
+
+      $gradient.on( 'click', function() {
+        // Set new cursor position.
+        updateCursor( getGradientDimensions( $gradient ) );
+
+        var index = getGradientIndex( $gradient );
+        state.colIndex = index.col;
+        state.rowIndex = index.row;
+
+        enterFullscreenWithBackgroundImage( $gradient.css( 'background-image' ) );
+      });
+    });
+
+    $document.on( 'keydown.navigate', onKeyDown );
+    $window.on( 'resize', resize );
+
+    resize();
+  }) ();
 });
