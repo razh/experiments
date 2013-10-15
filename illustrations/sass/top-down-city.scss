@@ -1,0 +1,40 @@
+@import "compass/reset";
+
+@import "compass/css3/box-sizing";
+
+* {
+  @include box-sizing(border-box);
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #ddf;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+$building-light: #77a;
+$building-dark: #557;
+
+.building {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  background-color: $building-light;
+  border: 10px solid $building-dark;
+
+  &:after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 20px;
+    bottom: 20px;
+    right: 20px;
+    background-color: $building-dark;
+  }
+}
