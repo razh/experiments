@@ -142,7 +142,6 @@ RadialGradient.prototype.css = function( totalAlpha ) {
 /**
  * Background.
  */
-
 function Background() {
   this.gradients = [];
 }

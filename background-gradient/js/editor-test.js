@@ -103,7 +103,7 @@ $(function() {
 
       var top, left;
       // TODO: Clean this stuff up!
-      // This only handles percentages right now.
+      // This only handles percentages and pixels right now.
       if ( quadrant === 0 || quadrant === 1 ) {
         left = ( index / colorStopCount ) * 100 + '%';
 

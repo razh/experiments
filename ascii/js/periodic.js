@@ -63,10 +63,15 @@
     }
 
     function drawLogo( ctx, symbol ) {
-      ctx.beginPath();
-      ctx.rect( 4, 4, WIDTH - 8, HEIGHT - 8 );
+      var borderWidth = 4;
 
-      ctx.lineWidth = 8;
+      ctx.beginPath();
+      ctx.rect(
+        borderWidth, borderWidth,
+        WIDTH - 2 * borderWidth, HEIGHT - 2 * borderWidth
+      );
+
+      ctx.lineWidth = 2 * borderWidth;
       ctx.strokeStyle = 'white';
       ctx.stroke();
 
@@ -82,7 +87,8 @@
       })[0];
 
       // Draw symbol.
-      ctx.font = 'bold 130px Helvetica'; // Smaller font for wide symbols.
+      // Smaller font for wide symbols.
+      ctx.font = 'bold 130px Helvetica';
       ctx.font = 'bold 150px Helvetica';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
@@ -164,7 +170,7 @@
 
   /**
    * Given an canvas context, calculate the intensities of a given region size
-   * and dispaly them.
+   * and display them.
    */
   function partitionBrightness( ctx, width, height ) {
     var imageData = ctx.getImageData( 0, 0, ctx.canvas.width, ctx.canvas.height ),
@@ -199,11 +205,13 @@
     var index;
     var xIndex, yIndex;
     var r, g, b;
+    // Row.
     for ( i = 0; i < HEIGHT; i++ ) {
+      // Column.
       for ( j = 0; j < WIDTH; j++ ) {
-        index = 4 * ( WIDTH * j + i );
-        xIndex = Math.floor( i / width );
-        yIndex = Math.floor( j / height );
+        index = 4 * ( WIDTH * i + j );
+        xIndex = Math.floor( j / width );
+        yIndex = Math.floor( i / height );
         countArray[ yIndex ][ xIndex ]++;
 
         r = data[ index ];
