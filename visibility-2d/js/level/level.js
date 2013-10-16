@@ -24,6 +24,7 @@ define([
   }
 
   Level.prototype.draw = function( ctx ) {
+    // Draw walls.
     ctx.beginPath();
 
     this.segments.forEach(function( segment ) {
@@ -32,6 +33,22 @@ define([
 
     ctx.lineWidth = 1;
     ctx.strokeStyle = 'white';
+    ctx.stroke();
+
+
+    // Draw wall sections illuminated by light.
+    ctx.beginPath();
+
+    var i = 0;
+    while ( i < this.output.length ) {
+      var p0 = this.output[ i++ ],
+          p1 = this.output[ i++ ];
+
+      ctx.moveTo( p0.x, p0.y );
+      ctx.lineTo( p1.x, p1.y );
+    }
+
+    ctx.lineWidth = 2;
     ctx.stroke();
   };
 
