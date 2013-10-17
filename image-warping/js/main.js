@@ -10,6 +10,12 @@
   canvas.width  = handlersEl.clientWidth;
   canvas.height = handlersEl.clientHeight;
 
+  var warpCanvas = document.getElementById( 'warp-canvas' ),
+      warpCtx    = warpCanvas.getContext( '2d' );
+
+  warpCanvas.width  = handlersEl.clientWidth;
+  warpCanvas.height = handlersEl.clientHeight;
+
   var gridCanvas = document.getElementById( 'grid-canvas' ),
       gridCtx    = gridCanvas.getContext( '2d' );
 
@@ -35,7 +41,7 @@
 
   // Image warping method taken from https://github.com/adobe/cssfilterlab/.
   var factorial = (function() {
-    var factorials = {};
+    var factorials = [];
 
     return function( n ) {
       if ( factorials[n] ) {
@@ -67,12 +73,12 @@
 
     var i, j;
     var coefficient, handler;
-    for ( i = 0; i <= n; i++ ) {
-      for ( j = 0; j <= m; j++ ) {
-        coefficient = calculateB( i, n, u ) * calculate( j, m, v );
+    for ( i = 0; i < n; i++ ) {
+      for ( j = 0; j < m; j++ ) {
+        coefficient = calculateB( i, n, u ) * calculateB( j, m, v );
         handler = handlers[ i * xCount + j ];
-        x += coefficient * handlers.x;
-        y += coefficient * handlers.y;
+        x += coefficient * ( handler.x - padding );
+        y += coefficient * ( handler.y - padding );
       }
     }
 
@@ -131,7 +137,43 @@
   };
 
   function drawWarpGrid( ctx ) {
+    ctx.save();
 
+    ctx.beginPath();
+    ctx.translate( padding, padding );
+
+    // Draw horizontal lines.
+    var point;
+    var i, j;
+    for ( i = 0; i < 1; i += 0.1 ) {
+      for ( j = 0; j < 1; j += 0.1 ) {
+        point = calculate( i, j, xCount, yCount );
+        if ( !i ) {
+          ctx.moveTo( point[0], point[1] );
+        } else {
+          ctx.lineTo( point[0], point[1] );
+        }
+      }
+    }
+
+    // Draw vertical lines.
+    for ( j = 0; j < 1; j += 0.1 ) {
+      for ( i = 0; i < 1; i += 0.1 ) {
+        point = calculate( i, j, xCount, yCount );
+        if ( !j ) {
+          ctx.moveTo( point[0], point[1] );
+        } else {
+          ctx.lineTo( point[0], point[1] );
+        }
+      }
+    }
+
+    ctx.restore();
+
+
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = 'white';
+    ctx.stroke();
   }
 
   function drawGridLines( ctx ) {
@@ -171,6 +213,9 @@
     handlers.forEach(function( handler ) {
       handler.draw();
     });
+
+    warpCtx.clearRect( 0, 0, warpCtx.canvas.width, warpCtx.canvas.height );
+    drawWarpGrid( warpCtx );
 
     gridCtx.clearRect( 0, 0, gridCtx.canvas.width, gridCtx.canvas.height );
     drawGridLines( gridCtx );
