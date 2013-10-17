@@ -25,10 +25,59 @@
     down: false
   };
 
-  var handlers = [];
+  var handlers  = [],
+      selection = [];
 
-  var colCount = 4,
-      rowCount = 4;
+  var xCount = 4,
+      yCount = 4;
+
+  var padding = 50;
+
+  // Image warping method taken from https://github.com/adobe/cssfilterlab/.
+  var factorial = (function() {
+    var factorials = {};
+
+    return function( n ) {
+      if ( factorials[n] ) {
+        return factorials[n];
+      }
+
+      var product = 1;
+      for ( var i = 2; i <= n; i++ ) {
+        product *= i;
+      }
+
+      factorials[n] = product;
+      return product;
+    };
+  }) ();
+
+
+  function binomialCoefficent( n, k ) {
+    return factorial( n ) / ( factorial( k ) * factorial( n - k ) );
+  }
+
+  function calculateB( k, n, t ) {
+    var coefficient = binomialCoefficent( n, k );
+    return coefficient * Math.pow( t, k ) * Math.pow( 1 - t, n - k );
+  }
+
+  function calculate( u, v, n, m ) {
+    var x = 0, y = 0;
+
+    var i, j;
+    var coefficient, handler;
+    for ( i = 0; i <= n; i++ ) {
+      for ( j = 0; j <= m; j++ ) {
+        coefficient = calculateB( i, n, u ) * calculate( j, m, v );
+        handler = handlers[ i * xCount + j ];
+        x += coefficient * handlers.x;
+        y += coefficient * handlers.y;
+      }
+    }
+
+    return [ x, y ];
+  }
 
 
   document.addEventListener( 'drop', function( event ) {
@@ -37,7 +86,7 @@
 
     image.src = URL.createObjectURL( event.dataTransfer.files[0] );
     image.onload = function() {
-      context.drawImage( image, 0, 0 );
+      context.drawImage( image, padding, padding );
     };
   });
 
@@ -55,6 +104,22 @@
     this.el = document.createElement( 'div' );
     this.el.id = options.id;
     this.el.classList.add( 'handler' );
+
+    this.offset = { x: 0, y: 0 };
+
+    this.el.addEventListener( 'mousedown', function( event ) {
+      selection.push( this );
+
+      this.offset.x = event.pageX - this.x;
+      this.offset.y = event.pageY - this.y;
+    }.bind( this ));
+
+    this.el.addEventListener( 'mouseup', function() {
+      var index = selection.indexOf( this );
+      if ( index !== -1 ) {
+        selection.splice( index, 1 );
+      }
+    }.bind( this ));
   }
 
   Handler.prototype.draw = function() {
@@ -65,31 +130,35 @@
     this.el.style.transform = this.el.style.webkitTransform = transform;
   };
 
+  function drawWarpGrid( ctx ) {
+
+  }
+
   function drawGridLines( ctx ) {
-    var x0, y0, x1, y1;
+    var x0, y0;
     var index;
     var i, j;
 
     ctx.beginPath();
 
-    for ( i = 0; i < rowCount; i++ ) {
-      for ( j = 0; j < colCount; j++ ) {
-        index = i * colCount + j;
+    for ( i = 0; i < yCount; i++ ) {
+      for ( j = 0; j < xCount; j++ ) {
+        index = i * xCount + j;
 
         x0 = handlers[ index ].x;
         y0 = handlers[ index ].y;
 
-
-        // Draw columns
+        // Draw columns.
         if ( i ) {
           ctx.moveTo( x0, y0 );
-          ctx.lineTo( handlers[ index - colCount ].x, handlers[ index - colCount ].y );
+          ctx.lineTo( handlers[ index - xCount ].x, handlers[ index - xCount ].y );
         }
 
-        // if ( j ) {
-        //   ctx.moveTo( x0, y0 );
-        //   ctx.lineTo( handlers[ index + 1 ].x, handlers[ index + 1 ].y );
-        // }
+        // Draw rows.
+        if ( j ) {
+          ctx.moveTo( x0, y0 );
+          ctx.lineTo( handlers[ index - 1 ].x, handlers[ index - 1 ].y );
+        }
       }
     }
 
@@ -98,6 +167,14 @@
     ctx.stroke();
   }
 
+  function draw() {
+    handlers.forEach(function( handler ) {
+      handler.draw();
+    });
+
+    gridCtx.clearRect( 0, 0, gridCtx.canvas.width, gridCtx.canvas.height );
+    drawGridLines( gridCtx );
+  }
 
   document.addEventListener( 'mousedown', function( event ) {
     mouse.x = event.pageX;
@@ -109,6 +186,13 @@
   document.addEventListener( 'mousemove', function( event ) {
     mouse.x = event.pageX;
     mouse.y = event.pageY;
+
+    selection.forEach(function( object ) {
+      object.x = mouse.x + object.offset.x;
+      object.y = mouse.y + object.offset.y;
+    });
+
+    draw();
   });
 
   document.addEventListener( 'mouseup', function() {
@@ -116,28 +200,29 @@
   });
 
   function init() {
+    var width  = handlersEl.clientWidth - 2 * padding,
+        height = handlersEl.clientHeight - 2 * padding;
+
     // Create grid of handlers.
-    var colWidth  = handlersEl.clientWidth  / ( colCount - 1 ),
-        rowHeight = handlersEl.clientHeight / ( rowCount - 1 );
+    var colWidth  = width  / ( xCount - 1 ),
+        rowHeight = height / ( yCount - 1 );
 
     var handler;
     var i, j;
-    for ( i = 0; i < rowCount; i++ ) {
-      for ( j = 0; j < colCount; j++ ) {
+    for ( i = 0; i < yCount; i++ ) {
+      for ( j = 0; j < xCount; j++ ) {
         handler = new Handler({
-          x: j * colWidth,
-          y: i * rowHeight,
-          id: i * colCount + j
+          x: j * colWidth + padding,
+          y: i * rowHeight + padding,
+          id: i * xCount + j
         });
-
-        handler.draw();
 
         handlers.push( handler );
         handlersEl.appendChild( handler.el );
       }
     }
 
-    drawGridLines( gridCtx );
+    draw();
   }
 
   init();
