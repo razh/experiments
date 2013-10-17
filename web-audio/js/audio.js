@@ -301,7 +301,7 @@
 
     // Display file info.
     nameElement.innerHTML = files[0].name;
-    console.log(files[0])
+    console.log( files[0] );
   });
 
   // Prevent navigation to audio file.
