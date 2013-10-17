@@ -37,7 +37,8 @@
   var xCount = 4,
       yCount = 4;
 
-  var padding = 50;
+  var padding = 50,
+      gridCount = 10;
 
   // Image warping method taken from https://github.com/adobe/cssfilterlab/.
   var factorial = (function() {
@@ -58,6 +59,9 @@
     };
   }) ();
 
+  function lerp( a, b, t ) {
+    return a + t * ( b - a );
+  }
 
   function binomialCoefficent( n, k ) {
     return factorial( n ) / ( factorial( k ) * factorial( n - k ) );
@@ -73,16 +77,19 @@
 
     var i, j;
     var coefficient, handler;
-    for ( i = 0; i < n; i++ ) {
-      for ( j = 0; j < m; j++ ) {
+    for ( i = 0; i <= n; i++ ) {
+      for ( j = 0; j <= m; j++ ) {
         coefficient = calculateB( i, n, u ) * calculateB( j, m, v );
         handler = handlers[ i * xCount + j ];
-        x += coefficient * ( handler.x - padding );
-        y += coefficient * ( handler.y - padding );
+        x += coefficient * handler.x;
+        y += coefficient * handler.y;
       }
     }
 
-    return [ x, y ];
+    return {
+      x: x,
+      y: y
+    };
   }
 
 
@@ -137,39 +144,38 @@
   };
 
   function drawWarpGrid( ctx ) {
-    ctx.save();
-
     ctx.beginPath();
-    ctx.translate( padding, padding );
+
+    var gridCellRatio = 1 / gridCount;
+
+    var n = xCount - 1,
+        m = yCount - 1;
 
     // Draw horizontal lines.
     var point;
     var i, j;
-    for ( i = 0; i < 1; i += 0.1 ) {
-      for ( j = 0; j < 1; j += 0.1 ) {
-        point = calculate( i, j, xCount, yCount );
-        if ( !i ) {
-          ctx.moveTo( point[0], point[1] );
+    for ( i = 0; i <= 1; i += gridCellRatio ) {
+      for ( j = 0; j <= 1; j += gridCellRatio ) {
+        point = calculate( i, j, n, m );
+        if ( !j ) {
+          ctx.moveTo( point.x, point.y );
         } else {
-          ctx.lineTo( point[0], point[1] );
+          ctx.lineTo( point.x, point.y );
         }
       }
     }
 
     // Draw vertical lines.
-    for ( j = 0; j < 1; j += 0.1 ) {
-      for ( i = 0; i < 1; i += 0.1 ) {
-        point = calculate( i, j, xCount, yCount );
-        if ( !j ) {
-          ctx.moveTo( point[0], point[1] );
+    for ( j = 0; j <= 1; j += gridCellRatio ) {
+      for ( i = 0; i <= 1; i += gridCellRatio ) {
+        point = calculate( i, j, n, m );
+        if ( !i ) {
+          ctx.moveTo( point.x, point.y );
         } else {
-          ctx.lineTo( point[0], point[1] );
+          ctx.lineTo( point.x, point.y );
         }
       }
     }
-
-    ctx.restore();
-
 
     ctx.lineWidth = 0.5;
     ctx.strokeStyle = 'white';
