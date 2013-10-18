@@ -94,46 +94,6 @@
     };
   }
 
-  // This basically returns the control point grid.
-  function nearestNeighbor( u, v, n, m ) {
-    var j = Math.round( u * n ),
-        i = Math.round( v * m );
-
-    var handler = handlers[ i * xCount + j ];
-
-    return {
-      x: handler.x,
-      y: handler.y
-    };
-  }
-
-  function bilinear( u, v, n, m ) {
-    var j = u * n,
-        i = v * m;
-
-    var i0 = Math.floor(i),
-        j0 = Math.floor(j),
-        i1 = Math.ceil(i),
-        j1 = Math.ceil(j);
-
-    var f00 = handlers[ i0 * xCount + j0 ],
-        f01 = handlers[ i1 * xCount + j0 ],
-        f10 = handlers[ i0 * xCount + j1 ],
-        f11 = handlers[ i1 * xCount + j1 ];
-
-    var x0 = f00.x,
-        y0 = f00.y,
-        x1 = f11.x,
-        y1 = f11.y;
-
-    var d = 1 / ( ( x1 - x0 ) * ( y1 - y0 ) );
-
-    return {
-      x: 0.5 * ( x0 + x1 ),
-      y: 0.5 * ( y0 + y1 )
-    };
-  }
-
 
   document.addEventListener( 'drop', function( event ) {
     event.stopPropagation();
