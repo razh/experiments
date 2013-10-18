@@ -2,6 +2,8 @@
 (function( window, document, undefined ) {
   'use strict';
 
+  var EPSILON = 1e-6;
+
   var handlersEl = document.getElementById( 'handlers' );
 
   var canvas  = document.getElementById( 'canvas' ),
@@ -121,7 +123,9 @@
     this.offset = { x: 0, y: 0 };
 
     this.el.addEventListener( 'mousedown', function( event ) {
-      selection.push( this );
+      if ( selection.indexOf( this ) === -1 ) {
+        selection.push( this );
+      }
 
       this.offset.x = event.pageX - this.x;
       this.offset.y = event.pageY - this.y;
@@ -154,8 +158,8 @@
     // Draw horizontal lines.
     var point;
     var i, j;
-    for ( i = 0; i <= 1; i += gridCellRatio ) {
-      for ( j = 0; j <= 1; j += gridCellRatio ) {
+    for ( i = 0; i < 1 + EPSILON; i += gridCellRatio ) {
+      for ( j = 0; j < 1 + EPSILON; j += gridCellRatio ) {
         point = calculate( i, j, n, m );
         if ( !j ) {
           ctx.moveTo( point.x, point.y );
@@ -166,8 +170,8 @@
     }
 
     // Draw vertical lines.
-    for ( j = 0; j <= 1; j += gridCellRatio ) {
-      for ( i = 0; i <= 1; i += gridCellRatio ) {
+    for ( j = 0; j < 1 + EPSILON; j += gridCellRatio ) {
+      for ( i = 0; i < 1 + EPSILON; i += gridCellRatio ) {
         point = calculate( i, j, n, m );
         if ( !i ) {
           ctx.moveTo( point.x, point.y );
