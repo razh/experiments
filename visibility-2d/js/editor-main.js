@@ -7,6 +7,8 @@ define([
 ], function( Level, Geometry ) {
   'use strict';
 
+  var EPSILON = 1e-6;
+
   var canvas  = document.getElementById( 'editor-canvas' ),
       context = canvas.getContext( '2d' );
 
@@ -25,16 +27,17 @@ define([
   };
 
   var State = {
-    DRAW:      0,
-    TRANSFORM: 1,
-    REMOVE:    2
+    LIGHT:     0,
+    DRAW:      1,
+    TRANSFORM: 2,
+    REMOVE:    3
   };
 
   var editor = {
     selection: [],
     offsets:   [],
 
-    state: State.DRAW,
+    state: State.LIGHT,
 
     // Line segment currently being drawn.
     segment: []
@@ -85,7 +88,7 @@ define([
       ctx.lineTo( level.light.x, level.light.y );
     }
 
-    ctx.fillStyle = 'rgba(255, 255, 0, 0.25)';
+    ctx.fillStyle = 'rgba(255, 255, 192, 0.4)';
     ctx.fill();
   }
 
@@ -108,14 +111,16 @@ define([
   });
 
   canvas.addEventListener( 'mousemove', function( event ) {
-    mouse.x = event.pageX;
-    mouse.y = event.pageY;
+    mouse.x = Geometry.limit( event.pageX, margin + EPSILON, size - margin - EPSILON );
+    mouse.y = Geometry.limit( event.pageY, margin + EPSILON, size - margin - EPSILON );
+
+    if ( editor.state === State.LIGHT ) {
+      level.lightPosition( mouse.x, mouse.y );
+      level.sweep( Math.PI );
+    }
   });
 
   canvas.addEventListener( 'mouseup', function( event ) {
-    mouse.x = event.pageX;
-    mouse.y = event.pageY;
-
     mouse.down = false;
 
     if ( editor.state === State.DRAW ) {
@@ -126,7 +131,7 @@ define([
       editor.segment = [];
 
       level.load( size, margin, [], data );
-      level.lightPosition( 200, 200 );
+      level.lightPosition( level.light.x, level.light.y );
       level.sweep( Math.PI );
     }
   });
@@ -140,11 +145,13 @@ define([
       editor.state = State.TRANSFORM;
     } else if ( event.altKey ) {
       editor.state = State.DELETE;
+    } else if ( event.metaKey ) {
+      editor.state = State.DRAW;
     }
   });
 
-  document.addEventListener( 'keyup', function( event ) {
-    editor.state = State.DRAW;
+  document.addEventListener( 'keyup', function() {
+    editor.state = State.LIGHT;
   });
 
   (function() {
