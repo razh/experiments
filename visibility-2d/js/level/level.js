@@ -14,7 +14,7 @@ define([
     this.endpoints = [];
 
     // Light.
-    this.center = new Point( 0, 0 );
+    this.light = new Point( 0, 0 );
 
     // Open line segments.
     this.open = new LinkedList();
@@ -24,6 +24,8 @@ define([
   }
 
   Level.prototype.draw = function( ctx ) {
+    ctx.strokeStyle = 'white';
+
     // Draw walls.
     ctx.beginPath();
 
@@ -32,9 +34,7 @@ define([
     });
 
     ctx.lineWidth = 1;
-    ctx.strokeStyle = 'white';
     ctx.stroke();
-
 
     // Draw wall sections illuminated by light.
     ctx.beginPath();
@@ -99,9 +99,9 @@ define([
     this.segment( max, min, min, min );
   };
 
-  Level.prototype.light = function( x, y ) {
-    this.center.x = x = x ? x : 0;
-    this.center.y = y = y ? y : 0;
+  Level.prototype.lightPosition = function( x, y ) {
+    this.light.x = x = x ? x : 0;
+    this.light.y = y = y ? y : 0;
 
     this.segments.forEach(function( segment ) {
       segment.distanceSquared = segment.distanceSquaredTo( x, y );
@@ -145,7 +145,7 @@ define([
 
         if ( point.begin ) {
           node = this.open.head;
-          while ( node && point.segment.frontOf( node.data, this.center ) ) {
+          while ( node && point.segment.frontOf( node.data, this.light ) ) {
             node = node.next;
           }
 
@@ -171,7 +171,7 @@ define([
   };
 
   Level.prototype.triangle = function( angle0, angle1, segment ) {
-    var p0 = this.center,
+    var p0 = this.light,
         p1 = new Point(
           p0.x + Math.cos( angle0 ),
           p0.y + Math.sin( angle0 )
