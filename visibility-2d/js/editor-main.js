@@ -43,6 +43,10 @@ define([
     segment: []
   };
 
+  var config = {
+    handlerRadius: 5
+  };
+
   var running = true;
 
   function tick() {
@@ -58,10 +62,13 @@ define([
   function update() {}
 
   function draw( ctx ) {
+    var x0, y0, x1, y1;
+
     ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
 
     level.draw( ctx );
 
+    // Draw temporary line segment.
     if ( editor.segment.length ) {
       ctx.moveTo( editor.segment[0], editor.segment[1] );
       ctx.lineTo( mouse.x, mouse.y );
@@ -69,13 +76,39 @@ define([
 
     ctx.stroke();
 
+    // Draw line segment handlers.
+    if ( editor.state === State.TRANSFORM ) {
+      ctx.beginPath();
+
+      level.segments.forEach(function( segment ) {
+        x0 = segment.start.x;
+        y0 = segment.start.y;
+        x1 = segment.end.x;
+        y1 = segment.end.y;
+
+        ctx.moveTo( x0, y0 );
+        ctx.arc( x0, y0, config.handlerRadius, 0, Geometry.PI2 );
+
+        ctx.moveTo( x1, y1 );
+        ctx.arc( x1, y1, config.handlerRadius, 0, Geometry.PI2 );
+      });
+
+      ctx.fillStyle = '#f43';
+      ctx.fill();
+
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'white';
+      ctx.stroke();
+    }
+
+    // Draw light position.
     ctx.beginPath();
     ctx.fillStyle = 'yellow';
     ctx.arc( level.light.x, level.light.y, 5, 0, Geometry.PI2 );
     ctx.fill();
 
+    // Draw light rays.
     ctx.beginPath();
-    var x0, y0, x1, y1;
     for ( var i = 0, il = level.output.length; i < il; i += 2 ) {
       x0 = level.output[i].x;
       y0 = level.output[i].y;
@@ -108,6 +141,28 @@ define([
     if ( editor.state === State.DRAW ) {
       editor.segment = [ mouse.x, mouse.y ];
     }
+
+    if ( editor.state === State.TRANSFORM ) {
+      var x, y;
+      var i;
+      var handlerRadiusSquared = config.handlerRadius * config.handlerRadius;
+      data.forEach(function( segment ) {
+        i = 0;
+        while ( i < 2 ) {
+          x = segment[ 2 * i ];
+          y = segment[ 2 * i + 1 ];
+
+          if ( Geometry.distanceSquared( mouse.x, mouse.y, x, y ) < handlerRadiusSquared ) {
+            editor.selection.push( segment );
+            editor.offsets.push({
+              endpoint: i,
+              x: x - mouse.x,
+              y: y - mouse.y
+            });
+          }
+        }
+      });
+    }
   });
 
   canvas.addEventListener( 'mousemove', function( event ) {
@@ -117,6 +172,15 @@ define([
     if ( editor.state === State.LIGHT ) {
       level.lightPosition( mouse.x, mouse.y );
       level.sweep( Math.PI );
+    }
+
+    if ( mouse.down && editor.state === State.TRANSFORM ) {
+      editor.selection.forEach(function( element, index ) {
+        var offset = editor.offsets[ index ];
+        var endpoint = offset.endpoint;
+        element[ 2 * endpoint ]     = mouse.x + offset.x;
+        element[ 2 * endpoint + 1 ] = mouse.y + offset.y;
+      });
     }
   });
 
@@ -133,6 +197,11 @@ define([
       level.load( size, margin, [], data );
       level.lightPosition( level.light.x, level.light.y );
       level.sweep( Math.PI );
+    }
+
+    if ( editor.start === State.TRANSFORM ) {
+      editor.selection = [];
+      editor.offsets = [];
     }
   });
 

@@ -29,10 +29,24 @@ define(function() {
     };
   }
 
+  function distanceSquared( x0, y0, x1, y1 ) {
+    var dx = x1 - x0,
+        dy = y1 - y0;
+
+    return dx * dx + dy * dy;
+  }
+
+  function distance( x0, y0, x1, y1 ) {
+    return Math.sqrt( distanceSquared( x0, y0, x1, y1 ) );
+  }
+
   return {
     PI2: PI2,
     lerp: lerp,
     limit: limit,
-    lineLineIntersection: lineLineIntersection
+    lineLineIntersection: lineLineIntersection,
+
+    distanceSquared: distanceSquared,
+    distance: distance
   };
 });
