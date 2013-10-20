@@ -42,15 +42,16 @@ body {
 
 button {
   position: relative;
-  background-color: black;
   width: 50px;
   height: 50px;
+  margin: 10px;
 
+  background-color: transparent;
   border: 2px solid white;
   border-radius: 12px;
-  outline: none;
 
-  margin: 10px;
+  outline: none;
+  -webkit-user-select: none;
 
   &:active {
     border: 2px solid #555;
