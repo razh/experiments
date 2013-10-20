@@ -44,8 +44,24 @@ define([
   };
 
   var config = {
-    handlerRadius: 5
+    handlerRadius: 6
   };
+
+  // Draw with new level data. Does not change light position.
+  function refreshLevel() {
+    level.load( size, margin, [], data );
+    level.lightPosition( level.light.x, level.light.y );
+    level.sweep( Math.PI );
+  }
+
+  // Draw with new light position. Defaults to mouse position.
+  function refreshLight( x, y ) {
+    if ( typeof x === 'undefined' ) { x = mouse.x; }
+    if ( typeof y === 'undefined' ) { y = mouse.y; }
+
+    level.lightPosition( x, y );
+    level.sweep( Math.PI );
+  }
 
   var running = true;
 
@@ -63,43 +79,23 @@ define([
 
   function draw( ctx ) {
     var x0, y0, x1, y1;
+    var x, y;
 
     ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
 
     level.draw( ctx );
+    ctx.stroke();
 
     // Draw temporary line segment.
+    ctx.beginPath();
     if ( editor.segment.length ) {
       ctx.moveTo( editor.segment[0], editor.segment[1] );
       ctx.lineTo( mouse.x, mouse.y );
     }
 
+    ctx.strokeStyle = editor.state === State.REMOVE ? '#f43' : 'white';
     ctx.stroke();
 
-    // Draw line segment handlers.
-    if ( editor.state === State.TRANSFORM ) {
-      ctx.beginPath();
-
-      level.segments.forEach(function( segment ) {
-        x0 = segment.start.x;
-        y0 = segment.start.y;
-        x1 = segment.end.x;
-        y1 = segment.end.y;
-
-        ctx.moveTo( x0, y0 );
-        ctx.arc( x0, y0, config.handlerRadius, 0, Geometry.PI2 );
-
-        ctx.moveTo( x1, y1 );
-        ctx.arc( x1, y1, config.handlerRadius, 0, Geometry.PI2 );
-      });
-
-      ctx.fillStyle = '#f43';
-      ctx.fill();
-
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = 'white';
-      ctx.stroke();
-    }
 
     // Draw light position.
     ctx.beginPath();
@@ -123,6 +119,35 @@ define([
 
     ctx.fillStyle = 'rgba(255, 255, 192, 0.4)';
     ctx.fill();
+
+    // Draw line segment handlers.
+    if ( editor.state === State.TRANSFORM ) {
+      level.segments.forEach(function( segment ) {
+        [ segment.start, segment.end ].forEach( function( endpoint ) {
+          x = endpoint.x;
+          y = endpoint.y;
+
+          ctx.beginPath();
+          ctx.arc( x, y, config.handlerRadius, 0, Geometry.PI2 );
+
+          ctx.fillStyle = '#f43';
+          ctx.fill();
+
+          ctx.lineWidth = 1;
+          ctx.strokeStyle = 'white';
+          ctx.stroke();
+        });
+      });
+    }
+
+    // Draw current state.
+    ctx.font = 'lighter 2em Helvetica Neue, Helvertica, Arial, sans-serif';
+    ctx.fillStyle = 'white';
+    var state = (function( stateIndex ) {
+      return [ 'LIGHT', 'DRAW', 'TRANSFORM', 'REMOVE' ][ stateIndex ];
+    }) ( editor.state );
+
+    ctx.fillText( state, 35, 60 );
   }
 
   function resize() {
@@ -130,6 +155,8 @@ define([
     canvas.height = window.innerHeight;
 
     size = Math.min( canvas.width, canvas.height );
+
+    refreshLevel();
   }
 
   canvas.addEventListener( 'mousedown', function( event ) {
@@ -138,7 +165,8 @@ define([
 
     mouse.down = true;
 
-    if ( editor.state === State.DRAW ) {
+    if ( editor.state === State.DRAW ||
+         editor.state === State.REMOVE ) {
       editor.segment = [ mouse.x, mouse.y ];
     }
 
@@ -147,8 +175,7 @@ define([
       var i;
       var handlerRadiusSquared = config.handlerRadius * config.handlerRadius;
       data.forEach(function( segment ) {
-        i = 0;
-        while ( i < 2 ) {
+        for ( i = 0; i < 2; i++ ) {
           x = segment[ 2 * i ];
           y = segment[ 2 * i + 1 ];
 
@@ -169,11 +196,12 @@ define([
     mouse.x = Geometry.limit( event.pageX, margin + EPSILON, size - margin - EPSILON );
     mouse.y = Geometry.limit( event.pageY, margin + EPSILON, size - margin - EPSILON );
 
+    // Update light position.
     if ( editor.state === State.LIGHT ) {
-      level.lightPosition( mouse.x, mouse.y );
-      level.sweep( Math.PI );
+      refreshLight();
     }
 
+    // Move each selected handler.
     if ( mouse.down && editor.state === State.TRANSFORM ) {
       editor.selection.forEach(function( element, index ) {
         var offset = editor.offsets[ index ];
@@ -181,6 +209,8 @@ define([
         element[ 2 * endpoint ]     = mouse.x + offset.x;
         element[ 2 * endpoint + 1 ] = mouse.y + offset.y;
       });
+
+      refreshLevel();
     }
   });
 
@@ -193,15 +223,44 @@ define([
       ]));
 
       editor.segment = [];
-
-      level.load( size, margin, [], data );
-      level.lightPosition( level.light.x, level.light.y );
-      level.sweep( Math.PI );
+      refreshLevel();
     }
 
-    if ( editor.start === State.TRANSFORM ) {
+    if ( editor.state === State.TRANSFORM ) {
       editor.selection = [];
       editor.offsets = [];
+    }
+
+    if ( editor.state === State.REMOVE ) {
+      var x0 = editor.segment[0],
+          y0 = editor.segment[1],
+          x1 = mouse.x,
+          y1 = mouse.y;
+
+      // Remove all intersecting line segments.
+      data = data.filter(function( segment ) {
+        var s = Geometry.lineIntersectionParameter(
+          x0, y0,
+          x1, y1,
+          segment[0], segment[1],
+          segment[2], segment[3]
+        );
+
+        var t = Geometry.lineIntersectionParameter(
+          segment[0], segment[1],
+          segment[2], segment[3],
+          x0, y0,
+          x1, y1
+        );
+
+        // No intersection if at least one parameter is a
+        // non-null value outside of [0, 1].
+        return ( s !== null && ( 0 > s || s > 1 ) ) ||
+               ( t !== null && ( 0 > t || t > 1 ) );
+      });
+
+      editor.segment = [];
+      refreshLevel();
     }
   });
 
@@ -213,7 +272,7 @@ define([
     if ( event.shiftKey ) {
       editor.state = State.TRANSFORM;
     } else if ( event.altKey ) {
-      editor.state = State.DELETE;
+      editor.state = State.REMOVE;
     } else if ( event.metaKey ) {
       editor.state = State.DRAW;
     }
@@ -223,13 +282,15 @@ define([
     editor.state = State.LIGHT;
   });
 
+  window.addEventListener( 'resize', resize );
+
   (function() {
     resize();
 
-    level.load( size, margin, [], data );
-    level.lightPosition( 200, 200 );
-    level.sweep( Math.PI );
+    level.light.x = 200;
+    level.light.y = 200;
 
+    refreshLevel();
     tick();
   }) ();
 });

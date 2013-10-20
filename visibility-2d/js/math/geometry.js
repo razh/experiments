@@ -12,13 +12,21 @@ define(function() {
     return Math.min( Math.max( value, min ), max );
   }
 
-  function lineLineIntersection( x0, y0, x1, y1, x2, y2, x3, y3 ) {
+  function lineIntersectionParameter( x0, y0, x1, y1, x2, y2, x3, y3 ) {
     var det = ( x1 - x0 ) * ( y3 - y2 ) - ( x3 - x2 ) * ( y1 - y0 );
-    if ( det === 0 ) {
+    if ( !det ) {
       return null;
     }
 
-    var t = ( ( x3 - x2 ) * ( y0 - y2 ) - ( y3 - y2 ) * ( x0 - x2 ) ) / det;
+    return ( ( x3 - x2 ) * ( y0 - y2 ) - ( y3 - y2 ) * ( x0 - x2 ) ) / det;
+  }
+
+  function lineIntersection( x0, y0, x1, y1, x2, y2, x3, y3 ) {
+    var t = lineIntersectionParameter( x0, y0, x1, y1, x2, y2, x3, y3 );
+    if ( t === null ) {
+      return null;
+    }
+
     return lineParameter( x0, y0, x1, y1, t );
   }
 
@@ -44,7 +52,8 @@ define(function() {
     PI2: PI2,
     lerp: lerp,
     limit: limit,
-    lineLineIntersection: lineLineIntersection,
+    lineIntersectionParameter: lineIntersectionParameter,
+    lineIntersection: lineIntersection,
 
     distanceSquared: distanceSquared,
     distance: distance

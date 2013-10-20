@@ -191,7 +191,7 @@ define([
       p3.y = p0.y + Math.sin( angle1 ) * 500;
     }
 
-    var pointBegin = Geometry.lineLineIntersection(
+    var pointBegin = Geometry.lineIntersection(
       p2.x, p2.y,
       p3.x, p3.y,
       p0.x, p0.y,
@@ -205,7 +205,7 @@ define([
     p1.x = p0.x + Math.cos( angle1 );
     p1.y = p0.y + Math.sin( angle1 );
 
-    var pointEnd = Geometry.lineLineIntersection(
+    var pointEnd = Geometry.lineIntersection(
       p2.x, p2.y,
       p3.x, p3.y,
       p0.x, p0.y,
