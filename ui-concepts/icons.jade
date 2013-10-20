@@ -10,9 +10,12 @@ html(lang='en')
       button.segment-btn
         .segment
       button.polyline-btn
-        .segment
-        .segment
-        .segment
+        -for ( var i = 0; i < 3; i++ )
+          .segment
       button.remove-btn
         .segment
         .segment
+      button.light-btn
+        -for ( var i = 0; i < 8; i++ )
+          .segment
+        .light

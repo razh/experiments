@@ -29,6 +29,18 @@ body {
   justify-content: center;
 }
 
+@mixin circle($diameter) {
+  $radius: 0.5 * $diameter;
+
+  width: $diameter;
+  height: $diameter;
+
+  margin-top: -$radius;
+  margin-left: -$radius;
+
+  border-radius: 50%;
+}
+
 @mixin vertex-pseudo($diameter, $color) {
   content: '';
   position: absolute;
@@ -194,6 +206,57 @@ button {
       background-color: $btn-dark-color;
       width: 2rem;
       left: 1.25rem;
+    }
+  }
+}
+
+.light-btn {
+  .light {
+    @include circle(1.2rem);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    background-color: $btn-light-color;
+    border: 0.2rem solid $btn-light-color;
+  }
+
+  .segment {
+    position: absolute;
+    height: 0.2rem;
+    width: 0.5rem;
+    left: 50%;
+    margin-left: -0.25rem;
+    background-color: $btn-light-color;
+
+    &:nth-child(2n) {
+      width: 0.3rem;
+      margin-left: -0.15rem;
+    }
+
+    @for $i from 0 to 8 {
+      &:nth-of-type(#{$i + 1}) {
+        @include transform(rotateZ($i * 45deg) translate3d(2.25em, 0, 0));
+      }
+    }
+  }
+
+  &:active {
+    .light {
+      @include circle(1.7rem);
+      background-color: $btn-dark-color;
+      border-color: $btn-dark-color;
+    }
+
+    .segment {
+      background-color: $btn-dark-color;
+
+      @for $i from 0 to 8 {
+        &:nth-of-type(#{$i + 1}) {
+          @include transform(rotateZ($i * 45deg) translate3d(2.8em, 0, 0));
+        }
+      }
     }
   }
 }
