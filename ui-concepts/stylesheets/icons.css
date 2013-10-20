@@ -257,3 +257,34 @@ button:active {
   -o-transform: translate3d(2.3rem, 0.4rem, 0) rotate(60deg);
   transform: translate3d(2.3rem, 0.4rem, 0) rotate(60deg);
 }
+
+/* line 176, ../sass/icons.scss */
+.remove-btn .segment {
+  position: absolute;
+  height: 0.2rem;
+  width: 3rem;
+  left: 0.75rem;
+  background-color: white;
+}
+/* line 183, ../sass/icons.scss */
+.remove-btn .segment:first-of-type {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+/* line 187, ../sass/icons.scss */
+.remove-btn .segment:last-of-type {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+/* line 193, ../sass/icons.scss */
+.remove-btn:active .segment {
+  background-color: black;
+  width: 2rem;
+  left: 1.25rem;
+}

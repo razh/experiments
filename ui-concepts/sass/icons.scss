@@ -171,3 +171,29 @@ button {
     }
   }
 }
+
+.remove-btn {
+  .segment {
+    position: absolute;
+    height: 0.2rem;
+    width: 3rem;
+    left: 0.75rem;
+    background-color: $btn-light-color;
+
+    &:first-of-type {
+      @include transform(rotate(45deg));
+    }
+
+    &:last-of-type {
+      @include transform(rotate(-45deg));
+    }
+  }
+
+  &:active {
+    .segment {
+      background-color: $btn-dark-color;
+      width: 2rem;
+      left: 1.25rem;
+    }
+  }
+}
