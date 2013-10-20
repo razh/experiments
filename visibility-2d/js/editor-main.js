@@ -253,10 +253,12 @@ define([
           x1, y1
         );
 
-        // No intersection if at least one parameter is a
+        console.log( 'remove', s, t );
+        // No intersection if at least one parameter is null OR a
         // non-null value outside of [0, 1].
-        return ( s !== null && ( 0 > s || s > 1 ) ) ||
-               ( t !== null && ( 0 > t || t > 1 ) );
+        return s === null || t === null ||
+          ( s !== null && ( 0 > s || s > 1 ) ) ||
+          ( t !== null && ( 0 > t || t > 1 ) );
       });
 
       editor.segment = [];
