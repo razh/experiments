@@ -24,16 +24,16 @@
     mouse.x = event.pageX - building.offsetLeft - halfWidth;
     mouse.y = event.pageY - building.offsetTop  - halfHeight;
 
-    building.style.boxShadow = generateCSS();
+    building.style.boxShadow = generateCSS( mouse.x, mouse.y );
   }
 
-  function generateCSS() {
+  function generateCSS( x, y ) {
     var css = '';
 
-    var length = Math.sqrt( mouse.x * mouse.x + mouse.y * mouse.y );
+    var length = Math.sqrt( x * x + y * y );
 
-    var dx = -mouse.x / length,
-        dy = -mouse.y / length;
+    var dx = -x / length,
+        dy = -y / length;
 
     for ( var i = 0; i < shadowCount; i++ ) {
       css += Math.round( i * dx ) + 'px ' + Math.round( i * dy ) + 'px ' + shadowBlur + ' ' + shadowColor;
@@ -45,18 +45,6 @@
     return css;
   }
 
-  building.style.boxShadow = (function() {
-    var css = '';
-
-    for ( var i = 0; i < shadowCount; i++ ) {
-      css += i + 'px ' + i + 'px ' + shadowBlur + ' ' + shadowColor;
-      if ( i < shadowCount - 1 ) {
-        css += ', ';
-      }
-    }
-
-    return css;
-  }) ();
-
+  onMouseMove({ pageX: 0, pageY: 0 });
   document.addEventListener( 'mousemove', onMouseMove );
 }) ( window, document );
