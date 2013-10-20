@@ -86,14 +86,14 @@ body {
   height: 100%;
 }
 
-/* line 32, ../sass/icons.scss */
+/* line 41, ../sass/icons.scss */
 .buttons {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: black;
+  background-color: #f43;
 }
-/* line 38, ../sass/icons.scss */
+/* line 47, ../sass/icons.scss */
 .buttons *,
 .buttons *:before,
 .buttons *:after {
@@ -103,7 +103,7 @@ body {
   transition: all 0.2s;
 }
 
-/* line 43, ../sass/icons.scss */
+/* line 55, ../sass/icons.scss */
 button {
   position: relative;
   width: 50px;
@@ -115,18 +115,17 @@ button {
   outline: none;
   -webkit-user-select: none;
 }
-/* line 56, ../sass/icons.scss */
+/* line 68, ../sass/icons.scss */
 button:active {
-  border: 2px solid #555;
+  border: 2px solid black;
 }
 
-/* line 62, ../sass/icons.scss */
+/* line 74, ../sass/icons.scss */
 .segment-btn .segment {
   position: absolute;
   height: 2px;
-  top: 23px;
-  left: 16px;
-  right: 16px;
+  width: 18px;
+  left: 14px;
   background-color: white;
   -webkit-transform: rotate(-30deg) translateZ(0);
   -moz-transform: rotate(-30deg) translateZ(0);
@@ -134,7 +133,7 @@ button:active {
   -o-transform: rotate(-30deg) translateZ(0);
   transform: rotate(-30deg) translateZ(0);
 }
-/* line 72, ../sass/icons.scss */
+/* line 83, ../sass/icons.scss */
 .segment-btn .segment:before, .segment-btn .segment:after {
   content: '';
   position: absolute;
@@ -144,39 +143,38 @@ button:active {
   border: 2px solid white;
   margin-top: -3px;
 }
-/* line 82, ../sass/icons.scss */
+/* line 88, ../sass/icons.scss */
 .segment-btn .segment:before {
   left: -4px;
   margin-left: -2px;
 }
-/* line 87, ../sass/icons.scss */
+/* line 93, ../sass/icons.scss */
 .segment-btn .segment:after {
   right: -4px;
   margin-right: -2px;
 }
-/* line 94, ../sass/icons.scss */
+/* line 100, ../sass/icons.scss */
 .segment-btn:active .segment {
   -webkit-transform: rotate(-210deg) translateZ(0);
   -moz-transform: rotate(-210deg) translateZ(0);
   -ms-transform: rotate(-210deg) translateZ(0);
   -o-transform: rotate(-210deg) translateZ(0);
   transform: rotate(-210deg) translateZ(0);
-  background-color: #555;
+  background-color: black;
 }
-/* line 99, ../sass/icons.scss */
+/* line 105, ../sass/icons.scss */
 .segment-btn:active .segment:before, .segment-btn:active .segment:after {
-  border-color: #555;
+  border-color: black;
 }
 
-/* line 107, ../sass/icons.scss */
+/* line 113, ../sass/icons.scss */
 .polyline-btn .segment {
   position: absolute;
   height: 2px;
-  left: 18px;
-  right: 18px;
+  width: 10px;
   background-color: white;
 }
-/* line 114, ../sass/icons.scss */
+/* line 119, ../sass/icons.scss */
 .polyline-btn .segment:before {
   content: '';
   position: absolute;
@@ -200,35 +198,59 @@ button:active {
   right: -4px;
   margin-right: -2px;
 }
-/* line 138, ../sass/icons.scss */
+/* line 133, ../sass/icons.scss */
 .polyline-btn .segment:nth-of-type(1) {
-  -webkit-transform: translate3d(-10px, 3px, 0) rotate(-60deg);
-  -moz-transform: translate3d(-10px, 3px, 0) rotate(-60deg);
-  -ms-transform: translate3d(-10px, 3px, 0) rotate(-60deg);
-  -o-transform: translate3d(-10px, 3px, 0) rotate(-60deg);
-  transform: translate3d(-10px, 3px, 0) rotate(-60deg);
+  -webkit-transform: translate3d(1px, 3px, 0) rotate(-60deg);
+  -moz-transform: translate3d(1px, 3px, 0) rotate(-60deg);
+  -ms-transform: translate3d(1px, 3px, 0) rotate(-60deg);
+  -o-transform: translate3d(1px, 3px, 0) rotate(-60deg);
+  transform: translate3d(1px, 3px, 0) rotate(-60deg);
 }
-/* line 142, ../sass/icons.scss */
+/* line 137, ../sass/icons.scss */
 .polyline-btn .segment:nth-of-type(2) {
-  -webkit-transform: translate3d(0, 0, 0) rotate(30deg);
-  -moz-transform: translate3d(0, 0, 0) rotate(30deg);
-  -ms-transform: translate3d(0, 0, 0) rotate(30deg);
-  -o-transform: translate3d(0, 0, 0) rotate(30deg);
-  transform: translate3d(0, 0, 0) rotate(30deg);
+  -webkit-transform: translate3d(11px, 0, 0) rotate(30deg);
+  -moz-transform: translate3d(11px, 0, 0) rotate(30deg);
+  -ms-transform: translate3d(11px, 0, 0) rotate(30deg);
+  -o-transform: translate3d(11px, 0, 0) rotate(30deg);
+  transform: translate3d(11px, 0, 0) rotate(30deg);
 }
-/* line 146, ../sass/icons.scss */
+/* line 141, ../sass/icons.scss */
 .polyline-btn .segment:nth-of-type(3) {
-  -webkit-transform: translate3d(10px, -3px, 0) rotate(-60deg);
-  -moz-transform: translate3d(10px, -3px, 0) rotate(-60deg);
-  -ms-transform: translate3d(10px, -3px, 0) rotate(-60deg);
-  -o-transform: translate3d(10px, -3px, 0) rotate(-60deg);
-  transform: translate3d(10px, -3px, 0) rotate(-60deg);
+  -webkit-transform: translate3d(21px, -3px, 0) rotate(-60deg);
+  -moz-transform: translate3d(21px, -3px, 0) rotate(-60deg);
+  -ms-transform: translate3d(21px, -3px, 0) rotate(-60deg);
+  -o-transform: translate3d(21px, -3px, 0) rotate(-60deg);
+  transform: translate3d(21px, -3px, 0) rotate(-60deg);
 }
-/* line 152, ../sass/icons.scss */
+/* line 147, ../sass/icons.scss */
 .polyline-btn:active .segment {
-  background-color: #555;
+  background-color: black;
 }
-/* line 156, ../sass/icons.scss */
+/* line 151, ../sass/icons.scss */
 .polyline-btn:active .segment:before, .polyline-btn:active .segment:after {
-  border-color: #555;
+  border-color: black;
+}
+/* line 155, ../sass/icons.scss */
+.polyline-btn:active .segment:nth-of-type(1) {
+  -webkit-transform: translate3d(3px, 0, 0) rotate(60deg);
+  -moz-transform: translate3d(3px, 0, 0) rotate(60deg);
+  -ms-transform: translate3d(3px, 0, 0) rotate(60deg);
+  -o-transform: translate3d(3px, 0, 0) rotate(60deg);
+  transform: translate3d(3px, 0, 0) rotate(60deg);
+}
+/* line 159, ../sass/icons.scss */
+.polyline-btn:active .segment:nth-of-type(2) {
+  -webkit-transform: translate3d(13px, 3px, 0) rotate(-40deg);
+  -moz-transform: translate3d(13px, 3px, 0) rotate(-40deg);
+  -ms-transform: translate3d(13px, 3px, 0) rotate(-40deg);
+  -o-transform: translate3d(13px, 3px, 0) rotate(-40deg);
+  transform: translate3d(13px, 3px, 0) rotate(-40deg);
+}
+/* line 163, ../sass/icons.scss */
+.polyline-btn:active .segment:nth-of-type(3) {
+  -webkit-transform: translate3d(23px, 3px, 0) rotate(60deg);
+  -moz-transform: translate3d(23px, 3px, 0) rotate(60deg);
+  -ms-transform: translate3d(23px, 3px, 0) rotate(60deg);
+  -o-transform: translate3d(23px, 3px, 0) rotate(60deg);
+  transform: translate3d(23px, 3px, 0) rotate(60deg);
 }

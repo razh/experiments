@@ -29,9 +29,18 @@ body {
   justify-content: center;
 }
 
+@mixin vertex-pseudo($diameter, $color) {
+  content: '';
+  position: absolute;
+  width: $diameter;
+  height: $diameter;
+  border-radius: 50%;
+  border: 0.5 * $diameter solid $color;
+}
+
 .buttons {
   @include flex-center();
-  background-color: black;
+  background-color: #f43;
 
   *,
   *:before,
@@ -40,6 +49,9 @@ body {
   }
 }
 
+$btn-light-color: white;
+$btn-dark-color: black;
+
 button {
   position: relative;
   width: 50px;
@@ -47,14 +59,14 @@ button {
   margin: 10px;
 
   background-color: transparent;
-  border: 2px solid white;
+  border: 2px solid $btn-light-color;
   border-radius: 12px;
 
   outline: none;
   -webkit-user-select: none;
 
   &:active {
-    border: 2px solid #555;
+    border: 2px solid $btn-dark-color;
   }
 }
 
@@ -62,20 +74,14 @@ button {
   .segment {
     position: absolute;
     height: 2px;
-    top: 23px;
-    left: 16px;
-    right: 16px;
-    background-color: white;
+    width: 18px;
+    left: 14px;
+    background-color: $btn-light-color;
     @include transform(rotate(-30deg) translateZ(0));
 
     &:before,
     &:after {
-      content: '';
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      border: 2px solid white;
+      @include vertex-pseudo(4px, $btn-light-color);
       margin-top: -3px;
     }
 
@@ -93,11 +99,11 @@ button {
   &:active {
     .segment {
       @include transform(rotate(-210deg) translateZ(0));
-      background-color: #555;
+      background-color: $btn-dark-color;
 
       &:before,
       &:after {
-        border-color: #555;
+        border-color: $btn-dark-color;
       }
     }
   }
@@ -107,54 +113,55 @@ button {
   .segment {
     position: absolute;
     height: 2px;
-    left: 18px;
-    right: 18px;
-    background-color: white;
+    width: 10px;
+    background-color: $btn-light-color;
 
     &:before {
-      content: '';
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      border: 2px solid white;
+      @include vertex-pseudo(4px, $btn-light-color);
       margin-top: -3px;
       left: -4px;
       margin-left: -2px;
     }
 
     &:last-child:after {
-      content: '';
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      border: 2px solid white;
+      @include vertex-pseudo(4px, $btn-light-color);
       margin-top: -3px;
       right: -4px;
       margin-right: -2px;
     }
 
     &:nth-of-type(1) {
-      @include transform(translate3d(-10px, 3px, 0) rotate(-60deg));
+      @include transform(translate3d(1px, 3px, 0) rotate(-60deg));
     }
 
     &:nth-of-type(2) {
-      @include transform(translate3d(0, 0, 0) rotate(30deg));
+      @include transform(translate3d(11px, 0, 0) rotate(30deg));
     }
 
     &:nth-of-type(3) {
-      @include transform(translate3d(10px, -3px, 0) rotate(-60deg));
+      @include transform(translate3d(21px, -3px, 0) rotate(-60deg));
     }
   }
 
   &:active {
     .segment {
-      background-color: #555;
+      background-color: $btn-dark-color;
 
       &:before,
       &:after {
-        border-color: #555;
+        border-color: $btn-dark-color;
+      }
+
+      &:nth-of-type(1) {
+        @include transform(translate3d(3px, 0, 0) rotate(60deg));
+      }
+
+      &:nth-of-type(2) {
+        @include transform(translate3d(13px, 3px, 0) rotate(-40deg));
+      }
+
+      &:nth-of-type(3) {
+        @include transform(translate3d(23px, 3px, 0) rotate(60deg));
       }
     }
   }
