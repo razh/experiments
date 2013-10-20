@@ -38,9 +38,13 @@ body {
   border: 0.5 * $diameter solid $color;
 }
 
+$btn-background-color: #f43;
+$btn-light-color: white;
+$btn-dark-color: black;
+
 .buttons {
   @include flex-center();
-  background-color: #f43;
+  background-color: $btn-background-color;
 
   *,
   *:before,
@@ -49,50 +53,48 @@ body {
   }
 }
 
-$btn-light-color: white;
-$btn-dark-color: black;
-
 button {
   position: relative;
-  width: 50px;
-  height: 50px;
-  margin: 10px;
+  width: 5rem;
+  height: 5rem;
+  margin: 1rem;
+  font-size: 0.5em;
 
   background-color: transparent;
-  border: 2px solid $btn-light-color;
-  border-radius: 12px;
+  border: 0.2rem solid $btn-light-color;
+  border-radius: 1.25rem;
 
   outline: none;
   -webkit-user-select: none;
 
   &:active {
-    border: 2px solid $btn-dark-color;
+    border: 0.2rem solid $btn-dark-color;
   }
 }
 
 .segment-btn {
   .segment {
     position: absolute;
-    height: 2px;
-    width: 18px;
-    left: 14px;
+    height: 0.2rem;
+    width: 1.8rem;
+    left: 1.4rem;
     background-color: $btn-light-color;
     @include transform(rotate(-30deg) translateZ(0));
 
     &:before,
     &:after {
-      @include vertex-pseudo(4px, $btn-light-color);
-      margin-top: -3px;
+      @include vertex-pseudo(0.4rem, $btn-light-color);
+      margin-top: -0.3rem;
     }
 
     &:before {
-      left: -4px;
-      margin-left: -2px;
+      left: -0.4rem;
+      margin-left: -0.2rem;
     }
 
     &:after {
-      right: -4px;
-      margin-right: -2px;
+      right: -0.4rem;
+      margin-right: -0.2rem;
     }
   }
 
@@ -112,34 +114,37 @@ button {
 .polyline-btn {
   .segment {
     position: absolute;
-    height: 2px;
-    width: 10px;
+    height: 0.2rem;
+    width: 1rem;
+    left: 0.6rem;
     background-color: $btn-light-color;
 
     &:before {
-      @include vertex-pseudo(4px, $btn-light-color);
-      margin-top: -3px;
-      left: -4px;
-      margin-left: -2px;
+      @include vertex-pseudo(0.4rem, $btn-light-color);
+      // Prevents other segments from showing through.
+      background-color: $btn-background-color;
+      margin-top: -0.3rem;
+      left: -0.4rem;
+      margin-left: -0.2rem;
     }
 
     &:last-child:after {
-      @include vertex-pseudo(4px, $btn-light-color);
-      margin-top: -3px;
-      right: -4px;
-      margin-right: -2px;
+      @include vertex-pseudo(0.4rem, $btn-light-color);
+      margin-top: -0.3rem;
+      right: -0.4rem;
+      margin-right: -0.2rem;
     }
 
     &:nth-of-type(1) {
-      @include transform(translate3d(1px, 3px, 0) rotate(-60deg));
+      @include transform(translate3d(0.2rem, 0.3rem, 0) rotate(-60deg));
     }
 
     &:nth-of-type(2) {
-      @include transform(translate3d(11px, 0, 0) rotate(30deg));
+      @include transform(translate3d(1.2rem, 0, 0) rotate(30deg));
     }
 
     &:nth-of-type(3) {
-      @include transform(translate3d(21px, -3px, 0) rotate(-60deg));
+      @include transform(translate3d(2.2rem, -0.3rem, 0) rotate(-60deg));
     }
   }
 
@@ -153,15 +158,15 @@ button {
       }
 
       &:nth-of-type(1) {
-        @include transform(translate3d(3px, 0, 0) rotate(60deg));
+        @include transform(translate3d(0.3rem, 0, 0) rotate(60deg));
       }
 
       &:nth-of-type(2) {
-        @include transform(translate3d(13px, 3px, 0) rotate(-40deg));
+        @include transform(translate3d(1.3rem, 0.2rem, 0) rotate(-40deg));
       }
 
       &:nth-of-type(3) {
-        @include transform(translate3d(23px, 3px, 0) rotate(60deg));
+        @include transform(translate3d(2.3rem, 0.4rem, 0) rotate(60deg));
       }
     }
   }
