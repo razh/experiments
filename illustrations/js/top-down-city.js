@@ -47,4 +47,17 @@
 
   onMouseMove({ pageX: 0, pageY: 0 });
   document.addEventListener( 'mousemove', onMouseMove );
+
+
+  // Remove all event listeners.
+  function onKeyDown( event ) {
+    // ESC.
+    if ( event.which === 27 ) {
+      document.removeEventListener( 'mousemove', onMouseMove );
+      document.removeEventListener( 'keydown', onKeyDown );
+    }
+
+  }
+
+  document.addEventListener( 'keydown', onKeyDown );
 }) ( window, document );
