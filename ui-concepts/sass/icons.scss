@@ -29,7 +29,7 @@ body {
   justify-content: center;
 }
 
-@mixin circle($diameter) {
+@mixin square($diameter) {
   $radius: 0.5 * $diameter;
 
   width: $diameter;
@@ -37,7 +37,10 @@ body {
 
   margin-top: -$radius;
   margin-left: -$radius;
+}
 
+@mixin circle($diameter) {
+  @include square($diameter);
   border-radius: 50%;
 }
 
@@ -52,10 +55,15 @@ body {
 
 $btn-background-color: #f43;
 $btn-light-color: white;
-$btn-dark-color: black;
+$btn-dark-color: darken($btn-background-color, 35%);
+$btn-line-width: 0.2rem;
 
 .buttons {
   @include flex-center();
+
+  flex-wrap: wrap;
+  overflow: auto;
+
   background-color: $btn-background-color;
 
   *,
@@ -70,24 +78,23 @@ button {
   width: 5rem;
   height: 5rem;
   margin: 1rem;
-  font-size: 0.5em;
 
   background-color: transparent;
-  border: 0.2rem solid $btn-light-color;
+  border: $btn-line-width solid $btn-light-color;
   border-radius: 1.25rem;
 
   outline: none;
   -webkit-user-select: none;
 
   &:active {
-    border: 0.2rem solid $btn-dark-color;
+    border: $btn-line-width solid $btn-dark-color;
   }
 }
 
 .segment-btn {
   .segment {
     position: absolute;
-    height: 0.2rem;
+    height: $btn-line-width;
     width: 1.8rem;
     left: 1.4rem;
     background-color: $btn-light-color;
@@ -100,13 +107,13 @@ button {
     }
 
     &:before {
-      left: -0.4rem;
-      margin-left: -0.2rem;
+      left: -2 * $btn-line-width;
+      margin-left: -$btn-line-width;
     }
 
     &:after {
-      right: -0.4rem;
-      margin-right: -0.2rem;
+      right: -2 * $btn-line-width;
+      margin-right: -$btn-line-width;
     }
   }
 
@@ -126,7 +133,7 @@ button {
 .polyline-btn {
   .segment {
     position: absolute;
-    height: 0.2rem;
+    height: $btn-line-width;
     width: 1rem;
     left: 0.6rem;
     background-color: $btn-light-color;
@@ -136,15 +143,15 @@ button {
       // Prevents other segments from showing through.
       background-color: $btn-background-color;
       margin-top: -0.3rem;
-      left: -0.4rem;
-      margin-left: -0.2rem;
+      left: -2 * $btn-line-width;
+      margin-left: -$btn-line-width;
     }
 
     &:last-child:after {
       @include vertex-pseudo(0.4rem, $btn-light-color);
       margin-top: -0.3rem;
-      right: -0.4rem;
-      margin-right: -0.2rem;
+      right: -2 * $btn-line-width;
+      margin-right: -$btn-line-width;
     }
 
     &:nth-of-type(1) {
@@ -187,7 +194,7 @@ button {
 .remove-btn {
   .segment {
     position: absolute;
-    height: 0.2rem;
+    height: $btn-line-width;
     width: 3rem;
     left: 0.75rem;
     background-color: $btn-light-color;
@@ -219,25 +226,25 @@ button {
     left: 50%;
 
     background-color: $btn-light-color;
-    border: 0.2rem solid $btn-light-color;
+    border: $btn-line-width solid $btn-light-color;
   }
 
   .segment {
     position: absolute;
-    height: 0.2rem;
+    height: $btn-line-width;
     width: 0.5rem;
     left: 50%;
     margin-left: -0.25rem;
     background-color: $btn-light-color;
 
-    &:nth-child(2n) {
+    &:nth-of-type(2n) {
       width: 0.3rem;
       margin-left: -0.15rem;
     }
 
     @for $i from 0 to 8 {
       &:nth-of-type(#{$i + 1}) {
-        @include transform(rotateZ($i * 45deg) translate3d(2.25em, 0, 0));
+        @include transform(rotateZ($i * 45deg) translate3d(1.2rem, 0, 0));
       }
     }
   }
@@ -254,8 +261,47 @@ button {
 
       @for $i from 0 to 8 {
         &:nth-of-type(#{$i + 1}) {
-          @include transform(rotateZ($i * 45deg) translate3d(2.8em, 0, 0));
+          @include transform(rotateZ($i * 45deg) translate3d(1.5rem, 0, 0));
         }
+      }
+    }
+  }
+}
+
+.transform-btn {
+  .square {
+    @include square(2.5rem);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    border: $btn-line-width solid $btn-light-color;
+
+    .corner {
+      @include square(0.8rem);
+      position: absolute;
+
+      background-color: $btn-background-color;
+      border: $btn-line-width solid $btn-light-color;
+
+      &:nth-of-type(2n) {
+        left: 100%;
+      }
+
+      &:nth-of-type(n+3) {
+        top: 100%;
+      }
+    }
+  }
+
+  &:active {
+    .square {
+      @include square(2rem);
+      border-color: $btn-dark-color;
+
+      .corner {
+        border-color: $btn-dark-color;
       }
     }
   }
