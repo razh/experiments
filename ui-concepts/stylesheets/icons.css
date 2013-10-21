@@ -137,7 +137,7 @@ button:active {
 }
 /* line 104, ../sass/icons.scss */
 .segment-btn .segment:before, .segment-btn .segment:after {
-  content: '';
+  content: "";
   position: absolute;
   width: 0.4rem;
   height: 0.4rem;
@@ -179,7 +179,7 @@ button:active {
 }
 /* line 141, ../sass/icons.scss */
 .polyline-btn .segment:before {
-  content: '';
+  content: "";
   position: absolute;
   width: 0.4rem;
   height: 0.4rem;
@@ -192,7 +192,7 @@ button:active {
 }
 /* line 150, ../sass/icons.scss */
 .polyline-btn .segment:last-child:after {
-  content: '';
+  content: "";
   position: absolute;
   width: 0.4rem;
   height: 0.4rem;
@@ -500,4 +500,59 @@ button:active {
 /* line 303, ../sass/icons.scss */
 .transform-btn:active .square .corner {
   border-color: #800b00;
+}
+
+/* line 311, ../sass/icons.scss */
+.move-btn .segment {
+  position: absolute;
+  left: 1rem;
+  width: 2.5rem;
+  height: 0.2rem;
+  background-color: white;
+}
+/* line 320, ../sass/icons.scss */
+.move-btn .segment:last-of-type {
+  -webkit-transform: rotateZ(90deg);
+  -moz-transform: rotateZ(90deg);
+  -ms-transform: rotateZ(90deg);
+  -o-transform: rotateZ(90deg);
+  transform: rotateZ(90deg);
+}
+/* line 325, ../sass/icons.scss */
+.move-btn .segment:before, .move-btn .segment:after {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 0.4rem solid transparent;
+  top: -0.3rem;
+}
+/* line 338, ../sass/icons.scss */
+.move-btn .segment:before {
+  left: -0.7rem;
+  border-right-width: 0.7rem;
+  border-right-color: white;
+}
+/* line 344, ../sass/icons.scss */
+.move-btn .segment:after {
+  right: -0.7rem;
+  border-left-width: 0.7rem;
+  border-left-color: white;
+}
+/* line 352, ../sass/icons.scss */
+.move-btn:active .segment {
+  left: 1.25rem;
+  width: 2rem;
+  background-color: #800b00;
+}
+/* line 357, ../sass/icons.scss */
+.move-btn:active .segment:before {
+  border-right-color: #800b00;
+}
+/* line 361, ../sass/icons.scss */
+.move-btn:active .segment:after {
+  border-left-color: #800b00;
 }

@@ -45,7 +45,7 @@ body {
 }
 
 @mixin vertex-pseudo($diameter, $color) {
-  content: '';
+  content: "";
   position: absolute;
   width: $diameter;
   height: $diameter;
@@ -302,6 +302,64 @@ button {
 
       .corner {
         border-color: $btn-dark-color;
+      }
+    }
+  }
+}
+
+.move-btn {
+  .segment {
+    position: absolute;
+
+    left: 1rem;
+    width: 2.5rem;
+
+    height: $btn-line-width;
+    background-color: $btn-light-color;
+
+    &:last-of-type {
+      @include transform(rotateZ(90deg));
+    }
+
+    &:before,
+    &:after {
+      @include box-sizing(content-box);
+
+      content: "";
+      position: absolute;
+
+      width: 0;
+      height: 0;
+
+      border: 2 * $btn-line-width solid transparent;
+      top: -1.5 * $btn-line-width;
+    }
+
+    &:before {
+      left: -3.5 * $btn-line-width;
+      border-right-width: 3.5 * $btn-line-width;
+      border-right-color: $btn-light-color;
+    }
+
+    &:after {
+      right: -3.5 * $btn-line-width;
+      border-left-width: 3.5 * $btn-line-width;
+      border-left-color: $btn-light-color;
+    }
+  }
+
+  &:active {
+    .segment {
+      left: 1.25rem;
+      width: 2rem;
+      background-color: $btn-dark-color;
+
+      &:before {
+        border-right-color: $btn-dark-color;
+      }
+
+      &:after {
+        border-left-color: $btn-dark-color;
       }
     }
   }
