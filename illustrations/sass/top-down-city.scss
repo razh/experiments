@@ -2,6 +2,8 @@
 
 @import "compass/css3/box-sizing";
 
+$px: 16px;
+
 * {
   @include box-sizing(border-box);
 }
@@ -23,18 +25,18 @@ $building-dark: #557;
 
 .building {
   position: relative;
-  width: 180px;
-  height: 180px;
+  width: 12 * $px;
+  height: 12 * $px;
   background-color: $building-light;
-  border: 10px solid $building-dark;
+  border: $px solid $building-dark;
 
   &:after {
     content: "";
     position: absolute;
-    width: 50px;
-    height: 20px;
-    bottom: 20px;
-    right: 20px;
+    width: 3 * $px;
+    height: 2 * $px;
+    bottom: 2 * $px;
+    right: 2 * $px;
     background-color: $building-dark;
   }
 }

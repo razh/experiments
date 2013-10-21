@@ -3,7 +3,7 @@
 
   var shadowColor = '#555',
       shadowBlur  = '0',
-      shadowCount = 200;
+      shadowCount = 64;
 
   var mouse = {
     x: 0,
@@ -18,6 +18,8 @@
     halfWidth  = 0.5 * buildingWidth,
     halfHeight = 0.5 * buildingHeight;
 
+  var computedStyle = window.getComputedStyle( building );
+  console.log( computedStyle.width, computedStyle.height );
 
   function onMouseMove( event ) {
     // Coordinates from center of building.
@@ -32,11 +34,16 @@
 
     var length = Math.sqrt( x * x + y * y );
 
-    var dx = -x / length,
-        dy = -y / length;
+    var dx = -x / length * 16,
+        dy = -y / length * 16;
 
     for ( var i = 0; i < shadowCount; i++ ) {
-      css += Math.round( i * dx ) + 'px ' + Math.round( i * dy ) + 'px ' + shadowBlur + ' ' + shadowColor;
+      css += Math.round( i * dx ) + 'px ' +
+        Math.round( i * dy ) + 'px ' +
+        shadowBlur + ' ' +
+        Math.round( -( i / shadowCount ) * halfWidth ) + 'px ' +
+        shadowColor;
+
       if ( i < shadowCount - 1 ) {
         css += ', ';
       }

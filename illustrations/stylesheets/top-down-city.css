@@ -63,19 +63,19 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 5, ../sass/top-down-city.scss */
+/* line 7, ../sass/top-down-city.scss */
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 9, ../sass/top-down-city.scss */
+/* line 11, ../sass/top-down-city.scss */
 html, body {
   height: 100%;
 }
 
-/* line 13, ../sass/top-down-city.scss */
+/* line 15, ../sass/top-down-city.scss */
 body {
   background-color: #ddf;
   display: flex;
@@ -83,21 +83,21 @@ body {
   justify-content: center;
 }
 
-/* line 24, ../sass/top-down-city.scss */
+/* line 26, ../sass/top-down-city.scss */
 .building {
   position: relative;
-  width: 180px;
-  height: 180px;
+  width: 192px;
+  height: 192px;
   background-color: #7777aa;
-  border: 10px solid #555577;
+  border: 16px solid #555577;
 }
-/* line 31, ../sass/top-down-city.scss */
+/* line 33, ../sass/top-down-city.scss */
 .building:after {
   content: "";
   position: absolute;
-  width: 50px;
-  height: 20px;
-  bottom: 20px;
-  right: 20px;
+  width: 48px;
+  height: 32px;
+  bottom: 32px;
+  right: 32px;
   background-color: #555577;
 }
