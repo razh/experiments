@@ -86,7 +86,7 @@ body {
   height: 100%;
 }
 
-/* line 61, ../sass/icons.scss */
+/* line 60, ../sass/icons.scss */
 .buttons {
   display: flex;
   align-items: center;
@@ -95,7 +95,7 @@ body {
   overflow: auto;
   background-color: #ff4433;
 }
-/* line 71, ../sass/icons.scss */
+/* line 70, ../sass/icons.scss */
 .buttons *,
 .buttons *:before,
 .buttons *:after {
@@ -105,7 +105,7 @@ body {
   transition: all 0.2s;
 }
 
-/* line 76, ../sass/icons.scss */
+/* line 75, ../sass/icons.scss */
 button {
   position: relative;
   width: 5rem;
@@ -117,12 +117,12 @@ button {
   outline: none;
   -webkit-user-select: none;
 }
-/* line 89, ../sass/icons.scss */
+/* line 88, ../sass/icons.scss */
 button:active {
   border: 0.2rem solid #800b00;
 }
 
-/* line 95, ../sass/icons.scss */
+/* line 94, ../sass/icons.scss */
 .segment-btn .segment {
   position: absolute;
   height: 0.2rem;
@@ -135,27 +135,29 @@ button:active {
   -o-transform: rotate(-30deg) translateZ(0);
   transform: rotate(-30deg) translateZ(0);
 }
-/* line 104, ../sass/icons.scss */
+/* line 103, ../sass/icons.scss */
 .segment-btn .segment:before, .segment-btn .segment:after {
-  content: "";
-  position: absolute;
   width: 0.4rem;
   height: 0.4rem;
+  margin-top: -0.2rem;
+  margin-left: -0.2rem;
   border-radius: 50%;
+  content: "";
+  position: absolute;
   border: 0.2rem solid white;
   margin-top: -0.3rem;
 }
-/* line 109, ../sass/icons.scss */
+/* line 108, ../sass/icons.scss */
 .segment-btn .segment:before {
   left: -0.4rem;
   margin-left: -0.2rem;
 }
-/* line 114, ../sass/icons.scss */
+/* line 113, ../sass/icons.scss */
 .segment-btn .segment:after {
   right: -0.4rem;
   margin-right: -0.2rem;
 }
-/* line 121, ../sass/icons.scss */
+/* line 120, ../sass/icons.scss */
 .segment-btn:active .segment {
   -webkit-transform: rotate(-210deg) translateZ(0);
   -moz-transform: rotate(-210deg) translateZ(0);
@@ -164,12 +166,12 @@ button:active {
   transform: rotate(-210deg) translateZ(0);
   background-color: #800b00;
 }
-/* line 126, ../sass/icons.scss */
+/* line 125, ../sass/icons.scss */
 .segment-btn:active .segment:before, .segment-btn:active .segment:after {
   border-color: #800b00;
 }
 
-/* line 134, ../sass/icons.scss */
+/* line 133, ../sass/icons.scss */
 .polyline-btn .segment {
   position: absolute;
   height: 0.2rem;
@@ -177,32 +179,36 @@ button:active {
   left: 0.6rem;
   background-color: white;
 }
-/* line 141, ../sass/icons.scss */
+/* line 140, ../sass/icons.scss */
 .polyline-btn .segment:before {
-  content: "";
-  position: absolute;
   width: 0.4rem;
   height: 0.4rem;
+  margin-top: -0.2rem;
+  margin-left: -0.2rem;
   border-radius: 50%;
+  content: "";
+  position: absolute;
   border: 0.2rem solid white;
   background-color: #ff4433;
   margin-top: -0.3rem;
   left: -0.4rem;
   margin-left: -0.2rem;
 }
-/* line 150, ../sass/icons.scss */
+/* line 149, ../sass/icons.scss */
 .polyline-btn .segment:last-child:after {
-  content: "";
-  position: absolute;
   width: 0.4rem;
   height: 0.4rem;
+  margin-top: -0.2rem;
+  margin-left: -0.2rem;
   border-radius: 50%;
+  content: "";
+  position: absolute;
   border: 0.2rem solid white;
   margin-top: -0.3rem;
   right: -0.4rem;
   margin-right: -0.2rem;
 }
-/* line 157, ../sass/icons.scss */
+/* line 156, ../sass/icons.scss */
 .polyline-btn .segment:nth-of-type(1) {
   -webkit-transform: translate3d(0.2rem, 0.3rem, 0) rotate(-60deg);
   -moz-transform: translate3d(0.2rem, 0.3rem, 0) rotate(-60deg);
@@ -210,7 +216,7 @@ button:active {
   -o-transform: translate3d(0.2rem, 0.3rem, 0) rotate(-60deg);
   transform: translate3d(0.2rem, 0.3rem, 0) rotate(-60deg);
 }
-/* line 161, ../sass/icons.scss */
+/* line 160, ../sass/icons.scss */
 .polyline-btn .segment:nth-of-type(2) {
   -webkit-transform: translate3d(1.2rem, 0, 0) rotate(30deg);
   -moz-transform: translate3d(1.2rem, 0, 0) rotate(30deg);
@@ -218,7 +224,7 @@ button:active {
   -o-transform: translate3d(1.2rem, 0, 0) rotate(30deg);
   transform: translate3d(1.2rem, 0, 0) rotate(30deg);
 }
-/* line 165, ../sass/icons.scss */
+/* line 164, ../sass/icons.scss */
 .polyline-btn .segment:nth-of-type(3) {
   -webkit-transform: translate3d(2.2rem, -0.3rem, 0) rotate(-60deg);
   -moz-transform: translate3d(2.2rem, -0.3rem, 0) rotate(-60deg);
@@ -226,15 +232,15 @@ button:active {
   -o-transform: translate3d(2.2rem, -0.3rem, 0) rotate(-60deg);
   transform: translate3d(2.2rem, -0.3rem, 0) rotate(-60deg);
 }
-/* line 171, ../sass/icons.scss */
+/* line 170, ../sass/icons.scss */
 .polyline-btn:active .segment {
   background-color: #800b00;
 }
-/* line 175, ../sass/icons.scss */
+/* line 174, ../sass/icons.scss */
 .polyline-btn:active .segment:before, .polyline-btn:active .segment:after {
   border-color: #800b00;
 }
-/* line 179, ../sass/icons.scss */
+/* line 178, ../sass/icons.scss */
 .polyline-btn:active .segment:nth-of-type(1) {
   -webkit-transform: translate3d(0.3rem, 0, 0) rotate(60deg);
   -moz-transform: translate3d(0.3rem, 0, 0) rotate(60deg);
@@ -242,7 +248,7 @@ button:active {
   -o-transform: translate3d(0.3rem, 0, 0) rotate(60deg);
   transform: translate3d(0.3rem, 0, 0) rotate(60deg);
 }
-/* line 183, ../sass/icons.scss */
+/* line 182, ../sass/icons.scss */
 .polyline-btn:active .segment:nth-of-type(2) {
   -webkit-transform: translate3d(1.3rem, 0.2rem, 0) rotate(-40deg);
   -moz-transform: translate3d(1.3rem, 0.2rem, 0) rotate(-40deg);
@@ -250,7 +256,7 @@ button:active {
   -o-transform: translate3d(1.3rem, 0.2rem, 0) rotate(-40deg);
   transform: translate3d(1.3rem, 0.2rem, 0) rotate(-40deg);
 }
-/* line 187, ../sass/icons.scss */
+/* line 186, ../sass/icons.scss */
 .polyline-btn:active .segment:nth-of-type(3) {
   -webkit-transform: translate3d(2.3rem, 0.4rem, 0) rotate(60deg);
   -moz-transform: translate3d(2.3rem, 0.4rem, 0) rotate(60deg);
@@ -259,15 +265,15 @@ button:active {
   transform: translate3d(2.3rem, 0.4rem, 0) rotate(60deg);
 }
 
-/* line 195, ../sass/icons.scss */
+/* line 194, ../sass/icons.scss */
 .remove-btn .segment {
   position: absolute;
   height: 0.2rem;
   width: 3rem;
-  left: 0.75rem;
+  left: 0.8rem;
   background-color: white;
 }
-/* line 202, ../sass/icons.scss */
+/* line 201, ../sass/icons.scss */
 .remove-btn .segment:first-of-type {
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
@@ -275,7 +281,7 @@ button:active {
   -o-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-/* line 206, ../sass/icons.scss */
+/* line 205, ../sass/icons.scss */
 .remove-btn .segment:last-of-type {
   -webkit-transform: rotate(-45deg);
   -moz-transform: rotate(-45deg);
@@ -283,14 +289,14 @@ button:active {
   -o-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
-/* line 212, ../sass/icons.scss */
+/* line 211, ../sass/icons.scss */
 .remove-btn:active .segment {
   background-color: #800b00;
   width: 2rem;
-  left: 1.25rem;
+  left: 1.3rem;
 }
 
-/* line 221, ../sass/icons.scss */
+/* line 220, ../sass/icons.scss */
 .light-btn .light {
   width: 1.2rem;
   height: 1.2rem;
@@ -303,7 +309,7 @@ button:active {
   background-color: white;
   border: 0.2rem solid white;
 }
-/* line 232, ../sass/icons.scss */
+/* line 231, ../sass/icons.scss */
 .light-btn .segment {
   position: absolute;
   height: 0.2rem;
@@ -312,12 +318,12 @@ button:active {
   margin-left: -0.25rem;
   background-color: white;
 }
-/* line 240, ../sass/icons.scss */
+/* line 239, ../sass/icons.scss */
 .light-btn .segment:nth-of-type(2n) {
   width: 0.3rem;
   margin-left: -0.15rem;
 }
-/* line 246, ../sass/icons.scss */
+/* line 245, ../sass/icons.scss */
 .light-btn .segment:nth-of-type(1) {
   -webkit-transform: rotateZ(0deg) translate3d(1.2rem, 0, 0);
   -moz-transform: rotateZ(0deg) translate3d(1.2rem, 0, 0);
@@ -325,7 +331,7 @@ button:active {
   -o-transform: rotateZ(0deg) translate3d(1.2rem, 0, 0);
   transform: rotateZ(0deg) translate3d(1.2rem, 0, 0);
 }
-/* line 246, ../sass/icons.scss */
+/* line 245, ../sass/icons.scss */
 .light-btn .segment:nth-of-type(2) {
   -webkit-transform: rotateZ(45deg) translate3d(1.2rem, 0, 0);
   -moz-transform: rotateZ(45deg) translate3d(1.2rem, 0, 0);
@@ -333,7 +339,7 @@ button:active {
   -o-transform: rotateZ(45deg) translate3d(1.2rem, 0, 0);
   transform: rotateZ(45deg) translate3d(1.2rem, 0, 0);
 }
-/* line 246, ../sass/icons.scss */
+/* line 245, ../sass/icons.scss */
 .light-btn .segment:nth-of-type(3) {
   -webkit-transform: rotateZ(90deg) translate3d(1.2rem, 0, 0);
   -moz-transform: rotateZ(90deg) translate3d(1.2rem, 0, 0);
@@ -341,7 +347,7 @@ button:active {
   -o-transform: rotateZ(90deg) translate3d(1.2rem, 0, 0);
   transform: rotateZ(90deg) translate3d(1.2rem, 0, 0);
 }
-/* line 246, ../sass/icons.scss */
+/* line 245, ../sass/icons.scss */
 .light-btn .segment:nth-of-type(4) {
   -webkit-transform: rotateZ(135deg) translate3d(1.2rem, 0, 0);
   -moz-transform: rotateZ(135deg) translate3d(1.2rem, 0, 0);
@@ -349,7 +355,7 @@ button:active {
   -o-transform: rotateZ(135deg) translate3d(1.2rem, 0, 0);
   transform: rotateZ(135deg) translate3d(1.2rem, 0, 0);
 }
-/* line 246, ../sass/icons.scss */
+/* line 245, ../sass/icons.scss */
 .light-btn .segment:nth-of-type(5) {
   -webkit-transform: rotateZ(180deg) translate3d(1.2rem, 0, 0);
   -moz-transform: rotateZ(180deg) translate3d(1.2rem, 0, 0);
@@ -357,7 +363,7 @@ button:active {
   -o-transform: rotateZ(180deg) translate3d(1.2rem, 0, 0);
   transform: rotateZ(180deg) translate3d(1.2rem, 0, 0);
 }
-/* line 246, ../sass/icons.scss */
+/* line 245, ../sass/icons.scss */
 .light-btn .segment:nth-of-type(6) {
   -webkit-transform: rotateZ(225deg) translate3d(1.2rem, 0, 0);
   -moz-transform: rotateZ(225deg) translate3d(1.2rem, 0, 0);
@@ -365,7 +371,7 @@ button:active {
   -o-transform: rotateZ(225deg) translate3d(1.2rem, 0, 0);
   transform: rotateZ(225deg) translate3d(1.2rem, 0, 0);
 }
-/* line 246, ../sass/icons.scss */
+/* line 245, ../sass/icons.scss */
 .light-btn .segment:nth-of-type(7) {
   -webkit-transform: rotateZ(270deg) translate3d(1.2rem, 0, 0);
   -moz-transform: rotateZ(270deg) translate3d(1.2rem, 0, 0);
@@ -373,7 +379,7 @@ button:active {
   -o-transform: rotateZ(270deg) translate3d(1.2rem, 0, 0);
   transform: rotateZ(270deg) translate3d(1.2rem, 0, 0);
 }
-/* line 246, ../sass/icons.scss */
+/* line 245, ../sass/icons.scss */
 .light-btn .segment:nth-of-type(8) {
   -webkit-transform: rotateZ(315deg) translate3d(1.2rem, 0, 0);
   -moz-transform: rotateZ(315deg) translate3d(1.2rem, 0, 0);
@@ -381,7 +387,7 @@ button:active {
   -o-transform: rotateZ(315deg) translate3d(1.2rem, 0, 0);
   transform: rotateZ(315deg) translate3d(1.2rem, 0, 0);
 }
-/* line 253, ../sass/icons.scss */
+/* line 252, ../sass/icons.scss */
 .light-btn:active .light {
   width: 1.7rem;
   height: 1.7rem;
@@ -391,11 +397,11 @@ button:active {
   background-color: #800b00;
   border-color: #800b00;
 }
-/* line 259, ../sass/icons.scss */
+/* line 258, ../sass/icons.scss */
 .light-btn:active .segment {
   background-color: #800b00;
 }
-/* line 263, ../sass/icons.scss */
+/* line 262, ../sass/icons.scss */
 .light-btn:active .segment:nth-of-type(1) {
   -webkit-transform: rotateZ(0deg) translate3d(1.5rem, 0, 0);
   -moz-transform: rotateZ(0deg) translate3d(1.5rem, 0, 0);
@@ -403,7 +409,7 @@ button:active {
   -o-transform: rotateZ(0deg) translate3d(1.5rem, 0, 0);
   transform: rotateZ(0deg) translate3d(1.5rem, 0, 0);
 }
-/* line 263, ../sass/icons.scss */
+/* line 262, ../sass/icons.scss */
 .light-btn:active .segment:nth-of-type(2) {
   -webkit-transform: rotateZ(45deg) translate3d(1.5rem, 0, 0);
   -moz-transform: rotateZ(45deg) translate3d(1.5rem, 0, 0);
@@ -411,7 +417,7 @@ button:active {
   -o-transform: rotateZ(45deg) translate3d(1.5rem, 0, 0);
   transform: rotateZ(45deg) translate3d(1.5rem, 0, 0);
 }
-/* line 263, ../sass/icons.scss */
+/* line 262, ../sass/icons.scss */
 .light-btn:active .segment:nth-of-type(3) {
   -webkit-transform: rotateZ(90deg) translate3d(1.5rem, 0, 0);
   -moz-transform: rotateZ(90deg) translate3d(1.5rem, 0, 0);
@@ -419,7 +425,7 @@ button:active {
   -o-transform: rotateZ(90deg) translate3d(1.5rem, 0, 0);
   transform: rotateZ(90deg) translate3d(1.5rem, 0, 0);
 }
-/* line 263, ../sass/icons.scss */
+/* line 262, ../sass/icons.scss */
 .light-btn:active .segment:nth-of-type(4) {
   -webkit-transform: rotateZ(135deg) translate3d(1.5rem, 0, 0);
   -moz-transform: rotateZ(135deg) translate3d(1.5rem, 0, 0);
@@ -427,7 +433,7 @@ button:active {
   -o-transform: rotateZ(135deg) translate3d(1.5rem, 0, 0);
   transform: rotateZ(135deg) translate3d(1.5rem, 0, 0);
 }
-/* line 263, ../sass/icons.scss */
+/* line 262, ../sass/icons.scss */
 .light-btn:active .segment:nth-of-type(5) {
   -webkit-transform: rotateZ(180deg) translate3d(1.5rem, 0, 0);
   -moz-transform: rotateZ(180deg) translate3d(1.5rem, 0, 0);
@@ -435,7 +441,7 @@ button:active {
   -o-transform: rotateZ(180deg) translate3d(1.5rem, 0, 0);
   transform: rotateZ(180deg) translate3d(1.5rem, 0, 0);
 }
-/* line 263, ../sass/icons.scss */
+/* line 262, ../sass/icons.scss */
 .light-btn:active .segment:nth-of-type(6) {
   -webkit-transform: rotateZ(225deg) translate3d(1.5rem, 0, 0);
   -moz-transform: rotateZ(225deg) translate3d(1.5rem, 0, 0);
@@ -443,7 +449,7 @@ button:active {
   -o-transform: rotateZ(225deg) translate3d(1.5rem, 0, 0);
   transform: rotateZ(225deg) translate3d(1.5rem, 0, 0);
 }
-/* line 263, ../sass/icons.scss */
+/* line 262, ../sass/icons.scss */
 .light-btn:active .segment:nth-of-type(7) {
   -webkit-transform: rotateZ(270deg) translate3d(1.5rem, 0, 0);
   -moz-transform: rotateZ(270deg) translate3d(1.5rem, 0, 0);
@@ -451,7 +457,7 @@ button:active {
   -o-transform: rotateZ(270deg) translate3d(1.5rem, 0, 0);
   transform: rotateZ(270deg) translate3d(1.5rem, 0, 0);
 }
-/* line 263, ../sass/icons.scss */
+/* line 262, ../sass/icons.scss */
 .light-btn:active .segment:nth-of-type(8) {
   -webkit-transform: rotateZ(315deg) translate3d(1.5rem, 0, 0);
   -moz-transform: rotateZ(315deg) translate3d(1.5rem, 0, 0);
@@ -460,7 +466,7 @@ button:active {
   transform: rotateZ(315deg) translate3d(1.5rem, 0, 0);
 }
 
-/* line 272, ../sass/icons.scss */
+/* line 271, ../sass/icons.scss */
 .transform-btn .square {
   width: 2.5rem;
   height: 2.5rem;
@@ -471,7 +477,7 @@ button:active {
   left: 50%;
   border: 0.2rem solid white;
 }
-/* line 281, ../sass/icons.scss */
+/* line 280, ../sass/icons.scss */
 .transform-btn .square .corner {
   width: 0.8rem;
   height: 0.8rem;
@@ -481,15 +487,15 @@ button:active {
   background-color: #ff4433;
   border: 0.2rem solid white;
 }
-/* line 288, ../sass/icons.scss */
+/* line 287, ../sass/icons.scss */
 .transform-btn .square .corner:nth-of-type(2n) {
   left: 100%;
 }
-/* line 292, ../sass/icons.scss */
+/* line 291, ../sass/icons.scss */
 .transform-btn .square .corner:nth-of-type(n+3) {
   top: 100%;
 }
-/* line 299, ../sass/icons.scss */
+/* line 298, ../sass/icons.scss */
 .transform-btn:active .square {
   width: 2rem;
   height: 2rem;
@@ -497,12 +503,12 @@ button:active {
   margin-left: -1rem;
   border-color: #800b00;
 }
-/* line 303, ../sass/icons.scss */
+/* line 302, ../sass/icons.scss */
 .transform-btn:active .square .corner {
   border-color: #800b00;
 }
 
-/* line 311, ../sass/icons.scss */
+/* line 310, ../sass/icons.scss */
 .move-btn .segment {
   position: absolute;
   left: 1rem;
@@ -510,7 +516,7 @@ button:active {
   height: 0.2rem;
   background-color: white;
 }
-/* line 320, ../sass/icons.scss */
+/* line 319, ../sass/icons.scss */
 .move-btn .segment:last-of-type {
   -webkit-transform: rotateZ(90deg);
   -moz-transform: rotateZ(90deg);
@@ -518,7 +524,7 @@ button:active {
   -o-transform: rotateZ(90deg);
   transform: rotateZ(90deg);
 }
-/* line 325, ../sass/icons.scss */
+/* line 324, ../sass/icons.scss */
 .move-btn .segment:before, .move-btn .segment:after {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
@@ -530,29 +536,134 @@ button:active {
   border: 0.4rem solid transparent;
   top: -0.3rem;
 }
-/* line 338, ../sass/icons.scss */
+/* line 337, ../sass/icons.scss */
 .move-btn .segment:before {
   left: -0.7rem;
   border-right-width: 0.7rem;
   border-right-color: white;
 }
-/* line 344, ../sass/icons.scss */
+/* line 343, ../sass/icons.scss */
 .move-btn .segment:after {
   right: -0.7rem;
   border-left-width: 0.7rem;
   border-left-color: white;
 }
-/* line 352, ../sass/icons.scss */
+/* line 351, ../sass/icons.scss */
 .move-btn:active .segment {
   left: 1.25rem;
   width: 2rem;
   background-color: #800b00;
 }
-/* line 357, ../sass/icons.scss */
+/* line 356, ../sass/icons.scss */
 .move-btn:active .segment:before {
   border-right-color: #800b00;
 }
-/* line 361, ../sass/icons.scss */
+/* line 360, ../sass/icons.scss */
 .move-btn:active .segment:after {
   border-left-color: #800b00;
+}
+
+/* line 373, ../sass/icons.scss */
+.polygon-btn .triangle {
+  -webkit-transform: translate3d(0, 0.2rem, 0);
+  -moz-transform: translate3d(0, 0.2rem, 0);
+  -ms-transform: translate3d(0, 0.2rem, 0);
+  -o-transform: translate3d(0, 0.2rem, 0);
+  transform: translate3d(0, 0.2rem, 0);
+}
+/* line 377, ../sass/icons.scss */
+.polygon-btn .segment {
+  position: absolute;
+  width: 2.25rem;
+  height: 0.2rem;
+  margin-left: 0.85rem;
+  margin-top: 0.54952rem;
+  background-color: white;
+}
+/* line 388, ../sass/icons.scss */
+.polygon-btn .segment:nth-of-type(1) {
+  -webkit-transform: rotateZ(-60deg);
+  -moz-transform: rotateZ(-60deg);
+  -ms-transform: rotateZ(-60deg);
+  -o-transform: rotateZ(-60deg);
+  transform: rotateZ(-60deg);
+  -webkit-transform-origin: 0 50%;
+  -moz-transform-origin: 0 50%;
+  -ms-transform-origin: 0 50%;
+  -o-transform-origin: 0 50%;
+  transform-origin: 0 50%;
+}
+/* line 393, ../sass/icons.scss */
+.polygon-btn .segment:nth-of-type(2) {
+  -webkit-transform: rotateZ(180deg);
+  -moz-transform: rotateZ(180deg);
+  -ms-transform: rotateZ(180deg);
+  -o-transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
+}
+/* line 397, ../sass/icons.scss */
+.polygon-btn .segment:nth-of-type(3) {
+  -webkit-transform: rotateZ(60deg);
+  -moz-transform: rotateZ(60deg);
+  -ms-transform: rotateZ(60deg);
+  -o-transform: rotateZ(60deg);
+  transform: rotateZ(60deg);
+  -webkit-transform-origin: 100% 50%;
+  -moz-transform-origin: 100% 50%;
+  -ms-transform-origin: 100% 50%;
+  -o-transform-origin: 100% 50%;
+  transform-origin: 100% 50%;
+}
+/* line 403, ../sass/icons.scss */
+.polygon-btn .vertex {
+  width: 0.8rem;
+  height: 0.8rem;
+  margin-top: -0.4rem;
+  margin-left: -0.4rem;
+  border-radius: 50%;
+  position: absolute;
+  top: 0.7rem;
+  left: 0.9rem;
+  border: 0.2rem solid white;
+  background-color: #ff4433;
+}
+/* line 415, ../sass/icons.scss */
+.polygon-btn .vertex:nth-of-type(1) {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+/* line 419, ../sass/icons.scss */
+.polygon-btn .vertex:nth-of-type(2) {
+  -webkit-transform: translate3d(2.25rem, 0, 0);
+  -moz-transform: translate3d(2.25rem, 0, 0);
+  -ms-transform: translate3d(2.25rem, 0, 0);
+  -o-transform: translate3d(2.25rem, 0, 0);
+  transform: translate3d(2.25rem, 0, 0);
+}
+/* line 423, ../sass/icons.scss */
+.polygon-btn .vertex:nth-of-type(3) {
+  -webkit-transform: translate3d(1.125rem, -1.94856rem, 0);
+  -moz-transform: translate3d(1.125rem, -1.94856rem, 0);
+  -ms-transform: translate3d(1.125rem, -1.94856rem, 0);
+  -o-transform: translate3d(1.125rem, -1.94856rem, 0);
+  transform: translate3d(1.125rem, -1.94856rem, 0);
+}
+/* line 429, ../sass/icons.scss */
+.polygon-btn:active .triangle {
+  -webkit-transform: translate3d(0, 0.2rem, 0) rotateZ(-120deg);
+  -moz-transform: translate3d(0, 0.2rem, 0) rotateZ(-120deg);
+  -ms-transform: translate3d(0, 0.2rem, 0) rotateZ(-120deg);
+  -o-transform: translate3d(0, 0.2rem, 0) rotateZ(-120deg);
+  transform: translate3d(0, 0.2rem, 0) rotateZ(-120deg);
+}
+/* line 433, ../sass/icons.scss */
+.polygon-btn:active .segment {
+  background-color: #800b00;
+}
+/* line 437, ../sass/icons.scss */
+.polygon-btn:active .vertex {
+  border-color: #800b00;
 }

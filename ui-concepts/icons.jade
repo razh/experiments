@@ -26,3 +26,11 @@ html(lang='en')
       button.move-btn
         .segment
         .segment
+      button.polygon-btn
+        .triangle
+          .segments
+            -for ( var i = 0; i < 3; i++ )
+              .segment
+          .vertices
+            -for ( var i = 0; i < 3; i++ )
+              .vertex

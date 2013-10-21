@@ -45,11 +45,10 @@ body {
 }
 
 @mixin vertex-pseudo($diameter, $color) {
+  @include circle($diameter);
+
   content: "";
   position: absolute;
-  width: $diameter;
-  height: $diameter;
-  border-radius: 50%;
   border: 0.5 * $diameter solid $color;
 }
 
@@ -196,7 +195,7 @@ button {
     position: absolute;
     height: $btn-line-width;
     width: 3rem;
-    left: 0.75rem;
+    left: 0.8rem;
     background-color: $btn-light-color;
 
     &:first-of-type {
@@ -212,7 +211,7 @@ button {
     .segment {
       background-color: $btn-dark-color;
       width: 2rem;
-      left: 1.25rem;
+      left: 1.3rem;
     }
   }
 }
@@ -361,6 +360,82 @@ button {
       &:after {
         border-left-color: $btn-dark-color;
       }
+    }
+  }
+}
+
+.polygon-btn {
+  $triangle-width: 2.25rem;
+  $triangle-height: $triangle-width * sqrt(3) / 2;
+
+  $triangle-offset: translate3d(0, $btn-line-width, 0);
+
+  .triangle {
+    @include transform($triangle-offset);
+  }
+
+  .segment {
+    position: absolute;
+
+    width: $triangle-width;
+    height: $btn-line-width;
+
+    margin-left: 0.5 * $btn-line-width + $triangle-width / 3;
+    margin-top: -0.5 * $btn-line-width + $triangle-height / 3;
+
+    background-color: $btn-light-color;
+
+    &:nth-of-type(1) {
+      @include transform(rotateZ(-60deg));
+      @include transform-origin(0);
+    }
+
+    &:nth-of-type(2) {
+      @include transform(rotateZ(180deg));
+    }
+
+    &:nth-of-type(3) {
+      @include transform(rotateZ(60deg));
+      @include transform-origin(100%);
+    }
+  }
+
+  .vertex {
+    $vertex-diameter: 0.4rem + 2 * $btn-line-width;
+
+    @include circle($vertex-diameter);
+    position: absolute;
+
+    top: $vertex-diameter - 0.5 * $btn-line-width;
+    left: $vertex-diameter + 0.5 * $btn-line-width;
+
+    border: $btn-line-width solid $btn-light-color;
+    background-color: $btn-background-color;
+
+    &:nth-of-type(1) {
+      @include transform(translate3d(0, 0, 0));
+    }
+
+    &:nth-of-type(2) {
+      @include transform(translate3d($triangle-width, 0, 0));
+    }
+
+    &:nth-of-type(3) {
+      @include transform(translate3d(0.5 * $triangle-width, -$triangle-height, 0));
+    }
+  }
+
+  &:active {
+    .triangle {
+      @include transform($triangle-offset rotateZ(-120deg));
+    }
+
+    .segment {
+      background-color: $btn-dark-color;
+    }
+
+    .vertex {
+      border-color: $btn-dark-color;
     }
   }
 }
