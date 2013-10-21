@@ -439,3 +439,39 @@ button {
     }
   }
 }
+
+.polygon-svg-btn {
+  $triangle-width: 3rem;
+  $triangle-height: $triangle-width * sqrt(3) / 2;
+
+  svg {
+    width: $triangle-width;
+    height: $triangle-width;
+
+    polygon {
+      stroke-width: $btn-line-width / $triangle-width;
+      stroke: $btn-light-color;
+      fill: none;
+    }
+
+    circle {
+      stroke: $btn-light-color;
+      stroke-width: $btn-line-width / $triangle-width;
+      fill: $btn-background-color;
+    }
+  }
+
+  &:active {
+    svg {
+      @include transform(rotateZ(120deg));
+
+      polygon {
+        stroke: $btn-dark-color;
+      }
+
+      circle {
+        stroke: $btn-dark-color;
+      }
+    }
+  }
+}

@@ -667,3 +667,37 @@ button:active {
 .polygon-btn:active .vertex {
   border-color: #800b00;
 }
+
+/* line 447, ../sass/icons.scss */
+.polygon-svg-btn svg {
+  width: 3rem;
+  height: 3rem;
+}
+/* line 451, ../sass/icons.scss */
+.polygon-svg-btn svg polygon {
+  stroke-width: 0.06667;
+  stroke: white;
+  fill: none;
+}
+/* line 457, ../sass/icons.scss */
+.polygon-svg-btn svg circle {
+  stroke: white;
+  stroke-width: 0.06667;
+  fill: #ff4433;
+}
+/* line 465, ../sass/icons.scss */
+.polygon-svg-btn:active svg {
+  -webkit-transform: rotateZ(120deg);
+  -moz-transform: rotateZ(120deg);
+  -ms-transform: rotateZ(120deg);
+  -o-transform: rotateZ(120deg);
+  transform: rotateZ(120deg);
+}
+/* line 468, ../sass/icons.scss */
+.polygon-svg-btn:active svg polygon {
+  stroke: #800b00;
+}
+/* line 472, ../sass/icons.scss */
+.polygon-svg-btn:active svg circle {
+  stroke: #800b00;
+}
