@@ -6,6 +6,11 @@
 
     %link(rel="stylesheet" href="./stylesheets/top-down-city.css")
   %body
-    .building
+    .shadows
+      -(1..16).each do |i|
+        .shadow
+    .buildings
+      -(1..16).each do |i|
+        .building
 
     %script(src="./js/top-down-city.js")

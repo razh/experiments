@@ -2,7 +2,7 @@
 
 @import "compass/css3/box-sizing";
 
-$px: 16px;
+$px: 8px;
 
 * {
   @include box-sizing(border-box);
@@ -14,29 +14,51 @@ html, body {
 
 body {
   background-color: #ddf;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 $building-light: #77a;
 $building-dark: #557;
 
+$building-size: 12 * $px;
+$building-spacing: 4 * $px;
+
+$container-size: 4 * ($building-size + $building-spacing);
+
+.shadow {
+  position: absolute;
+  width: $building-size;
+  height: $building-size;
+}
+
+.buildings {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+
+  width: $container-size;
+  margin-left: -0.5 * $container-size;
+}
+
 .building {
+  float: left;
+
   position: relative;
-  width: 12 * $px;
-  height: 12 * $px;
+  width: $building-size;
+  height: $building-size;
+
+  margin-bottom: $building-spacing;
+  margin-right: $building-spacing;
+
   background-color: $building-light;
   border: $px solid $building-dark;
 
-  &:after {
+  &:first-child:after {
     content: "";
     position: absolute;
-    width: 3 * $px;
+    width: 2 * $px;
     height: 2 * $px;
-    bottom: 2 * $px;
-    right: 2 * $px;
+    bottom: 1 * $px;
+    right: 1 * $px;
     background-color: $building-dark;
   }
 }

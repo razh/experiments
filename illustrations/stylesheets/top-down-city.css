@@ -78,26 +78,42 @@ html, body {
 /* line 15, ../sass/top-down-city.scss */
 body {
   background-color: #ddf;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-/* line 26, ../sass/top-down-city.scss */
-.building {
-  position: relative;
-  width: 192px;
-  height: 192px;
-  background-color: #7777aa;
-  border: 16px solid #555577;
+/* line 27, ../sass/top-down-city.scss */
+.shadow {
+  position: absolute;
+  width: 96px;
+  height: 96px;
 }
+
 /* line 33, ../sass/top-down-city.scss */
-.building:after {
+.buildings {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  width: 512px;
+  margin-left: -256px;
+}
+
+/* line 42, ../sass/top-down-city.scss */
+.building {
+  float: left;
+  position: relative;
+  width: 96px;
+  height: 96px;
+  margin-bottom: 32px;
+  margin-right: 32px;
+  background-color: #7777aa;
+  border: 8px solid #555577;
+}
+/* line 55, ../sass/top-down-city.scss */
+.building:first-child:after {
   content: "";
   position: absolute;
-  width: 48px;
-  height: 32px;
-  bottom: 32px;
-  right: 32px;
+  width: 16px;
+  height: 16px;
+  bottom: 8px;
+  right: 8px;
   background-color: #555577;
 }
