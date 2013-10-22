@@ -1,0 +1,140 @@
+@import "compass/reset";
+
+@import "compass/css3/transition";
+@import "compass/css3/transform";
+
+/**
+ * Creates a box centered at (0, 0, 0) with dimension
+ * $width, $height, and $depth.
+ *
+ * Requires elements with classes for six faces:
+ *  top, bottom,
+ *  front, back,
+ *  left, right
+ */
+@mixin box($width, $height, $depth) {
+  $halfWidth: 0.5 * $width;
+  $halfHeight: 0.5 * $height;
+  $halfDepth: 0.5 * $depth;
+
+  @include transform-style(preserve-3d);
+
+  .top, .bottom, .front, .back, .left, .right {
+    position: absolute;
+    @include transform-origin(center center 0);
+  }
+
+  .top, .bottom {
+    width: $width;
+    height: $depth;
+
+    margin-top: -$halfDepth;
+    margin-left: -$halfWidth;
+  }
+
+  .top {
+    @include transform(translate3d(0, -$halfHeight, 0) rotateX(90deg));
+  }
+
+  .bottom {
+    @include transform(translate3d(0, $halfHeight, 0) rotateX(-90deg));
+  }
+
+  .front, .back {
+    width: $width;
+    height: $height;
+
+    margin-top: -$halfHeight;
+    margin-left: -$halfWidth;
+  }
+
+  .front {
+    @include transform(translate3d(0, 0, $halfDepth) rotateY(0deg));
+  }
+
+  .back {
+    @include transform(translate3d(0, 0, -$halfDepth) rotateY(180deg));
+  }
+
+  .left, .right {
+    width: $depth;
+    height: $height;
+
+    margin-left: -$halfDepth;
+    margin-top: -$halfHeight;
+  }
+
+  .left {
+    @include transform(translate3d(-$halfWidth, 0, 0) rotateY(-90deg));
+  }
+
+  .right {
+    @include transform(translate3d($halfWidth, 0, 0) rotateY(90deg));
+  }
+}
+
+html, body {
+  height: 100%;
+}
+
+
+.container {
+  width: 100%;
+  height: 100%;
+  @include perspective(1000px);
+  @include perspective-origin(center top);
+
+  @include transform-style(preserve-3d);
+
+  * {
+    @include transition(all 2s);
+  }
+
+  .rotateX:active {
+    ~ .building {
+      @include transform(rotateX(-360deg));
+    }
+  }
+
+  .rotateY:active {
+    ~ .building {
+      @include transform(rotateY(-360deg));
+    }
+  }
+}
+
+.building {
+  @include box(300px, 200px, 150px);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  .top, .front, .right {
+    background-color: rgba(96, 96, 96, 0.75);
+  }
+
+  .bottom, .back, .left {
+    background-color: rgba(32, 32, 32, 0.75);
+  }
+
+  .top, .bottom, .front, .back, .left, .right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 32px;
+    text-transform: uppercase;
+
+    @include backface-visibility(hidden);
+  }
+
+  .top:after { content: "top"; }
+  .bottom:after { content: "bottom";  }
+  .front:after { content: "front";  }
+  .back:after { content: "back";  }
+  .left:after { content: "left";  }
+  .right:after { content: "right";  }
+}
