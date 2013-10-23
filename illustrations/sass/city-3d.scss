@@ -14,9 +14,9 @@
  *  left, right
  */
 @mixin box($width, $height, $depth) {
-  $halfWidth: 0.5 * $width;
+  $halfWidth:  0.5 * $width;
   $halfHeight: 0.5 * $height;
-  $halfDepth: 0.5 * $depth;
+  $halfDepth:  0.5 * $depth;
 
   @include transform-style(preserve-3d);
 
@@ -25,85 +25,73 @@
   }
 
   .top, .bottom {
-    width: $width;
+    width:  $width;
     height: $depth;
 
-    margin-top: -$halfDepth;
     margin-left: -$halfWidth;
+    margin-top:  -$halfDepth;
   }
 
-  .top {
-    @include transform(translate3d(0, -$halfHeight, 0) rotateX(90deg));
-  }
+  .top    { @include transform(translate3d(0, -$halfHeight, 0) rotateX( 90deg)); }
+  .bottom { @include transform(translate3d(0,  $halfHeight, 0) rotateX(-90deg)); }
 
-  .bottom {
-    @include transform(translate3d(0, $halfHeight, 0) rotateX(-90deg));
-  }
-
-  .front, .back {
-    width: $width;
+  .back, .front {
+    width:  $width;
     height: $height;
 
-    margin-top: -$halfHeight;
     margin-left: -$halfWidth;
+    margin-top:  -$halfHeight;
   }
 
-  .front {
-    @include transform(translate3d(0, 0, $halfDepth) rotateY(0deg));
-  }
-
-  .back {
-    @include transform(translate3d(0, 0, -$halfDepth) rotateY(180deg));
-  }
+  .back  { @include transform(translate3d(0, 0, -$halfDepth) rotateY(180deg)); }
+  .front { @include transform(translate3d(0, 0,  $halfDepth) rotateY(  0deg)); }
 
   .left, .right {
-    width: $depth;
+    width:  $depth;
     height: $height;
 
     margin-left: -$halfDepth;
-    margin-top: -$halfHeight;
+    margin-top:  -$halfHeight;
   }
 
-  .left {
-    @include transform(translate3d(-$halfWidth, 0, 0) rotateY(-90deg));
-  }
-
-  .right {
-    @include transform(translate3d($halfWidth, 0, 0) rotateY(90deg));
-  }
+  .left  { @include transform(translate3d(-$halfWidth, 0, 0) rotateY(-90deg)); }
+  .right { @include transform(translate3d( $halfWidth, 0, 0) rotateY( 90deg)); }
 }
 
 html, body {
   height: 100%;
 }
 
-
-.container {
+.scene {
   width: 100%;
   height: 100%;
+
   @include perspective(1000px);
   @include perspective-origin(center top);
-
   @include transform-style(preserve-3d);
+}
+
+.container {
+  @extend .scene;
 
   * {
     @include transition(all 2s);
   }
 
   .rotateX:active {
-    ~ .building {
+    ~ .building-test {
       @include transform(rotateX(-360deg));
     }
   }
 
   .rotateY:active {
-    ~ .building {
+    ~ .building-test {
       @include transform(rotateY(-360deg));
     }
   }
 }
 
-.building {
+.building-test {
   @include box(300px, 200px, 150px);
 
   position: absolute;
@@ -141,4 +129,29 @@ html, body {
   .back:after { content: "back";  }
   .left:after { content: "left";  }
   .right:after { content: "right";  }
+}
+
+.buildings {
+  @include transform(translate3d(25%, 0, 0) rotateX(-30deg));
+  @include transition(all 2s);
+
+  &:hover {
+    @include transform(translate3d(25%, 0, 0) rotateX(-10deg) rotateY(60deg));
+  }
+
+  .building {
+    @include box(20px, 40px, 20px);
+    position: absolute;
+  }
+
+  @for $i from 0 to 4 {
+    @for $j from 0 to 4 {
+      .building:nth-of-type(#{$i * 4 + $j + 1}) {
+        @include transform(translate3d($i * 60px, 0, $j * 60px));
+        .top, .bottom, .front, .back, .left, .right {
+          background-color: #333 * (4 - $j);
+        }
+      }
+    }
+  }
 }

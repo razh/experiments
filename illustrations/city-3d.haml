@@ -9,10 +9,19 @@
     .container
       %button.rotate.rotateX Rotate X
       %button.rotate.rotateY Rotate Y
-      .building
+      .building-test
         .top
         .bottom
         .front
         .back
         .left
         .right
+    .scene.buildings
+      -(1..16).each do |i|
+        .building
+          .top
+          .bottom
+          .front
+          .back
+          .left
+          .right
