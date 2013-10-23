@@ -6,22 +6,20 @@
 
     %link(rel="stylesheet" href="./stylesheets/city-3d.css")
   %body
+    - faces = ['top', 'bottom', 'front', 'back', 'left', 'right']
     .container
       %button.rotate.rotateX Rotate X
       %button.rotate.rotateY Rotate Y
+
       .building-test
-        .top
-        .bottom
-        .front
-        .back
-        .left
-        .right
+        - faces.each do |face|
+          %div{:class => face}
+
     .scene.buildings
-      -(1..16).each do |i|
+      - (1..16).each do |i|
         .building
-          .top
-          .bottom
-          .front
-          .back
-          .left
-          .right
+          - faces.each do |face|
+            %div{:class => face}
+      .ground
+        - faces.each do |face|
+          %div{:class => face}
