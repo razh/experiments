@@ -23,3 +23,66 @@
       .ground
         - faces.each do |face|
           %div{:class => face}
+
+    .scene.robot
+      .body
+        .torso
+          - faces.each do |face|
+            %div{:class => face}
+
+          .head
+            - faces.each do |face|
+              %div{:class => face}
+
+          .arm.arm-left
+            .upper-arm
+              - faces.each do |face|
+                %div{:class => face}
+
+              .lower-arm
+                - faces.each do |face|
+                  %div{:class => face}
+
+                .hand
+                  - faces.each do |face|
+                    %div{:class => face}
+
+
+          .arm.arm-right
+            .upper-arm
+              - faces.each do |face|
+                %div{:class => face}
+
+              .lower-arm
+                - faces.each do |face|
+                  %div{:class => face}
+
+                .hand
+                  - faces.each do |face|
+                    %div{:class => face}
+
+          .leg.leg-left
+            .upper-leg
+              - faces.each do |face|
+                %div{:class => face}
+
+              .lower-leg
+                - faces.each do |face|
+                  %div{:class => face}
+
+                .foot
+                  - faces.each do |face|
+                    %div{:class => face}
+
+          .leg.leg-right
+            .upper-leg
+              - faces.each do |face|
+                %div{:class => face}
+
+              .lower-leg
+                - faces.each do |face|
+                  %div{:class => face}
+
+                .foot
+                  - faces.each do |face|
+                    %div{:class => face}

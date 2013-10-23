@@ -166,7 +166,7 @@ html, body {
     @include transform(translate3d(100px, 30px, 100px));
 
     .top, .bottom {
-      background-color: #222;
+      background-color: #333;
     }
 
     .front, .back, .left, .right {
@@ -176,12 +176,133 @@ html, body {
 }
 
 .body {
-  .head {}
+  @include transform(translate3d(300px, 0, 0) rotateY(0));
+  @include transform-style(preserve-3d);
 
-  .torso {}
+  *, & {
+    @include transition(all 1s);
+  }
 
-  .arm {
-    .upper-arm {}
-    .lower-arm {}
+  &:hover {
+    @include transform(translate3d(300px, 0, 0) rotateY(40deg));
+
+    .torso {
+      .head {
+        @include transform(translate3d(0, -110px, 0) rotateY(-30deg));
+      }
+
+      .arm-right {
+        .upper-arm {
+          @include transform(rotateX(30deg));
+
+          .lower-arm {
+            @include transform(translate3d(0, 60px, 0) rotateX(30deg));
+
+            .hand {
+              @include transform(translate3d(0, 40px, 0) rotateX(20deg));
+            }
+          }
+        }
+      }
+
+      .arm-left {
+        .upper-arm {
+          @include transform(rotateX(-50deg));
+
+          .lower-arm {
+            @include transform(translate3d(0, 60px, 0) rotateX(30deg));
+
+            .hand {
+              @include transform(translate3d(0, 40px, 0) rotateX(20deg));
+            }
+          }
+        }
+      }
+
+      .leg-right {
+        .upper-leg {
+          @include transform(translate3d(0, 80px, 0) rotateX(-30deg));
+
+          .lower-leg {
+            @include transform(translate3d(0, 70px, 0) rotateX(-20deg));
+          }
+        }
+      }
+
+      .leg-left {
+        .upper-leg {
+          @include transform(translate3d(0, 80px, 0) rotateX(40deg));
+
+          .lower-leg {
+            @include transform(translate3d(0, 70px, 0) rotateX(-40deg));
+          }
+        }
+      }
+    }
+  }
+
+  .torso {
+    @include box(80px, 150px, 35px);
+    .top    { background-color: rgba(255, 0, 0, 0.25); }
+    .front  { background-color: rgba(192, 0, 0, 0.25); }
+    .right  { background-color: rgba(128, 0, 0, 0.25); }
+    .back   { background-color: rgba( 96, 0, 0, 0.25); }
+    .left   { background-color: rgba( 64, 0, 0, 0.25); }
+    .bottom { background-color: rgba( 32, 0, 0, 0.25); }
+
+    .head {
+      @include box(40px, 40px, 40px);
+      @include transform(translate3d(0, -110px, 0));
+      @include transform-origin(0 0 0);
+    }
+
+    .arm {
+      @include transform-style(preserve-3d);
+
+      .upper-arm {
+        @include box(20px, 60px, 20px);
+        @include transform-origin(0 -30px 0);
+
+        .lower-arm {
+          @include box(20px, 40px, 20px);
+          @include transform(translate3d(0, 60px, 0));
+          @include transform-origin(0 -20px 0);
+
+          .hand {
+            @include box(20px, 20px, 20px);
+            @include transform(translate3d(0, 40px, 0));
+            @include transform-origin(0 -20px 0);
+          }
+        }
+      }
+    }
+
+    .arm-left  { @include transform(translate3d(-60px, -30px, 0)); }
+    .arm-right { @include transform(translate3d( 60px, -30px, 0)); }
+
+    .leg {
+      @include transform-style(preserve-3d);
+
+      .upper-leg {
+        @include box(25px, 50px, 25px);
+        @include transform(translate3d(0, 80px, 0));
+        @include transform-origin(0 -25px 0);
+
+        .lower-leg {
+          @include box(25px, 70px, 25px);
+          @include transform(translate3d(0, 70px, 0));
+          @include transform-origin(0 -35px 0);
+
+          .foot {
+            @include box(30px, 14px, 50px);
+            @include transform(translate3d(0, 50px, 10px));
+            @include transform-origin(0 -7px 0);
+          }
+        }
+      }
+    }
+
+    .leg-left  { @include transform(translate3d(-25px, 30px, 0)); }
+    .leg-right { @include transform(translate3d( 25px, 30px, 0)); }
   }
 }

@@ -987,9 +987,911 @@ html, body {
 }
 /* line 168, ../sass/city-3d.scss */
 .buildings .ground .top, .buildings .ground .bottom {
-  background-color: #222;
+  background-color: #333;
 }
 /* line 172, ../sass/city-3d.scss */
 .buildings .ground .front, .buildings .ground .back, .buildings .ground .left, .buildings .ground .right {
   background-color: #444;
+}
+
+/* line 178, ../sass/city-3d.scss */
+.body {
+  -webkit-transform: translate3d(300px, 0, 0) rotateY(0);
+  -moz-transform: translate3d(300px, 0, 0) rotateY(0);
+  -ms-transform: translate3d(300px, 0, 0) rotateY(0);
+  -o-transform: translate3d(300px, 0, 0) rotateY(0);
+  transform: translate3d(300px, 0, 0) rotateY(0);
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* line 182, ../sass/city-3d.scss */
+.body *, .body {
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s;
+}
+/* line 186, ../sass/city-3d.scss */
+.body:hover {
+  -webkit-transform: translate3d(300px, 0, 0) rotateY(40deg);
+  -moz-transform: translate3d(300px, 0, 0) rotateY(40deg);
+  -ms-transform: translate3d(300px, 0, 0) rotateY(40deg);
+  -o-transform: translate3d(300px, 0, 0) rotateY(40deg);
+  transform: translate3d(300px, 0, 0) rotateY(40deg);
+}
+/* line 190, ../sass/city-3d.scss */
+.body:hover .torso .head {
+  -webkit-transform: translate3d(0, -110px, 0) rotateY(-30deg);
+  -moz-transform: translate3d(0, -110px, 0) rotateY(-30deg);
+  -ms-transform: translate3d(0, -110px, 0) rotateY(-30deg);
+  -o-transform: translate3d(0, -110px, 0) rotateY(-30deg);
+  transform: translate3d(0, -110px, 0) rotateY(-30deg);
+}
+/* line 195, ../sass/city-3d.scss */
+.body:hover .torso .arm-right .upper-arm {
+  -webkit-transform: rotateX(30deg);
+  -moz-transform: rotateX(30deg);
+  -ms-transform: rotateX(30deg);
+  -o-transform: rotateX(30deg);
+  transform: rotateX(30deg);
+}
+/* line 198, ../sass/city-3d.scss */
+.body:hover .torso .arm-right .upper-arm .lower-arm {
+  -webkit-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  -moz-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  -ms-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  -o-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  transform: translate3d(0, 60px, 0) rotateX(30deg);
+}
+/* line 201, ../sass/city-3d.scss */
+.body:hover .torso .arm-right .upper-arm .lower-arm .hand {
+  -webkit-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  -moz-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  -ms-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  -o-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  transform: translate3d(0, 40px, 0) rotateX(20deg);
+}
+/* line 209, ../sass/city-3d.scss */
+.body:hover .torso .arm-left .upper-arm {
+  -webkit-transform: rotateX(-50deg);
+  -moz-transform: rotateX(-50deg);
+  -ms-transform: rotateX(-50deg);
+  -o-transform: rotateX(-50deg);
+  transform: rotateX(-50deg);
+}
+/* line 212, ../sass/city-3d.scss */
+.body:hover .torso .arm-left .upper-arm .lower-arm {
+  -webkit-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  -moz-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  -ms-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  -o-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  transform: translate3d(0, 60px, 0) rotateX(30deg);
+}
+/* line 215, ../sass/city-3d.scss */
+.body:hover .torso .arm-left .upper-arm .lower-arm .hand {
+  -webkit-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  -moz-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  -ms-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  -o-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  transform: translate3d(0, 40px, 0) rotateX(20deg);
+}
+/* line 223, ../sass/city-3d.scss */
+.body:hover .torso .leg-right .upper-leg {
+  -webkit-transform: translate3d(0, 80px, 0) rotateX(-30deg);
+  -moz-transform: translate3d(0, 80px, 0) rotateX(-30deg);
+  -ms-transform: translate3d(0, 80px, 0) rotateX(-30deg);
+  -o-transform: translate3d(0, 80px, 0) rotateX(-30deg);
+  transform: translate3d(0, 80px, 0) rotateX(-30deg);
+}
+/* line 226, ../sass/city-3d.scss */
+.body:hover .torso .leg-right .upper-leg .lower-leg {
+  -webkit-transform: translate3d(0, 70px, 0) rotateX(-20deg);
+  -moz-transform: translate3d(0, 70px, 0) rotateX(-20deg);
+  -ms-transform: translate3d(0, 70px, 0) rotateX(-20deg);
+  -o-transform: translate3d(0, 70px, 0) rotateX(-20deg);
+  transform: translate3d(0, 70px, 0) rotateX(-20deg);
+}
+/* line 233, ../sass/city-3d.scss */
+.body:hover .torso .leg-left .upper-leg {
+  -webkit-transform: translate3d(0, 80px, 0) rotateX(40deg);
+  -moz-transform: translate3d(0, 80px, 0) rotateX(40deg);
+  -ms-transform: translate3d(0, 80px, 0) rotateX(40deg);
+  -o-transform: translate3d(0, 80px, 0) rotateX(40deg);
+  transform: translate3d(0, 80px, 0) rotateX(40deg);
+}
+/* line 236, ../sass/city-3d.scss */
+.body:hover .torso .leg-left .upper-leg .lower-leg {
+  -webkit-transform: translate3d(0, 70px, 0) rotateX(-40deg);
+  -moz-transform: translate3d(0, 70px, 0) rotateX(-40deg);
+  -ms-transform: translate3d(0, 70px, 0) rotateX(-40deg);
+  -o-transform: translate3d(0, 70px, 0) rotateX(-40deg);
+  transform: translate3d(0, 70px, 0) rotateX(-40deg);
+}
+/* line 244, ../sass/city-3d.scss */
+.body .torso {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* line 23, ../sass/city-3d.scss */
+.body .torso .top, .body .torso .bottom, .body .torso .front, .body .torso .back, .body .torso .left, .body .torso .right {
+  position: absolute;
+}
+/* line 27, ../sass/city-3d.scss */
+.body .torso .top, .body .torso .bottom {
+  width: 80px;
+  height: 35px;
+  margin-left: -40px;
+  margin-top: -17.5px;
+}
+/* line 35, ../sass/city-3d.scss */
+.body .torso .top {
+  -webkit-transform: translate3d(0, -75px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -75px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -75px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -75px, 0) rotateX(90deg);
+  transform: translate3d(0, -75px, 0) rotateX(90deg);
+}
+/* line 36, ../sass/city-3d.scss */
+.body .torso .bottom {
+  -webkit-transform: translate3d(0, 75px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 75px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 75px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 75px, 0) rotateX(-90deg);
+  transform: translate3d(0, 75px, 0) rotateX(-90deg);
+}
+/* line 38, ../sass/city-3d.scss */
+.body .torso .back, .body .torso .front {
+  width: 80px;
+  height: 150px;
+  margin-left: -40px;
+  margin-top: -75px;
+}
+/* line 46, ../sass/city-3d.scss */
+.body .torso .back {
+  -webkit-transform: translate3d(0, 0, -17.5px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -17.5px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -17.5px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -17.5px) rotateY(180deg);
+  transform: translate3d(0, 0, -17.5px) rotateY(180deg);
+}
+/* line 47, ../sass/city-3d.scss */
+.body .torso .front {
+  -webkit-transform: translate3d(0, 0, 17.5px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 17.5px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 17.5px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 17.5px) rotateY(0deg);
+  transform: translate3d(0, 0, 17.5px) rotateY(0deg);
+}
+/* line 49, ../sass/city-3d.scss */
+.body .torso .left, .body .torso .right {
+  width: 35px;
+  height: 150px;
+  margin-left: -17.5px;
+  margin-top: -75px;
+}
+/* line 57, ../sass/city-3d.scss */
+.body .torso .left {
+  -webkit-transform: translate3d(-40px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-40px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-40px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-40px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-40px, 0, 0) rotateY(-90deg);
+}
+/* line 58, ../sass/city-3d.scss */
+.body .torso .right {
+  -webkit-transform: translate3d(40px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(40px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(40px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(40px, 0, 0) rotateY(90deg);
+  transform: translate3d(40px, 0, 0) rotateY(90deg);
+}
+/* line 246, ../sass/city-3d.scss */
+.body .torso .top {
+  background-color: rgba(255, 0, 0, 0.25);
+}
+/* line 247, ../sass/city-3d.scss */
+.body .torso .front {
+  background-color: rgba(192, 0, 0, 0.25);
+}
+/* line 248, ../sass/city-3d.scss */
+.body .torso .right {
+  background-color: rgba(128, 0, 0, 0.25);
+}
+/* line 249, ../sass/city-3d.scss */
+.body .torso .back {
+  background-color: rgba(96, 0, 0, 0.25);
+}
+/* line 250, ../sass/city-3d.scss */
+.body .torso .left {
+  background-color: rgba(64, 0, 0, 0.25);
+}
+/* line 251, ../sass/city-3d.scss */
+.body .torso .bottom {
+  background-color: rgba(32, 0, 0, 0.25);
+}
+/* line 253, ../sass/city-3d.scss */
+.body .torso .head {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, -110px, 0);
+  -moz-transform: translate3d(0, -110px, 0);
+  -ms-transform: translate3d(0, -110px, 0);
+  -o-transform: translate3d(0, -110px, 0);
+  transform: translate3d(0, -110px, 0);
+  -webkit-transform-origin: 0 0 0 50%;
+  -moz-transform-origin: 0 0 0 50%;
+  -ms-transform-origin: 0 0 0 50%;
+  -o-transform-origin: 0 0 0 50%;
+  transform-origin: 0 0 0 50%;
+}
+/* line 23, ../sass/city-3d.scss */
+.body .torso .head .top, .body .torso .head .bottom, .body .torso .head .front, .body .torso .head .back, .body .torso .head .left, .body .torso .head .right {
+  position: absolute;
+}
+/* line 27, ../sass/city-3d.scss */
+.body .torso .head .top, .body .torso .head .bottom {
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+}
+/* line 35, ../sass/city-3d.scss */
+.body .torso .head .top {
+  -webkit-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  transform: translate3d(0, -20px, 0) rotateX(90deg);
+}
+/* line 36, ../sass/city-3d.scss */
+.body .torso .head .bottom {
+  -webkit-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  transform: translate3d(0, 20px, 0) rotateX(-90deg);
+}
+/* line 38, ../sass/city-3d.scss */
+.body .torso .head .back, .body .torso .head .front {
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+}
+/* line 46, ../sass/city-3d.scss */
+.body .torso .head .back {
+  -webkit-transform: translate3d(0, 0, -20px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -20px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -20px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -20px) rotateY(180deg);
+  transform: translate3d(0, 0, -20px) rotateY(180deg);
+}
+/* line 47, ../sass/city-3d.scss */
+.body .torso .head .front {
+  -webkit-transform: translate3d(0, 0, 20px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 20px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 20px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 20px) rotateY(0deg);
+  transform: translate3d(0, 0, 20px) rotateY(0deg);
+}
+/* line 49, ../sass/city-3d.scss */
+.body .torso .head .left, .body .torso .head .right {
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+}
+/* line 57, ../sass/city-3d.scss */
+.body .torso .head .left {
+  -webkit-transform: translate3d(-20px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-20px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-20px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-20px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-20px, 0, 0) rotateY(-90deg);
+}
+/* line 58, ../sass/city-3d.scss */
+.body .torso .head .right {
+  -webkit-transform: translate3d(20px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(20px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(20px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(20px, 0, 0) rotateY(90deg);
+  transform: translate3d(20px, 0, 0) rotateY(90deg);
+}
+/* line 259, ../sass/city-3d.scss */
+.body .torso .arm {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* line 262, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform-origin: 0 -30px 0 50%;
+  -moz-transform-origin: 0 -30px 0 50%;
+  -ms-transform-origin: 0 -30px 0 50%;
+  -o-transform-origin: 0 -30px 0 50%;
+  transform-origin: 0 -30px 0 50%;
+}
+/* line 23, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .top, .body .torso .arm .upper-arm .bottom, .body .torso .arm .upper-arm .front, .body .torso .arm .upper-arm .back, .body .torso .arm .upper-arm .left, .body .torso .arm .upper-arm .right {
+  position: absolute;
+}
+/* line 27, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .top, .body .torso .arm .upper-arm .bottom {
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+}
+/* line 35, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .top {
+  -webkit-transform: translate3d(0, -30px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -30px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -30px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -30px, 0) rotateX(90deg);
+  transform: translate3d(0, -30px, 0) rotateX(90deg);
+}
+/* line 36, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .bottom {
+  -webkit-transform: translate3d(0, 30px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 30px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 30px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 30px, 0) rotateX(-90deg);
+  transform: translate3d(0, 30px, 0) rotateX(-90deg);
+}
+/* line 38, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .back, .body .torso .arm .upper-arm .front {
+  width: 20px;
+  height: 60px;
+  margin-left: -10px;
+  margin-top: -30px;
+}
+/* line 46, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .back {
+  -webkit-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  transform: translate3d(0, 0, -10px) rotateY(180deg);
+}
+/* line 47, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .front {
+  -webkit-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  transform: translate3d(0, 0, 10px) rotateY(0deg);
+}
+/* line 49, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .left, .body .torso .arm .upper-arm .right {
+  width: 20px;
+  height: 60px;
+  margin-left: -10px;
+  margin-top: -30px;
+}
+/* line 57, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .left {
+  -webkit-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+}
+/* line 58, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .right {
+  -webkit-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  transform: translate3d(10px, 0, 0) rotateY(90deg);
+}
+/* line 266, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 60px, 0);
+  -moz-transform: translate3d(0, 60px, 0);
+  -ms-transform: translate3d(0, 60px, 0);
+  -o-transform: translate3d(0, 60px, 0);
+  transform: translate3d(0, 60px, 0);
+  -webkit-transform-origin: 0 -20px 0 50%;
+  -moz-transform-origin: 0 -20px 0 50%;
+  -ms-transform-origin: 0 -20px 0 50%;
+  -o-transform-origin: 0 -20px 0 50%;
+  transform-origin: 0 -20px 0 50%;
+}
+/* line 23, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .top, .body .torso .arm .upper-arm .lower-arm .bottom, .body .torso .arm .upper-arm .lower-arm .front, .body .torso .arm .upper-arm .lower-arm .back, .body .torso .arm .upper-arm .lower-arm .left, .body .torso .arm .upper-arm .lower-arm .right {
+  position: absolute;
+}
+/* line 27, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .top, .body .torso .arm .upper-arm .lower-arm .bottom {
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+}
+/* line 35, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .top {
+  -webkit-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  transform: translate3d(0, -20px, 0) rotateX(90deg);
+}
+/* line 36, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .bottom {
+  -webkit-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  transform: translate3d(0, 20px, 0) rotateX(-90deg);
+}
+/* line 38, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .back, .body .torso .arm .upper-arm .lower-arm .front {
+  width: 20px;
+  height: 40px;
+  margin-left: -10px;
+  margin-top: -20px;
+}
+/* line 46, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .back {
+  -webkit-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  transform: translate3d(0, 0, -10px) rotateY(180deg);
+}
+/* line 47, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .front {
+  -webkit-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  transform: translate3d(0, 0, 10px) rotateY(0deg);
+}
+/* line 49, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .left, .body .torso .arm .upper-arm .lower-arm .right {
+  width: 20px;
+  height: 40px;
+  margin-left: -10px;
+  margin-top: -20px;
+}
+/* line 57, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .left {
+  -webkit-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+}
+/* line 58, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .right {
+  -webkit-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  transform: translate3d(10px, 0, 0) rotateY(90deg);
+}
+/* line 271, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .hand {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 40px, 0);
+  -moz-transform: translate3d(0, 40px, 0);
+  -ms-transform: translate3d(0, 40px, 0);
+  -o-transform: translate3d(0, 40px, 0);
+  transform: translate3d(0, 40px, 0);
+  -webkit-transform-origin: 0 -20px 0 50%;
+  -moz-transform-origin: 0 -20px 0 50%;
+  -ms-transform-origin: 0 -20px 0 50%;
+  -o-transform-origin: 0 -20px 0 50%;
+  transform-origin: 0 -20px 0 50%;
+}
+/* line 23, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .hand .top, .body .torso .arm .upper-arm .lower-arm .hand .bottom, .body .torso .arm .upper-arm .lower-arm .hand .front, .body .torso .arm .upper-arm .lower-arm .hand .back, .body .torso .arm .upper-arm .lower-arm .hand .left, .body .torso .arm .upper-arm .lower-arm .hand .right {
+  position: absolute;
+}
+/* line 27, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .hand .top, .body .torso .arm .upper-arm .lower-arm .hand .bottom {
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+}
+/* line 35, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .hand .top {
+  -webkit-transform: translate3d(0, -10px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -10px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -10px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -10px, 0) rotateX(90deg);
+  transform: translate3d(0, -10px, 0) rotateX(90deg);
+}
+/* line 36, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .hand .bottom {
+  -webkit-transform: translate3d(0, 10px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 10px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 10px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 10px, 0) rotateX(-90deg);
+  transform: translate3d(0, 10px, 0) rotateX(-90deg);
+}
+/* line 38, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .hand .back, .body .torso .arm .upper-arm .lower-arm .hand .front {
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+}
+/* line 46, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .hand .back {
+  -webkit-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  transform: translate3d(0, 0, -10px) rotateY(180deg);
+}
+/* line 47, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .hand .front {
+  -webkit-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  transform: translate3d(0, 0, 10px) rotateY(0deg);
+}
+/* line 49, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .hand .left, .body .torso .arm .upper-arm .lower-arm .hand .right {
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+}
+/* line 57, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .hand .left {
+  -webkit-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+}
+/* line 58, ../sass/city-3d.scss */
+.body .torso .arm .upper-arm .lower-arm .hand .right {
+  -webkit-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  transform: translate3d(10px, 0, 0) rotateY(90deg);
+}
+/* line 280, ../sass/city-3d.scss */
+.body .torso .arm-left {
+  -webkit-transform: translate3d(-60px, -30px, 0);
+  -moz-transform: translate3d(-60px, -30px, 0);
+  -ms-transform: translate3d(-60px, -30px, 0);
+  -o-transform: translate3d(-60px, -30px, 0);
+  transform: translate3d(-60px, -30px, 0);
+}
+/* line 281, ../sass/city-3d.scss */
+.body .torso .arm-right {
+  -webkit-transform: translate3d(60px, -30px, 0);
+  -moz-transform: translate3d(60px, -30px, 0);
+  -ms-transform: translate3d(60px, -30px, 0);
+  -o-transform: translate3d(60px, -30px, 0);
+  transform: translate3d(60px, -30px, 0);
+}
+/* line 283, ../sass/city-3d.scss */
+.body .torso .leg {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* line 286, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 80px, 0);
+  -moz-transform: translate3d(0, 80px, 0);
+  -ms-transform: translate3d(0, 80px, 0);
+  -o-transform: translate3d(0, 80px, 0);
+  transform: translate3d(0, 80px, 0);
+  -webkit-transform-origin: 0 -25px 0 50%;
+  -moz-transform-origin: 0 -25px 0 50%;
+  -ms-transform-origin: 0 -25px 0 50%;
+  -o-transform-origin: 0 -25px 0 50%;
+  transform-origin: 0 -25px 0 50%;
+}
+/* line 23, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .top, .body .torso .leg .upper-leg .bottom, .body .torso .leg .upper-leg .front, .body .torso .leg .upper-leg .back, .body .torso .leg .upper-leg .left, .body .torso .leg .upper-leg .right {
+  position: absolute;
+}
+/* line 27, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .top, .body .torso .leg .upper-leg .bottom {
+  width: 25px;
+  height: 25px;
+  margin-left: -12.5px;
+  margin-top: -12.5px;
+}
+/* line 35, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .top {
+  -webkit-transform: translate3d(0, -25px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -25px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -25px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -25px, 0) rotateX(90deg);
+  transform: translate3d(0, -25px, 0) rotateX(90deg);
+}
+/* line 36, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .bottom {
+  -webkit-transform: translate3d(0, 25px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 25px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 25px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 25px, 0) rotateX(-90deg);
+  transform: translate3d(0, 25px, 0) rotateX(-90deg);
+}
+/* line 38, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .back, .body .torso .leg .upper-leg .front {
+  width: 25px;
+  height: 50px;
+  margin-left: -12.5px;
+  margin-top: -25px;
+}
+/* line 46, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .back {
+  -webkit-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+  transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+}
+/* line 47, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .front {
+  -webkit-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+  transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+}
+/* line 49, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .left, .body .torso .leg .upper-leg .right {
+  width: 25px;
+  height: 50px;
+  margin-left: -12.5px;
+  margin-top: -25px;
+}
+/* line 57, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .left {
+  -webkit-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+}
+/* line 58, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .right {
+  -webkit-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+  transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+}
+/* line 291, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 70px, 0);
+  -moz-transform: translate3d(0, 70px, 0);
+  -ms-transform: translate3d(0, 70px, 0);
+  -o-transform: translate3d(0, 70px, 0);
+  transform: translate3d(0, 70px, 0);
+  -webkit-transform-origin: 0 -35px 0 50%;
+  -moz-transform-origin: 0 -35px 0 50%;
+  -ms-transform-origin: 0 -35px 0 50%;
+  -o-transform-origin: 0 -35px 0 50%;
+  transform-origin: 0 -35px 0 50%;
+}
+/* line 23, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .top, .body .torso .leg .upper-leg .lower-leg .bottom, .body .torso .leg .upper-leg .lower-leg .front, .body .torso .leg .upper-leg .lower-leg .back, .body .torso .leg .upper-leg .lower-leg .left, .body .torso .leg .upper-leg .lower-leg .right {
+  position: absolute;
+}
+/* line 27, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .top, .body .torso .leg .upper-leg .lower-leg .bottom {
+  width: 25px;
+  height: 25px;
+  margin-left: -12.5px;
+  margin-top: -12.5px;
+}
+/* line 35, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .top {
+  -webkit-transform: translate3d(0, -35px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -35px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -35px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -35px, 0) rotateX(90deg);
+  transform: translate3d(0, -35px, 0) rotateX(90deg);
+}
+/* line 36, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .bottom {
+  -webkit-transform: translate3d(0, 35px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 35px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 35px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 35px, 0) rotateX(-90deg);
+  transform: translate3d(0, 35px, 0) rotateX(-90deg);
+}
+/* line 38, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .back, .body .torso .leg .upper-leg .lower-leg .front {
+  width: 25px;
+  height: 70px;
+  margin-left: -12.5px;
+  margin-top: -35px;
+}
+/* line 46, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .back {
+  -webkit-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+  transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+}
+/* line 47, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .front {
+  -webkit-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+  transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+}
+/* line 49, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .left, .body .torso .leg .upper-leg .lower-leg .right {
+  width: 25px;
+  height: 70px;
+  margin-left: -12.5px;
+  margin-top: -35px;
+}
+/* line 57, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .left {
+  -webkit-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+}
+/* line 58, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .right {
+  -webkit-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+  transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+}
+/* line 296, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .foot {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 50px, 10px);
+  -moz-transform: translate3d(0, 50px, 10px);
+  -ms-transform: translate3d(0, 50px, 10px);
+  -o-transform: translate3d(0, 50px, 10px);
+  transform: translate3d(0, 50px, 10px);
+  -webkit-transform-origin: 0 -7px 0 50%;
+  -moz-transform-origin: 0 -7px 0 50%;
+  -ms-transform-origin: 0 -7px 0 50%;
+  -o-transform-origin: 0 -7px 0 50%;
+  transform-origin: 0 -7px 0 50%;
+}
+/* line 23, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .foot .top, .body .torso .leg .upper-leg .lower-leg .foot .bottom, .body .torso .leg .upper-leg .lower-leg .foot .front, .body .torso .leg .upper-leg .lower-leg .foot .back, .body .torso .leg .upper-leg .lower-leg .foot .left, .body .torso .leg .upper-leg .lower-leg .foot .right {
+  position: absolute;
+}
+/* line 27, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .foot .top, .body .torso .leg .upper-leg .lower-leg .foot .bottom {
+  width: 30px;
+  height: 50px;
+  margin-left: -15px;
+  margin-top: -25px;
+}
+/* line 35, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .foot .top {
+  -webkit-transform: translate3d(0, -7px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -7px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -7px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -7px, 0) rotateX(90deg);
+  transform: translate3d(0, -7px, 0) rotateX(90deg);
+}
+/* line 36, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .foot .bottom {
+  -webkit-transform: translate3d(0, 7px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 7px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 7px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 7px, 0) rotateX(-90deg);
+  transform: translate3d(0, 7px, 0) rotateX(-90deg);
+}
+/* line 38, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .foot .back, .body .torso .leg .upper-leg .lower-leg .foot .front {
+  width: 30px;
+  height: 14px;
+  margin-left: -15px;
+  margin-top: -7px;
+}
+/* line 46, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .foot .back {
+  -webkit-transform: translate3d(0, 0, -25px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -25px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -25px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -25px) rotateY(180deg);
+  transform: translate3d(0, 0, -25px) rotateY(180deg);
+}
+/* line 47, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .foot .front {
+  -webkit-transform: translate3d(0, 0, 25px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 25px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 25px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 25px) rotateY(0deg);
+  transform: translate3d(0, 0, 25px) rotateY(0deg);
+}
+/* line 49, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .foot .left, .body .torso .leg .upper-leg .lower-leg .foot .right {
+  width: 50px;
+  height: 14px;
+  margin-left: -25px;
+  margin-top: -7px;
+}
+/* line 57, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .foot .left {
+  -webkit-transform: translate3d(-15px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-15px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-15px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-15px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-15px, 0, 0) rotateY(-90deg);
+}
+/* line 58, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .foot .right {
+  -webkit-transform: translate3d(15px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(15px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(15px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(15px, 0, 0) rotateY(90deg);
+  transform: translate3d(15px, 0, 0) rotateY(90deg);
+}
+/* line 305, ../sass/city-3d.scss */
+.body .torso .leg-left {
+  -webkit-transform: translate3d(-25px, 30px, 0);
+  -moz-transform: translate3d(-25px, 30px, 0);
+  -ms-transform: translate3d(-25px, 30px, 0);
+  -o-transform: translate3d(-25px, 30px, 0);
+  transform: translate3d(-25px, 30px, 0);
+}
+/* line 306, ../sass/city-3d.scss */
+.body .torso .leg-right {
+  -webkit-transform: translate3d(25px, 30px, 0);
+  -moz-transform: translate3d(25px, 30px, 0);
+  -ms-transform: translate3d(25px, 30px, 0);
+  -o-transform: translate3d(25px, 30px, 0);
+  transform: translate3d(25px, 30px, 0);
 }
