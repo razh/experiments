@@ -72,12 +72,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
  *  front, back,
  *  left, right
  */
-/* line 61, ../sass/city-3d.scss */
+/* line 71, ../sass/city-3d.scss */
 html, body {
   height: 100%;
 }
 
-/* line 65, ../sass/city-3d.scss */
+/* line 75, ../sass/city-3d.scss */
 .scene, .container {
   width: 100%;
   height: 100%;
@@ -98,14 +98,14 @@ html, body {
   transform-style: preserve-3d;
 }
 
-/* line 77, ../sass/city-3d.scss */
+/* line 87, ../sass/city-3d.scss */
 .container * {
   -webkit-transition: all 2s;
   -moz-transition: all 2s;
   -o-transition: all 2s;
   transition: all 2s;
 }
-/* line 82, ../sass/city-3d.scss */
+/* line 92, ../sass/city-3d.scss */
 .container .rotateX:active ~ .building-test {
   -webkit-transform: rotateX(-360deg);
   -moz-transform: rotateX(-360deg);
@@ -113,7 +113,7 @@ html, body {
   -o-transform: rotateX(-360deg);
   transform: rotateX(-360deg);
 }
-/* line 88, ../sass/city-3d.scss */
+/* line 98, ../sass/city-3d.scss */
 .container .rotateY:active ~ .building-test {
   -webkit-transform: rotateY(-360deg);
   -moz-transform: rotateY(-360deg);
@@ -122,7 +122,7 @@ html, body {
   transform: rotateY(-360deg);
 }
 
-/* line 94, ../sass/city-3d.scss */
+/* line 104, ../sass/city-3d.scss */
 .building-test {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -133,18 +133,18 @@ html, body {
   top: 50%;
   left: 50%;
 }
-/* line 23, ../sass/city-3d.scss */
+/* line 33, ../sass/city-3d.scss */
 .building-test .top, .building-test .bottom, .building-test .front, .building-test .back, .building-test .left, .building-test .right {
   position: absolute;
 }
-/* line 27, ../sass/city-3d.scss */
+/* line 37, ../sass/city-3d.scss */
 .building-test .top, .building-test .bottom {
   width: 300px;
   height: 150px;
   margin-left: -150px;
   margin-top: -75px;
 }
-/* line 35, ../sass/city-3d.scss */
+/* line 45, ../sass/city-3d.scss */
 .building-test .top {
   -webkit-transform: translate3d(0, -100px, 0) rotateX(90deg);
   -moz-transform: translate3d(0, -100px, 0) rotateX(90deg);
@@ -152,7 +152,7 @@ html, body {
   -o-transform: translate3d(0, -100px, 0) rotateX(90deg);
   transform: translate3d(0, -100px, 0) rotateX(90deg);
 }
-/* line 36, ../sass/city-3d.scss */
+/* line 46, ../sass/city-3d.scss */
 .building-test .bottom {
   -webkit-transform: translate3d(0, 100px, 0) rotateX(-90deg);
   -moz-transform: translate3d(0, 100px, 0) rotateX(-90deg);
@@ -160,14 +160,14 @@ html, body {
   -o-transform: translate3d(0, 100px, 0) rotateX(-90deg);
   transform: translate3d(0, 100px, 0) rotateX(-90deg);
 }
-/* line 38, ../sass/city-3d.scss */
+/* line 48, ../sass/city-3d.scss */
 .building-test .back, .building-test .front {
   width: 300px;
   height: 200px;
   margin-left: -150px;
   margin-top: -100px;
 }
-/* line 46, ../sass/city-3d.scss */
+/* line 56, ../sass/city-3d.scss */
 .building-test .back {
   -webkit-transform: translate3d(0, 0, -75px) rotateY(180deg);
   -moz-transform: translate3d(0, 0, -75px) rotateY(180deg);
@@ -175,7 +175,7 @@ html, body {
   -o-transform: translate3d(0, 0, -75px) rotateY(180deg);
   transform: translate3d(0, 0, -75px) rotateY(180deg);
 }
-/* line 47, ../sass/city-3d.scss */
+/* line 57, ../sass/city-3d.scss */
 .building-test .front {
   -webkit-transform: translate3d(0, 0, 75px) rotateY(0deg);
   -moz-transform: translate3d(0, 0, 75px) rotateY(0deg);
@@ -183,14 +183,14 @@ html, body {
   -o-transform: translate3d(0, 0, 75px) rotateY(0deg);
   transform: translate3d(0, 0, 75px) rotateY(0deg);
 }
-/* line 49, ../sass/city-3d.scss */
+/* line 59, ../sass/city-3d.scss */
 .building-test .left, .building-test .right {
   width: 150px;
   height: 200px;
   margin-left: -75px;
   margin-top: -100px;
 }
-/* line 57, ../sass/city-3d.scss */
+/* line 67, ../sass/city-3d.scss */
 .building-test .left {
   -webkit-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
   -moz-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
@@ -198,7 +198,7 @@ html, body {
   -o-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
   transform: translate3d(-150px, 0, 0) rotateY(-90deg);
 }
-/* line 58, ../sass/city-3d.scss */
+/* line 68, ../sass/city-3d.scss */
 .building-test .right {
   -webkit-transform: translate3d(150px, 0, 0) rotateY(90deg);
   -moz-transform: translate3d(150px, 0, 0) rotateY(90deg);
@@ -206,7 +206,7 @@ html, body {
   -o-transform: translate3d(150px, 0, 0) rotateY(90deg);
   transform: translate3d(150px, 0, 0) rotateY(90deg);
 }
-/* line 101, ../sass/city-3d.scss */
+/* line 111, ../sass/city-3d.scss */
 .building-test:hover {
   -webkit-transform: rotate3d(1, 1, 1, 360deg);
   -moz-transform: rotate3d(1, 1, 1, 360deg);
@@ -214,31 +214,31 @@ html, body {
   -o-transform: rotate3d(1, 1, 1, 360deg);
   transform: rotate3d(1, 1, 1, 360deg);
 }
-/* line 105, ../sass/city-3d.scss */
+/* line 115, ../sass/city-3d.scss */
 .building-test .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 106, ../sass/city-3d.scss */
+/* line 116, ../sass/city-3d.scss */
 .building-test .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 107, ../sass/city-3d.scss */
+/* line 117, ../sass/city-3d.scss */
 .building-test .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 108, ../sass/city-3d.scss */
+/* line 118, ../sass/city-3d.scss */
 .building-test .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 109, ../sass/city-3d.scss */
+/* line 119, ../sass/city-3d.scss */
 .building-test .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 110, ../sass/city-3d.scss */
+/* line 120, ../sass/city-3d.scss */
 .building-test .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
-/* line 112, ../sass/city-3d.scss */
+/* line 122, ../sass/city-3d.scss */
 .building-test .top, .building-test .bottom, .building-test .front, .building-test .back, .building-test .left, .building-test .right {
   display: flex;
   align-items: center;
@@ -254,32 +254,32 @@ html, body {
   -o-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-/* line 126, ../sass/city-3d.scss */
+/* line 136, ../sass/city-3d.scss */
 .building-test .top:after {
   content: "top";
 }
-/* line 127, ../sass/city-3d.scss */
+/* line 137, ../sass/city-3d.scss */
 .building-test .bottom:after {
   content: "bottom";
 }
-/* line 128, ../sass/city-3d.scss */
+/* line 138, ../sass/city-3d.scss */
 .building-test .front:after {
   content: "front";
 }
-/* line 129, ../sass/city-3d.scss */
+/* line 139, ../sass/city-3d.scss */
 .building-test .back:after {
   content: "back";
 }
-/* line 130, ../sass/city-3d.scss */
+/* line 140, ../sass/city-3d.scss */
 .building-test .left:after {
   content: "left";
 }
-/* line 131, ../sass/city-3d.scss */
+/* line 141, ../sass/city-3d.scss */
 .building-test .right:after {
   content: "right";
 }
 
-/* line 134, ../sass/city-3d.scss */
+/* line 144, ../sass/city-3d.scss */
 .buildings {
   -webkit-transform: translate3d(25%, 0, 0) rotateX(-10deg) rotateY(-60deg);
   -moz-transform: translate3d(25%, 0, 0) rotateX(-10deg) rotateY(-60deg);
@@ -296,7 +296,7 @@ html, body {
   -o-perspective: 2000px;
   perspective: 2000px;
 }
-/* line 139, ../sass/city-3d.scss */
+/* line 149, ../sass/city-3d.scss */
 .buildings:hover {
   -webkit-transform: translate3d(25%, 0, 0) rotateX(-10deg) rotateY(60deg);
   -moz-transform: translate3d(25%, 0, 0) rotateX(-10deg) rotateY(60deg);
@@ -304,7 +304,7 @@ html, body {
   -o-transform: translate3d(25%, 0, 0) rotateX(-10deg) rotateY(60deg);
   transform: translate3d(25%, 0, 0) rotateX(-10deg) rotateY(60deg);
 }
-/* line 143, ../sass/city-3d.scss */
+/* line 153, ../sass/city-3d.scss */
 .buildings .building {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -313,18 +313,18 @@ html, body {
   transform-style: preserve-3d;
   position: absolute;
 }
-/* line 23, ../sass/city-3d.scss */
+/* line 33, ../sass/city-3d.scss */
 .buildings .building .top, .buildings .building .bottom, .buildings .building .front, .buildings .building .back, .buildings .building .left, .buildings .building .right {
   position: absolute;
 }
-/* line 27, ../sass/city-3d.scss */
+/* line 37, ../sass/city-3d.scss */
 .buildings .building .top, .buildings .building .bottom {
   width: 30px;
   height: 30px;
   margin-left: -15px;
   margin-top: -15px;
 }
-/* line 35, ../sass/city-3d.scss */
+/* line 45, ../sass/city-3d.scss */
 .buildings .building .top {
   -webkit-transform: translate3d(0, -25px, 0) rotateX(90deg);
   -moz-transform: translate3d(0, -25px, 0) rotateX(90deg);
@@ -332,7 +332,7 @@ html, body {
   -o-transform: translate3d(0, -25px, 0) rotateX(90deg);
   transform: translate3d(0, -25px, 0) rotateX(90deg);
 }
-/* line 36, ../sass/city-3d.scss */
+/* line 46, ../sass/city-3d.scss */
 .buildings .building .bottom {
   -webkit-transform: translate3d(0, 25px, 0) rotateX(-90deg);
   -moz-transform: translate3d(0, 25px, 0) rotateX(-90deg);
@@ -340,14 +340,14 @@ html, body {
   -o-transform: translate3d(0, 25px, 0) rotateX(-90deg);
   transform: translate3d(0, 25px, 0) rotateX(-90deg);
 }
-/* line 38, ../sass/city-3d.scss */
+/* line 48, ../sass/city-3d.scss */
 .buildings .building .back, .buildings .building .front {
   width: 30px;
   height: 50px;
   margin-left: -15px;
   margin-top: -25px;
 }
-/* line 46, ../sass/city-3d.scss */
+/* line 56, ../sass/city-3d.scss */
 .buildings .building .back {
   -webkit-transform: translate3d(0, 0, -15px) rotateY(180deg);
   -moz-transform: translate3d(0, 0, -15px) rotateY(180deg);
@@ -355,7 +355,7 @@ html, body {
   -o-transform: translate3d(0, 0, -15px) rotateY(180deg);
   transform: translate3d(0, 0, -15px) rotateY(180deg);
 }
-/* line 47, ../sass/city-3d.scss */
+/* line 57, ../sass/city-3d.scss */
 .buildings .building .front {
   -webkit-transform: translate3d(0, 0, 15px) rotateY(0deg);
   -moz-transform: translate3d(0, 0, 15px) rotateY(0deg);
@@ -363,14 +363,14 @@ html, body {
   -o-transform: translate3d(0, 0, 15px) rotateY(0deg);
   transform: translate3d(0, 0, 15px) rotateY(0deg);
 }
-/* line 49, ../sass/city-3d.scss */
+/* line 59, ../sass/city-3d.scss */
 .buildings .building .left, .buildings .building .right {
   width: 30px;
   height: 50px;
   margin-left: -15px;
   margin-top: -25px;
 }
-/* line 57, ../sass/city-3d.scss */
+/* line 67, ../sass/city-3d.scss */
 .buildings .building .left {
   -webkit-transform: translate3d(-15px, 0, 0) rotateY(-90deg);
   -moz-transform: translate3d(-15px, 0, 0) rotateY(-90deg);
@@ -378,7 +378,7 @@ html, body {
   -o-transform: translate3d(-15px, 0, 0) rotateY(-90deg);
   transform: translate3d(-15px, 0, 0) rotateY(-90deg);
 }
-/* line 58, ../sass/city-3d.scss */
+/* line 68, ../sass/city-3d.scss */
 .buildings .building .right {
   -webkit-transform: translate3d(15px, 0, 0) rotateY(90deg);
   -moz-transform: translate3d(15px, 0, 0) rotateY(90deg);
@@ -386,7 +386,7 @@ html, body {
   -o-transform: translate3d(15px, 0, 0) rotateY(90deg);
   transform: translate3d(15px, 0, 0) rotateY(90deg);
 }
-/* line 150, ../sass/city-3d.scss */
+/* line 160, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(1) {
   -webkit-transform: translate3d(0px, 0, 0px);
   -moz-transform: translate3d(0px, 0, 0px);
@@ -394,31 +394,31 @@ html, body {
   -o-transform: translate3d(0px, 0, 0px);
   transform: translate3d(0px, 0, 0px);
 }
-/* line 153, ../sass/city-3d.scss */
+/* line 163, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(1) .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 154, ../sass/city-3d.scss */
+/* line 164, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(1) .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 155, ../sass/city-3d.scss */
+/* line 165, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(1) .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 156, ../sass/city-3d.scss */
+/* line 166, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(1) .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 157, ../sass/city-3d.scss */
+/* line 167, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(1) .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 158, ../sass/city-3d.scss */
+/* line 168, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(1) .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
-/* line 150, ../sass/city-3d.scss */
+/* line 160, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(2) {
   -webkit-transform: translate3d(0px, 0, 60px);
   -moz-transform: translate3d(0px, 0, 60px);
@@ -426,31 +426,31 @@ html, body {
   -o-transform: translate3d(0px, 0, 60px);
   transform: translate3d(0px, 0, 60px);
 }
-/* line 153, ../sass/city-3d.scss */
+/* line 163, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(2) .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 154, ../sass/city-3d.scss */
+/* line 164, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(2) .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 155, ../sass/city-3d.scss */
+/* line 165, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(2) .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 156, ../sass/city-3d.scss */
+/* line 166, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(2) .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 157, ../sass/city-3d.scss */
+/* line 167, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(2) .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 158, ../sass/city-3d.scss */
+/* line 168, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(2) .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
-/* line 150, ../sass/city-3d.scss */
+/* line 160, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(3) {
   -webkit-transform: translate3d(0px, 0, 120px);
   -moz-transform: translate3d(0px, 0, 120px);
@@ -458,31 +458,31 @@ html, body {
   -o-transform: translate3d(0px, 0, 120px);
   transform: translate3d(0px, 0, 120px);
 }
-/* line 153, ../sass/city-3d.scss */
+/* line 163, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(3) .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 154, ../sass/city-3d.scss */
+/* line 164, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(3) .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 155, ../sass/city-3d.scss */
+/* line 165, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(3) .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 156, ../sass/city-3d.scss */
+/* line 166, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(3) .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 157, ../sass/city-3d.scss */
+/* line 167, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(3) .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 158, ../sass/city-3d.scss */
+/* line 168, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(3) .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
-/* line 150, ../sass/city-3d.scss */
+/* line 160, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(4) {
   -webkit-transform: translate3d(0px, 0, 180px);
   -moz-transform: translate3d(0px, 0, 180px);
@@ -490,31 +490,31 @@ html, body {
   -o-transform: translate3d(0px, 0, 180px);
   transform: translate3d(0px, 0, 180px);
 }
-/* line 153, ../sass/city-3d.scss */
+/* line 163, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(4) .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 154, ../sass/city-3d.scss */
+/* line 164, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(4) .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 155, ../sass/city-3d.scss */
+/* line 165, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(4) .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 156, ../sass/city-3d.scss */
+/* line 166, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(4) .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 157, ../sass/city-3d.scss */
+/* line 167, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(4) .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 158, ../sass/city-3d.scss */
+/* line 168, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(4) .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
-/* line 150, ../sass/city-3d.scss */
+/* line 160, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(5) {
   -webkit-transform: translate3d(60px, 0, 0px);
   -moz-transform: translate3d(60px, 0, 0px);
@@ -522,31 +522,31 @@ html, body {
   -o-transform: translate3d(60px, 0, 0px);
   transform: translate3d(60px, 0, 0px);
 }
-/* line 153, ../sass/city-3d.scss */
+/* line 163, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(5) .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 154, ../sass/city-3d.scss */
+/* line 164, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(5) .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 155, ../sass/city-3d.scss */
+/* line 165, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(5) .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 156, ../sass/city-3d.scss */
+/* line 166, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(5) .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 157, ../sass/city-3d.scss */
+/* line 167, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(5) .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 158, ../sass/city-3d.scss */
+/* line 168, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(5) .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
-/* line 150, ../sass/city-3d.scss */
+/* line 160, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(6) {
   -webkit-transform: translate3d(60px, 0, 60px);
   -moz-transform: translate3d(60px, 0, 60px);
@@ -554,31 +554,31 @@ html, body {
   -o-transform: translate3d(60px, 0, 60px);
   transform: translate3d(60px, 0, 60px);
 }
-/* line 153, ../sass/city-3d.scss */
+/* line 163, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(6) .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 154, ../sass/city-3d.scss */
+/* line 164, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(6) .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 155, ../sass/city-3d.scss */
+/* line 165, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(6) .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 156, ../sass/city-3d.scss */
+/* line 166, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(6) .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 157, ../sass/city-3d.scss */
+/* line 167, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(6) .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 158, ../sass/city-3d.scss */
+/* line 168, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(6) .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
-/* line 150, ../sass/city-3d.scss */
+/* line 160, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(7) {
   -webkit-transform: translate3d(60px, 0, 120px);
   -moz-transform: translate3d(60px, 0, 120px);
@@ -586,31 +586,31 @@ html, body {
   -o-transform: translate3d(60px, 0, 120px);
   transform: translate3d(60px, 0, 120px);
 }
-/* line 153, ../sass/city-3d.scss */
+/* line 163, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(7) .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 154, ../sass/city-3d.scss */
+/* line 164, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(7) .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 155, ../sass/city-3d.scss */
+/* line 165, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(7) .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 156, ../sass/city-3d.scss */
+/* line 166, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(7) .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 157, ../sass/city-3d.scss */
+/* line 167, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(7) .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 158, ../sass/city-3d.scss */
+/* line 168, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(7) .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
-/* line 150, ../sass/city-3d.scss */
+/* line 160, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(8) {
   -webkit-transform: translate3d(60px, 0, 180px);
   -moz-transform: translate3d(60px, 0, 180px);
@@ -618,31 +618,31 @@ html, body {
   -o-transform: translate3d(60px, 0, 180px);
   transform: translate3d(60px, 0, 180px);
 }
-/* line 153, ../sass/city-3d.scss */
+/* line 163, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(8) .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 154, ../sass/city-3d.scss */
+/* line 164, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(8) .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 155, ../sass/city-3d.scss */
+/* line 165, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(8) .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 156, ../sass/city-3d.scss */
+/* line 166, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(8) .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 157, ../sass/city-3d.scss */
+/* line 167, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(8) .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 158, ../sass/city-3d.scss */
+/* line 168, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(8) .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
-/* line 150, ../sass/city-3d.scss */
+/* line 160, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(9) {
   -webkit-transform: translate3d(120px, 0, 0px);
   -moz-transform: translate3d(120px, 0, 0px);
@@ -650,31 +650,31 @@ html, body {
   -o-transform: translate3d(120px, 0, 0px);
   transform: translate3d(120px, 0, 0px);
 }
-/* line 153, ../sass/city-3d.scss */
+/* line 163, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(9) .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 154, ../sass/city-3d.scss */
+/* line 164, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(9) .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 155, ../sass/city-3d.scss */
+/* line 165, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(9) .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 156, ../sass/city-3d.scss */
+/* line 166, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(9) .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 157, ../sass/city-3d.scss */
+/* line 167, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(9) .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 158, ../sass/city-3d.scss */
+/* line 168, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(9) .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
-/* line 150, ../sass/city-3d.scss */
+/* line 160, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(10) {
   -webkit-transform: translate3d(120px, 0, 60px);
   -moz-transform: translate3d(120px, 0, 60px);
@@ -682,31 +682,31 @@ html, body {
   -o-transform: translate3d(120px, 0, 60px);
   transform: translate3d(120px, 0, 60px);
 }
-/* line 153, ../sass/city-3d.scss */
+/* line 163, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(10) .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 154, ../sass/city-3d.scss */
+/* line 164, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(10) .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 155, ../sass/city-3d.scss */
+/* line 165, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(10) .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 156, ../sass/city-3d.scss */
+/* line 166, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(10) .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 157, ../sass/city-3d.scss */
+/* line 167, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(10) .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 158, ../sass/city-3d.scss */
+/* line 168, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(10) .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
-/* line 150, ../sass/city-3d.scss */
+/* line 160, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(11) {
   -webkit-transform: translate3d(120px, 0, 120px);
   -moz-transform: translate3d(120px, 0, 120px);
@@ -714,31 +714,31 @@ html, body {
   -o-transform: translate3d(120px, 0, 120px);
   transform: translate3d(120px, 0, 120px);
 }
-/* line 153, ../sass/city-3d.scss */
+/* line 163, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(11) .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 154, ../sass/city-3d.scss */
+/* line 164, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(11) .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 155, ../sass/city-3d.scss */
+/* line 165, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(11) .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 156, ../sass/city-3d.scss */
+/* line 166, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(11) .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 157, ../sass/city-3d.scss */
+/* line 167, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(11) .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 158, ../sass/city-3d.scss */
+/* line 168, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(11) .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
-/* line 150, ../sass/city-3d.scss */
+/* line 160, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(12) {
   -webkit-transform: translate3d(120px, 0, 180px);
   -moz-transform: translate3d(120px, 0, 180px);
@@ -746,31 +746,31 @@ html, body {
   -o-transform: translate3d(120px, 0, 180px);
   transform: translate3d(120px, 0, 180px);
 }
-/* line 153, ../sass/city-3d.scss */
+/* line 163, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(12) .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 154, ../sass/city-3d.scss */
+/* line 164, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(12) .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 155, ../sass/city-3d.scss */
+/* line 165, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(12) .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 156, ../sass/city-3d.scss */
+/* line 166, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(12) .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 157, ../sass/city-3d.scss */
+/* line 167, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(12) .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 158, ../sass/city-3d.scss */
+/* line 168, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(12) .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
-/* line 150, ../sass/city-3d.scss */
+/* line 160, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(13) {
   -webkit-transform: translate3d(180px, 0, 0px);
   -moz-transform: translate3d(180px, 0, 0px);
@@ -778,31 +778,31 @@ html, body {
   -o-transform: translate3d(180px, 0, 0px);
   transform: translate3d(180px, 0, 0px);
 }
-/* line 153, ../sass/city-3d.scss */
+/* line 163, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(13) .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 154, ../sass/city-3d.scss */
+/* line 164, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(13) .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 155, ../sass/city-3d.scss */
+/* line 165, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(13) .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 156, ../sass/city-3d.scss */
+/* line 166, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(13) .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 157, ../sass/city-3d.scss */
+/* line 167, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(13) .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 158, ../sass/city-3d.scss */
+/* line 168, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(13) .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
-/* line 150, ../sass/city-3d.scss */
+/* line 160, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(14) {
   -webkit-transform: translate3d(180px, 0, 60px);
   -moz-transform: translate3d(180px, 0, 60px);
@@ -810,31 +810,31 @@ html, body {
   -o-transform: translate3d(180px, 0, 60px);
   transform: translate3d(180px, 0, 60px);
 }
-/* line 153, ../sass/city-3d.scss */
+/* line 163, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(14) .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 154, ../sass/city-3d.scss */
+/* line 164, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(14) .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 155, ../sass/city-3d.scss */
+/* line 165, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(14) .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 156, ../sass/city-3d.scss */
+/* line 166, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(14) .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 157, ../sass/city-3d.scss */
+/* line 167, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(14) .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 158, ../sass/city-3d.scss */
+/* line 168, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(14) .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
-/* line 150, ../sass/city-3d.scss */
+/* line 160, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(15) {
   -webkit-transform: translate3d(180px, 0, 120px);
   -moz-transform: translate3d(180px, 0, 120px);
@@ -842,31 +842,31 @@ html, body {
   -o-transform: translate3d(180px, 0, 120px);
   transform: translate3d(180px, 0, 120px);
 }
-/* line 153, ../sass/city-3d.scss */
+/* line 163, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(15) .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 154, ../sass/city-3d.scss */
+/* line 164, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(15) .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 155, ../sass/city-3d.scss */
+/* line 165, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(15) .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 156, ../sass/city-3d.scss */
+/* line 166, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(15) .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 157, ../sass/city-3d.scss */
+/* line 167, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(15) .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 158, ../sass/city-3d.scss */
+/* line 168, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(15) .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
-/* line 150, ../sass/city-3d.scss */
+/* line 160, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(16) {
   -webkit-transform: translate3d(180px, 0, 180px);
   -moz-transform: translate3d(180px, 0, 180px);
@@ -874,31 +874,31 @@ html, body {
   -o-transform: translate3d(180px, 0, 180px);
   transform: translate3d(180px, 0, 180px);
 }
-/* line 153, ../sass/city-3d.scss */
+/* line 163, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(16) .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 154, ../sass/city-3d.scss */
+/* line 164, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(16) .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 155, ../sass/city-3d.scss */
+/* line 165, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(16) .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 156, ../sass/city-3d.scss */
+/* line 166, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(16) .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 157, ../sass/city-3d.scss */
+/* line 167, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(16) .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 158, ../sass/city-3d.scss */
+/* line 168, ../sass/city-3d.scss */
 .buildings .building:nth-of-type(16) .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
-/* line 163, ../sass/city-3d.scss */
+/* line 173, ../sass/city-3d.scss */
 .buildings .ground {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -912,18 +912,18 @@ html, body {
   -o-transform: translate3d(100px, 30px, 100px);
   transform: translate3d(100px, 30px, 100px);
 }
-/* line 23, ../sass/city-3d.scss */
+/* line 33, ../sass/city-3d.scss */
 .buildings .ground .top, .buildings .ground .bottom, .buildings .ground .front, .buildings .ground .back, .buildings .ground .left, .buildings .ground .right {
   position: absolute;
 }
-/* line 27, ../sass/city-3d.scss */
+/* line 37, ../sass/city-3d.scss */
 .buildings .ground .top, .buildings .ground .bottom {
   width: 500px;
   height: 500px;
   margin-left: -250px;
   margin-top: -250px;
 }
-/* line 35, ../sass/city-3d.scss */
+/* line 45, ../sass/city-3d.scss */
 .buildings .ground .top {
   -webkit-transform: translate3d(0, -4px, 0) rotateX(90deg);
   -moz-transform: translate3d(0, -4px, 0) rotateX(90deg);
@@ -931,7 +931,7 @@ html, body {
   -o-transform: translate3d(0, -4px, 0) rotateX(90deg);
   transform: translate3d(0, -4px, 0) rotateX(90deg);
 }
-/* line 36, ../sass/city-3d.scss */
+/* line 46, ../sass/city-3d.scss */
 .buildings .ground .bottom {
   -webkit-transform: translate3d(0, 4px, 0) rotateX(-90deg);
   -moz-transform: translate3d(0, 4px, 0) rotateX(-90deg);
@@ -939,14 +939,14 @@ html, body {
   -o-transform: translate3d(0, 4px, 0) rotateX(-90deg);
   transform: translate3d(0, 4px, 0) rotateX(-90deg);
 }
-/* line 38, ../sass/city-3d.scss */
+/* line 48, ../sass/city-3d.scss */
 .buildings .ground .back, .buildings .ground .front {
   width: 500px;
   height: 8px;
   margin-left: -250px;
   margin-top: -4px;
 }
-/* line 46, ../sass/city-3d.scss */
+/* line 56, ../sass/city-3d.scss */
 .buildings .ground .back {
   -webkit-transform: translate3d(0, 0, -250px) rotateY(180deg);
   -moz-transform: translate3d(0, 0, -250px) rotateY(180deg);
@@ -954,7 +954,7 @@ html, body {
   -o-transform: translate3d(0, 0, -250px) rotateY(180deg);
   transform: translate3d(0, 0, -250px) rotateY(180deg);
 }
-/* line 47, ../sass/city-3d.scss */
+/* line 57, ../sass/city-3d.scss */
 .buildings .ground .front {
   -webkit-transform: translate3d(0, 0, 250px) rotateY(0deg);
   -moz-transform: translate3d(0, 0, 250px) rotateY(0deg);
@@ -962,14 +962,14 @@ html, body {
   -o-transform: translate3d(0, 0, 250px) rotateY(0deg);
   transform: translate3d(0, 0, 250px) rotateY(0deg);
 }
-/* line 49, ../sass/city-3d.scss */
+/* line 59, ../sass/city-3d.scss */
 .buildings .ground .left, .buildings .ground .right {
   width: 500px;
   height: 8px;
   margin-left: -250px;
   margin-top: -4px;
 }
-/* line 57, ../sass/city-3d.scss */
+/* line 67, ../sass/city-3d.scss */
 .buildings .ground .left {
   -webkit-transform: translate3d(-250px, 0, 0) rotateY(-90deg);
   -moz-transform: translate3d(-250px, 0, 0) rotateY(-90deg);
@@ -977,7 +977,7 @@ html, body {
   -o-transform: translate3d(-250px, 0, 0) rotateY(-90deg);
   transform: translate3d(-250px, 0, 0) rotateY(-90deg);
 }
-/* line 58, ../sass/city-3d.scss */
+/* line 68, ../sass/city-3d.scss */
 .buildings .ground .right {
   -webkit-transform: translate3d(250px, 0, 0) rotateY(90deg);
   -moz-transform: translate3d(250px, 0, 0) rotateY(90deg);
@@ -985,16 +985,30 @@ html, body {
   -o-transform: translate3d(250px, 0, 0) rotateY(90deg);
   transform: translate3d(250px, 0, 0) rotateY(90deg);
 }
-/* line 168, ../sass/city-3d.scss */
+/* line 178, ../sass/city-3d.scss */
 .buildings .ground .top, .buildings .ground .bottom {
   background-color: #333;
 }
-/* line 172, ../sass/city-3d.scss */
+/* line 182, ../sass/city-3d.scss */
 .buildings .ground .front, .buildings .ground .back, .buildings .ground .left, .buildings .ground .right {
   background-color: #444;
 }
 
-/* line 178, ../sass/city-3d.scss */
+/* line 236, ../sass/city-3d.scss */
+.robot {
+  -webkit-perspective: 2000px;
+  -moz-perspective: 2000px;
+  -ms-perspective: 2000px;
+  -o-perspective: 2000px;
+  perspective: 2000px;
+  -webkit-perspective-origin: left top;
+  -moz-perspective-origin: left top;
+  -ms-perspective-origin: left top;
+  -o-perspective-origin: left top;
+  perspective-origin: left top;
+}
+
+/* line 241, ../sass/city-3d.scss */
 .body {
   -webkit-transform: translate3d(300px, 0, 0) rotateY(0);
   -moz-transform: translate3d(300px, 0, 0) rotateY(0);
@@ -1007,14 +1021,14 @@ html, body {
   -o-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
-/* line 182, ../sass/city-3d.scss */
+/* line 245, ../sass/city-3d.scss */
 .body *, .body {
   -webkit-transition: all 1s;
   -moz-transition: all 1s;
   -o-transition: all 1s;
   transition: all 1s;
 }
-/* line 186, ../sass/city-3d.scss */
+/* line 249, ../sass/city-3d.scss */
 .body:hover {
   -webkit-transform: translate3d(300px, 0, 0) rotateY(40deg);
   -moz-transform: translate3d(300px, 0, 0) rotateY(40deg);
@@ -1022,7 +1036,7 @@ html, body {
   -o-transform: translate3d(300px, 0, 0) rotateY(40deg);
   transform: translate3d(300px, 0, 0) rotateY(40deg);
 }
-/* line 190, ../sass/city-3d.scss */
+/* line 253, ../sass/city-3d.scss */
 .body:hover .torso .head {
   -webkit-transform: translate3d(0, -110px, 0) rotateY(-30deg);
   -moz-transform: translate3d(0, -110px, 0) rotateY(-30deg);
@@ -1030,7 +1044,7 @@ html, body {
   -o-transform: translate3d(0, -110px, 0) rotateY(-30deg);
   transform: translate3d(0, -110px, 0) rotateY(-30deg);
 }
-/* line 195, ../sass/city-3d.scss */
+/* line 258, ../sass/city-3d.scss */
 .body:hover .torso .arm-right .upper-arm {
   -webkit-transform: rotateX(30deg);
   -moz-transform: rotateX(30deg);
@@ -1038,7 +1052,7 @@ html, body {
   -o-transform: rotateX(30deg);
   transform: rotateX(30deg);
 }
-/* line 198, ../sass/city-3d.scss */
+/* line 261, ../sass/city-3d.scss */
 .body:hover .torso .arm-right .upper-arm .lower-arm {
   -webkit-transform: translate3d(0, 60px, 0) rotateX(30deg);
   -moz-transform: translate3d(0, 60px, 0) rotateX(30deg);
@@ -1046,7 +1060,7 @@ html, body {
   -o-transform: translate3d(0, 60px, 0) rotateX(30deg);
   transform: translate3d(0, 60px, 0) rotateX(30deg);
 }
-/* line 201, ../sass/city-3d.scss */
+/* line 264, ../sass/city-3d.scss */
 .body:hover .torso .arm-right .upper-arm .lower-arm .hand {
   -webkit-transform: translate3d(0, 40px, 0) rotateX(20deg);
   -moz-transform: translate3d(0, 40px, 0) rotateX(20deg);
@@ -1054,7 +1068,7 @@ html, body {
   -o-transform: translate3d(0, 40px, 0) rotateX(20deg);
   transform: translate3d(0, 40px, 0) rotateX(20deg);
 }
-/* line 209, ../sass/city-3d.scss */
+/* line 272, ../sass/city-3d.scss */
 .body:hover .torso .arm-left .upper-arm {
   -webkit-transform: rotateX(-50deg);
   -moz-transform: rotateX(-50deg);
@@ -1062,7 +1076,7 @@ html, body {
   -o-transform: rotateX(-50deg);
   transform: rotateX(-50deg);
 }
-/* line 212, ../sass/city-3d.scss */
+/* line 275, ../sass/city-3d.scss */
 .body:hover .torso .arm-left .upper-arm .lower-arm {
   -webkit-transform: translate3d(0, 60px, 0) rotateX(30deg);
   -moz-transform: translate3d(0, 60px, 0) rotateX(30deg);
@@ -1070,7 +1084,7 @@ html, body {
   -o-transform: translate3d(0, 60px, 0) rotateX(30deg);
   transform: translate3d(0, 60px, 0) rotateX(30deg);
 }
-/* line 215, ../sass/city-3d.scss */
+/* line 278, ../sass/city-3d.scss */
 .body:hover .torso .arm-left .upper-arm .lower-arm .hand {
   -webkit-transform: translate3d(0, 40px, 0) rotateX(20deg);
   -moz-transform: translate3d(0, 40px, 0) rotateX(20deg);
@@ -1078,7 +1092,7 @@ html, body {
   -o-transform: translate3d(0, 40px, 0) rotateX(20deg);
   transform: translate3d(0, 40px, 0) rotateX(20deg);
 }
-/* line 223, ../sass/city-3d.scss */
+/* line 286, ../sass/city-3d.scss */
 .body:hover .torso .leg-right .upper-leg {
   -webkit-transform: translate3d(0, 80px, 0) rotateX(-30deg);
   -moz-transform: translate3d(0, 80px, 0) rotateX(-30deg);
@@ -1086,7 +1100,7 @@ html, body {
   -o-transform: translate3d(0, 80px, 0) rotateX(-30deg);
   transform: translate3d(0, 80px, 0) rotateX(-30deg);
 }
-/* line 226, ../sass/city-3d.scss */
+/* line 289, ../sass/city-3d.scss */
 .body:hover .torso .leg-right .upper-leg .lower-leg {
   -webkit-transform: translate3d(0, 70px, 0) rotateX(-20deg);
   -moz-transform: translate3d(0, 70px, 0) rotateX(-20deg);
@@ -1094,7 +1108,7 @@ html, body {
   -o-transform: translate3d(0, 70px, 0) rotateX(-20deg);
   transform: translate3d(0, 70px, 0) rotateX(-20deg);
 }
-/* line 233, ../sass/city-3d.scss */
+/* line 296, ../sass/city-3d.scss */
 .body:hover .torso .leg-left .upper-leg {
   -webkit-transform: translate3d(0, 80px, 0) rotateX(40deg);
   -moz-transform: translate3d(0, 80px, 0) rotateX(40deg);
@@ -1102,7 +1116,7 @@ html, body {
   -o-transform: translate3d(0, 80px, 0) rotateX(40deg);
   transform: translate3d(0, 80px, 0) rotateX(40deg);
 }
-/* line 236, ../sass/city-3d.scss */
+/* line 299, ../sass/city-3d.scss */
 .body:hover .torso .leg-left .upper-leg .lower-leg {
   -webkit-transform: translate3d(0, 70px, 0) rotateX(-40deg);
   -moz-transform: translate3d(0, 70px, 0) rotateX(-40deg);
@@ -1110,7 +1124,7 @@ html, body {
   -o-transform: translate3d(0, 70px, 0) rotateX(-40deg);
   transform: translate3d(0, 70px, 0) rotateX(-40deg);
 }
-/* line 244, ../sass/city-3d.scss */
+/* line 307, ../sass/city-3d.scss */
 .body .torso {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -1118,18 +1132,18 @@ html, body {
   -o-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
-/* line 23, ../sass/city-3d.scss */
+/* line 33, ../sass/city-3d.scss */
 .body .torso .top, .body .torso .bottom, .body .torso .front, .body .torso .back, .body .torso .left, .body .torso .right {
   position: absolute;
 }
-/* line 27, ../sass/city-3d.scss */
+/* line 37, ../sass/city-3d.scss */
 .body .torso .top, .body .torso .bottom {
   width: 80px;
   height: 35px;
   margin-left: -40px;
   margin-top: -17.5px;
 }
-/* line 35, ../sass/city-3d.scss */
+/* line 45, ../sass/city-3d.scss */
 .body .torso .top {
   -webkit-transform: translate3d(0, -75px, 0) rotateX(90deg);
   -moz-transform: translate3d(0, -75px, 0) rotateX(90deg);
@@ -1137,7 +1151,7 @@ html, body {
   -o-transform: translate3d(0, -75px, 0) rotateX(90deg);
   transform: translate3d(0, -75px, 0) rotateX(90deg);
 }
-/* line 36, ../sass/city-3d.scss */
+/* line 46, ../sass/city-3d.scss */
 .body .torso .bottom {
   -webkit-transform: translate3d(0, 75px, 0) rotateX(-90deg);
   -moz-transform: translate3d(0, 75px, 0) rotateX(-90deg);
@@ -1145,14 +1159,14 @@ html, body {
   -o-transform: translate3d(0, 75px, 0) rotateX(-90deg);
   transform: translate3d(0, 75px, 0) rotateX(-90deg);
 }
-/* line 38, ../sass/city-3d.scss */
+/* line 48, ../sass/city-3d.scss */
 .body .torso .back, .body .torso .front {
   width: 80px;
   height: 150px;
   margin-left: -40px;
   margin-top: -75px;
 }
-/* line 46, ../sass/city-3d.scss */
+/* line 56, ../sass/city-3d.scss */
 .body .torso .back {
   -webkit-transform: translate3d(0, 0, -17.5px) rotateY(180deg);
   -moz-transform: translate3d(0, 0, -17.5px) rotateY(180deg);
@@ -1160,7 +1174,7 @@ html, body {
   -o-transform: translate3d(0, 0, -17.5px) rotateY(180deg);
   transform: translate3d(0, 0, -17.5px) rotateY(180deg);
 }
-/* line 47, ../sass/city-3d.scss */
+/* line 57, ../sass/city-3d.scss */
 .body .torso .front {
   -webkit-transform: translate3d(0, 0, 17.5px) rotateY(0deg);
   -moz-transform: translate3d(0, 0, 17.5px) rotateY(0deg);
@@ -1168,14 +1182,14 @@ html, body {
   -o-transform: translate3d(0, 0, 17.5px) rotateY(0deg);
   transform: translate3d(0, 0, 17.5px) rotateY(0deg);
 }
-/* line 49, ../sass/city-3d.scss */
+/* line 59, ../sass/city-3d.scss */
 .body .torso .left, .body .torso .right {
   width: 35px;
   height: 150px;
   margin-left: -17.5px;
   margin-top: -75px;
 }
-/* line 57, ../sass/city-3d.scss */
+/* line 67, ../sass/city-3d.scss */
 .body .torso .left {
   -webkit-transform: translate3d(-40px, 0, 0) rotateY(-90deg);
   -moz-transform: translate3d(-40px, 0, 0) rotateY(-90deg);
@@ -1183,7 +1197,7 @@ html, body {
   -o-transform: translate3d(-40px, 0, 0) rotateY(-90deg);
   transform: translate3d(-40px, 0, 0) rotateY(-90deg);
 }
-/* line 58, ../sass/city-3d.scss */
+/* line 68, ../sass/city-3d.scss */
 .body .torso .right {
   -webkit-transform: translate3d(40px, 0, 0) rotateY(90deg);
   -moz-transform: translate3d(40px, 0, 0) rotateY(90deg);
@@ -1191,31 +1205,31 @@ html, body {
   -o-transform: translate3d(40px, 0, 0) rotateY(90deg);
   transform: translate3d(40px, 0, 0) rotateY(90deg);
 }
-/* line 246, ../sass/city-3d.scss */
+/* line 309, ../sass/city-3d.scss */
 .body .torso .top {
   background-color: rgba(255, 0, 0, 0.25);
 }
-/* line 247, ../sass/city-3d.scss */
+/* line 310, ../sass/city-3d.scss */
 .body .torso .front {
   background-color: rgba(192, 0, 0, 0.25);
 }
-/* line 248, ../sass/city-3d.scss */
+/* line 311, ../sass/city-3d.scss */
 .body .torso .right {
   background-color: rgba(128, 0, 0, 0.25);
 }
-/* line 249, ../sass/city-3d.scss */
+/* line 312, ../sass/city-3d.scss */
 .body .torso .back {
   background-color: rgba(96, 0, 0, 0.25);
 }
-/* line 250, ../sass/city-3d.scss */
+/* line 313, ../sass/city-3d.scss */
 .body .torso .left {
   background-color: rgba(64, 0, 0, 0.25);
 }
-/* line 251, ../sass/city-3d.scss */
+/* line 314, ../sass/city-3d.scss */
 .body .torso .bottom {
   background-color: rgba(32, 0, 0, 0.25);
 }
-/* line 253, ../sass/city-3d.scss */
+/* line 316, ../sass/city-3d.scss */
 .body .torso .head {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -1233,18 +1247,18 @@ html, body {
   -o-transform-origin: 0 0 0 50%;
   transform-origin: 0 0 0 50%;
 }
-/* line 23, ../sass/city-3d.scss */
+/* line 33, ../sass/city-3d.scss */
 .body .torso .head .top, .body .torso .head .bottom, .body .torso .head .front, .body .torso .head .back, .body .torso .head .left, .body .torso .head .right {
   position: absolute;
 }
-/* line 27, ../sass/city-3d.scss */
+/* line 37, ../sass/city-3d.scss */
 .body .torso .head .top, .body .torso .head .bottom {
   width: 40px;
   height: 40px;
   margin-left: -20px;
   margin-top: -20px;
 }
-/* line 35, ../sass/city-3d.scss */
+/* line 45, ../sass/city-3d.scss */
 .body .torso .head .top {
   -webkit-transform: translate3d(0, -20px, 0) rotateX(90deg);
   -moz-transform: translate3d(0, -20px, 0) rotateX(90deg);
@@ -1252,7 +1266,7 @@ html, body {
   -o-transform: translate3d(0, -20px, 0) rotateX(90deg);
   transform: translate3d(0, -20px, 0) rotateX(90deg);
 }
-/* line 36, ../sass/city-3d.scss */
+/* line 46, ../sass/city-3d.scss */
 .body .torso .head .bottom {
   -webkit-transform: translate3d(0, 20px, 0) rotateX(-90deg);
   -moz-transform: translate3d(0, 20px, 0) rotateX(-90deg);
@@ -1260,14 +1274,14 @@ html, body {
   -o-transform: translate3d(0, 20px, 0) rotateX(-90deg);
   transform: translate3d(0, 20px, 0) rotateX(-90deg);
 }
-/* line 38, ../sass/city-3d.scss */
+/* line 48, ../sass/city-3d.scss */
 .body .torso .head .back, .body .torso .head .front {
   width: 40px;
   height: 40px;
   margin-left: -20px;
   margin-top: -20px;
 }
-/* line 46, ../sass/city-3d.scss */
+/* line 56, ../sass/city-3d.scss */
 .body .torso .head .back {
   -webkit-transform: translate3d(0, 0, -20px) rotateY(180deg);
   -moz-transform: translate3d(0, 0, -20px) rotateY(180deg);
@@ -1275,7 +1289,7 @@ html, body {
   -o-transform: translate3d(0, 0, -20px) rotateY(180deg);
   transform: translate3d(0, 0, -20px) rotateY(180deg);
 }
-/* line 47, ../sass/city-3d.scss */
+/* line 57, ../sass/city-3d.scss */
 .body .torso .head .front {
   -webkit-transform: translate3d(0, 0, 20px) rotateY(0deg);
   -moz-transform: translate3d(0, 0, 20px) rotateY(0deg);
@@ -1283,14 +1297,14 @@ html, body {
   -o-transform: translate3d(0, 0, 20px) rotateY(0deg);
   transform: translate3d(0, 0, 20px) rotateY(0deg);
 }
-/* line 49, ../sass/city-3d.scss */
+/* line 59, ../sass/city-3d.scss */
 .body .torso .head .left, .body .torso .head .right {
   width: 40px;
   height: 40px;
   margin-left: -20px;
   margin-top: -20px;
 }
-/* line 57, ../sass/city-3d.scss */
+/* line 67, ../sass/city-3d.scss */
 .body .torso .head .left {
   -webkit-transform: translate3d(-20px, 0, 0) rotateY(-90deg);
   -moz-transform: translate3d(-20px, 0, 0) rotateY(-90deg);
@@ -1298,7 +1312,7 @@ html, body {
   -o-transform: translate3d(-20px, 0, 0) rotateY(-90deg);
   transform: translate3d(-20px, 0, 0) rotateY(-90deg);
 }
-/* line 58, ../sass/city-3d.scss */
+/* line 68, ../sass/city-3d.scss */
 .body .torso .head .right {
   -webkit-transform: translate3d(20px, 0, 0) rotateY(90deg);
   -moz-transform: translate3d(20px, 0, 0) rotateY(90deg);
@@ -1306,7 +1320,7 @@ html, body {
   -o-transform: translate3d(20px, 0, 0) rotateY(90deg);
   transform: translate3d(20px, 0, 0) rotateY(90deg);
 }
-/* line 259, ../sass/city-3d.scss */
+/* line 322, ../sass/city-3d.scss */
 .body .torso .arm {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -1314,7 +1328,7 @@ html, body {
   -o-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
-/* line 262, ../sass/city-3d.scss */
+/* line 325, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -1327,18 +1341,18 @@ html, body {
   -o-transform-origin: 0 -30px 0 50%;
   transform-origin: 0 -30px 0 50%;
 }
-/* line 23, ../sass/city-3d.scss */
+/* line 33, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .top, .body .torso .arm .upper-arm .bottom, .body .torso .arm .upper-arm .front, .body .torso .arm .upper-arm .back, .body .torso .arm .upper-arm .left, .body .torso .arm .upper-arm .right {
   position: absolute;
 }
-/* line 27, ../sass/city-3d.scss */
+/* line 37, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .top, .body .torso .arm .upper-arm .bottom {
   width: 20px;
   height: 20px;
   margin-left: -10px;
   margin-top: -10px;
 }
-/* line 35, ../sass/city-3d.scss */
+/* line 45, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .top {
   -webkit-transform: translate3d(0, -30px, 0) rotateX(90deg);
   -moz-transform: translate3d(0, -30px, 0) rotateX(90deg);
@@ -1346,7 +1360,7 @@ html, body {
   -o-transform: translate3d(0, -30px, 0) rotateX(90deg);
   transform: translate3d(0, -30px, 0) rotateX(90deg);
 }
-/* line 36, ../sass/city-3d.scss */
+/* line 46, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .bottom {
   -webkit-transform: translate3d(0, 30px, 0) rotateX(-90deg);
   -moz-transform: translate3d(0, 30px, 0) rotateX(-90deg);
@@ -1354,14 +1368,14 @@ html, body {
   -o-transform: translate3d(0, 30px, 0) rotateX(-90deg);
   transform: translate3d(0, 30px, 0) rotateX(-90deg);
 }
-/* line 38, ../sass/city-3d.scss */
+/* line 48, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .back, .body .torso .arm .upper-arm .front {
   width: 20px;
   height: 60px;
   margin-left: -10px;
   margin-top: -30px;
 }
-/* line 46, ../sass/city-3d.scss */
+/* line 56, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .back {
   -webkit-transform: translate3d(0, 0, -10px) rotateY(180deg);
   -moz-transform: translate3d(0, 0, -10px) rotateY(180deg);
@@ -1369,7 +1383,7 @@ html, body {
   -o-transform: translate3d(0, 0, -10px) rotateY(180deg);
   transform: translate3d(0, 0, -10px) rotateY(180deg);
 }
-/* line 47, ../sass/city-3d.scss */
+/* line 57, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .front {
   -webkit-transform: translate3d(0, 0, 10px) rotateY(0deg);
   -moz-transform: translate3d(0, 0, 10px) rotateY(0deg);
@@ -1377,14 +1391,14 @@ html, body {
   -o-transform: translate3d(0, 0, 10px) rotateY(0deg);
   transform: translate3d(0, 0, 10px) rotateY(0deg);
 }
-/* line 49, ../sass/city-3d.scss */
+/* line 59, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .left, .body .torso .arm .upper-arm .right {
   width: 20px;
   height: 60px;
   margin-left: -10px;
   margin-top: -30px;
 }
-/* line 57, ../sass/city-3d.scss */
+/* line 67, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .left {
   -webkit-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
   -moz-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
@@ -1392,7 +1406,7 @@ html, body {
   -o-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
   transform: translate3d(-10px, 0, 0) rotateY(-90deg);
 }
-/* line 58, ../sass/city-3d.scss */
+/* line 68, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .right {
   -webkit-transform: translate3d(10px, 0, 0) rotateY(90deg);
   -moz-transform: translate3d(10px, 0, 0) rotateY(90deg);
@@ -1400,7 +1414,7 @@ html, body {
   -o-transform: translate3d(10px, 0, 0) rotateY(90deg);
   transform: translate3d(10px, 0, 0) rotateY(90deg);
 }
-/* line 266, ../sass/city-3d.scss */
+/* line 329, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -1418,18 +1432,18 @@ html, body {
   -o-transform-origin: 0 -20px 0 50%;
   transform-origin: 0 -20px 0 50%;
 }
-/* line 23, ../sass/city-3d.scss */
+/* line 33, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .top, .body .torso .arm .upper-arm .lower-arm .bottom, .body .torso .arm .upper-arm .lower-arm .front, .body .torso .arm .upper-arm .lower-arm .back, .body .torso .arm .upper-arm .lower-arm .left, .body .torso .arm .upper-arm .lower-arm .right {
   position: absolute;
 }
-/* line 27, ../sass/city-3d.scss */
+/* line 37, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .top, .body .torso .arm .upper-arm .lower-arm .bottom {
   width: 20px;
   height: 20px;
   margin-left: -10px;
   margin-top: -10px;
 }
-/* line 35, ../sass/city-3d.scss */
+/* line 45, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .top {
   -webkit-transform: translate3d(0, -20px, 0) rotateX(90deg);
   -moz-transform: translate3d(0, -20px, 0) rotateX(90deg);
@@ -1437,7 +1451,7 @@ html, body {
   -o-transform: translate3d(0, -20px, 0) rotateX(90deg);
   transform: translate3d(0, -20px, 0) rotateX(90deg);
 }
-/* line 36, ../sass/city-3d.scss */
+/* line 46, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .bottom {
   -webkit-transform: translate3d(0, 20px, 0) rotateX(-90deg);
   -moz-transform: translate3d(0, 20px, 0) rotateX(-90deg);
@@ -1445,14 +1459,14 @@ html, body {
   -o-transform: translate3d(0, 20px, 0) rotateX(-90deg);
   transform: translate3d(0, 20px, 0) rotateX(-90deg);
 }
-/* line 38, ../sass/city-3d.scss */
+/* line 48, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .back, .body .torso .arm .upper-arm .lower-arm .front {
   width: 20px;
   height: 40px;
   margin-left: -10px;
   margin-top: -20px;
 }
-/* line 46, ../sass/city-3d.scss */
+/* line 56, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .back {
   -webkit-transform: translate3d(0, 0, -10px) rotateY(180deg);
   -moz-transform: translate3d(0, 0, -10px) rotateY(180deg);
@@ -1460,7 +1474,7 @@ html, body {
   -o-transform: translate3d(0, 0, -10px) rotateY(180deg);
   transform: translate3d(0, 0, -10px) rotateY(180deg);
 }
-/* line 47, ../sass/city-3d.scss */
+/* line 57, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .front {
   -webkit-transform: translate3d(0, 0, 10px) rotateY(0deg);
   -moz-transform: translate3d(0, 0, 10px) rotateY(0deg);
@@ -1468,14 +1482,14 @@ html, body {
   -o-transform: translate3d(0, 0, 10px) rotateY(0deg);
   transform: translate3d(0, 0, 10px) rotateY(0deg);
 }
-/* line 49, ../sass/city-3d.scss */
+/* line 59, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .left, .body .torso .arm .upper-arm .lower-arm .right {
   width: 20px;
   height: 40px;
   margin-left: -10px;
   margin-top: -20px;
 }
-/* line 57, ../sass/city-3d.scss */
+/* line 67, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .left {
   -webkit-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
   -moz-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
@@ -1483,7 +1497,7 @@ html, body {
   -o-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
   transform: translate3d(-10px, 0, 0) rotateY(-90deg);
 }
-/* line 58, ../sass/city-3d.scss */
+/* line 68, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .right {
   -webkit-transform: translate3d(10px, 0, 0) rotateY(90deg);
   -moz-transform: translate3d(10px, 0, 0) rotateY(90deg);
@@ -1491,7 +1505,7 @@ html, body {
   -o-transform: translate3d(10px, 0, 0) rotateY(90deg);
   transform: translate3d(10px, 0, 0) rotateY(90deg);
 }
-/* line 271, ../sass/city-3d.scss */
+/* line 334, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .hand {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -1503,24 +1517,24 @@ html, body {
   -ms-transform: translate3d(0, 40px, 0);
   -o-transform: translate3d(0, 40px, 0);
   transform: translate3d(0, 40px, 0);
-  -webkit-transform-origin: 0 -20px 0 50%;
-  -moz-transform-origin: 0 -20px 0 50%;
-  -ms-transform-origin: 0 -20px 0 50%;
-  -o-transform-origin: 0 -20px 0 50%;
-  transform-origin: 0 -20px 0 50%;
+  -webkit-transform-origin: 0 -10px 0 50%;
+  -moz-transform-origin: 0 -10px 0 50%;
+  -ms-transform-origin: 0 -10px 0 50%;
+  -o-transform-origin: 0 -10px 0 50%;
+  transform-origin: 0 -10px 0 50%;
 }
-/* line 23, ../sass/city-3d.scss */
+/* line 33, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .hand .top, .body .torso .arm .upper-arm .lower-arm .hand .bottom, .body .torso .arm .upper-arm .lower-arm .hand .front, .body .torso .arm .upper-arm .lower-arm .hand .back, .body .torso .arm .upper-arm .lower-arm .hand .left, .body .torso .arm .upper-arm .lower-arm .hand .right {
   position: absolute;
 }
-/* line 27, ../sass/city-3d.scss */
+/* line 37, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .hand .top, .body .torso .arm .upper-arm .lower-arm .hand .bottom {
   width: 20px;
   height: 20px;
   margin-left: -10px;
   margin-top: -10px;
 }
-/* line 35, ../sass/city-3d.scss */
+/* line 45, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .hand .top {
   -webkit-transform: translate3d(0, -10px, 0) rotateX(90deg);
   -moz-transform: translate3d(0, -10px, 0) rotateX(90deg);
@@ -1528,7 +1542,7 @@ html, body {
   -o-transform: translate3d(0, -10px, 0) rotateX(90deg);
   transform: translate3d(0, -10px, 0) rotateX(90deg);
 }
-/* line 36, ../sass/city-3d.scss */
+/* line 46, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .hand .bottom {
   -webkit-transform: translate3d(0, 10px, 0) rotateX(-90deg);
   -moz-transform: translate3d(0, 10px, 0) rotateX(-90deg);
@@ -1536,14 +1550,14 @@ html, body {
   -o-transform: translate3d(0, 10px, 0) rotateX(-90deg);
   transform: translate3d(0, 10px, 0) rotateX(-90deg);
 }
-/* line 38, ../sass/city-3d.scss */
+/* line 48, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .hand .back, .body .torso .arm .upper-arm .lower-arm .hand .front {
   width: 20px;
   height: 20px;
   margin-left: -10px;
   margin-top: -10px;
 }
-/* line 46, ../sass/city-3d.scss */
+/* line 56, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .hand .back {
   -webkit-transform: translate3d(0, 0, -10px) rotateY(180deg);
   -moz-transform: translate3d(0, 0, -10px) rotateY(180deg);
@@ -1551,7 +1565,7 @@ html, body {
   -o-transform: translate3d(0, 0, -10px) rotateY(180deg);
   transform: translate3d(0, 0, -10px) rotateY(180deg);
 }
-/* line 47, ../sass/city-3d.scss */
+/* line 57, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .hand .front {
   -webkit-transform: translate3d(0, 0, 10px) rotateY(0deg);
   -moz-transform: translate3d(0, 0, 10px) rotateY(0deg);
@@ -1559,14 +1573,14 @@ html, body {
   -o-transform: translate3d(0, 0, 10px) rotateY(0deg);
   transform: translate3d(0, 0, 10px) rotateY(0deg);
 }
-/* line 49, ../sass/city-3d.scss */
+/* line 59, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .hand .left, .body .torso .arm .upper-arm .lower-arm .hand .right {
   width: 20px;
   height: 20px;
   margin-left: -10px;
   margin-top: -10px;
 }
-/* line 57, ../sass/city-3d.scss */
+/* line 67, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .hand .left {
   -webkit-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
   -moz-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
@@ -1574,7 +1588,7 @@ html, body {
   -o-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
   transform: translate3d(-10px, 0, 0) rotateY(-90deg);
 }
-/* line 58, ../sass/city-3d.scss */
+/* line 68, ../sass/city-3d.scss */
 .body .torso .arm .upper-arm .lower-arm .hand .right {
   -webkit-transform: translate3d(10px, 0, 0) rotateY(90deg);
   -moz-transform: translate3d(10px, 0, 0) rotateY(90deg);
@@ -1582,7 +1596,7 @@ html, body {
   -o-transform: translate3d(10px, 0, 0) rotateY(90deg);
   transform: translate3d(10px, 0, 0) rotateY(90deg);
 }
-/* line 280, ../sass/city-3d.scss */
+/* line 343, ../sass/city-3d.scss */
 .body .torso .arm-left {
   -webkit-transform: translate3d(-60px, -30px, 0);
   -moz-transform: translate3d(-60px, -30px, 0);
@@ -1590,7 +1604,7 @@ html, body {
   -o-transform: translate3d(-60px, -30px, 0);
   transform: translate3d(-60px, -30px, 0);
 }
-/* line 281, ../sass/city-3d.scss */
+/* line 344, ../sass/city-3d.scss */
 .body .torso .arm-right {
   -webkit-transform: translate3d(60px, -30px, 0);
   -moz-transform: translate3d(60px, -30px, 0);
@@ -1598,7 +1612,7 @@ html, body {
   -o-transform: translate3d(60px, -30px, 0);
   transform: translate3d(60px, -30px, 0);
 }
-/* line 283, ../sass/city-3d.scss */
+/* line 346, ../sass/city-3d.scss */
 .body .torso .leg {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -1606,7 +1620,7 @@ html, body {
   -o-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
-/* line 286, ../sass/city-3d.scss */
+/* line 349, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -1624,18 +1638,18 @@ html, body {
   -o-transform-origin: 0 -25px 0 50%;
   transform-origin: 0 -25px 0 50%;
 }
-/* line 23, ../sass/city-3d.scss */
+/* line 33, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .top, .body .torso .leg .upper-leg .bottom, .body .torso .leg .upper-leg .front, .body .torso .leg .upper-leg .back, .body .torso .leg .upper-leg .left, .body .torso .leg .upper-leg .right {
   position: absolute;
 }
-/* line 27, ../sass/city-3d.scss */
+/* line 37, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .top, .body .torso .leg .upper-leg .bottom {
   width: 25px;
   height: 25px;
   margin-left: -12.5px;
   margin-top: -12.5px;
 }
-/* line 35, ../sass/city-3d.scss */
+/* line 45, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .top {
   -webkit-transform: translate3d(0, -25px, 0) rotateX(90deg);
   -moz-transform: translate3d(0, -25px, 0) rotateX(90deg);
@@ -1643,7 +1657,7 @@ html, body {
   -o-transform: translate3d(0, -25px, 0) rotateX(90deg);
   transform: translate3d(0, -25px, 0) rotateX(90deg);
 }
-/* line 36, ../sass/city-3d.scss */
+/* line 46, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .bottom {
   -webkit-transform: translate3d(0, 25px, 0) rotateX(-90deg);
   -moz-transform: translate3d(0, 25px, 0) rotateX(-90deg);
@@ -1651,14 +1665,14 @@ html, body {
   -o-transform: translate3d(0, 25px, 0) rotateX(-90deg);
   transform: translate3d(0, 25px, 0) rotateX(-90deg);
 }
-/* line 38, ../sass/city-3d.scss */
+/* line 48, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .back, .body .torso .leg .upper-leg .front {
   width: 25px;
   height: 50px;
   margin-left: -12.5px;
   margin-top: -25px;
 }
-/* line 46, ../sass/city-3d.scss */
+/* line 56, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .back {
   -webkit-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
   -moz-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
@@ -1666,7 +1680,7 @@ html, body {
   -o-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
   transform: translate3d(0, 0, -12.5px) rotateY(180deg);
 }
-/* line 47, ../sass/city-3d.scss */
+/* line 57, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .front {
   -webkit-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
   -moz-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
@@ -1674,14 +1688,14 @@ html, body {
   -o-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
   transform: translate3d(0, 0, 12.5px) rotateY(0deg);
 }
-/* line 49, ../sass/city-3d.scss */
+/* line 59, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .left, .body .torso .leg .upper-leg .right {
   width: 25px;
   height: 50px;
   margin-left: -12.5px;
   margin-top: -25px;
 }
-/* line 57, ../sass/city-3d.scss */
+/* line 67, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .left {
   -webkit-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
   -moz-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
@@ -1689,7 +1703,7 @@ html, body {
   -o-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
   transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
 }
-/* line 58, ../sass/city-3d.scss */
+/* line 68, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .right {
   -webkit-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
   -moz-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
@@ -1697,7 +1711,7 @@ html, body {
   -o-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
   transform: translate3d(12.5px, 0, 0) rotateY(90deg);
 }
-/* line 291, ../sass/city-3d.scss */
+/* line 354, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -1715,18 +1729,18 @@ html, body {
   -o-transform-origin: 0 -35px 0 50%;
   transform-origin: 0 -35px 0 50%;
 }
-/* line 23, ../sass/city-3d.scss */
+/* line 33, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .top, .body .torso .leg .upper-leg .lower-leg .bottom, .body .torso .leg .upper-leg .lower-leg .front, .body .torso .leg .upper-leg .lower-leg .back, .body .torso .leg .upper-leg .lower-leg .left, .body .torso .leg .upper-leg .lower-leg .right {
   position: absolute;
 }
-/* line 27, ../sass/city-3d.scss */
+/* line 37, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .top, .body .torso .leg .upper-leg .lower-leg .bottom {
   width: 25px;
   height: 25px;
   margin-left: -12.5px;
   margin-top: -12.5px;
 }
-/* line 35, ../sass/city-3d.scss */
+/* line 45, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .top {
   -webkit-transform: translate3d(0, -35px, 0) rotateX(90deg);
   -moz-transform: translate3d(0, -35px, 0) rotateX(90deg);
@@ -1734,7 +1748,7 @@ html, body {
   -o-transform: translate3d(0, -35px, 0) rotateX(90deg);
   transform: translate3d(0, -35px, 0) rotateX(90deg);
 }
-/* line 36, ../sass/city-3d.scss */
+/* line 46, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .bottom {
   -webkit-transform: translate3d(0, 35px, 0) rotateX(-90deg);
   -moz-transform: translate3d(0, 35px, 0) rotateX(-90deg);
@@ -1742,14 +1756,14 @@ html, body {
   -o-transform: translate3d(0, 35px, 0) rotateX(-90deg);
   transform: translate3d(0, 35px, 0) rotateX(-90deg);
 }
-/* line 38, ../sass/city-3d.scss */
+/* line 48, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .back, .body .torso .leg .upper-leg .lower-leg .front {
   width: 25px;
   height: 70px;
   margin-left: -12.5px;
   margin-top: -35px;
 }
-/* line 46, ../sass/city-3d.scss */
+/* line 56, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .back {
   -webkit-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
   -moz-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
@@ -1757,7 +1771,7 @@ html, body {
   -o-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
   transform: translate3d(0, 0, -12.5px) rotateY(180deg);
 }
-/* line 47, ../sass/city-3d.scss */
+/* line 57, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .front {
   -webkit-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
   -moz-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
@@ -1765,14 +1779,14 @@ html, body {
   -o-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
   transform: translate3d(0, 0, 12.5px) rotateY(0deg);
 }
-/* line 49, ../sass/city-3d.scss */
+/* line 59, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .left, .body .torso .leg .upper-leg .lower-leg .right {
   width: 25px;
   height: 70px;
   margin-left: -12.5px;
   margin-top: -35px;
 }
-/* line 57, ../sass/city-3d.scss */
+/* line 67, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .left {
   -webkit-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
   -moz-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
@@ -1780,7 +1794,7 @@ html, body {
   -o-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
   transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
 }
-/* line 58, ../sass/city-3d.scss */
+/* line 68, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .right {
   -webkit-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
   -moz-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
@@ -1788,7 +1802,7 @@ html, body {
   -o-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
   transform: translate3d(12.5px, 0, 0) rotateY(90deg);
 }
-/* line 296, ../sass/city-3d.scss */
+/* line 359, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .foot {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -1800,47 +1814,47 @@ html, body {
   -ms-transform: translate3d(0, 50px, 10px);
   -o-transform: translate3d(0, 50px, 10px);
   transform: translate3d(0, 50px, 10px);
-  -webkit-transform-origin: 0 -7px 0 50%;
-  -moz-transform-origin: 0 -7px 0 50%;
-  -ms-transform-origin: 0 -7px 0 50%;
-  -o-transform-origin: 0 -7px 0 50%;
-  transform-origin: 0 -7px 0 50%;
+  -webkit-transform-origin: 0 -7.5px 0 50%;
+  -moz-transform-origin: 0 -7.5px 0 50%;
+  -ms-transform-origin: 0 -7.5px 0 50%;
+  -o-transform-origin: 0 -7.5px 0 50%;
+  transform-origin: 0 -7.5px 0 50%;
 }
-/* line 23, ../sass/city-3d.scss */
+/* line 33, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .foot .top, .body .torso .leg .upper-leg .lower-leg .foot .bottom, .body .torso .leg .upper-leg .lower-leg .foot .front, .body .torso .leg .upper-leg .lower-leg .foot .back, .body .torso .leg .upper-leg .lower-leg .foot .left, .body .torso .leg .upper-leg .lower-leg .foot .right {
   position: absolute;
 }
-/* line 27, ../sass/city-3d.scss */
+/* line 37, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .foot .top, .body .torso .leg .upper-leg .lower-leg .foot .bottom {
   width: 30px;
   height: 50px;
   margin-left: -15px;
   margin-top: -25px;
 }
-/* line 35, ../sass/city-3d.scss */
+/* line 45, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .foot .top {
-  -webkit-transform: translate3d(0, -7px, 0) rotateX(90deg);
-  -moz-transform: translate3d(0, -7px, 0) rotateX(90deg);
-  -ms-transform: translate3d(0, -7px, 0) rotateX(90deg);
-  -o-transform: translate3d(0, -7px, 0) rotateX(90deg);
-  transform: translate3d(0, -7px, 0) rotateX(90deg);
-}
-/* line 36, ../sass/city-3d.scss */
-.body .torso .leg .upper-leg .lower-leg .foot .bottom {
-  -webkit-transform: translate3d(0, 7px, 0) rotateX(-90deg);
-  -moz-transform: translate3d(0, 7px, 0) rotateX(-90deg);
-  -ms-transform: translate3d(0, 7px, 0) rotateX(-90deg);
-  -o-transform: translate3d(0, 7px, 0) rotateX(-90deg);
-  transform: translate3d(0, 7px, 0) rotateX(-90deg);
-}
-/* line 38, ../sass/city-3d.scss */
-.body .torso .leg .upper-leg .lower-leg .foot .back, .body .torso .leg .upper-leg .lower-leg .foot .front {
-  width: 30px;
-  height: 14px;
-  margin-left: -15px;
-  margin-top: -7px;
+  -webkit-transform: translate3d(0, -7.5px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -7.5px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -7.5px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -7.5px, 0) rotateX(90deg);
+  transform: translate3d(0, -7.5px, 0) rotateX(90deg);
 }
 /* line 46, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .foot .bottom {
+  -webkit-transform: translate3d(0, 7.5px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 7.5px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 7.5px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 7.5px, 0) rotateX(-90deg);
+  transform: translate3d(0, 7.5px, 0) rotateX(-90deg);
+}
+/* line 48, ../sass/city-3d.scss */
+.body .torso .leg .upper-leg .lower-leg .foot .back, .body .torso .leg .upper-leg .lower-leg .foot .front {
+  width: 30px;
+  height: 15px;
+  margin-left: -15px;
+  margin-top: -7.5px;
+}
+/* line 56, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .foot .back {
   -webkit-transform: translate3d(0, 0, -25px) rotateY(180deg);
   -moz-transform: translate3d(0, 0, -25px) rotateY(180deg);
@@ -1848,7 +1862,7 @@ html, body {
   -o-transform: translate3d(0, 0, -25px) rotateY(180deg);
   transform: translate3d(0, 0, -25px) rotateY(180deg);
 }
-/* line 47, ../sass/city-3d.scss */
+/* line 57, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .foot .front {
   -webkit-transform: translate3d(0, 0, 25px) rotateY(0deg);
   -moz-transform: translate3d(0, 0, 25px) rotateY(0deg);
@@ -1856,14 +1870,14 @@ html, body {
   -o-transform: translate3d(0, 0, 25px) rotateY(0deg);
   transform: translate3d(0, 0, 25px) rotateY(0deg);
 }
-/* line 49, ../sass/city-3d.scss */
+/* line 59, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .foot .left, .body .torso .leg .upper-leg .lower-leg .foot .right {
   width: 50px;
-  height: 14px;
+  height: 15px;
   margin-left: -25px;
-  margin-top: -7px;
+  margin-top: -7.5px;
 }
-/* line 57, ../sass/city-3d.scss */
+/* line 67, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .foot .left {
   -webkit-transform: translate3d(-15px, 0, 0) rotateY(-90deg);
   -moz-transform: translate3d(-15px, 0, 0) rotateY(-90deg);
@@ -1871,7 +1885,7 @@ html, body {
   -o-transform: translate3d(-15px, 0, 0) rotateY(-90deg);
   transform: translate3d(-15px, 0, 0) rotateY(-90deg);
 }
-/* line 58, ../sass/city-3d.scss */
+/* line 68, ../sass/city-3d.scss */
 .body .torso .leg .upper-leg .lower-leg .foot .right {
   -webkit-transform: translate3d(15px, 0, 0) rotateY(90deg);
   -moz-transform: translate3d(15px, 0, 0) rotateY(90deg);
@@ -1879,7 +1893,7 @@ html, body {
   -o-transform: translate3d(15px, 0, 0) rotateY(90deg);
   transform: translate3d(15px, 0, 0) rotateY(90deg);
 }
-/* line 305, ../sass/city-3d.scss */
+/* line 368, ../sass/city-3d.scss */
 .body .torso .leg-left {
   -webkit-transform: translate3d(-25px, 30px, 0);
   -moz-transform: translate3d(-25px, 30px, 0);
@@ -1887,7 +1901,7 @@ html, body {
   -o-transform: translate3d(-25px, 30px, 0);
   transform: translate3d(-25px, 30px, 0);
 }
-/* line 306, ../sass/city-3d.scss */
+/* line 369, ../sass/city-3d.scss */
 .body .torso .leg-right {
   -webkit-transform: translate3d(25px, 30px, 0);
   -moz-transform: translate3d(25px, 30px, 0);
