@@ -26,13 +26,13 @@
 
     .scene.robot
       .body
-        .torso
+        .head
           - faces.each do |face|
             %div{:class => face}
 
-          .head
-            - faces.each do |face|
-              %div{:class => face}
+        .torso
+          - faces.each do |face|
+            %div{:class => face}
 
           .arm.arm-left
             .upper-arm
@@ -60,6 +60,10 @@
                 .hand
                   - faces.each do |face|
                     %div{:class => face}
+
+        .waist
+          - faces.each do |face|
+            %div{:class => face}
 
           .leg.leg-left
             .upper-leg

@@ -187,7 +187,7 @@ html, body {
 
 
 $torso-width: 80px;
-$torso-height: 150px;
+$torso-height: 100px;
 $torso-depth: 35px;
 
 $head-width: 40px;
@@ -206,6 +206,10 @@ $hand-width: 20px;
 $hand-height: 20px;
 $hand-depth: 20px;
 
+$waist-width: 60px;
+$waist-height: 40px;
+$waist-depth: 35px;
+
 $upper-leg-width: 25px;
 $upper-leg-height: 50px;
 $upper-leg-depth: 25px;
@@ -219,23 +223,28 @@ $foot-height: 15px;
 $foot-depth: 50px;
 
 // Translations.
-$t-body: translate3d(300px, 0, 0);
-$t-head: translate3d(0, -110px, 0);
+$t-body: translate3d(0, 0, 0);
+$t-head: translate3d(0, -80px, 0);
+
+$t-upper-arm: translate3d(0, 0, 0);
 $t-lower-arm: translate3d(0, 60px, 0);
 $t-hand: translate3d(0, 40px, 0);
-$t-upper-leg: translate3d(0, 80px, 0);
+
+$t-waist: translate3d(0, 80px, 0);
+$t-upper-leg: translate3d(0, 55px, 0);
 $t-lower-leg: translate3d(0, 70px, 0);
 $t-foot: translate3d(0, 50px, 10px);
 
-$t-arm-left:  translate3d(-60px, -30px, 0);
-$t-arm-right: translate3d( 60px, -30px, 0);
+$t-arm-left:  translate3d(-60px, 0, 0);
+$t-arm-right: translate3d( 60px, 0, 0);
 
-$t-leg-left:  translate3d(-25px, 30px, 0);
-$t-leg-right: translate3d( 25px, 30px, 0);
+$t-leg-left:  translate3d(-25px, 0, 0);
+$t-leg-right: translate3d( 25px, 0, 0);
 
 .robot {
   @include perspective(2000px);
   @include perspective-origin(left top);
+  @include transform(translate3d(300px, 0, 0));
 }
 
 .body {
@@ -249,123 +258,106 @@ $t-leg-right: translate3d( 25px, 30px, 0);
   &:hover {
     @include transform($t-body rotateY(40deg));
 
-    .torso {
-      .head {
-        @include transform($t-head rotateY(-30deg));
-      }
+    .torso { @include transform(rotateY(10deg)); }
 
-      .arm-right {
-        .upper-arm {
-          @include transform(rotateX(30deg));
+    .head { @include transform($t-head rotateY(-30deg)); }
 
-          .lower-arm {
-            @include transform($t-lower-arm rotateX(30deg));
+    .arm-right {
+      .upper-arm { @include transform($t-upper-arm rotateX(30deg)); }
+      .lower-arm { @include transform($t-lower-arm rotateX(30deg)); }
+      .hand { @include transform($t-hand rotateX(20deg)); }
+    }
 
-            .hand {
-              @include transform($t-hand rotateX(20deg));
-            }
-          }
-        }
-      }
+    .arm-left {
+      .upper-arm { @include transform($t-upper-arm rotateX(-50deg)); }
+      .lower-arm { @include transform($t-lower-arm rotateX(30deg)); }
+      .hand { @include transform($t-hand rotateX(20deg)); }
+    }
 
-      .arm-left {
-        .upper-arm {
-          @include transform(rotateX(-50deg));
+    .waist { @include transform($t-waist rotateY(-30deg)); }
 
-          .lower-arm {
-            @include transform($t-lower-arm rotateX(30deg));
+    .leg-right {
+      .upper-leg { @include transform($t-upper-leg rotateX(-30deg)); }
+      .lower-leg { @include transform($t-lower-leg rotateX(-20deg)); }
+    }
 
-            .hand {
-              @include transform($t-hand rotateX(20deg));
-            }
-          }
-        }
-      }
-
-      .leg-right {
-        .upper-leg {
-          @include transform($t-upper-leg rotateX(-30deg));
-
-          .lower-leg {
-            @include transform($t-lower-leg rotateX(-20deg));
-          }
-        }
-      }
-
-      .leg-left {
-        .upper-leg {
-          @include transform($t-upper-leg rotateX(40deg));
-
-          .lower-leg {
-            @include transform($t-lower-leg rotateX(-40deg));
-          }
-        }
-      }
+    .leg-left {
+      .upper-leg { @include transform($t-upper-leg rotateX(40deg)); }
+      .lower-leg { @include transform($t-lower-leg rotateX(-40deg)); }
     }
   }
+
+  .top    { background-color: rgba(255, 0, 0, 0.25); }
+  .front  { background-color: rgba(192, 0, 0, 0.25); }
+  .right  { background-color: rgba(128, 0, 0, 0.25); }
+  .back   { background-color: rgba( 96, 0, 0, 0.25); }
+  .left   { background-color: rgba( 64, 0, 0, 0.25); }
+  .bottom { background-color: rgba( 32, 0, 0, 0.25); }
 
   .torso {
     @include box($torso-width, $torso-height, $torso-depth);
-    .top    { background-color: rgba(255, 0, 0, 0.25); }
-    .front  { background-color: rgba(192, 0, 0, 0.25); }
-    .right  { background-color: rgba(128, 0, 0, 0.25); }
-    .back   { background-color: rgba( 96, 0, 0, 0.25); }
-    .left   { background-color: rgba( 64, 0, 0, 0.25); }
-    .bottom { background-color: rgba( 32, 0, 0, 0.25); }
-
-    .head {
-      @include box($head-width, $head-height, $head-depth);
-      @include transform($t-head);
-      @include transform-origin(0 0 0);
-    }
-
-    .arm {
-      @include transform-style(preserve-3d);
-
-      .upper-arm {
-        @include box($upper-arm-width, $upper-arm-height, $upper-arm-depth);
-        @include transform-origin(0 -0.5 * $upper-arm-height 0);
-
-        .lower-arm {
-          @include box($lower-arm-width, $lower-arm-height, $lower-arm-depth);
-          @include transform($t-lower-arm);
-          @include transform-origin(0 -0.5 * $lower-arm-height 0);
-
-          .hand {
-            @include box($hand-width, $hand-height, $hand-depth);
-            @include transform($t-hand);
-            @include transform-origin(0 -0.5 * $hand-height 0);
-          }
-        }
-      }
-    }
-
-    .arm-left  { @include transform($t-arm-left); }
-    .arm-right { @include transform($t-arm-right); }
-
-    .leg {
-      @include transform-style(preserve-3d);
-
-      .upper-leg {
-        @include box($upper-leg-width, $upper-leg-height, $upper-leg-depth);
-        @include transform($t-upper-leg);
-        @include transform-origin(0 -0.5 * $upper-leg-height 0);
-
-        .lower-leg {
-          @include box($lower-leg-width, $lower-leg-height, $lower-leg-depth);
-          @include transform($t-lower-leg);
-          @include transform-origin(0 -0.5 * $lower-leg-height 0);
-
-          .foot {
-            @include box($foot-width, $foot-height, $foot-depth);
-            @include transform($t-foot);
-            @include transform-origin(0 -0.5 * $foot-height 0);
-          }
-        }
-      }
-    }
-
-    .leg-left  { @include transform($t-leg-left); }
-    .leg-right { @include transform($t-leg-right); }
+    @include transform-origin(0 0 0);
   }
+
+  .head {
+    @include box($head-width, $head-height, $head-depth);
+    @include transform($t-head);
+    @include transform-origin(0 0 0);
+  }
+
+  .arm {
+    @include transform-style(preserve-3d);
+  }
+
+  .upper-arm {
+    @include box($upper-arm-width, $upper-arm-height, $upper-arm-depth);
+    @include transform($t-upper-arm);
+    @include transform-origin(0 -0.5 * $upper-arm-height 0);
+  }
+
+  .lower-arm {
+    @include box($lower-arm-width, $lower-arm-height, $lower-arm-depth);
+    @include transform($t-lower-arm);
+    @include transform-origin(0 -0.5 * $lower-arm-height 0);
+  }
+
+  .hand {
+    @include box($hand-width, $hand-height, $hand-depth);
+    @include transform($t-hand);
+    @include transform-origin(0 -0.5 * $hand-height 0);
+  }
+
+  .arm-left  { @include transform($t-arm-left); }
+  .arm-right { @include transform($t-arm-right); }
+
+  .waist {
+    @include box($waist-width, $waist-height, $waist-depth);
+    @include transform($t-waist);
+    @include transform-origin(0 -0.5 * $waist-height 0);
+  }
+
+  .leg {
+    @include transform-style(preserve-3d);
+  }
+
+  .upper-leg {
+    @include box($upper-leg-width, $upper-leg-height, $upper-leg-depth);
+    @include transform($t-upper-leg);
+    @include transform-origin(0 -0.5 * $upper-leg-height 0);
+  }
+
+  .lower-leg {
+    @include box($lower-leg-width, $lower-leg-height, $lower-leg-depth);
+    @include transform($t-lower-leg);
+    @include transform-origin(0 -0.5 * $lower-leg-height 0);
+  }
+
+  .foot {
+    @include box($foot-width, $foot-height, $foot-depth);
+    @include transform($t-foot);
+    @include transform-origin(0 -0.5 * $foot-height 0);
+  }
+
+  .leg-left  { @include transform($t-leg-left); }
+  .leg-right { @include transform($t-leg-right); }
 }
