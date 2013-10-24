@@ -6,87 +6,64 @@
 
     %link(rel="stylesheet" href="./stylesheets/city-3d.css")
   %body
-    - faces = ['top', 'bottom', 'front', 'back', 'left', 'right']
+    - def faces
+    -   ['top', 'bottom', 'front', 'back', 'left', 'right'].each do |face|
+    -     haml_tag :div, :class => face
+    -   end;
+    - end;
+
     .container
       %button.rotate.rotateX Rotate X
       %button.rotate.rotateY Rotate Y
 
       .building-test
-        - faces.each do |face|
-          %div{:class => face}
+        - faces
 
     .scene.buildings
       - (1..16).each do |i|
         .building
-          - faces.each do |face|
-            %div{:class => face}
+          - faces
       .ground
-        - faces.each do |face|
-          %div{:class => face}
+        - faces
 
     .scene.robot
       .body
         .head
-          - faces.each do |face|
-            %div{:class => face}
+          - faces
 
         .torso
-          - faces.each do |face|
-            %div{:class => face}
+          - faces
 
           .arm.arm-left
             .upper-arm
-              - faces.each do |face|
-                %div{:class => face}
-
+              - faces
               .lower-arm
-                - faces.each do |face|
-                  %div{:class => face}
-
+                - faces
                 .hand
-                  - faces.each do |face|
-                    %div{:class => face}
-
+                  - faces
 
           .arm.arm-right
             .upper-arm
-              - faces.each do |face|
-                %div{:class => face}
-
+              - faces
               .lower-arm
-                - faces.each do |face|
-                  %div{:class => face}
-
+                - faces
                 .hand
-                  - faces.each do |face|
-                    %div{:class => face}
-
+                  - faces
         .waist
-          - faces.each do |face|
-            %div{:class => face}
+          - faces
 
           .leg.leg-left
             .upper-leg
-              - faces.each do |face|
-                %div{:class => face}
-
+              - faces
               .lower-leg
-                - faces.each do |face|
-                  %div{:class => face}
-
+                - faces
                 .foot
-                  - faces.each do |face|
-                    %div{:class => face}
+                  - faces
 
           .leg.leg-right
             .upper-leg
-              - faces.each do |face|
-                %div{:class => face}
-
+              - faces
               .lower-leg
-                - faces.each do |face|
-                  %div{:class => face}
-
+                - faces
                 .foot
-                  - faces.each do |face|
-                    %div{:class => face}
+                  - faces
