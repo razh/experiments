@@ -18,10 +18,14 @@
  * Creates a box centered at (0, 0, 0) with dimension
  * $width, $height, and $depth.
  *
- * Requires elements with classes for six faces:
- *  top, bottom,
- *  front, back,
- *  left, right
+ * Each box consists of six elements with the generic 'face' class.
+ * Each element also has a class for a specific direction:
+ *
+ *    top, bottom,
+ *    front, back,
+ *    left, right
+ *
+ *  e.g., .face.top
  */
 @mixin box($width, $height, $depth) {
   $halfWidth:  0.5 * $width;
@@ -30,7 +34,7 @@
 
   @include transform-style(preserve-3d);
 
-  .top, .bottom, .front, .back, .left, .right {
+  .face {
     position: absolute;
   }
 
@@ -119,7 +123,7 @@ html, body {
   .left   { background-color: rgba( 32,  32,  32, 0.75); }
   .bottom { background-color: rgba(  0,   0,   0, 0.75); }
 
-  .top, .bottom, .front, .back, .left, .right {
+  .face {
     display: flex;
     align-items: center;
     justify-content: center;
