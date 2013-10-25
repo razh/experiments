@@ -186,9 +186,9 @@ html, body {
 }
 
 
-$torso-width: 80px;
-$torso-height: 100px;
-$torso-depth: 35px;
+$chest-width: 80px;
+$chest-height: 100px;
+$chest-depth: 35px;
 
 $head-width: 40px;
 $head-height: 40px;
@@ -206,9 +206,9 @@ $hand-width: 20px;
 $hand-height: 20px;
 $hand-depth: 20px;
 
-$waist-width: 60px;
-$waist-height: 40px;
-$waist-depth: 35px;
+$hips-width: 60px;
+$hips-height: 40px;
+$hips-depth: 35px;
 
 $upper-leg-width: 25px;
 $upper-leg-height: 50px;
@@ -230,7 +230,7 @@ $t-upper-arm: translate3d(0, 0, 0);
 $t-lower-arm: translate3d(0, 60px, 0);
 $t-hand: translate3d(0, 40px, 0);
 
-$t-waist: translate3d(0, 80px, 0);
+$t-hips: translate3d(0, 80px, 0);
 $t-upper-leg: translate3d(0, 55px, 0);
 $t-lower-leg: translate3d(0, 70px, 0);
 $t-foot: translate3d(0, 50px, 10px);
@@ -258,7 +258,7 @@ $t-leg-right: translate3d( 25px, 0, 0);
   &:hover {
     @include transform($t-body rotateY(40deg));
 
-    .torso { @include transform(rotateY(10deg)); }
+    .chest { @include transform(rotateY(10deg)); }
 
     .head { @include transform($t-head rotateY(-30deg)); }
 
@@ -274,7 +274,7 @@ $t-leg-right: translate3d( 25px, 0, 0);
       .hand { @include transform($t-hand rotateX(20deg)); }
     }
 
-    .waist { @include transform($t-waist rotateY(-30deg)); }
+    .hips { @include transform($t-hips rotateY(-30deg)); }
 
     .leg-right {
       .upper-leg { @include transform($t-upper-leg rotateX(-30deg)); }
@@ -294,8 +294,8 @@ $t-leg-right: translate3d( 25px, 0, 0);
   .left   { background-color: rgba( 64, 0, 0, 0.25); }
   .bottom { background-color: rgba( 32, 0, 0, 0.25); }
 
-  .torso {
-    @include box($torso-width, $torso-height, $torso-depth);
+  .chest {
+    @include box($chest-width, $chest-height, $chest-depth);
     @include transform-origin(0 0 0);
   }
 
@@ -330,10 +330,10 @@ $t-leg-right: translate3d( 25px, 0, 0);
   .arm-left  { @include transform($t-arm-left); }
   .arm-right { @include transform($t-arm-right); }
 
-  .waist {
-    @include box($waist-width, $waist-height, $waist-depth);
-    @include transform($t-waist);
-    @include transform-origin(0 -0.5 * $waist-height 0);
+  .hips {
+    @include box($hips-width, $hips-height, $hips-depth);
+    @include transform($t-hips);
+    @include transform-origin(0 -0.5 * $hips-height 0);
   }
 
   .leg {
