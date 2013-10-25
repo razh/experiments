@@ -4,15 +4,7 @@
 @import "compass/css3/transform";
 @import "compass/css3/transition";
 
-@mixin keyframes($name) {
-  @-webkit-keyframes #{$name} { @content; }
-  @keyframes #{$name} { @content; }
-}
-
-@mixin animation($animation) {
-  -webkit-animation: #{$animation};
-          animation: #{$animation};
-}
+@import "modules/animation";
 
 @mixin circle($radius) {
   $diameter: 2 * $radius;

@@ -1,0 +1,56 @@
+!!! 5
+%html(lang="en")
+  %head
+    %meta(charset="UTF-8")
+    %title Robot 3D
+
+    %link(rel="stylesheet" href="./stylesheets/robot-3d.css")
+  %body
+    - def faces
+    -   ['top', 'bottom', 'front', 'back', 'left', 'right'].each do |direction|
+    -     haml_tag :div, :class => ['face', direction]
+    -   end;
+    - end;
+
+    .scene.robot
+      .body
+        .head
+          - faces
+
+        .chest
+          - faces
+
+          .arm.arm-left
+            .upper-arm
+              - faces
+              .lower-arm
+                - faces
+                .hand
+                  - faces
+
+          .arm.arm-right
+            .upper-arm
+              - faces
+              .lower-arm
+                - faces
+                .hand
+                  - faces
+
+        .hips
+          - faces
+
+          .leg.leg-left
+            .upper-leg
+              - faces
+              .lower-leg
+                - faces
+                .foot
+                  - faces
+
+          .leg.leg-right
+            .upper-leg
+              - faces
+              .lower-leg
+                - faces
+                .foot
+                  - faces

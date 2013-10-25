@@ -1,0 +1,57 @@
+/**
+ * Creates a box centered at (0, 0, 0) with dimension
+ * $width, $height, and $depth.
+ *
+ * Each box consists of six elements with the generic 'face' class.
+ * Each element also has a class for a specific direction:
+ *
+ *    top, bottom,
+ *    front, back,
+ *    left, right
+ *
+ *  e.g., .face.top
+ */
+@mixin box($width, $height, $depth) {
+  $halfWidth:  0.5 * $width;
+  $halfHeight: 0.5 * $height;
+  $halfDepth:  0.5 * $depth;
+
+  @include transform-style(preserve-3d);
+
+  .face {
+    position: absolute;
+  }
+
+  .top, .bottom {
+    width:  $width;
+    height: $depth;
+
+    margin-left: -$halfWidth;
+    margin-top:  -$halfDepth;
+  }
+
+  .top    { @include transform(translate3d(0, -$halfHeight, 0) rotateX( 90deg)); }
+  .bottom { @include transform(translate3d(0,  $halfHeight, 0) rotateX(-90deg)); }
+
+  .back, .front {
+    width:  $width;
+    height: $height;
+
+    margin-left: -$halfWidth;
+    margin-top:  -$halfHeight;
+  }
+
+  .back  { @include transform(translate3d(0, 0, -$halfDepth) rotateY(180deg)); }
+  .front { @include transform(translate3d(0, 0,  $halfDepth) rotateY(  0deg)); }
+
+  .left, .right {
+    width:  $depth;
+    height: $height;
+
+    margin-left: -$halfDepth;
+    margin-top:  -$halfHeight;
+  }
+
+  .left  { @include transform(translate3d(-$halfWidth, 0, 0) rotateY(-90deg)); }
+  .right { @include transform(translate3d( $halfWidth, 0, 0) rotateY( 90deg)); }
+}

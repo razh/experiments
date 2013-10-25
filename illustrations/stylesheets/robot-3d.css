@@ -1,0 +1,1115 @@
+/* line 17, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/**
+ * Creates a box centered at (0, 0, 0) with dimension
+ * $width, $height, and $depth.
+ *
+ * Each box consists of six elements with the generic 'face' class.
+ * Each element also has a class for a specific direction:
+ *
+ *    top, bottom,
+ *    front, back,
+ *    left, right
+ *
+ *  e.g., .face.top
+ */
+/* line 63, ../sass/robot-3d.scss */
+.robot {
+  -webkit-perspective: 2000px;
+  -moz-perspective: 2000px;
+  -ms-perspective: 2000px;
+  -o-perspective: 2000px;
+  perspective: 2000px;
+  -webkit-perspective-origin: left top;
+  -moz-perspective-origin: left top;
+  -ms-perspective-origin: left top;
+  -o-perspective-origin: left top;
+  perspective-origin: left top;
+  -webkit-transform: translate3d(300px, 175px, 0);
+  -moz-transform: translate3d(300px, 175px, 0);
+  -ms-transform: translate3d(300px, 175px, 0);
+  -o-transform: translate3d(300px, 175px, 0);
+  transform: translate3d(300px, 175px, 0);
+}
+
+/* line 69, ../sass/robot-3d.scss */
+.body {
+  -webkit-transform: translate3d(0, 0, 0) rotateY(0);
+  -moz-transform: translate3d(0, 0, 0) rotateY(0);
+  -ms-transform: translate3d(0, 0, 0) rotateY(0);
+  -o-transform: translate3d(0, 0, 0) rotateY(0);
+  transform: translate3d(0, 0, 0) rotateY(0);
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* line 73, ../sass/robot-3d.scss */
+.body *, .body {
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s;
+}
+/* line 77, ../sass/robot-3d.scss */
+.body:hover {
+  -webkit-transform: translate3d(0, 0, 0) rotateY(40deg);
+  -moz-transform: translate3d(0, 0, 0) rotateY(40deg);
+  -ms-transform: translate3d(0, 0, 0) rotateY(40deg);
+  -o-transform: translate3d(0, 0, 0) rotateY(40deg);
+  transform: translate3d(0, 0, 0) rotateY(40deg);
+}
+/* line 80, ../sass/robot-3d.scss */
+.body:hover .chest {
+  -webkit-transform: rotateY(10deg);
+  -moz-transform: rotateY(10deg);
+  -ms-transform: rotateY(10deg);
+  -o-transform: rotateY(10deg);
+  transform: rotateY(10deg);
+}
+/* line 82, ../sass/robot-3d.scss */
+.body:hover .head {
+  -webkit-transform: translate3d(0, -80px, 0) rotateY(-30deg);
+  -moz-transform: translate3d(0, -80px, 0) rotateY(-30deg);
+  -ms-transform: translate3d(0, -80px, 0) rotateY(-30deg);
+  -o-transform: translate3d(0, -80px, 0) rotateY(-30deg);
+  transform: translate3d(0, -80px, 0) rotateY(-30deg);
+}
+/* line 85, ../sass/robot-3d.scss */
+.body:hover .arm-right .upper-arm {
+  -webkit-transform: translate3d(0, 0, 0) rotateX(30deg);
+  -moz-transform: translate3d(0, 0, 0) rotateX(30deg);
+  -ms-transform: translate3d(0, 0, 0) rotateX(30deg);
+  -o-transform: translate3d(0, 0, 0) rotateX(30deg);
+  transform: translate3d(0, 0, 0) rotateX(30deg);
+}
+/* line 86, ../sass/robot-3d.scss */
+.body:hover .arm-right .lower-arm {
+  -webkit-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  -moz-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  -ms-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  -o-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  transform: translate3d(0, 60px, 0) rotateX(30deg);
+}
+/* line 87, ../sass/robot-3d.scss */
+.body:hover .arm-right .hand {
+  -webkit-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  -moz-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  -ms-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  -o-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  transform: translate3d(0, 40px, 0) rotateX(20deg);
+}
+/* line 91, ../sass/robot-3d.scss */
+.body:hover .arm-left .upper-arm {
+  -webkit-transform: translate3d(0, 0, 0) rotateX(-50deg);
+  -moz-transform: translate3d(0, 0, 0) rotateX(-50deg);
+  -ms-transform: translate3d(0, 0, 0) rotateX(-50deg);
+  -o-transform: translate3d(0, 0, 0) rotateX(-50deg);
+  transform: translate3d(0, 0, 0) rotateX(-50deg);
+}
+/* line 92, ../sass/robot-3d.scss */
+.body:hover .arm-left .lower-arm {
+  -webkit-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  -moz-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  -ms-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  -o-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  transform: translate3d(0, 60px, 0) rotateX(30deg);
+}
+/* line 93, ../sass/robot-3d.scss */
+.body:hover .arm-left .hand {
+  -webkit-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  -moz-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  -ms-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  -o-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  transform: translate3d(0, 40px, 0) rotateX(20deg);
+}
+/* line 96, ../sass/robot-3d.scss */
+.body:hover .hips {
+  -webkit-transform: translate3d(0, 80px, 0) rotateY(-30deg);
+  -moz-transform: translate3d(0, 80px, 0) rotateY(-30deg);
+  -ms-transform: translate3d(0, 80px, 0) rotateY(-30deg);
+  -o-transform: translate3d(0, 80px, 0) rotateY(-30deg);
+  transform: translate3d(0, 80px, 0) rotateY(-30deg);
+}
+/* line 99, ../sass/robot-3d.scss */
+.body:hover .leg-right .upper-leg {
+  -webkit-transform: translate3d(0, 55px, 0) rotateX(-30deg);
+  -moz-transform: translate3d(0, 55px, 0) rotateX(-30deg);
+  -ms-transform: translate3d(0, 55px, 0) rotateX(-30deg);
+  -o-transform: translate3d(0, 55px, 0) rotateX(-30deg);
+  transform: translate3d(0, 55px, 0) rotateX(-30deg);
+}
+/* line 100, ../sass/robot-3d.scss */
+.body:hover .leg-right .lower-leg {
+  -webkit-transform: translate3d(0, 70px, 0) rotateX(-20deg);
+  -moz-transform: translate3d(0, 70px, 0) rotateX(-20deg);
+  -ms-transform: translate3d(0, 70px, 0) rotateX(-20deg);
+  -o-transform: translate3d(0, 70px, 0) rotateX(-20deg);
+  transform: translate3d(0, 70px, 0) rotateX(-20deg);
+}
+/* line 104, ../sass/robot-3d.scss */
+.body:hover .leg-left .upper-leg {
+  -webkit-transform: translate3d(0, 55px, 0) rotateX(40deg);
+  -moz-transform: translate3d(0, 55px, 0) rotateX(40deg);
+  -ms-transform: translate3d(0, 55px, 0) rotateX(40deg);
+  -o-transform: translate3d(0, 55px, 0) rotateX(40deg);
+  transform: translate3d(0, 55px, 0) rotateX(40deg);
+}
+/* line 105, ../sass/robot-3d.scss */
+.body:hover .leg-left .lower-leg {
+  -webkit-transform: translate3d(0, 70px, 0) rotateX(-40deg);
+  -moz-transform: translate3d(0, 70px, 0) rotateX(-40deg);
+  -ms-transform: translate3d(0, 70px, 0) rotateX(-40deg);
+  -o-transform: translate3d(0, 70px, 0) rotateX(-40deg);
+  transform: translate3d(0, 70px, 0) rotateX(-40deg);
+}
+/* line 109, ../sass/robot-3d.scss */
+.body .top {
+  background-color: rgba(255, 0, 0, 0.25);
+}
+/* line 110, ../sass/robot-3d.scss */
+.body .front {
+  background-color: rgba(192, 0, 0, 0.25);
+}
+/* line 111, ../sass/robot-3d.scss */
+.body .right {
+  background-color: rgba(128, 0, 0, 0.25);
+}
+/* line 112, ../sass/robot-3d.scss */
+.body .back {
+  background-color: rgba(96, 0, 0, 0.25);
+}
+/* line 113, ../sass/robot-3d.scss */
+.body .left {
+  background-color: rgba(64, 0, 0, 0.25);
+}
+/* line 114, ../sass/robot-3d.scss */
+.body .bottom {
+  background-color: rgba(32, 0, 0, 0.25);
+}
+/* line 116, ../sass/robot-3d.scss */
+.body .chest {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform-origin: 0 0 0 50%;
+  -moz-transform-origin: 0 0 0 50%;
+  -ms-transform-origin: 0 0 0 50%;
+  -o-transform-origin: 0 0 0 50%;
+  transform-origin: 0 0 0 50%;
+}
+/* line 21, ../sass/modules/_box.scss */
+.body .chest .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.body .chest .top, .body .chest .bottom {
+  width: 80px;
+  height: 35px;
+  margin-left: -40px;
+  margin-top: -17.5px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.body .chest .top {
+  -webkit-transform: translate3d(0, -50px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -50px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -50px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -50px, 0) rotateX(90deg);
+  transform: translate3d(0, -50px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.body .chest .bottom {
+  -webkit-transform: translate3d(0, 50px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 50px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 50px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 50px, 0) rotateX(-90deg);
+  transform: translate3d(0, 50px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.body .chest .back, .body .chest .front {
+  width: 80px;
+  height: 100px;
+  margin-left: -40px;
+  margin-top: -50px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.body .chest .back {
+  -webkit-transform: translate3d(0, 0, -17.5px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -17.5px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -17.5px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -17.5px) rotateY(180deg);
+  transform: translate3d(0, 0, -17.5px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.body .chest .front {
+  -webkit-transform: translate3d(0, 0, 17.5px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 17.5px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 17.5px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 17.5px) rotateY(0deg);
+  transform: translate3d(0, 0, 17.5px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.body .chest .left, .body .chest .right {
+  width: 35px;
+  height: 100px;
+  margin-left: -17.5px;
+  margin-top: -50px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.body .chest .left {
+  -webkit-transform: translate3d(-40px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-40px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-40px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-40px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-40px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.body .chest .right {
+  -webkit-transform: translate3d(40px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(40px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(40px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(40px, 0, 0) rotateY(90deg);
+  transform: translate3d(40px, 0, 0) rotateY(90deg);
+}
+/* line 121, ../sass/robot-3d.scss */
+.body .head {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, -80px, 0);
+  -moz-transform: translate3d(0, -80px, 0);
+  -ms-transform: translate3d(0, -80px, 0);
+  -o-transform: translate3d(0, -80px, 0);
+  transform: translate3d(0, -80px, 0);
+  -webkit-transform-origin: 0 0 0 50%;
+  -moz-transform-origin: 0 0 0 50%;
+  -ms-transform-origin: 0 0 0 50%;
+  -o-transform-origin: 0 0 0 50%;
+  transform-origin: 0 0 0 50%;
+}
+/* line 21, ../sass/modules/_box.scss */
+.body .head .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.body .head .top, .body .head .bottom {
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.body .head .top {
+  -webkit-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  transform: translate3d(0, -20px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.body .head .bottom {
+  -webkit-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  transform: translate3d(0, 20px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.body .head .back, .body .head .front {
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.body .head .back {
+  -webkit-transform: translate3d(0, 0, -20px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -20px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -20px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -20px) rotateY(180deg);
+  transform: translate3d(0, 0, -20px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.body .head .front {
+  -webkit-transform: translate3d(0, 0, 20px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 20px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 20px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 20px) rotateY(0deg);
+  transform: translate3d(0, 0, 20px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.body .head .left, .body .head .right {
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.body .head .left {
+  -webkit-transform: translate3d(-20px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-20px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-20px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-20px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-20px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.body .head .right {
+  -webkit-transform: translate3d(20px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(20px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(20px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(20px, 0, 0) rotateY(90deg);
+  transform: translate3d(20px, 0, 0) rotateY(90deg);
+}
+/* line 127, ../sass/robot-3d.scss */
+.body .arm {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* line 131, ../sass/robot-3d.scss */
+.body .upper-arm {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transform-origin: 0 -30px 0 50%;
+  -moz-transform-origin: 0 -30px 0 50%;
+  -ms-transform-origin: 0 -30px 0 50%;
+  -o-transform-origin: 0 -30px 0 50%;
+  transform-origin: 0 -30px 0 50%;
+}
+/* line 21, ../sass/modules/_box.scss */
+.body .upper-arm .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.body .upper-arm .top, .body .upper-arm .bottom {
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.body .upper-arm .top {
+  -webkit-transform: translate3d(0, -30px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -30px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -30px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -30px, 0) rotateX(90deg);
+  transform: translate3d(0, -30px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.body .upper-arm .bottom {
+  -webkit-transform: translate3d(0, 30px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 30px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 30px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 30px, 0) rotateX(-90deg);
+  transform: translate3d(0, 30px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.body .upper-arm .back, .body .upper-arm .front {
+  width: 20px;
+  height: 60px;
+  margin-left: -10px;
+  margin-top: -30px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.body .upper-arm .back {
+  -webkit-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  transform: translate3d(0, 0, -10px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.body .upper-arm .front {
+  -webkit-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  transform: translate3d(0, 0, 10px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.body .upper-arm .left, .body .upper-arm .right {
+  width: 20px;
+  height: 60px;
+  margin-left: -10px;
+  margin-top: -30px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.body .upper-arm .left {
+  -webkit-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.body .upper-arm .right {
+  -webkit-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  transform: translate3d(10px, 0, 0) rotateY(90deg);
+}
+/* line 137, ../sass/robot-3d.scss */
+.body .lower-arm {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 60px, 0);
+  -moz-transform: translate3d(0, 60px, 0);
+  -ms-transform: translate3d(0, 60px, 0);
+  -o-transform: translate3d(0, 60px, 0);
+  transform: translate3d(0, 60px, 0);
+  -webkit-transform-origin: 0 -20px 0 50%;
+  -moz-transform-origin: 0 -20px 0 50%;
+  -ms-transform-origin: 0 -20px 0 50%;
+  -o-transform-origin: 0 -20px 0 50%;
+  transform-origin: 0 -20px 0 50%;
+}
+/* line 21, ../sass/modules/_box.scss */
+.body .lower-arm .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.body .lower-arm .top, .body .lower-arm .bottom {
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.body .lower-arm .top {
+  -webkit-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  transform: translate3d(0, -20px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.body .lower-arm .bottom {
+  -webkit-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  transform: translate3d(0, 20px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.body .lower-arm .back, .body .lower-arm .front {
+  width: 20px;
+  height: 40px;
+  margin-left: -10px;
+  margin-top: -20px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.body .lower-arm .back {
+  -webkit-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  transform: translate3d(0, 0, -10px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.body .lower-arm .front {
+  -webkit-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  transform: translate3d(0, 0, 10px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.body .lower-arm .left, .body .lower-arm .right {
+  width: 20px;
+  height: 40px;
+  margin-left: -10px;
+  margin-top: -20px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.body .lower-arm .left {
+  -webkit-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.body .lower-arm .right {
+  -webkit-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  transform: translate3d(10px, 0, 0) rotateY(90deg);
+}
+/* line 143, ../sass/robot-3d.scss */
+.body .hand {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 40px, 0);
+  -moz-transform: translate3d(0, 40px, 0);
+  -ms-transform: translate3d(0, 40px, 0);
+  -o-transform: translate3d(0, 40px, 0);
+  transform: translate3d(0, 40px, 0);
+  -webkit-transform-origin: 0 -10px 0 50%;
+  -moz-transform-origin: 0 -10px 0 50%;
+  -ms-transform-origin: 0 -10px 0 50%;
+  -o-transform-origin: 0 -10px 0 50%;
+  transform-origin: 0 -10px 0 50%;
+}
+/* line 21, ../sass/modules/_box.scss */
+.body .hand .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.body .hand .top, .body .hand .bottom {
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.body .hand .top {
+  -webkit-transform: translate3d(0, -10px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -10px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -10px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -10px, 0) rotateX(90deg);
+  transform: translate3d(0, -10px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.body .hand .bottom {
+  -webkit-transform: translate3d(0, 10px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 10px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 10px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 10px, 0) rotateX(-90deg);
+  transform: translate3d(0, 10px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.body .hand .back, .body .hand .front {
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.body .hand .back {
+  -webkit-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -10px) rotateY(180deg);
+  transform: translate3d(0, 0, -10px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.body .hand .front {
+  -webkit-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 10px) rotateY(0deg);
+  transform: translate3d(0, 0, 10px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.body .hand .left, .body .hand .right {
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.body .hand .left {
+  -webkit-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-10px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.body .hand .right {
+  -webkit-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(10px, 0, 0) rotateY(90deg);
+  transform: translate3d(10px, 0, 0) rotateY(90deg);
+}
+/* line 149, ../sass/robot-3d.scss */
+.body .arm-left {
+  -webkit-transform: translate3d(-60px, 0, 0);
+  -moz-transform: translate3d(-60px, 0, 0);
+  -ms-transform: translate3d(-60px, 0, 0);
+  -o-transform: translate3d(-60px, 0, 0);
+  transform: translate3d(-60px, 0, 0);
+}
+/* line 150, ../sass/robot-3d.scss */
+.body .arm-right {
+  -webkit-transform: translate3d(60px, 0, 0);
+  -moz-transform: translate3d(60px, 0, 0);
+  -ms-transform: translate3d(60px, 0, 0);
+  -o-transform: translate3d(60px, 0, 0);
+  transform: translate3d(60px, 0, 0);
+}
+/* line 152, ../sass/robot-3d.scss */
+.body .hips {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 80px, 0);
+  -moz-transform: translate3d(0, 80px, 0);
+  -ms-transform: translate3d(0, 80px, 0);
+  -o-transform: translate3d(0, 80px, 0);
+  transform: translate3d(0, 80px, 0);
+  -webkit-transform-origin: 0 -20px 0 50%;
+  -moz-transform-origin: 0 -20px 0 50%;
+  -ms-transform-origin: 0 -20px 0 50%;
+  -o-transform-origin: 0 -20px 0 50%;
+  transform-origin: 0 -20px 0 50%;
+}
+/* line 21, ../sass/modules/_box.scss */
+.body .hips .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.body .hips .top, .body .hips .bottom {
+  width: 60px;
+  height: 35px;
+  margin-left: -30px;
+  margin-top: -17.5px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.body .hips .top {
+  -webkit-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -20px, 0) rotateX(90deg);
+  transform: translate3d(0, -20px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.body .hips .bottom {
+  -webkit-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 20px, 0) rotateX(-90deg);
+  transform: translate3d(0, 20px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.body .hips .back, .body .hips .front {
+  width: 60px;
+  height: 40px;
+  margin-left: -30px;
+  margin-top: -20px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.body .hips .back {
+  -webkit-transform: translate3d(0, 0, -17.5px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -17.5px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -17.5px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -17.5px) rotateY(180deg);
+  transform: translate3d(0, 0, -17.5px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.body .hips .front {
+  -webkit-transform: translate3d(0, 0, 17.5px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 17.5px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 17.5px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 17.5px) rotateY(0deg);
+  transform: translate3d(0, 0, 17.5px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.body .hips .left, .body .hips .right {
+  width: 35px;
+  height: 40px;
+  margin-left: -17.5px;
+  margin-top: -20px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.body .hips .left {
+  -webkit-transform: translate3d(-30px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-30px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-30px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-30px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-30px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.body .hips .right {
+  -webkit-transform: translate3d(30px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(30px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(30px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(30px, 0, 0) rotateY(90deg);
+  transform: translate3d(30px, 0, 0) rotateY(90deg);
+}
+/* line 158, ../sass/robot-3d.scss */
+.body .leg {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* line 162, ../sass/robot-3d.scss */
+.body .upper-leg {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 55px, 0);
+  -moz-transform: translate3d(0, 55px, 0);
+  -ms-transform: translate3d(0, 55px, 0);
+  -o-transform: translate3d(0, 55px, 0);
+  transform: translate3d(0, 55px, 0);
+  -webkit-transform-origin: 0 -25px 0 50%;
+  -moz-transform-origin: 0 -25px 0 50%;
+  -ms-transform-origin: 0 -25px 0 50%;
+  -o-transform-origin: 0 -25px 0 50%;
+  transform-origin: 0 -25px 0 50%;
+}
+/* line 21, ../sass/modules/_box.scss */
+.body .upper-leg .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.body .upper-leg .top, .body .upper-leg .bottom {
+  width: 25px;
+  height: 25px;
+  margin-left: -12.5px;
+  margin-top: -12.5px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.body .upper-leg .top {
+  -webkit-transform: translate3d(0, -25px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -25px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -25px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -25px, 0) rotateX(90deg);
+  transform: translate3d(0, -25px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.body .upper-leg .bottom {
+  -webkit-transform: translate3d(0, 25px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 25px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 25px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 25px, 0) rotateX(-90deg);
+  transform: translate3d(0, 25px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.body .upper-leg .back, .body .upper-leg .front {
+  width: 25px;
+  height: 50px;
+  margin-left: -12.5px;
+  margin-top: -25px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.body .upper-leg .back {
+  -webkit-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+  transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.body .upper-leg .front {
+  -webkit-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+  transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.body .upper-leg .left, .body .upper-leg .right {
+  width: 25px;
+  height: 50px;
+  margin-left: -12.5px;
+  margin-top: -25px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.body .upper-leg .left {
+  -webkit-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.body .upper-leg .right {
+  -webkit-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+  transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+}
+/* line 168, ../sass/robot-3d.scss */
+.body .lower-leg {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 70px, 0);
+  -moz-transform: translate3d(0, 70px, 0);
+  -ms-transform: translate3d(0, 70px, 0);
+  -o-transform: translate3d(0, 70px, 0);
+  transform: translate3d(0, 70px, 0);
+  -webkit-transform-origin: 0 -35px 0 50%;
+  -moz-transform-origin: 0 -35px 0 50%;
+  -ms-transform-origin: 0 -35px 0 50%;
+  -o-transform-origin: 0 -35px 0 50%;
+  transform-origin: 0 -35px 0 50%;
+}
+/* line 21, ../sass/modules/_box.scss */
+.body .lower-leg .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.body .lower-leg .top, .body .lower-leg .bottom {
+  width: 25px;
+  height: 25px;
+  margin-left: -12.5px;
+  margin-top: -12.5px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.body .lower-leg .top {
+  -webkit-transform: translate3d(0, -35px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -35px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -35px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -35px, 0) rotateX(90deg);
+  transform: translate3d(0, -35px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.body .lower-leg .bottom {
+  -webkit-transform: translate3d(0, 35px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 35px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 35px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 35px, 0) rotateX(-90deg);
+  transform: translate3d(0, 35px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.body .lower-leg .back, .body .lower-leg .front {
+  width: 25px;
+  height: 70px;
+  margin-left: -12.5px;
+  margin-top: -35px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.body .lower-leg .back {
+  -webkit-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+  transform: translate3d(0, 0, -12.5px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.body .lower-leg .front {
+  -webkit-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+  transform: translate3d(0, 0, 12.5px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.body .lower-leg .left, .body .lower-leg .right {
+  width: 25px;
+  height: 70px;
+  margin-left: -12.5px;
+  margin-top: -35px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.body .lower-leg .left {
+  -webkit-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-12.5px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.body .lower-leg .right {
+  -webkit-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+  transform: translate3d(12.5px, 0, 0) rotateY(90deg);
+}
+/* line 174, ../sass/robot-3d.scss */
+.body .foot {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 50px, 10px);
+  -moz-transform: translate3d(0, 50px, 10px);
+  -ms-transform: translate3d(0, 50px, 10px);
+  -o-transform: translate3d(0, 50px, 10px);
+  transform: translate3d(0, 50px, 10px);
+  -webkit-transform-origin: 0 -7.5px 0 50%;
+  -moz-transform-origin: 0 -7.5px 0 50%;
+  -ms-transform-origin: 0 -7.5px 0 50%;
+  -o-transform-origin: 0 -7.5px 0 50%;
+  transform-origin: 0 -7.5px 0 50%;
+}
+/* line 21, ../sass/modules/_box.scss */
+.body .foot .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.body .foot .top, .body .foot .bottom {
+  width: 30px;
+  height: 50px;
+  margin-left: -15px;
+  margin-top: -25px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.body .foot .top {
+  -webkit-transform: translate3d(0, -7.5px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -7.5px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -7.5px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -7.5px, 0) rotateX(90deg);
+  transform: translate3d(0, -7.5px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.body .foot .bottom {
+  -webkit-transform: translate3d(0, 7.5px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 7.5px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 7.5px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 7.5px, 0) rotateX(-90deg);
+  transform: translate3d(0, 7.5px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.body .foot .back, .body .foot .front {
+  width: 30px;
+  height: 15px;
+  margin-left: -15px;
+  margin-top: -7.5px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.body .foot .back {
+  -webkit-transform: translate3d(0, 0, -25px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -25px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -25px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -25px) rotateY(180deg);
+  transform: translate3d(0, 0, -25px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.body .foot .front {
+  -webkit-transform: translate3d(0, 0, 25px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 25px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 25px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 25px) rotateY(0deg);
+  transform: translate3d(0, 0, 25px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.body .foot .left, .body .foot .right {
+  width: 50px;
+  height: 15px;
+  margin-left: -25px;
+  margin-top: -7.5px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.body .foot .left {
+  -webkit-transform: translate3d(-15px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-15px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-15px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-15px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-15px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.body .foot .right {
+  -webkit-transform: translate3d(15px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(15px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(15px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(15px, 0, 0) rotateY(90deg);
+  transform: translate3d(15px, 0, 0) rotateY(90deg);
+}
+/* line 180, ../sass/robot-3d.scss */
+.body .leg-left {
+  -webkit-transform: translate3d(-25px, 0, 0);
+  -moz-transform: translate3d(-25px, 0, 0);
+  -ms-transform: translate3d(-25px, 0, 0);
+  -o-transform: translate3d(-25px, 0, 0);
+  transform: translate3d(-25px, 0, 0);
+}
+/* line 181, ../sass/robot-3d.scss */
+.body .leg-right {
+  -webkit-transform: translate3d(25px, 0, 0);
+  -moz-transform: translate3d(25px, 0, 0);
+  -ms-transform: translate3d(25px, 0, 0);
+  -o-transform: translate3d(25px, 0, 0);
+  transform: translate3d(25px, 0, 0);
+}
