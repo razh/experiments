@@ -70,6 +70,7 @@ $leg-right-transform: translate3d( 25px, 0, 0);
 .body {
   @include transform($body-transform rotateY(0));
   @include transform-style(preserve-3d);
+  @include transform-origin(0 0 0);
 
   *, & {
     @include transition(all 1s);
