@@ -112,8 +112,8 @@
     this.b = b || 0;
     this.c = c || 0;
     this.d = d || 0;
-    this.tx = tx !== 'undefined' ? tx : new Length();
-    this.ty = ty !== 'undefined' ? ty : new Length();
+    this.tx = typeof tx !== 'undefined' ? tx : new Length();
+    this.ty = typeof ty !== 'undefined' ? ty : new Length();
   }
 
   Matrix.prototype = new Transform();
@@ -143,9 +143,9 @@
     this.b2 = arguments[ 9] || 0;
     this.c2 = arguments[10] || 0;
     this.d2 = arguments[11] || 0;
-    this.a3 = arguments[12] !== 'undefined' ? arguments[12] : new Length();
-    this.b3 = arguments[13] !== 'undefined' ? arguments[13] : new Length();
-    this.c3 = arguments[14] !== 'undefined' ? arguments[14] : new Length();
+    this.a3 = typeof arguments[12] !== 'undefined' ? arguments[12] : new Length();
+    this.b3 = typeof arguments[13] !== 'undefined' ? arguments[13] : new Length();
+    this.c3 = typeof arguments[14] !== 'undefined' ? arguments[14] : new Length();
     this.d3 = arguments[15] || 0;
   }
 
