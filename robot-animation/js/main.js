@@ -20,6 +20,4 @@ requirejs.config({
 
 define(function( require ) {
   'use strict';
-
-  var Transform = require( 'views/transform-view' );
 });
