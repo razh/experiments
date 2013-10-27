@@ -78,6 +78,20 @@
    *  translateZ()
    */
 
+  // Utilities.
+  /**
+   * Used in a reduce() call to convert an array into an enum object.
+   *
+   * For example:
+   *   [ 'a', 'b', 'c' ] => { 'a': 0, 'b': 1, 'c': 2 }
+   */
+  function reduceEnum( previousValue, currentValue, index ) {
+    previousValue[ currentValue ] = index;
+    return previousValue;
+  }
+
+
+  // CSS classes.
   function Dimension( value, units ) {
     this.value = value || 0;
     this.units = units || '';
@@ -91,12 +105,27 @@
     Dimension.call( this, value, units );
   }
 
+  Angle.Units = [ 'deg', 'rad', 'grad', 'turn' ].reduce( reduceEnum, {} );
+
+  console.log( Angle.Units );
+
   Angle.prototype = new Dimension();
   Angle.prototype.constructor = Angle;
 
   function Length( value, units ) {
     Dimension.call( this, value, units );
   }
+
+  Length.Units = [
+    // Common units.
+    'px', 'rem', 'em', 'pt',
+    // Viewport-percentage units.
+    'vw', 'vh', 'vmin', 'vmax',
+    // Rest of the absolutes.
+    'cm', 'mm', 'in', 'pc',
+    // Rest of the font-relatives.
+    'ex', 'ch'
+  ].reduce( reduceEnum, {} );
 
   Length.prototype = new Dimension();
   Length.prototype.constructor = Length;
@@ -376,10 +405,39 @@
     return 'translateZ(' + this.t + ')';
   };
 
+
+  // TODO: Convert into Backbone Views.
   function TransformView( options ) {
     this.el = options.el;
     this.model = options.model;
   }
 
+  TransformView.prototype.initialize = function() {
+    var model = this.model;
+    for ( var key in model ) {
+      if ( model.hasOwnProperty( key ) ) {
+        if ( model[ key ] instanceof Dimension ) {
+          console.log( key );
+        }
+      }
+    }
+  };
+
+  var matrix = new Matrix();
+  var view = new TransformView({
+    model: matrix
+  });
+
+  view.initialize();
+
   TransformView.prototype.render = function() {};
+
+
+  function DimensionView( options ) {
+    this.el = options.el;
+    this.model = options.model;
+  }
+
+  DimensionView.prototype.initialize = function() {};
+  DimensionView.prototype.render = function() {};
 }) ( window, document );
