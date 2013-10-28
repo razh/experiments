@@ -17,13 +17,16 @@ define([
 
 
   var Dimension = Backbone.Model.extend({
-    defaults: {
-      value: 0,
-      units: ''
+    defaults: function() {
+      return {
+        value: 0,
+        units: ''
+      };
     },
 
     toString: function() {
-      return this.get( 'value' ) + this.get( 'units' );
+      var value = this.get( 'value' );
+      return value === 0 ? value : value + this.get( 'units' );
     }
   });
 

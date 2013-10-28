@@ -2,12 +2,12 @@
 define([
   'underscore',
   'backbone',
-  'models/units'
-], function( _, Backbone, Units ) {
+  'models/dimension'
+], function( _, Backbone, Dimension ) {
   'use strict';
 
-  var Angle  = Units.Angle,
-      Length = Units.Length;
+  var Angle  = Dimension.Angle,
+      Length = Dimension.Length;
 
   var Transform = Backbone.Model.extend({
     // Allow attributes to be set with an array.
@@ -283,7 +283,7 @@ define([
         if ( !( this.get( key ) instanceof Length ) ) {
           throw new TypeError( key + ' not of type Length.' );
         }
-      })
+      });
     },
 
     toString: function() {
@@ -310,9 +310,9 @@ define([
 
     toString: function() {
       return 'translate3d(' +
-        this.( 'tx' ) + ', ' +
-        this.( 'ty' ) + ', ' +
-        this.( 'tz' ) +
+        this.get( 'tx' ) + ', ' +
+        this.get( 'ty' ) + ', ' +
+        this.get( 'tz' ) +
       ')';
     }
   });

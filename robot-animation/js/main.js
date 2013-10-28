@@ -24,6 +24,16 @@ define(function( require ) {
   var _ = require( 'underscore' ),
       Backbone = require( 'backbone' );
 
+  var Dimension = require( 'models/dimension' ),
+      Transform = require( 'models/transform' );
+
+  var Length = Dimension.Length;
+
+  var tr = new Transform.TranslateX([
+    new Length( 10, Length.Units.px )
+  ]);
+
+
   var Model = Backbone.Model.extend({
     defaults: function() {
       return {
