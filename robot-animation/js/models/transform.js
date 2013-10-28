@@ -1,13 +1,9 @@
 /*globals define*/
 define([
   'underscore',
-  'backbone',
-  'models/dimension'
-], function( _, Backbone, Dimension ) {
+  'backbone'
+], function( _, Backbone ) {
   'use strict';
-
-  var Angle  = Dimension.Angle,
-      Length = Dimension.Length;
 
   var Transform = Backbone.Model.extend({
     // Allow attributes to be set with an array.
@@ -36,19 +32,9 @@ define([
         b: 0,
         c: 0,
         d: 1,
-        tx: new Length(),
-        ty: new Length()
+        tx: 0,
+        ty: 0
       };
-    },
-
-    constructor: function() {
-      Transform.apply( this, arguments );
-      // Placeholder.
-      [ 'tx', 'ty' ].forEach(function( key ) {
-        if ( !( this.get( key ) instanceof Length ) ) {
-          throw new TypeError( key + ' not of type Length.' );
-        }
-      });
     },
 
     toString: function() {
@@ -62,7 +48,6 @@ define([
       ')';
     }
   });
-  // var mat =
 
   var Matrix3D = Transform.extend({
     defaults: function() {
@@ -80,21 +65,11 @@ define([
         b2: 0,
         c2: 1,
         d2: 0,
-        a3: new Length(),
-        b3: new Length(),
-        c3: new Length(),
+        a3: 0,
+        b3: 0,
+        c3: 0,
         d3: 1
       };
-    },
-
-    constructor: function() {
-      Transform.apply( this, arguments );
-      // TODO: Determine whether or not these checks are necessary.
-      [ 'a3', 'b3', 'c3' ].forEach(function( key ) {
-        if ( !( this.get( key ) instanceof Length ) ) {
-          throw new TypeError( key + ' not of type Length.' );
-        }
-      });
     },
 
     toString: function() {
@@ -123,38 +98,31 @@ define([
   var Rotate = Transform.extend({
     defaults: function() {
       return {
-        a: new Angle()
+        a: 0
       };
     },
 
-    constructor: function() {
-      Transform.apply( this, arguments );
-      if ( !( this.get( 'a' ) instanceof Angle ) ) {
-        throw new TypeError( 'Rotation angle not of type Angle.' );
-      }
-    },
-
     toString: function() {
-      return 'rotate(' + this.a + ')';
+      return 'rotate(' + this.a + 'deg)';
     }
   });
 
 
   var RotateX = Rotate.extend({
     toString: function() {
-      return 'rotateX(' + this.get( 'a' ) + ')';
+      return 'rotateX(' + this.get( 'a' ) + 'deg)';
     }
   });
 
   var RotateY = Rotate.extend({
     toString: function() {
-      return 'rotateY(' + this.get( 'a' ) + ')';
+      return 'rotateY(' + this.get( 'a' ) + 'deg)';
     }
   });
 
   var RotateZ = Rotate.extend({
     toString: function() {
-      return 'rotateZ(' + this.get( 'a' ) + ')';
+      return 'rotateZ(' + this.get( 'a' ) + 'deg)';
     }
   });
 
@@ -164,17 +132,16 @@ define([
         x: 0,
         y: 0,
         z: 0,
-        a: new Angle()
+        a: 0
       };
     },
 
     toString: function() {
       return 'rotate3d(' +
-        this.get( 'x' ) + ', ' +
-        this.get( 'y' ) + ', ' +
-        this.get( 'z' ) + ', ' +
-        this.get( 'a' ) +
-      ')';
+        this.get( 'x' ) + 'deg, ' +
+        this.get( 'y' ) + 'deg, ' +
+        this.get( 'z' ) + 'deg, ' +
+        this.get( 'a' ) + 'deg)';
     }
   });
 
@@ -244,27 +211,20 @@ define([
   var Skew = Transform.extend({
     defaults: function() {
       return {
-        a: new Angle()
+        a: 0
       };
-    },
-
-    constructor: function() {
-      Transform.apply( this, arguments );
-      if ( !( this.get( 'a' ) instanceof Angle ) ) {
-        throw new TypeError( 'Skew angle not of type Angle.' );
-      }
     }
   });
 
   var SkewX = Skew.extend({
     toString: function() {
-      return 'skewX(' + this.get( 'a' ) + ')';
+      return 'skewX(' + this.get( 'a' ) + 'deg)';
     }
   });
 
   var SkewY = Skew.extend({
     toString: function() {
-      return 'skewY(' + this.get( 'a' ) + ')';
+      return 'skewY(' + this.get( 'a' ) + 'deg)';
     }
   });
 
@@ -272,48 +232,30 @@ define([
   var Translate = Transform.extend({
     defaults: function() {
       return {
-        tx: new Length(),
-        ty: new Length()
+        tx: 0,
+        ty: 0
       };
-    },
-
-    constructor: function() {
-      Transform.apply( this, arguments );
-      [ 'tx', 'ty' ].forEach(function( key ) {
-        if ( !( this.get( key ) instanceof Length ) ) {
-          throw new TypeError( key + ' not of type Length.' );
-        }
-      });
     },
 
     toString: function() {
       return 'translate(' +
-        this.get( 'tx' ) + ', ' +
-        this.get( 'ty' ) + ', ' +
-      ')';
+        this.get( 'tx' ) + 'px, ' +
+        this.get( 'ty' ) + 'px)';
     }
   });
 
   var Translate3D = Translate.extend({
     defaults: function() {
       var defaults = Translate.prototype.defaults();
-      defaults.tz = new Length();
+      defaults.tz = 0;
       return defaults;
-    },
-
-    constructor: function() {
-      Translate.apply( this, arguments );
-      if ( !( this.get( 'tz' ) instanceof Length ) ) {
-        throw new TypeError( 'tz not of type Length.' );
-      }
     },
 
     toString: function() {
       return 'translate3d(' +
-        this.get( 'tx' ) + ', ' +
-        this.get( 'ty' ) + ', ' +
-        this.get( 'tz' ) +
-      ')';
+        this.get( 'tx' ) + 'px, ' +
+        this.get( 'ty' ) + 'px, ' +
+        this.get( 'tz' ) + 'px)';
     }
   });
 
@@ -321,33 +263,26 @@ define([
   var Translate1D = Transform.extend({
     defaults: function() {
       return {
-        t: new Length()
+        t: 0
       };
-    },
-
-    constructor: function() {
-      Transform.apply( this, arguments );
-      if ( !( this.get( 't' ) instanceof Length ) ) {
-        throw new TypeError( 't not of type Length.' );
-      }
     }
   });
 
   var TranslateX = Translate1D.extend({
     toString: function() {
-      return 'translateX(' + this.get( 't' ) + ')';
+      return 'translateX(' + this.get( 't' ) + 'px)';
     }
   });
 
   var TranslateY = Translate1D.extend({
     toString: function() {
-      return 'translateY(' + this.get( 't' ) + ')';
+      return 'translateY(' + this.get( 't' ) + 'px)';
     }
   });
 
   var TranslateZ = Translate1D.extend({
     toString: function() {
-      return 'translateZ(' + this.get( 't' ) + ')';
+      return 'translateZ(' + this.get( 't' ) + 'px)';
     }
   });
 

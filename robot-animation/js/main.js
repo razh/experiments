@@ -24,15 +24,7 @@ define(function( require ) {
   var _ = require( 'underscore' ),
       Backbone = require( 'backbone' );
 
-  var Dimension = require( 'models/dimension' ),
-      Transform = require( 'models/transform' );
-
-  var Length = Dimension.Length;
-
-  var tr = new Transform.TranslateX([
-    new Length( 10, Length.Units.px )
-  ]);
-
+  var Transform = require( 'models/transform' );
 
   var Model = Backbone.Model.extend({
     defaults: function() {
@@ -41,8 +33,8 @@ define(function( require ) {
         b: 0,
         c: 0,
         d: 0,
-        tx: { value: 2, units: 'px' },
-        ty: { value: 3, units: 'px' }
+        tx: 2,
+        ty: 3
       };
     },
 
@@ -52,13 +44,15 @@ define(function( require ) {
 
       if ( _.isArray( attributes ) ) {
         Backbone.Model.apply( this, args );
-        this.set( _.object( this.keys, attributes ) );
+        // TODO: Handle undefined values.
+        console.log( _.defaults( _.object( this.keys(), attributes ), this.attributes ) );
+        this.set( _.object( this.keys(), attributes ) );
       } else {
         Backbone.Model.apply( this, arguments );
       }
     }
   });
 
-  var m = new Model([10, 20, 30, 40, {value:5, units:'px'}, {value:10, units:'rem'}]);
+  var m = new Model([10, 20, 30, 40, 5]);
   console.log( m.attributes );
 });
