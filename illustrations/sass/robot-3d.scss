@@ -55,11 +55,11 @@ $upper-leg-transform: translate3d(0, 55px, 0);
 $lower-leg-transform: translate3d(0, 70px, 0);
 $foot-transform: translate3d(0, 50px, 10px);
 
-$arm-left-transform:  translate3d(-60px, 0, 0);
-$arm-right-transform: translate3d( 60px, 0, 0);
+$arm-left-transform:  translate3d( 60px, 0, 0);
+$arm-right-transform: translate3d(-60px, 0, 0);
 
-$leg-left-transform:  translate3d(-25px, 0, 0);
-$leg-right-transform: translate3d( 25px, 0, 0);
+$leg-left-transform:  translate3d( 25px, 0, 0);
+$leg-right-transform: translate3d(-25px, 0, 0);
 
 .robot {
   @include perspective(2000px);
@@ -83,13 +83,13 @@ $leg-right-transform: translate3d( 25px, 0, 0);
 
     .head { @include transform($head-transform rotateY(-30deg)); }
 
-    .arm-right {
+    .arm-left {
       .upper-arm { @include transform($upper-arm-transform rotateX(30deg)); }
       .lower-arm { @include transform($lower-arm-transform rotateX(30deg)); }
       .hand { @include transform($hand-transform rotateX(20deg)); }
     }
 
-    .arm-left {
+    .arm-right {
       .upper-arm { @include transform($upper-arm-transform rotateX(-50deg)); }
       .lower-arm { @include transform($lower-arm-transform rotateX(30deg)); }
       .hand { @include transform($hand-transform rotateX(20deg)); }
@@ -97,12 +97,12 @@ $leg-right-transform: translate3d( 25px, 0, 0);
 
     .hips { @include transform($hips-transform rotateY(-30deg)); }
 
-    .leg-right {
+    .leg-left {
       .upper-leg { @include transform($upper-leg-transform rotateX(-30deg)); }
       .lower-leg { @include transform($lower-leg-transform rotateX(-20deg)); }
     }
 
-    .leg-left {
+    .leg-right {
       .upper-leg { @include transform($upper-leg-transform rotateX(40deg)); }
       .lower-leg { @include transform($lower-leg-transform rotateX(-40deg)); }
     }

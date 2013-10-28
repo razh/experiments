@@ -145,7 +145,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   transform: translate3d(0, -80px, 0) rotateY(-30deg);
 }
 /* line 87, ../sass/robot-3d.scss */
-.body:hover .arm-right .upper-arm {
+.body:hover .arm-left .upper-arm {
   -webkit-transform: translate3d(0, 0, 0) rotateX(30deg);
   -moz-transform: translate3d(0, 0, 0) rotateX(30deg);
   -ms-transform: translate3d(0, 0, 0) rotateX(30deg);
@@ -153,30 +153,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   transform: translate3d(0, 0, 0) rotateX(30deg);
 }
 /* line 88, ../sass/robot-3d.scss */
-.body:hover .arm-right .lower-arm {
-  -webkit-transform: translate3d(0, 60px, 0) rotateX(30deg);
-  -moz-transform: translate3d(0, 60px, 0) rotateX(30deg);
-  -ms-transform: translate3d(0, 60px, 0) rotateX(30deg);
-  -o-transform: translate3d(0, 60px, 0) rotateX(30deg);
-  transform: translate3d(0, 60px, 0) rotateX(30deg);
-}
-/* line 89, ../sass/robot-3d.scss */
-.body:hover .arm-right .hand {
-  -webkit-transform: translate3d(0, 40px, 0) rotateX(20deg);
-  -moz-transform: translate3d(0, 40px, 0) rotateX(20deg);
-  -ms-transform: translate3d(0, 40px, 0) rotateX(20deg);
-  -o-transform: translate3d(0, 40px, 0) rotateX(20deg);
-  transform: translate3d(0, 40px, 0) rotateX(20deg);
-}
-/* line 93, ../sass/robot-3d.scss */
-.body:hover .arm-left .upper-arm {
-  -webkit-transform: translate3d(0, 0, 0) rotateX(-50deg);
-  -moz-transform: translate3d(0, 0, 0) rotateX(-50deg);
-  -ms-transform: translate3d(0, 0, 0) rotateX(-50deg);
-  -o-transform: translate3d(0, 0, 0) rotateX(-50deg);
-  transform: translate3d(0, 0, 0) rotateX(-50deg);
-}
-/* line 94, ../sass/robot-3d.scss */
 .body:hover .arm-left .lower-arm {
   -webkit-transform: translate3d(0, 60px, 0) rotateX(30deg);
   -moz-transform: translate3d(0, 60px, 0) rotateX(30deg);
@@ -184,8 +160,32 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   -o-transform: translate3d(0, 60px, 0) rotateX(30deg);
   transform: translate3d(0, 60px, 0) rotateX(30deg);
 }
-/* line 95, ../sass/robot-3d.scss */
+/* line 89, ../sass/robot-3d.scss */
 .body:hover .arm-left .hand {
+  -webkit-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  -moz-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  -ms-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  -o-transform: translate3d(0, 40px, 0) rotateX(20deg);
+  transform: translate3d(0, 40px, 0) rotateX(20deg);
+}
+/* line 93, ../sass/robot-3d.scss */
+.body:hover .arm-right .upper-arm {
+  -webkit-transform: translate3d(0, 0, 0) rotateX(-50deg);
+  -moz-transform: translate3d(0, 0, 0) rotateX(-50deg);
+  -ms-transform: translate3d(0, 0, 0) rotateX(-50deg);
+  -o-transform: translate3d(0, 0, 0) rotateX(-50deg);
+  transform: translate3d(0, 0, 0) rotateX(-50deg);
+}
+/* line 94, ../sass/robot-3d.scss */
+.body:hover .arm-right .lower-arm {
+  -webkit-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  -moz-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  -ms-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  -o-transform: translate3d(0, 60px, 0) rotateX(30deg);
+  transform: translate3d(0, 60px, 0) rotateX(30deg);
+}
+/* line 95, ../sass/robot-3d.scss */
+.body:hover .arm-right .hand {
   -webkit-transform: translate3d(0, 40px, 0) rotateX(20deg);
   -moz-transform: translate3d(0, 40px, 0) rotateX(20deg);
   -ms-transform: translate3d(0, 40px, 0) rotateX(20deg);
@@ -201,7 +201,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   transform: translate3d(0, 80px, 0) rotateY(-30deg);
 }
 /* line 101, ../sass/robot-3d.scss */
-.body:hover .leg-right .upper-leg {
+.body:hover .leg-left .upper-leg {
   -webkit-transform: translate3d(0, 55px, 0) rotateX(-30deg);
   -moz-transform: translate3d(0, 55px, 0) rotateX(-30deg);
   -ms-transform: translate3d(0, 55px, 0) rotateX(-30deg);
@@ -209,7 +209,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   transform: translate3d(0, 55px, 0) rotateX(-30deg);
 }
 /* line 102, ../sass/robot-3d.scss */
-.body:hover .leg-right .lower-leg {
+.body:hover .leg-left .lower-leg {
   -webkit-transform: translate3d(0, 70px, 0) rotateX(-20deg);
   -moz-transform: translate3d(0, 70px, 0) rotateX(-20deg);
   -ms-transform: translate3d(0, 70px, 0) rotateX(-20deg);
@@ -217,7 +217,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   transform: translate3d(0, 70px, 0) rotateX(-20deg);
 }
 /* line 106, ../sass/robot-3d.scss */
-.body:hover .leg-left .upper-leg {
+.body:hover .leg-right .upper-leg {
   -webkit-transform: translate3d(0, 55px, 0) rotateX(40deg);
   -moz-transform: translate3d(0, 55px, 0) rotateX(40deg);
   -ms-transform: translate3d(0, 55px, 0) rotateX(40deg);
@@ -225,7 +225,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   transform: translate3d(0, 55px, 0) rotateX(40deg);
 }
 /* line 107, ../sass/robot-3d.scss */
-.body:hover .leg-left .lower-leg {
+.body:hover .leg-right .lower-leg {
   -webkit-transform: translate3d(0, 70px, 0) rotateX(-40deg);
   -moz-transform: translate3d(0, 70px, 0) rotateX(-40deg);
   -ms-transform: translate3d(0, 70px, 0) rotateX(-40deg);
@@ -726,19 +726,19 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 /* line 153, ../sass/robot-3d.scss */
 .body .arm-left {
-  -webkit-transform: translate3d(-60px, 0, 0);
-  -moz-transform: translate3d(-60px, 0, 0);
-  -ms-transform: translate3d(-60px, 0, 0);
-  -o-transform: translate3d(-60px, 0, 0);
-  transform: translate3d(-60px, 0, 0);
-}
-/* line 154, ../sass/robot-3d.scss */
-.body .arm-right {
   -webkit-transform: translate3d(60px, 0, 0);
   -moz-transform: translate3d(60px, 0, 0);
   -ms-transform: translate3d(60px, 0, 0);
   -o-transform: translate3d(60px, 0, 0);
   transform: translate3d(60px, 0, 0);
+}
+/* line 154, ../sass/robot-3d.scss */
+.body .arm-right {
+  -webkit-transform: translate3d(-60px, 0, 0);
+  -moz-transform: translate3d(-60px, 0, 0);
+  -ms-transform: translate3d(-60px, 0, 0);
+  -o-transform: translate3d(-60px, 0, 0);
+  transform: translate3d(-60px, 0, 0);
 }
 /* line 156, ../sass/robot-3d.scss */
 .body .hips {
@@ -1106,17 +1106,17 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 /* line 180, ../sass/robot-3d.scss */
 .body .leg-left {
-  -webkit-transform: translate3d(-25px, 0, 0);
-  -moz-transform: translate3d(-25px, 0, 0);
-  -ms-transform: translate3d(-25px, 0, 0);
-  -o-transform: translate3d(-25px, 0, 0);
-  transform: translate3d(-25px, 0, 0);
-}
-/* line 181, ../sass/robot-3d.scss */
-.body .leg-right {
   -webkit-transform: translate3d(25px, 0, 0);
   -moz-transform: translate3d(25px, 0, 0);
   -ms-transform: translate3d(25px, 0, 0);
   -o-transform: translate3d(25px, 0, 0);
   transform: translate3d(25px, 0, 0);
+}
+/* line 181, ../sass/robot-3d.scss */
+.body .leg-right {
+  -webkit-transform: translate3d(-25px, 0, 0);
+  -moz-transform: translate3d(-25px, 0, 0);
+  -ms-transform: translate3d(-25px, 0, 0);
+  -o-transform: translate3d(-25px, 0, 0);
+  transform: translate3d(-25px, 0, 0);
 }
