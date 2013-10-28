@@ -13,7 +13,15 @@ define([
 
       if ( _.isArray( attributes ) ) {
         Backbone.Model.apply( this, args );
-        this.set( _.object( this.keys, attributes ) );
+
+        // Grab as many keys as we can set.
+        var keys = this.keys().slice( 0, attributes.length );
+        // Convert attributes array to an object.
+        attributes = _.object( keys, attributes );
+        // Fill in any undefined values.
+        attributes = _.defaults( attributes, this.attributes );
+
+        this.set( attributes );
       } else {
         Backbone.Model.apply( this, arguments );
       }
@@ -21,6 +29,24 @@ define([
 
     toString: function() {
       return '';
+    }
+  });
+
+  // Transform origin is not really a transform, but setting values with an
+  // array is useful.
+  var Origin = Transform.extend({
+    defaults: function() {
+      return {
+        x: 0,
+        y: 0,
+        z: 0
+      };
+    },
+
+    toString: function() {
+      return this.get( 'x' ) + 'px ' +
+             this.get( 'y' ) + 'px ' +
+             this.get( 'z' ) + 'px';
     }
   });
 
@@ -138,9 +164,9 @@ define([
 
     toString: function() {
       return 'rotate3d(' +
-        this.get( 'x' ) + 'deg, ' +
-        this.get( 'y' ) + 'deg, ' +
-        this.get( 'z' ) + 'deg, ' +
+        this.get( 'x' ) + ', ' +
+        this.get( 'y' ) + ', ' +
+        this.get( 'z' ) + ', ' +
         this.get( 'a' ) + 'deg)';
     }
   });
@@ -286,6 +312,8 @@ define([
     }
   });
 
+
+  Transform.Origin = Origin;
 
   Transform.Matrix   = Matrix;
   Transform.Matrix3D = Matrix3D;
