@@ -1,73 +1,104 @@
 /*globals define*/
 define([
-  'Backbone',
+  'underscore',
+  'backbone',
   'models/units'
-], function( Backbone, Units ) {
+], function( _, Backbone, Units ) {
   'use strict';
 
   var Angle  = Units.Angle,
       Length = Units.Length;
 
   var Transform = Backbone.Model.extend({
+    // Allow attributes to be set with an array.
+    constructor: function() {
+      var args = [].slice.call( arguments ),
+          attributes = args.shift();
+
+      if ( _.isArray( attributes ) ) {
+        Backbone.Model.apply( this, args );
+        this.set( _.object( this.keys, attributes ) );
+      } else {
+        Backbone.Model.apply( this, arguments );
+      }
+    },
+
     toString: function() {
       return '';
     }
   });
 
 
+  var Matrix = Transform.extend({
+    defaults: function() {
+      return {
+        a: 1,
+        b: 0,
+        c: 0,
+        d: 1,
+        tx: new Length(),
+        ty: new Length()
+      };
+    },
 
-  function Matrix( a, b, c, d, tx, ty ) {
-    this.a = a || 0;
-    this.b = b || 0;
-    this.c = c || 0;
-    this.d = d || 0;
-    this.tx = typeof tx !== 'undefined' ? tx : new Length();
-    this.ty = typeof ty !== 'undefined' ? ty : new Length();
-  }
+    toString: function() {
+      return 'matrix(' +
+        this.get( 'a' ) + ', ' +
+        this.get( 'b' ) + ', ' +
+        this.get( 'c' ) + ', ' +
+        this.get( 'd' ) + ', ' +
+        this.get( 'tx' ) + ', ' +
+        this.get( 'ty' ) + ')';
+    }
+  });
+  // var mat =
 
-  Matrix.prototype = new Transform();
-  Matrix.prototype.constructor = Matrix;
+  var Matrix3D = Transform.extend({
+    defaults: function() {
+      // Use the identity matrix.
+      return {
+        a0: 1,
+        b0: 0,
+        c0: 0,
+        d0: 0,
+        a1: 0,
+        b1: 1,
+        c1: 0,
+        d1: 0,
+        a2: 0,
+        b2: 0,
+        c2: 1,
+        d2: 0,
+        a3: new Length(),
+        b3: new Length(),
+        c3: new Length(),
+        d3: 1
+      };
+    },
 
-  Matrix.prototype.toString = function() {
-    return 'matrix(' +
-      this.a + ', ' +
-      this.b + ', ' +
-      this.c + ', ' +
-      this.d + ', ' +
-      this.tx + ', ' +
-      this.ty + ')';
-  };
+    toString: function() {
+      return 'matrix3d(' +
+        this.get( 'a0' ) + ', ' +
+        this.get( 'b0' ) + ', ' +
+        this.get( 'c0' ) + ', ' +
+        this.get( 'd0' ) + ', ' +
+        this.get( 'a1' ) + ', ' +
+        this.get( 'b1' ) + ', ' +
+        this.get( 'c1' ) + ', ' +
+        this.get( 'd1' ) + ', ' +
+        this.get( 'a2' ) + ', ' +
+        this.get( 'b2' ) + ', ' +
+        this.get( 'c2' ) + ', ' +
+        this.get( 'd2' ) + ', ' +
+        this.get( 'a3' ) + ', ' +
+        this.get( 'b3' ) + ', ' +
+        this.get( 'c3' ) + ', ' +
+        this.get( 'd3' ) + ')';
+     }
+  });
 
 
-  function Matrix3D() {
-    this.a0 = arguments[ 0] || 0;
-    this.b0 = arguments[ 1] || 0;
-    this.c0 = arguments[ 2] || 0;
-    this.d0 = arguments[ 3] || 0;
-    this.a1 = arguments[ 4] || 0;
-    this.b1 = arguments[ 5] || 0;
-    this.c1 = arguments[ 6] || 0;
-    this.d1 = arguments[ 7] || 0;
-    this.a2 = arguments[ 8] || 0;
-    this.b2 = arguments[ 9] || 0;
-    this.c2 = arguments[10] || 0;
-    this.d2 = arguments[11] || 0;
-    this.a3 = typeof arguments[12] !== 'undefined' ? arguments[12] : new Length();
-    this.b3 = typeof arguments[13] !== 'undefined' ? arguments[13] : new Length();
-    this.c3 = typeof arguments[14] !== 'undefined' ? arguments[14] : new Length();
-    this.d3 = arguments[15] || 0;
-  }
 
-  Matrix3D.prototype = new Transform();
-  Matrix3D.prototype.constructor = Matrix3D;
-
-  Matrix3D.prototype.toString = function() {
-    return 'matrix3d(' +
-      this.a0 + ', ' + this.b0 + ', ' + this.c0 + ', ' + this.d0 + ', ' +
-      this.a1 + ', ' + this.b1 + ', ' + this.c1 + ', ' + this.d1 + ', ' +
-      this.a2 + ', ' + this.b2 + ', ' + this.c2 + ', ' + this.d2 + ', ' +
-      this.a3 + ', ' + this.b3 + ', ' + this.c3 + ', ' + this.d3 + ')';
-  };
 
 
   function Rotate( a ) {
@@ -285,7 +316,8 @@ define([
     return 'translateZ(' + this.t + ')';
   };
 
-  return {
+  Transform.Matrix   = Matrix;
+  Transform.Matrix3D = Matrix3D;
 
-  };
+  return Transform;
 });
