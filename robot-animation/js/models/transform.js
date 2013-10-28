@@ -41,6 +41,16 @@ define([
       };
     },
 
+    constructor: function() {
+      Transform.apply( this, arguments );
+      // Placeholder.
+      [ 'tx', 'ty' ].forEach(function( key ) {
+        if ( !( this.get( key ) instanceof Length ) ) {
+          throw new TypeError( key + ' not of type Length.' );
+        }
+      });
+    },
+
     toString: function() {
       return 'matrix(' +
         this.get( 'a' ) + ', ' +
@@ -48,7 +58,8 @@ define([
         this.get( 'c' ) + ', ' +
         this.get( 'd' ) + ', ' +
         this.get( 'tx' ) + ', ' +
-        this.get( 'ty' ) + ')';
+        this.get( 'ty' ) +
+      ')';
     }
   });
   // var mat =
@@ -76,6 +87,16 @@ define([
       };
     },
 
+    constructor: function() {
+      Transform.apply( this, arguments );
+      // TODO: Determine whether or not these checks are necessary.
+      [ 'a3', 'b3', 'c3' ].forEach(function( key ) {
+        if ( !( this.get( key ) instanceof Length ) ) {
+          throw new TypeError( key + ' not of type Length.' );
+        }
+      });
+    },
+
     toString: function() {
       return 'matrix3d(' +
         this.get( 'a0' ) + ', ' +
@@ -93,231 +114,267 @@ define([
         this.get( 'a3' ) + ', ' +
         this.get( 'b3' ) + ', ' +
         this.get( 'c3' ) + ', ' +
-        this.get( 'd3' ) + ')';
-     }
+        this.get( 'd3' ) +
+      ')';
+    }
   });
 
 
+  var Rotate = Transform.extend({
+    defaults: function() {
+      return {
+        a: new Angle()
+      };
+    },
+
+    constructor: function() {
+      Transform.apply( this, arguments );
+      if ( !( this.get( 'a' ) instanceof Angle ) ) {
+        throw new TypeError( 'Rotation angle not of type Angle.' );
+      }
+    },
+
+    toString: function() {
+      return 'rotate(' + this.a + ')';
+    }
+  });
+
+
+  var RotateX = Rotate.extend({
+    toString: function() {
+      return 'rotateX(' + this.get( 'a' ) + ')';
+    }
+  });
+
+  var RotateY = Rotate.extend({
+    toString: function() {
+      return 'rotateY(' + this.get( 'a' ) + ')';
+    }
+  });
+
+  var RotateZ = Rotate.extend({
+    toString: function() {
+      return 'rotateZ(' + this.get( 'a' ) + ')';
+    }
+  });
+
+  var Rotate3D = Rotate.extend({
+    defaults: function() {
+      return {
+        x: 0,
+        y: 0,
+        z: 0,
+        a: new Angle()
+      };
+    },
+
+    toString: function() {
+      return 'rotate3d(' +
+        this.get( 'x' ) + ', ' +
+        this.get( 'y' ) + ', ' +
+        this.get( 'z' ) + ', ' +
+        this.get( 'a' ) +
+      ')';
+    }
+  });
+
+
+  var Scale = Transform.extend({
+    defaults: function() {
+      return {
+        sx: 1,
+        sy: 1
+      };
+    },
+
+    toString: function() {
+      return 'scale(' +
+        this.get( 'sx' ) + ', ' +
+        this.get( 'sy' ) +
+      ')';
+    }
+  });
+
+  var Scale3D = Scale.extend({
+    defaults: function() {
+      var defaults = Scale.prototype.defaults();
+      defaults.sz = 1;
+      return defaults;
+    },
+
+    toString: function() {
+      return 'scale3d(' +
+        this.get( 'sx' ) + ', ' +
+        this.get( 'sy' ) + ', ' +
+        this.get( 'sz' ) +
+      ')';
+    }
+  });
+
+  // Base class for all one-dimensional scales.
+  var Scale1D = Transform.extend({
+    defaults: function() {
+      return {
+        s: 1
+      };
+    }
+  });
+
+  var ScaleX = Scale1D.extend({
+    toString: function() {
+      return 'scaleX(' + this.get( 's' ) + ')';
+    }
+  });
+
+  var ScaleY = Scale1D.extend({
+    toString: function() {
+      return 'scaleY(' + this.get( 's' ) + ')';
+    }
+  });
+
+  var ScaleZ = Scale1D.extend({
+    toString: function() {
+      return 'scaleZ(' + this.get( 's' ) + ')';
+    }
+  });
+
+
+  // Base class for skews.
+  // Warning: this is not intended to be used as the skew() CSS transform.
+  var Skew = Transform.extend({
+    defaults: function() {
+      return {
+        a: new Angle()
+      };
+    },
+
+    constructor: function() {
+      Transform.apply( this, arguments );
+      if ( !( this.get( 'a' ) instanceof Angle ) ) {
+        throw new TypeError( 'Skew angle not of type Angle.' );
+      }
+    }
+  });
+
+  var SkewX = Skew.extend({
+    toString: function() {
+      return 'skewX(' + this.get( 'a' ) + ')';
+    }
+  });
+
+  var SkewY = Skew.extend({
+    toString: function() {
+      return 'skewY(' + this.get( 'a' ) + ')';
+    }
+  });
+
+
+  var Translate = Transform.extend({
+    defaults: function() {
+      return {
+        tx: new Length(),
+        ty: new Length()
+      };
+    },
+
+    constructor: function() {
+      Transform.apply( this, arguments );
+      [ 'tx', 'ty' ].forEach(function( key ) {
+        if ( !( this.get( key ) instanceof Length ) ) {
+          throw new TypeError( key + ' not of type Length.' );
+        }
+      })
+    },
+
+    toString: function() {
+      return 'translate(' +
+        this.get( 'tx' ) + ', ' +
+        this.get( 'ty' ) + ', ' +
+      ')';
+    }
+  });
+
+  var Translate3D = Translate.extend({
+    defaults: function() {
+      var defaults = Translate.prototype.defaults();
+      defaults.tz = new Length();
+      return defaults;
+    },
+
+    constructor: function() {
+      Translate.apply( this, arguments );
+      if ( !( this.get( 'tz' ) instanceof Length ) ) {
+        throw new TypeError( 'tz not of type Length.' );
+      }
+    },
+
+    toString: function() {
+      return 'translate3d(' +
+        this.( 'tx' ) + ', ' +
+        this.( 'ty' ) + ', ' +
+        this.( 'tz' ) +
+      ')';
+    }
+  });
+
+  // Base class for one-dimensional translations.
+  var Translate1D = Transform.extend({
+    defaults: function() {
+      return {
+        t: new Length()
+      };
+    },
+
+    constructor: function() {
+      Transform.apply( this, arguments );
+      if ( !( this.get( 't' ) instanceof Length ) ) {
+        throw new TypeError( 't not of type Length.' );
+      }
+    }
+  });
+
+  var TranslateX = Translate1D.extend({
+    toString: function() {
+      return 'translateX(' + this.get( 't' ) + ')';
+    }
+  });
+
+  var TranslateY = Translate1D.extend({
+    toString: function() {
+      return 'translateY(' + this.get( 't' ) + ')';
+    }
+  });
+
+  var TranslateZ = Translate1D.extend({
+    toString: function() {
+      return 'translateZ(' + this.get( 't' ) + ')';
+    }
+  });
 
-
-
-  function Rotate( a ) {
-    this.a = typeof a !== 'undefined' ? a : new Angle();
-  }
-
-  Rotate.prototype = new Transform();
-  Rotate.prototype.constructor = Rotate;
-
-  Rotate.prototype.toString = function() {
-    return 'rotate(' + this.a + ')';
-  };
-
-
-  function RotateX( a ) {
-    Rotate.call( this, a );
-  }
-
-  RotateX.prototype = new Transform();
-  RotateX.prototype.constructor = RotateX;
-
-  RotateX.prototype.toString = function() {
-    return 'rotateX(' + this.a + ')';
-  };
-
-
-  function RotateY( a ) {
-    Rotate.call( this, a );
-  }
-
-  RotateY.prototype = new Transform();
-  RotateY.prototype.constructor = RotateY;
-
-  RotateY.prototype.toString = function() {
-    return 'rotateY(' + this.a + ')';
-  };
-
-
-  function RotateZ( a ) {
-    Rotate.call( this, a );
-  }
-
-  RotateZ.prototype = new Transform();
-  RotateZ.prototype.constructor = RotateZ;
-
-  RotateZ.prototype.toString = function() {
-    return 'rotateZ(' + this.a + ')';
-  };
-
-
-  function Rotate3D( x, y, z, a ) {
-    this.x = x || 0;
-    this.y = y || 0;
-    this.z = z || 0;
-    Rotate.call( this, a );
-  }
-
-  Rotate3D.prototype = new Transform();
-  Rotate3D.prototype.constructor = Rotate3D;
-
-  Rotate3D.prototype.toString = function() {
-    return 'rotate3d(' +
-      this.x + ', ' +
-      this.y + ', ' +
-      this.z + ', ' +
-      this.a + ')';
-  };
-
-
-  function Scale( sx, sy ) {
-    this.sx = typeof sx !== 'undefined' ? sx : 1;
-    this.sy = typeof sy !== 'undefined' ? sy : 1;
-  }
-
-  Scale.prototype = new Transform();
-  Scale.prototype.cosntructor = Scale;
-
-  Scale.prototype.toString = function() {
-    return 'scale(' +
-      this.sx + ', ' +
-      this.sy + ')';
-  };
-
-
-  function Scale3D( sx, sy, sz ) {
-    Scale.call( this, sx, sy );
-    this.sz = typeof sz !== 'undefined' ? sz : 1;
-  }
-
-  Scale3D.prototype = new Transform();
-  Scale3D.prototype.constructor = Scale3D;
-
-  Scale3D.prototype.toString = function() {
-    return 'scale3d(' +
-      this.sx + ', ' +
-      this.sy + ', ' +
-      this.sz + ')';
-  };
-
-  function ScaleX( s ) {
-    this.s = typeof s !== 'undefined' ? s : 1;
-  }
-
-  ScaleX.prototype = new Transform();
-  ScaleX.prototype.constructor = ScaleX;
-
-  ScaleX.prototype.toString = function() {
-    return 'scaleX(' + this.s + ')';
-  };
-
-
-  function ScaleY( s ) {
-    ScaleX.call( this, s );
-  }
-
-  ScaleY.prototype = new Transform();
-  ScaleY.prototype.constructor = ScaleY;
-
-  ScaleY.prototype.toString = function() {
-    return 'scaleY(' + this.s + ')';
-  };
-
-
-  function ScaleZ( s ) {
-    ScaleX.call( this, s );
-  }
-
-  ScaleZ.prototype = new Transform();
-  ScaleZ.prototype.constructor = ScaleZ;
-
-  ScaleZ.prototype.toString = function() {
-    return 'scaleZ(' + this.s + ')';
-  };
-
-
-  function SkewX( a ) {
-    this.a = typeof a !== 'undefined' ? a : new Angle();
-  }
-
-  SkewX.prototype = new Transform();
-  SkewX.prototype.cosntructor = SkewX;
-
-  SkewX.prototype.toString = function() {
-    return 'skewX(' + this.a + ')';
-  };
-
-
-  function SkewY( a ) {
-    SkewX.call( this, a );
-  }
-
-  SkewY.prototype = new Transform();
-  SkewY.prototype.cosntructor = SkewY;
-
-  SkewY.prototype.toString = function() {
-    return 'skewY(' + this.a + ')';
-  };
-
-
-  function Translate( tx, ty ) {
-    this.tx = typeof tx !== 'undefined' ? tx : new Length();
-    this.ty = typeof ty !== 'undefined' ? ty : new Length();
-  }
-
-  Translate.prototype = new Transform();
-  Translate.prototype.constructor = Translate;
-
-  function Translate3D( tx, ty, tz ) {
-    Translate.call( this, tx, ty, tz );
-  }
-
-  Translate3D.prototype = new Transform();
-  Translate3D.prototype.constructor = Translate3D;
-
-  Translate3D.prototype.toString = function() {
-    return 'translate3d(' +
-      this.tx + ', ' +
-      this.ty + ', ' +
-      this.tz + ')';
-  };
-
-
-  function TranslateX( t ) {
-    this.t = typeof t !== 'undefined' ? t : new Length();
-  }
-
-  TranslateX.prototype = new Transform();
-  TranslateX.prototype.constructor = TranslateX;
-
-  TranslateX.prototype.toString = function() {
-    return 'translateX(' + this.t  + ')';
-  };
-
-
-  function TranslateY( t ) {
-    TranslateX.call( this, t );
-  }
-
-  TranslateY.prototype = new Transform();
-  TranslateY.prototype.constructor = TranslateY;
-
-  TranslateY.prototype.toString = function() {
-    return 'translateY(' + this.t + ')';
-  };
-
-
-  function TranslateZ( t ) {
-    TranslateX.call( this, t );
-  }
-
-  TranslateZ.prototype = new Transform();
-  TranslateZ.prototype.constructor = TranslateZ;
-
-  TranslateZ.prototype.toString = function() {
-    return 'translateZ(' + this.t + ')';
-  };
 
   Transform.Matrix   = Matrix;
   Transform.Matrix3D = Matrix3D;
+
+  Transform.Rotate   = Rotate;
+  Transform.RotateX  = RotateX;
+  Transform.RotateY  = RotateY;
+  Transform.RotateZ  = RotateZ;
+  Transform.Rotate3D = Rotate3D;
+
+  Transform.Scale   = Scale;
+  Transform.Scale3D = Scale3D;
+  Transform.ScaleX  = ScaleX;
+  Transform.ScaleY  = ScaleY;
+  Transform.ScaleZ  = ScaleZ;
+
+  Transform.SkewX = SkewX;
+  Transform.SkewY = SkewY;
+
+  Transform.Translate   = Translate;
+  Transform.Translate3D = Translate3D;
+  Transform.TranslateX  = TranslateX;
+  Transform.TranslateY  = TranslateY;
+  Transform.TranslateZ  = TranslateZ;
 
   return Transform;
 });
