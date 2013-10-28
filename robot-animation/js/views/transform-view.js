@@ -1,10 +1,9 @@
 /*globals define*/
 define([
-  'jquery',
   'underscore',
   'backbone',
   'text!templates/transform-view.html'
-], function( $, _, Backbone, transformTemplate ) {
+], function( _, Backbone, transformTemplate ) {
   'use strict';
 
   var TransformView = Backbone.View.extend({
