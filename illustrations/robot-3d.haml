@@ -7,10 +7,20 @@
     %link(rel="stylesheet" href="./stylesheets/robot-3d.css")
   %body
     - def faces
-    -   ['top', 'bottom', 'front', 'back', 'left', 'right'].each do |direction|
-    -     haml_tag :div, :class => ['face', direction]
+    -   ['top', 'bottom', 'back', 'front', 'left', 'right'].each do |direction|
+    -     haml_tag :div, :class => ['face', direction] end
+    - end;
+
+    - def limb(upper, lower, terminal)
+    -   haml_tag :div, :class => upper do faces
+    -     haml_tag :div, :class => lower do faces
+    -       haml_tag :div, :class => terminal do faces end
+    -     end;
     -   end;
     - end;
+
+    - def arm; limb('upper-arm', 'lower-arm', 'hand') end
+    - def leg; limb('upper-leg', 'lower-leg', 'foot') end
 
     .scene.robot
       .body
@@ -21,38 +31,18 @@
           - faces
 
           .arm.arm-left
-            .upper-arm
-              - faces
-              .lower-arm
-                - faces
-                .hand
-                  - faces
+            - arm
 
           .arm.arm-right
-            .upper-arm
-              - faces
-              .lower-arm
-                - faces
-                .hand
-                  - faces
+            - arm
 
         .hips
           - faces
 
           .leg.leg-left
-            .upper-leg
-              - faces
-              .lower-leg
-                - faces
-                .foot
-                  - faces
+            - leg
 
           .leg.leg-right
-            .upper-leg
-              - faces
-              .lower-leg
-                - faces
-                .foot
-                  - faces
+            - leg
 
     %script(src='./js/robot-3d.js')

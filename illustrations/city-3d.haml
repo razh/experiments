@@ -7,9 +7,8 @@
     %link(rel="stylesheet" href="./stylesheets/city-3d.css")
   %body
     - def faces
-    -   ['top', 'bottom', 'front', 'back', 'left', 'right'].each do |direction|
-    -     haml_tag :div, :class => ['face', direction]
-    -   end;
+    -   ['top', 'bottom', 'back', 'fromt', 'left', 'right'].each do |direction|
+    -     haml_tag :div, :class => ['face', direction] end
     - end;
 
     .container
