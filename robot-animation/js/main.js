@@ -21,11 +21,12 @@ requirejs.config({
 define(function( require ) {
   'use strict';
 
-  var _ = require( 'underscore' ),
-      Backbone = require( 'backbone' );
-
   var Transform     = require( 'models/transform' ),
+      Transforms    = require( 'collections/transforms' ),
       TransformView = require( 'views/transform-view' );
+
+  var Box     = require( 'models/box' ),
+      BoxView = require( 'views/box-view' );
 
   var mat = new Transform.Matrix([10, 20, 30, 40, 5, 200, 2000]);
   console.log( mat.attributes );
@@ -36,4 +37,24 @@ define(function( require ) {
   });
 
   matView.render();
+
+  var boxView = new BoxView({
+    el: '#box',
+    model: new Box({
+      width: 100,
+      height: 50,
+      depth: 100
+    }),
+    transforms: new Transforms( new Transform.RotateY( [ 0 ] ) ),
+    transformOrigin: new Transform.Origin()
+  });
+
+  boxView.render();
+
+  var rotateView = new TransformView({
+    el: '#rotate',
+    model: boxView.transforms.at(0)
+  });
+
+  rotateView.render();
 });

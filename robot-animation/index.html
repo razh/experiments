@@ -3,11 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <title>Robot Animation</title>
+
+  <style>
+    .box {
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+
+      -webkit-perspective: 1000px;
+      perspective: 1000px;
+
+      position: absolute;
+      left: 200px;
+      top: 200px;
+    }
+
+    .face {
+      position: absolute;
+    }
+
+    .top    { background-color: rgba(255, 0, 0, 0.5); }
+    .front  { background-color: rgba(192, 0, 0, 0.5); }
+    .right  { background-color: rgba(128, 0, 0, 0.5); }
+    .back   { background-color: rgba( 96, 0, 0, 0.5); }
+    .left   { background-color: rgba( 64, 0, 0, 0.5); }
+    .bottom { background-color: rgba( 32, 0, 0, 0.5); }
+
+  </style>
 </head>
 <body>
   <div class="robot"></div>
 
   <div class="transform-view" id="matrix"></div>
+  <div class="box box-view" id="box"></div>
+  <div class="transform-view" id="rotate"></div>
 
   <script data-main="js/main" src="../app/components/requirejs/require.js"></script>
 </body>

@@ -2,13 +2,14 @@
 define([
   'jquery',
   'underscore',
-  'backbone'
-], function( $, _, Backbone ) {
+  'backbone',
+  'text!templates/box-view.html'
+], function( $, _, Backbone, boxTemplate ) {
   'use strict';
 
-  var directions = [ 'top', 'bottom', 'front', 'back', 'left', 'right' ];
-
   var BoxView = Backbone.View.extend({
+    template: _.template( boxTemplate ),
+
     initialize: function( options ) {
       this.transforms      = options.transforms;
       this.transformOrigin = options.transformOrigin;
@@ -20,17 +21,12 @@ define([
     },
 
     render: function() {
-      var fragment = document.createDocumentFragment(),
-          element;
+      this.$el.html( this.template() );
 
-      directions.forEach(function( direction ) {
-        element = document.createElement( 'div' );
-        element.classList.add( 'face', direction );
+      this.updateBox();
+      this.updateTransforms();
+      this.updateTransformOrigin();
 
-        fragment.appendChild( element );
-      });
-
-      this.$el.append( fragment );
       return this;
     },
 
@@ -49,8 +45,8 @@ define([
       var top, bottom, back, front, left, right;
       var transform;
 
-      var $faces = this.$.find( '.face' );
-      $faces.each(function( face ) {
+      var $faces = this.$( '.face' );
+      $faces.each(function( index, face ) {
         var $face = $( face );
 
         top    = $face.hasClass( 'top'    );
@@ -95,11 +91,11 @@ define([
         if ( top    ) { transform = 'translate3d(0, ' + -halfHeight + 'px, 0) rotateX( 90deg)'; }
         if ( bottom ) { transform = 'translate3d(0, ' +  halfHeight + 'px, 0) rotateX(-90deg)'; }
 
-        if ( back   ) { transform = 'translate3d(0, 0, ' + -halfDepth + 'px) rotateY(180deg)'; }
-        if ( front  ) { transform = 'translate3d(0, 0, ' +  halfDepth + 'px) rotateY(  0deg)'; }
+        if ( back  ) { transform = 'translate3d(0, 0, ' + -halfDepth + 'px) rotateY(180deg)'; }
+        if ( front ) { transform = 'translate3d(0, 0, ' +  halfDepth + 'px) rotateY(  0deg)'; }
 
-        if ( left   ) { transform = 'translate3d(' + -halfWidth + 'px, 0, 0) rotateY(-90deg)'; }
-        if ( right  ) { transform = 'translate3d(' +  halfWidth + 'px, 0, 0) rotateY( 90deg)'; }
+        if ( left  ) { transform = 'translate3d(' + -halfWidth + 'px, 0, 0) rotateY(-90deg)'; }
+        if ( right ) { transform = 'translate3d(' +  halfWidth + 'px, 0, 0) rotateY( 90deg)'; }
 
         $face.css({
           '-webkit-transform': transform,
@@ -109,7 +105,7 @@ define([
     },
 
     updateTransforms: function() {
-      var transforms = this.transforms.toStrings();
+      var transforms = this.transforms.toString();
       this.$el.css({
         '-webkit-transform': transforms,
         transform: transforms
