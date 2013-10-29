@@ -1,0 +1,43 @@
+@import "compass/reset";
+
+@import "compass/css3/background-clip";
+@import "compass/css3/images";
+@import "compass/css3/text-shadow";
+@import "compass/css3/transform";
+@import "compass/css3/transition";
+
+body {
+  background-color: #222;
+}
+
+.section {
+  width: 100%;
+  min-height: 128px;
+  height: 100%;
+}
+
+#section-00 {
+  color: transparent;
+  text-align: center;
+
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 2rem 0;
+  font-size: 12em;
+  font-weight: 100;
+  text-transform: uppercase;
+
+  @include perspective(100px);
+  @include perspective-origin(center top);
+  @include transform-style(preserve-3d);
+
+  @include transition(all 0.2s);
+
+  .text {
+    @include background(linear-gradient(#d88, #ffe));
+    @include background-clip(text);
+
+    @include transform(rotateX(30deg) translateZ(-100px));
+
+    @include text-shadow(inset)
+  }
+}

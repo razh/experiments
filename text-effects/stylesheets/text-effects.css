@@ -1,0 +1,123 @@
+/* line 17, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 9, ../sass/text-effects.scss */
+body {
+  background-color: #222;
+}
+
+/* line 13, ../sass/text-effects.scss */
+.section {
+  width: 100%;
+  min-height: 128px;
+  height: 100%;
+}
+
+/* line 19, ../sass/text-effects.scss */
+#section-00 {
+  color: transparent;
+  text-align: center;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 2rem 0;
+  font-size: 12em;
+  font-weight: 100;
+  text-transform: uppercase;
+  -webkit-perspective: 100px;
+  -moz-perspective: 100px;
+  -ms-perspective: 100px;
+  -o-perspective: 100px;
+  perspective: 100px;
+  -webkit-perspective-origin: center top;
+  -moz-perspective-origin: center top;
+  -ms-perspective-origin: center top;
+  -o-perspective-origin: center top;
+  perspective-origin: center top;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+/* line 35, ../sass/text-effects.scss */
+#section-00 .text {
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #dd8888), color-stop(100%, #ffffee));
+  background: -webkit-linear-gradient(#dd8888, #ffffee);
+  background: -moz-linear-gradient(#dd8888, #ffffee);
+  background: -o-linear-gradient(#dd8888, #ffffee);
+  background: linear-gradient(#dd8888, #ffffee);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-transform: rotateX(30deg) translateZ(-100px);
+  -moz-transform: rotateX(30deg) translateZ(-100px);
+  -ms-transform: rotateX(30deg) translateZ(-100px);
+  -o-transform: rotateX(30deg) translateZ(-100px);
+  transform: rotateX(30deg) translateZ(-100px);
+  text-shadow: inset;
+}
