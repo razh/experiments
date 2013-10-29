@@ -63,19 +63,19 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 9, ../sass/text-effects.scss */
+/* line 10, ../sass/text-effects.scss */
 body {
   background-color: #222;
 }
 
-/* line 13, ../sass/text-effects.scss */
+/* line 14, ../sass/text-effects.scss */
 .section {
   width: 100%;
   min-height: 128px;
   height: 100%;
 }
 
-/* line 26, ../sass/text-effects.scss */
+/* line 27, ../sass/text-effects.scss */
 #section-00 {
   color: transparent;
   text-align: center;
@@ -104,7 +104,7 @@ body {
   -o-transition: all 0.2s;
   transition: all 0.2s;
 }
-/* line 39, ../sass/text-effects.scss */
+/* line 40, ../sass/text-effects.scss */
 #section-00 .text {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #dd8888), color-stop(100%, #ffffee));
   background: -webkit-linear-gradient(#dd8888, #ffffee);
@@ -121,14 +121,48 @@ body {
   transform: rotateX(30deg) translateZ(-100px);
 }
 
-/* line 48, ../sass/text-effects.scss */
+/* line 53, ../sass/text-effects.scss */
 #section-01 {
-  background-color: #f43;
-  coor: white;
+  position: relative;
+  background: repeating-linear-gradient(-45deg, rgba(255, 128, 96, 0.6), rgba(255, 128, 96, 0.6) 25px, rgba(192, 64, 48, 0.6) 25px, rgba(192, 64, 48, 0.6) 50px), -webkit-gradient(radial, 100% 0%, 0, 100% 0%, 100, color-stop(40%, rgba(255, 255, 255, 0.4)), color-stop(100%, rgba(0, 0, 0, 0.4)));
+  background: repeating-linear-gradient(-45deg, rgba(255, 128, 96, 0.6), rgba(255, 128, 96, 0.6) 25px, rgba(192, 64, 48, 0.6) 25px, rgba(192, 64, 48, 0.6) 50px), -webkit-radial-gradient(right top, rgba(255, 255, 255, 0.4) 40%, rgba(0, 0, 0, 0.4));
+  background: repeating-linear-gradient(-45deg, rgba(255, 128, 96, 0.6), rgba(255, 128, 96, 0.6) 25px, rgba(192, 64, 48, 0.6) 25px, rgba(192, 64, 48, 0.6) 50px), -moz-radial-gradient(right top, rgba(255, 255, 255, 0.4) 40%, rgba(0, 0, 0, 0.4));
+  background: repeating-linear-gradient(-45deg, rgba(255, 128, 96, 0.6), rgba(255, 128, 96, 0.6) 25px, rgba(192, 64, 48, 0.6) 25px, rgba(192, 64, 48, 0.6) 50px), -o-radial-gradient(right top, rgba(255, 255, 255, 0.4) 40%, rgba(0, 0, 0, 0.4));
+  background: repeating-linear-gradient(-45deg, rgba(255, 128, 96, 0.6), rgba(255, 128, 96, 0.6) 25px, rgba(192, 64, 48, 0.6) 25px, rgba(192, 64, 48, 0.6) 50px), radial-gradient(right top, rgba(255, 255, 255, 0.4) 40%, rgba(0, 0, 0, 0.4));
+  color: white;
   text-align: center;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12em;
   font-weight: 100;
   text-transform: uppercase;
-  text-shadow: 5px 5px 20px rgba(32, 32, 32, 0.5), 5px 5px 10px rgba(32, 32, 32, 0.5), 5px 5px 5px rgba(32, 32, 32, 0.25);
+  font-size: 8em;
+  padding: 2rem;
+  text-shadow: 0 0 20px #202020;
+}
+/* line 54, ../sass/text-effects.scss */
+#section-01 *, #section-01 {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* line 75, ../sass/text-effects.scss */
+#section-01:before, #section-01:after {
+  content: "";
+  position: absolute;
+  border: 3px solid white;
+  border-radius: 8px;
+}
+/* line 82, ../sass/text-effects.scss */
+#section-01:before {
+  top: 8px;
+  left: 8px;
+  bottom: 8px;
+  right: 8px;
+}
+/* line 89, ../sass/text-effects.scss */
+#section-01:after {
+  top: 16px;
+  left: 16px;
+  bottom: 16px;
+  right: 16px;
 }

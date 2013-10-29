@@ -1,6 +1,7 @@
 @import "compass/reset";
 
 @import "compass/css3/background-clip";
+@import "compass/css3/box-sizing";
 @import "compass/css3/images";
 @import "compass/css3/text-shadow";
 @import "compass/css3/transform";
@@ -44,16 +45,51 @@ body {
   }
 }
 
+$light-stripe: rgba(255, 128, 96, 0.6);
+$dark-stripe: rgba(192, 64, 48, 0.6);
+$inner-stroke-margin: 8px;
+$outer-stroke-margin: 16px;
 
 #section-01 {
-  background-color: #f43;
-  coor: white;
+  *, & {
+    @include box-sizing(border-box);
+  }
+
+  position: relative;
+  @include background(
+    repeating-linear-gradient(-45deg,
+      $light-stripe, $light-stripe 25px, $dark-stripe 25px, $dark-stripe 50px
+    ),
+    radial-gradient(right top, rgba(255, 255, 255, 0.4) 40%, rgba(0, 0, 0, 0.4))
+  );
+  color: white;
   text-align: center;
 
   @include uppercase-helvetica-light();
+  font-size: 8em;
+  padding: 2rem;
   @include text-shadow(
-    5px 5px 20px rgba(32, 32, 32, 0.5),
-    5px 5px 10px rgba(32, 32, 32, 0.5),
-    5px 5px 5px rgba(32, 32, 32, 0.25)
+    0 0 20px rgba(32, 32, 32, 1)
   );
+
+  &:before, &:after {
+    content: "";
+    position: absolute;
+    border: 3px solid white;
+    border-radius: 8px;
+  }
+
+  &:before {
+    top: $inner-stroke-margin;
+    left: $inner-stroke-margin;
+    bottom: $inner-stroke-margin;
+    right: $inner-stroke-margin;
+  }
+
+  &:after {
+    top: $outer-stroke-margin;
+    left: $outer-stroke-margin;
+    bottom: $outer-stroke-margin;
+    right: $outer-stroke-margin;
+  }
 }
