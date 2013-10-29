@@ -16,15 +16,19 @@ body {
   height: 100%;
 }
 
-#section-00 {
-  color: transparent;
-  text-align: center;
-
+@mixin uppercase-helvetica-light() {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  padding: 2rem 0;
   font-size: 12em;
   font-weight: 100;
   text-transform: uppercase;
+}
+
+#section-00 {
+  color: transparent;
+  text-align: center;
+  padding: 2rem 0;
+
+  @include uppercase-helvetica-light();
 
   @include perspective(100px);
   @include perspective-origin(center top);
@@ -37,7 +41,19 @@ body {
     @include background-clip(text);
 
     @include transform(rotateX(30deg) translateZ(-100px));
-
-    @include text-shadow(inset)
   }
+}
+
+
+#section-01 {
+  background-color: #f43;
+  coor: white;
+  text-align: center;
+
+  @include uppercase-helvetica-light();
+  @include text-shadow(
+    5px 5px 20px rgba(32, 32, 32, 0.5),
+    5px 5px 10px rgba(32, 32, 32, 0.5),
+    5px 5px 5px rgba(32, 32, 32, 0.25)
+  );
 }

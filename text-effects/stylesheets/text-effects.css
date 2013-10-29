@@ -75,12 +75,12 @@ body {
   height: 100%;
 }
 
-/* line 19, ../sass/text-effects.scss */
+/* line 26, ../sass/text-effects.scss */
 #section-00 {
   color: transparent;
   text-align: center;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 2rem 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12em;
   font-weight: 100;
   text-transform: uppercase;
@@ -104,7 +104,7 @@ body {
   -o-transition: all 0.2s;
   transition: all 0.2s;
 }
-/* line 35, ../sass/text-effects.scss */
+/* line 39, ../sass/text-effects.scss */
 #section-00 .text {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #dd8888), color-stop(100%, #ffffee));
   background: -webkit-linear-gradient(#dd8888, #ffffee);
@@ -119,5 +119,16 @@ body {
   -ms-transform: rotateX(30deg) translateZ(-100px);
   -o-transform: rotateX(30deg) translateZ(-100px);
   transform: rotateX(30deg) translateZ(-100px);
-  text-shadow: inset;
+}
+
+/* line 48, ../sass/text-effects.scss */
+#section-01 {
+  background-color: #f43;
+  coor: white;
+  text-align: center;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12em;
+  font-weight: 100;
+  text-transform: uppercase;
+  text-shadow: 5px 5px 20px rgba(32, 32, 32, 0.5), 5px 5px 10px rgba(32, 32, 32, 0.5), 5px 5px 5px rgba(32, 32, 32, 0.25);
 }
