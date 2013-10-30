@@ -1,0 +1,20 @@
+<div class="body">
+  <div class="head"></div>
+  <% [
+       { name: 'chest', limb: 'arm', terminal: 'hand' },
+       { name: 'hips',  limb: 'leg', terminal: 'foot' }
+     ].forEach(function( region ) {
+       var limb = region.limb; %>
+  <div class="<%= region.name %>">
+    <% [ 'left', 'right' ].forEach(function( direction ) { %>
+    <div class="<%= limb %> <%= limb + '-' + direction %>">
+      <div class="upper-<%= limb %>">
+        <div class="lower-<%= limb %>">
+          <div class="<%= region.terminal %>"></div>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+  <% }) %>
+</div>

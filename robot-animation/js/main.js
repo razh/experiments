@@ -21,6 +21,9 @@ requirejs.config({
 define(function( require ) {
   'use strict';
 
+  var _ = require( 'underscore' ),
+      $ = require( 'jquery' );
+
   var Transform     = require( 'models/transform' ),
       Transforms    = require( 'collections/transforms' ),
       TransformView = require( 'views/transform-view' );
@@ -71,4 +74,8 @@ define(function( require ) {
   });
 
   rotateXView.render();
+
+  var robotTemplate = require( 'text!templates/robot.html' );
+
+  $( '.robot' ).html( _.template( robotTemplate ) );
 });
