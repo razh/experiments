@@ -6,7 +6,7 @@ define([
   'use strict';
 
   /**
-   * BaseModel allows us to set a model's attributes with either a single Number
+   * BaseModel allows us to set a model's attributes with either a Number
    * or an Array, in addition to the standard attributes hash method.
    *
    * Usage:

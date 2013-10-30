@@ -41,16 +41,34 @@ define(function( require ) {
   var boxView = new BoxView({
     el: '#box',
     model: new Box( [ 100, 50, 100 ] ),
-    transforms: new Transforms( new Transform.RotateY( 40 ) ),
+    transforms: new Transforms([
+      new Transform.RotateY( 40 ),
+      new Transform.RotateX( 30 )
+    ]),
     transformOrigin: new Transform.Origin()
   });
 
   boxView.render();
 
-  var rotateView = new TransformView({
-    el: '#rotate',
+  var boxDimensionsView = new TransformView({
+    el: '#box-dimensions',
+    model: boxView.model
+  });
+
+  boxDimensionsView.render();
+
+
+  var rotateYView = new TransformView({
+    el: '#rotateY',
     model: boxView.transforms.at(0)
   });
 
-  rotateView.render();
+  rotateYView.render();
+
+  var rotateXView = new TransformView({
+    el: '#rotateX',
+    model: boxView.transforms.at(1)
+  });
+
+  rotateXView.render();
 });
