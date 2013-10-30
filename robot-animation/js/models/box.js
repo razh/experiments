@@ -1,10 +1,10 @@
 /*globals define*/
 define([
-  'backbone'
-], function( Backbone ) {
+  'models/base-model'
+], function( BaseModel ) {
   'use strict';
 
-  var Box = Backbone.Model.extend({
+  var Box = BaseModel.extend({
     defaults: function() {
       return {
         width: 0,

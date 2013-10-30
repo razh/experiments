@@ -1,39 +1,15 @@
 /*globals define*/
 define([
-  'underscore',
-  'backbone'
-], function( _, Backbone ) {
+  'models/base-model'
+], function( BaseModel ) {
   'use strict';
 
-  var Transform = Backbone.Model.extend({
-    // Allow attributes to be set with an array.
-    constructor: function() {
-      var args = [].slice.call( arguments ),
-          attributes = args.shift();
-
-      if ( _.isArray( attributes ) ) {
-        Backbone.Model.apply( this, args );
-
-        // Grab as many keys as we can set.
-        var keys = this.keys().slice( 0, attributes.length );
-        // Convert attributes array to an object.
-        attributes = _.object( keys, attributes );
-        // Fill in any undefined values.
-        attributes = _.defaults( attributes, this.attributes );
-
-        this.set( attributes );
-      } else {
-        Backbone.Model.apply( this, arguments );
-      }
-    },
-
+  var Transform = BaseModel.extend({
     toString: function() {
       return '';
     }
   });
 
-  // Transform origin is not really a transform, but setting values with an
-  // array is useful.
   var Origin = Transform.extend({
     defaults: function() {
       return {

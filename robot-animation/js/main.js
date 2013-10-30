@@ -28,7 +28,7 @@ define(function( require ) {
   var Box     = require( 'models/box' ),
       BoxView = require( 'views/box-view' );
 
-  var mat = new Transform.Matrix([10, 20, 30, 40, 5, 200, 2000]);
+  var mat = new Transform.Matrix( [ 10, 20, 30, 40, 5, 200, 2000 ] );
   console.log( mat.attributes );
 
   var matView = new TransformView({
@@ -40,12 +40,8 @@ define(function( require ) {
 
   var boxView = new BoxView({
     el: '#box',
-    model: new Box({
-      width: 100,
-      height: 50,
-      depth: 100
-    }),
-    transforms: new Transforms( new Transform.RotateY( [ 0 ] ) ),
+    model: new Box( [ 100, 50, 100 ] ),
+    transforms: new Transforms( new Transform.RotateY( 40 ) ),
     transformOrigin: new Transform.Origin()
   });
 
