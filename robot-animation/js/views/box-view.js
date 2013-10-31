@@ -21,7 +21,11 @@ define([
     },
 
     render: function() {
-      this.$el.html( this.template() );
+      this.$el.prepend( this.template() )
+        .css({
+          '-webkit-transform-style': 'preserve-3d',
+          'transform-style': 'preserve-3d'
+        });
 
       this.updateBox();
       this.updateTransforms();

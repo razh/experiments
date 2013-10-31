@@ -28,16 +28,39 @@
     .left   { background-color: rgba( 64, 0, 0, 0.5); }
     .bottom { background-color: rgba( 32, 0, 0, 0.5); }
 
+    @-keyframes rotation {
+      0%   { transform: rotateX(0deg) rotateY(0deg); }
+      50%  { transform: rotateX(10deg) rotateY(180deg); }
+      100% { transform: rotateX(0deg) rotateY(360deg); }
+    }
+
+    @-webkit-keyframes rotation {
+      0%   { -webkit-transform: rotateX(0deg) rotateY(0deg); }
+      50%  { -webkit-transform: rotateX(10deg) rotateY(180deg); }
+      100% { -webkit-transform: rotateX(0deg) rotateY(360deg); }
+    }
+
+    .robot {
+      position: absolute;
+      top: 200px;
+      left: 200px;
+
+      -webkit-animation: rotation 2s linear;
+      animation: rotation 2s linear;
+
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+    }
+
   </style>
 </head>
 <body>
-  <div class="robot"></div>
-
   <div class="transform-view" id="matrix"></div>
   <div class="box box-view" id="box"></div>
   <div class="transform-view" id="box-dimensions"></div>
   <div class="transform-view" id="rotateY"></div>
   <div class="transform-view" id="rotateX"></div>
+
   <div class="robot"></div>
 
   <script data-main="js/main" src="../app/components/requirejs/require.js"></script>

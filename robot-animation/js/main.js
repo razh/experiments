@@ -119,7 +119,7 @@ define(function( require ) {
     };
 
     // Note: the femur should be ~26% of body height.
-    var upeprLeg = {
+    var upperLeg = {
       width: 25,
       height: 50,
       depth: 25
@@ -151,11 +151,12 @@ define(function( require ) {
         translate3d: [ 0, 80, 0 ],
         transformOrigin: [ 0, -0.5 * hips.height ]
       },
-      upperArm: {
+
+      'upper-arm': {
         dimensions: [ upperArm.width, upperArm.height, upperArm.depth ],
         transformOrigin: [ 0, -0.5 * upperArm.height ]
       },
-      lowerArm: {
+      'lower-arm': {
         dimensions: [ lowerArm.width, lowerArm.height, lowerArm.depth ],
         translate3d: [ 0, 60, 0 ],
         transformOrigin: [ 0, -0.5 * lowerArm.height ]
@@ -165,35 +166,85 @@ define(function( require ) {
         translate3d: [ 0, 40, 0 ],
         transformOrigin: [ 0, -0.5 * hand.height ]
       },
-      armLeft: [ 60 ],
-      armRight: [ -60 ],
-      upperLeg: {
-        dimensions: [ 25, 50, 25 ],
-        translate3d: [ 0, 55, 0 ]
+      'arm-left': [ 60 ],
+      'arm-right': [ -60 ],
+
+      'upper-leg': {
+        dimensions: [ upperLeg.width, upperLeg.height, upperLeg.depth ],
+        translate3d: [ 0, 55, 0 ],
+        transformOrigin: [ 0, -0.5 * upperLeg.height ]
       },
-      lowerLeg: {
-        dimensions: [ 25, 70, 25 ],
-        translate3d: [ 0, 70, 0 ]
+      'lower-leg': {
+        dimensions: [ lowerLeg.width, lowerLeg.height, lowerLeg.depth ],
+        translate3d: [ 0, 70, 0 ],
+        transformOrigin: [ 0, -0.5 * lowerLeg.height ]
       },
       foot: {
-        dimensions: [ 30, 15, 50 ],
-        translate3d: [ 0, 50, 10 ]
+        dimensions: [ foot.width, foot.height, foot.depth ],
+        translate3d: [ 0, 50, 10 ],
+        transformOrigin: [ 0, -0.5 * foot.height ]
       },
-      legLeft: [ 25 ],
-      legRight: [ -25 ]
+      'leg-left': [ 25 ],
+      'leg-right': [ -25 ]
     };
   }) ();
 
-  function createBoxView( name ) {
-    return new BoxView({
-      el: $robot.find( name ),
-      model: new Box( config[ name ].dimensions ),
-      transforms: new Transforms([
-        new Transform.Translate3D( config[ name ].translate3d )
-      ]),
-      transformOrigin: new Transform.Origin( config)
+  function createBoxViews( name ) {
+    var views = $robot.find( '.' + name ).toArray().map(function( element ) {
+      return new BoxView({
+        el: element,
+        model: new Box( config[ name ].dimensions ),
+        transforms: new Transforms([
+          new Transform.Translate3D( config[ name ].translate3d )
+        ]),
+        transformOrigin: new Transform.Origin( config[ name ].transformOrigin || {} )
+      });
+    });
+
+    return views;
+  }
+
+  function renderView( view ) {
+    view.render();
+  }
+
+  [
+    'head', 'chest', 'hips',
+    'upper-arm', 'lower-arm', 'hand',
+    'upper-leg', 'lower-leg', 'foot'
+  ].forEach(function( className ) {
+    createBoxViews( className ).forEach( renderView );
+  });
+
+  [ 'arm-left', 'arm-right', 'leg-left', 'leg-right' ].map(function( className ) {
+    var transforms = new Transforms([
+      new Transform.Translate3D( config[ className ] )
+    ]);
+
+    var transformsString = transforms.toString();
+
+    $robot.find( '.' + className ).css({
+      '-webkit-transform': transformsString,
+      transform: transformsString,
+
+      '-webkit-transform-style': 'preserve-3d',
+      'transform-style': 'preserve-3d'
+    });
+
+    return transforms;
+  });
+
+
+  function onMouseMove( event ) {
+    var rx =   ( 0.5 - ( event.clientY / window.innerHeight ) ) * 180,
+        ry =  -( 0.5 - ( event.clientX / window.innerWidth  ) ) * 180;
+
+    var transform = 'rotateX( ' + rx + 'deg) rotateY( ' + ry + 'deg)';
+    $robot.css({
+      '-webkit-transform': transform,
+      transform: transform
     });
   }
 
-  var headBoxView = createBoxView( 'head' );
+  $( window ).on( 'mousemove', onMouseMove );
 });
