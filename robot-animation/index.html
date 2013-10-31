@@ -14,18 +14,6 @@
       width: 3rem;
     }
 
-    .box {
-      -webkit-transform-style: preserve-3d;
-      transform-style: preserve-3d;
-
-      -webkit-perspective: 1000px;
-      perspective: 1000px;
-
-      position: absolute;
-      left: 200px;
-      top: 200px;
-    }
-
     .face {
       position: absolute;
     }
@@ -51,8 +39,8 @@
 
     .robot {
       position: absolute;
-      top: 200px;
-      left: 200px;
+      top: 30%;
+      left: 50%;
 
       -webkit-animation: rotation 2s linear;
       animation: rotation 2s linear;
@@ -84,12 +72,6 @@
   </style>
 </head>
 <body>
-  <div class="transform-view" id="matrix"></div>
-  <div class="box box-view" id="box"></div>
-  <div class="transform-view" id="box-dimensions"></div>
-  <div class="transform-view" id="rotateY"></div>
-  <div class="transform-view" id="rotateX"></div>
-
   <div class="robot"></div>
   <div class="transform-views"></div>
 
