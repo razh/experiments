@@ -1,0 +1,89 @@
+@import "compass/reset";
+
+@import "compass/css3/transform";
+
+@import "modules/box";
+
+body {
+  font-family: Futura, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 7em;
+  background-color: black;
+  color: white;
+}
+
+.letter-container {
+  margin: 0 auto;
+  width: 4em;
+  margin-bottom: 0.5em;
+
+  .front-view,
+  .isometric-view {
+    margin-top: -0.5em;
+    @include transform-style(preserve-3d);
+  }
+
+  .isometric-view {
+    @include transform(rotateX(-30deg) rotateY(-30deg));
+    @include transform-origin(0 0 0);
+    margin-left: 4em;
+  }
+
+  .front-view {
+    margin-left: 2.25em;
+  }
+
+  &:first-of-type {
+    margin-top: 0.5em;
+  }
+}
+
+.face {
+  position: absolute;
+}
+
+.top    { background-color: rgba(255, 255, 255, 0.75); }
+.front  { background-color: rgba(224, 224, 224, 0.75); }
+.right  { background-color: rgba(192, 192, 192, 0.75); }
+.back   { background-color: rgba(160, 160, 160, 0.75); }
+.left   { background-color: rgba(128, 128, 128, 0.75); }
+.bottom { background-color: rgba( 96,  96,  96, 0.75); }
+
+
+.A {
+  .left-stroke,
+  .right-stroke {
+    @include box(10px, 70px, 10px);
+  }
+
+  .crossbar {
+    @include box(35px, 10px, 10px);
+  }
+
+  .left-stroke {
+    @include transform(translateX(-15px) skewX(-20deg));
+  }
+
+  .right-stroke {
+    @include transform(translateX(15px) skewX(20deg));
+  }
+}
+
+.N {
+  .left-stroke,
+  .right-stroke,
+  .diagonal {
+    @include box(10px, 70px, 10px);
+  }
+
+  .left-stroke {
+    @include transform(translateX(-25px));
+  }
+
+  .right-stroke {
+    @include transform(translateX(25px));
+  }
+
+  .diagonal {
+    @include transform(skewX(30deg));
+  }
+}

@@ -1,0 +1,43 @@
+!!! 5
+mixin faces
+  each direction in [ 'top', 'bottom', 'back', 'front', 'left', 'right' ]
+    div(class='face ' + direction)
+
+//- We're using Jade due to the ease of creating mixins.
+mixin A
+  .left-stroke
+    +faces
+  .right-stroke
+    +faces
+  .crossbar
+    +faces
+
+mixin N
+  .left-stroke
+    +faces
+  .right-stroke
+    +faces
+  .diagonal
+    +faces
+
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title Alphabet
+
+    link(rel='stylesheet', href='./stylesheets/alphabet.css')
+  body(ontouchstart='')
+
+    .letter-container.A
+      .letter A
+      .front-view
+        +A
+      .isometric-view
+        +A
+
+    .letter-container.N
+      .letter N
+      .front-view
+        +N
+      .isometric-view
+        +N

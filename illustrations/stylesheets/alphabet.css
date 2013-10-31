@@ -1,0 +1,486 @@
+/* line 17, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/**
+ * Creates a box centered at (0, 0, 0) with dimension
+ * $width, $height, and $depth.
+ *
+ * Each box consists of six elements with the generic 'face' class.
+ * Each element also has a class for a specific direction:
+ *
+ *    top, bottom,
+ *    front, back,
+ *    left, right
+ *
+ *  e.g., .face.top
+ */
+/* line 7, ../sass/alphabet.scss */
+body {
+  font-family: Futura, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 7em;
+  background-color: black;
+  color: white;
+}
+
+/* line 14, ../sass/alphabet.scss */
+.letter-container {
+  margin: 0 auto;
+  width: 4em;
+  margin-bottom: 0.5em;
+}
+/* line 20, ../sass/alphabet.scss */
+.letter-container .front-view,
+.letter-container .isometric-view {
+  margin-top: -0.5em;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* line 25, ../sass/alphabet.scss */
+.letter-container .isometric-view {
+  -webkit-transform: rotateX(-30deg) rotateY(-30deg);
+  -moz-transform: rotateX(-30deg) rotateY(-30deg);
+  -ms-transform: rotateX(-30deg) rotateY(-30deg);
+  -o-transform: rotateX(-30deg) rotateY(-30deg);
+  transform: rotateX(-30deg) rotateY(-30deg);
+  -webkit-transform-origin: 0 0 0 50%;
+  -moz-transform-origin: 0 0 0 50%;
+  -ms-transform-origin: 0 0 0 50%;
+  -o-transform-origin: 0 0 0 50%;
+  transform-origin: 0 0 0 50%;
+  margin-left: 4em;
+}
+/* line 31, ../sass/alphabet.scss */
+.letter-container .front-view {
+  margin-left: 2.25em;
+}
+/* line 35, ../sass/alphabet.scss */
+.letter-container:first-of-type {
+  margin-top: 0.5em;
+}
+
+/* line 40, ../sass/alphabet.scss */
+.face {
+  position: absolute;
+}
+
+/* line 44, ../sass/alphabet.scss */
+.top {
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+/* line 45, ../sass/alphabet.scss */
+.front {
+  background-color: rgba(224, 224, 224, 0.75);
+}
+
+/* line 46, ../sass/alphabet.scss */
+.right {
+  background-color: rgba(192, 192, 192, 0.75);
+}
+
+/* line 47, ../sass/alphabet.scss */
+.back {
+  background-color: rgba(160, 160, 160, 0.75);
+}
+
+/* line 48, ../sass/alphabet.scss */
+.left {
+  background-color: rgba(128, 128, 128, 0.75);
+}
+
+/* line 49, ../sass/alphabet.scss */
+.bottom {
+  background-color: rgba(96, 96, 96, 0.75);
+}
+
+/* line 54, ../sass/alphabet.scss */
+.A .left-stroke,
+.A .right-stroke {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* line 21, ../sass/modules/_box.scss */
+.A .left-stroke .face,
+.A .right-stroke .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.A .left-stroke .top, .A .left-stroke .bottom,
+.A .right-stroke .top,
+.A .right-stroke .bottom {
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  margin-top: -5px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.A .left-stroke .top,
+.A .right-stroke .top {
+  -webkit-transform: translate3d(0, -35px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -35px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -35px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -35px, 0) rotateX(90deg);
+  transform: translate3d(0, -35px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.A .left-stroke .bottom,
+.A .right-stroke .bottom {
+  -webkit-transform: translate3d(0, 35px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 35px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 35px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 35px, 0) rotateX(-90deg);
+  transform: translate3d(0, 35px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.A .left-stroke .back, .A .left-stroke .front,
+.A .right-stroke .back,
+.A .right-stroke .front {
+  width: 10px;
+  height: 70px;
+  margin-left: -5px;
+  margin-top: -35px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.A .left-stroke .back,
+.A .right-stroke .back {
+  -webkit-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  transform: translate3d(0, 0, -5px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.A .left-stroke .front,
+.A .right-stroke .front {
+  -webkit-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  transform: translate3d(0, 0, 5px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.A .left-stroke .left, .A .left-stroke .right,
+.A .right-stroke .left,
+.A .right-stroke .right {
+  width: 10px;
+  height: 70px;
+  margin-left: -5px;
+  margin-top: -35px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.A .left-stroke .left,
+.A .right-stroke .left {
+  -webkit-transform: translate3d(-5px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-5px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-5px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-5px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-5px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.A .left-stroke .right,
+.A .right-stroke .right {
+  -webkit-transform: translate3d(5px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(5px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(5px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(5px, 0, 0) rotateY(90deg);
+  transform: translate3d(5px, 0, 0) rotateY(90deg);
+}
+/* line 58, ../sass/alphabet.scss */
+.A .crossbar {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* line 21, ../sass/modules/_box.scss */
+.A .crossbar .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.A .crossbar .top, .A .crossbar .bottom {
+  width: 35px;
+  height: 10px;
+  margin-left: -17.5px;
+  margin-top: -5px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.A .crossbar .top {
+  -webkit-transform: translate3d(0, -5px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -5px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -5px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -5px, 0) rotateX(90deg);
+  transform: translate3d(0, -5px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.A .crossbar .bottom {
+  -webkit-transform: translate3d(0, 5px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 5px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 5px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 5px, 0) rotateX(-90deg);
+  transform: translate3d(0, 5px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.A .crossbar .back, .A .crossbar .front {
+  width: 35px;
+  height: 10px;
+  margin-left: -17.5px;
+  margin-top: -5px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.A .crossbar .back {
+  -webkit-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  transform: translate3d(0, 0, -5px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.A .crossbar .front {
+  -webkit-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  transform: translate3d(0, 0, 5px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.A .crossbar .left, .A .crossbar .right {
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  margin-top: -5px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.A .crossbar .left {
+  -webkit-transform: translate3d(-17.5px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-17.5px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-17.5px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-17.5px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-17.5px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.A .crossbar .right {
+  -webkit-transform: translate3d(17.5px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(17.5px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(17.5px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(17.5px, 0, 0) rotateY(90deg);
+  transform: translate3d(17.5px, 0, 0) rotateY(90deg);
+}
+/* line 62, ../sass/alphabet.scss */
+.A .left-stroke {
+  -webkit-transform: translateX(-15px) skewX(-20deg);
+  -moz-transform: translateX(-15px) skewX(-20deg);
+  -ms-transform: translateX(-15px) skewX(-20deg);
+  -o-transform: translateX(-15px) skewX(-20deg);
+  transform: translateX(-15px) skewX(-20deg);
+}
+/* line 66, ../sass/alphabet.scss */
+.A .right-stroke {
+  -webkit-transform: translateX(15px) skewX(20deg);
+  -moz-transform: translateX(15px) skewX(20deg);
+  -ms-transform: translateX(15px) skewX(20deg);
+  -o-transform: translateX(15px) skewX(20deg);
+  transform: translateX(15px) skewX(20deg);
+}
+
+/* line 74, ../sass/alphabet.scss */
+.N .left-stroke,
+.N .right-stroke,
+.N .diagonal {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* line 21, ../sass/modules/_box.scss */
+.N .left-stroke .face,
+.N .right-stroke .face,
+.N .diagonal .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.N .left-stroke .top, .N .left-stroke .bottom,
+.N .right-stroke .top,
+.N .right-stroke .bottom,
+.N .diagonal .top,
+.N .diagonal .bottom {
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  margin-top: -5px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.N .left-stroke .top,
+.N .right-stroke .top,
+.N .diagonal .top {
+  -webkit-transform: translate3d(0, -35px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -35px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -35px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -35px, 0) rotateX(90deg);
+  transform: translate3d(0, -35px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.N .left-stroke .bottom,
+.N .right-stroke .bottom,
+.N .diagonal .bottom {
+  -webkit-transform: translate3d(0, 35px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 35px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 35px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 35px, 0) rotateX(-90deg);
+  transform: translate3d(0, 35px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.N .left-stroke .back, .N .left-stroke .front,
+.N .right-stroke .back,
+.N .right-stroke .front,
+.N .diagonal .back,
+.N .diagonal .front {
+  width: 10px;
+  height: 70px;
+  margin-left: -5px;
+  margin-top: -35px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.N .left-stroke .back,
+.N .right-stroke .back,
+.N .diagonal .back {
+  -webkit-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  transform: translate3d(0, 0, -5px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.N .left-stroke .front,
+.N .right-stroke .front,
+.N .diagonal .front {
+  -webkit-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  transform: translate3d(0, 0, 5px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.N .left-stroke .left, .N .left-stroke .right,
+.N .right-stroke .left,
+.N .right-stroke .right,
+.N .diagonal .left,
+.N .diagonal .right {
+  width: 10px;
+  height: 70px;
+  margin-left: -5px;
+  margin-top: -35px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.N .left-stroke .left,
+.N .right-stroke .left,
+.N .diagonal .left {
+  -webkit-transform: translate3d(-5px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-5px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-5px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-5px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-5px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.N .left-stroke .right,
+.N .right-stroke .right,
+.N .diagonal .right {
+  -webkit-transform: translate3d(5px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(5px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(5px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(5px, 0, 0) rotateY(90deg);
+  transform: translate3d(5px, 0, 0) rotateY(90deg);
+}
+/* line 78, ../sass/alphabet.scss */
+.N .left-stroke {
+  -webkit-transform: translateX(-25px);
+  -moz-transform: translateX(-25px);
+  -ms-transform: translateX(-25px);
+  -o-transform: translateX(-25px);
+  transform: translateX(-25px);
+}
+/* line 82, ../sass/alphabet.scss */
+.N .right-stroke {
+  -webkit-transform: translateX(25px);
+  -moz-transform: translateX(25px);
+  -ms-transform: translateX(25px);
+  -o-transform: translateX(25px);
+  transform: translateX(25px);
+}
+/* line 86, ../sass/alphabet.scss */
+.N .diagonal {
+  -webkit-transform: skewX(30deg);
+  -moz-transform: skewX(30deg);
+  -ms-transform: skewX(30deg);
+  -o-transform: skewX(30deg);
+  transform: skewX(30deg);
+}
