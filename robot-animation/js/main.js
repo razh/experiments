@@ -211,15 +211,35 @@ define(function( require ) {
     'upper-arm', 'lower-arm', 'hand',
     'upper-leg', 'lower-leg', 'foot'
   ].forEach(function( className ) {
-    createBoxViews( className ).forEach(function( view ) {
+    createBoxViews( className ).forEach(function( view, index, array ) {
       view.render();
 
-      var $transformEl = $( '<div>', { class: className } );
+      var $transformEl = $( '<div>', { class: 'edit' } );
 
-      var $dimensionEl = $( '<div>', { class: className + '-dimension' } ),
-          $translateEl = $( '<div>', { class: className + '-translate' } );
+      var $dimensionEl = $( '<div>', { class: 'dimension' } ),
+          $translateEl = $( '<div>', { class: 'translate' } );
 
-      $transformEl.append( [ $dimensionEl, $translateEl ] );
+      // Unique ids if more than one of the same class.
+      var id = className;
+      if ( array.length > 1 ) {
+        id += '-' + index;
+      }
+
+      $transformEl.append([
+        $( '<input>', {
+          class: 'checkbox',
+          type: 'checkbox',
+          id: id
+        }),
+        $( '<label>', {
+          class: 'name',
+          text: className,
+          for: id
+        }),
+        $dimensionEl,
+        $translateEl
+      ]);
+
       $transformViews.append( $transformEl );
 
       var dimensionEl = new TransformView({

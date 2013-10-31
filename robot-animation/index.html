@@ -5,6 +5,15 @@
   <title>Robot Animation</title>
 
   <style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 0.8em;
+    }
+
+    input {
+      width: 3rem;
+    }
+
     .box {
       -webkit-transform-style: preserve-3d;
       transform-style: preserve-3d;
@@ -53,7 +62,24 @@
     }
 
     .transform-views {
-      margin-top: 200px;
+      float: right;
+    }
+
+    .checkbox,
+    .checkbox:not(:checked) ~ .dimension,
+    .checkbox:not(:checked) ~ .translate {
+      display: none;
+    }
+
+    .name,
+    .dimension,
+    .translate {
+      float: right;
+      clear: both;
+    }
+
+    .name {
+      text-transform: uppercase;
     }
   </style>
 </head>
