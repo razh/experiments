@@ -49,7 +49,7 @@ define([
       var top, bottom, back, front, left, right;
       var transform;
 
-      var $faces = this.$( '.face' );
+      var $faces = this.$el.children( '.face' );
       $faces.each(function( index, face ) {
         var $face = $( face );
 

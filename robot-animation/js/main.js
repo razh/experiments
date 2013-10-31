@@ -204,16 +204,38 @@ define(function( require ) {
     return views;
   }
 
-  function renderView( view ) {
-    view.render();
-  }
+  var $transformViews = $( '.transform-views' );
 
   [
     'head', 'chest', 'hips',
     'upper-arm', 'lower-arm', 'hand',
     'upper-leg', 'lower-leg', 'foot'
   ].forEach(function( className ) {
-    createBoxViews( className ).forEach( renderView );
+    createBoxViews( className ).forEach(function( view ) {
+      view.render();
+
+      var $transformEl = $( '<div>', { class: className } );
+
+      var $dimensionEl = $( '<div>', { class: className + '-dimension' } ),
+          $translateEl = $( '<div>', { class: className + '-translate' } );
+
+      $transformEl.append( [ $dimensionEl, $translateEl ] );
+      $transformViews.append( $transformEl );
+
+      var dimensionEl = new TransformView({
+        el: $dimensionEl,
+        model: view.model
+      });
+
+      dimensionEl.render();
+
+      var translateView = new TransformView({
+        el: $translateEl,
+        model: view.transforms.at(0)
+      });
+
+      translateView.render();
+    });
   });
 
   [ 'arm-left', 'arm-right', 'leg-left', 'leg-right' ].map(function( className ) {
