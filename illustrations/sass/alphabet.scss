@@ -56,15 +56,50 @@ body {
   }
 
   .crossbar {
-    @include box(35px, 10px, 10px);
+    @include box(30px, 10px, 10px);
+    @include transform(translateY(10px));
   }
 
   .left-stroke {
-    @include transform(translateX(-15px) skewX(-20deg));
+    @include transform(translateX(-13px) skewX(-20deg));
   }
 
   .right-stroke {
-    @include transform(translateX(15px) skewX(20deg));
+    @include transform(translateX(13px) skewX(20deg));
+  }
+}
+
+.B {
+  .vertical-stroke {
+    @include box(10px, 80px, 10px);
+    @include transform(translateX(-20px));
+  }
+
+  .top-stroke {
+    @include box(20px, 10px, 10px);
+    @include transform(translate3d(-5px, -35px, 0));
+  }
+
+  .middle-stroke,
+  .bottom-stroke {
+    @include box(30px, 10px, 10px);
+  }
+
+  .bottom-stroke {
+    @include transform(translate3d(0, 35px, 0));
+  }
+
+  .top-vertical-stroke,
+  .bottom-vertical-stroke {
+    @include box(10px, 25px, 10px);
+  }
+
+  .top-vertical-stroke {
+    @include transform(translate3d(10px, -17px, 0));
+  }
+
+  .bottom-vertical-stroke {
+    @include transform(translate3d(20px, 17px, 0));
   }
 }
 
@@ -85,6 +120,31 @@ body {
 
   .bottom-stroke {
     @include transform(translateY(35px));
+  }
+}
+
+.D {
+  .vertical-stroke {
+    @include box(10px, 80px, 10px);
+    @include transform(translateX(-20px));
+  }
+
+  .top-stroke,
+  .bottom-stroke {
+    @include box(40px, 10px, 10px);
+  }
+
+  .top-stroke {
+    @include transform(translate3d(5px, -35px, 0));
+  }
+
+  .bottom-stroke {
+    @include transform(translate3d(5px, 35px, 0));
+  }
+
+  .right-stroke {
+    @include box(10px, 60px, 10px);
+    @include transform(translateX(30px));
   }
 }
 
@@ -133,6 +193,36 @@ body {
   }
 }
 
+.G {
+  .vertical-stroke {
+    @include box(10px, 60px, 10px);
+    @include transform(translateX(-25px));
+  }
+
+  .top-stroke,
+  .bottom-stroke {
+    @include box(40px, 10px, 10px);
+  }
+
+  .top-stroke {
+    @include transform(translateY(-35px));
+  }
+
+  .bottom-stroke {
+    @include transform(translateY(35px));
+  }
+
+  .small-vertical-stroke {
+    @include box(10px, 25px, 10px);
+    @include transform(translate3d(25px, 18px, 0));
+  }
+
+  .chin {
+    @include box(25px, 10px, 10px);
+    @include transform(translate3d(17px, 2px, 0));
+  }
+}
+
 .H {
   .left-stroke,
   .right-stroke {
@@ -155,6 +245,23 @@ body {
 .I {
   .vertical-stroke {
     @include box(10px, 80px, 10px);
+  }
+}
+
+.J {
+  .vertical-stroke {
+    @include box(10px, 70px, 10px);
+    @include transform(translate3d(10px, -10px, 0));
+  }
+
+  .bottom-stroke {
+    @include box(10px, 10px, 10px);
+    @include transform(translate3d(0, 30px, 0));
+  }
+
+  .curl {
+    @include box(10px, 10px, 10px);
+    @include transform(translate3d(-10px, 20px, 0));
   }
 }
 
@@ -205,8 +312,9 @@ body {
   }
 
   .diagonal {
-    @include box(10px, 70px, 10px);
-    @include transform(skewX(30deg));
+    @include box(30px, 18px, 10px);
+    @include transform(skewY(60deg));
+    @include transform-origin(0 0 0);
   }
 }
 

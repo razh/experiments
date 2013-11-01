@@ -12,8 +12,14 @@ mixin parts(parts)
 mixin A
   +parts(['left-stroke', 'right-stroke', 'crossbar'])
 
+mixin B
+  +parts(['vertical-stroke', 'top-stroke', 'middle-stroke', 'bottom-stroke', 'top-vertical-stroke', 'bottom-vertical-stroke'])
+
 mixin C
   +parts(['vertical-stroke', 'top-stroke', 'bottom-stroke'])
+
+mixin D
+  +parts(['vertical-stroke', 'top-stroke', 'bottom-stroke', 'right-stroke'])
 
 mixin E
   +parts(['vertical-stroke', 'top-stroke', 'middle-stroke', 'bottom-stroke'])
@@ -21,11 +27,17 @@ mixin E
 mixin F
   +parts(['vertical-stroke', 'top-stroke', 'middle-stroke'])
 
+mixin G
+  +parts(['vertical-stroke', 'top-stroke', 'bottom-stroke', 'small-vertical-stroke', 'chin'])
+
 mixin H
   +parts(['left-stroke', 'right-stroke', 'crossbar'])
 
 mixin I
   +parts(['vertical-stroke'])
+
+mixin J
+  +parts(['vertical-stroke', 'bottom-stroke', 'curl'])
 
 mixin K
   +parts(['vertical-stroke', 'top-stroke', 'bottom-stroke'])
@@ -33,11 +45,35 @@ mixin K
 mixin L
   +parts(['vertical-stroke', 'bottom-stroke'])
 
+mixin M
+  +parts([])
+
 mixin N
   +parts(['left-stroke', 'right-stroke', 'diagonal'])
 
+mixin O
+  +parts([])
+
+mixin P
+  +parts([])
+
+mixin Q
+  +parts([])
+
+mixin R
+  +parts([])
+
+mixin S
+  +parts([])
+
 mixin T
   +parts(['vertical-stroke', 'horizontal-stroke'])
+
+mixin U
+  +parts([])
+
+mixin W
+  +parts([])
 
 mixin V
   +parts(['left-stroke', 'right-stroke'])
@@ -66,12 +102,26 @@ html(lang='en')
       .isometric-view
         +A
 
+    .letter-container.B
+      .letter B
+      .front-view
+        +B
+      .isometric-view
+        +B
+
     .letter-container.C
       .letter C
       .front-view
         +C
       .isometric-view
         +C
+
+    .letter-container.D
+      .letter D
+      .front-view
+        +D
+      .isometric-view
+        +D
 
     .letter-container.E
       .letter E
@@ -87,6 +137,13 @@ html(lang='en')
       .isometric-view
         +F
 
+    .letter-container.G
+      .letter G
+      .front-view
+        +G
+      .isometric-view
+        +G
+
     .letter-container.H
       .letter H
       .front-view
@@ -100,6 +157,13 @@ html(lang='en')
         +I
       .isometric-view
         +I
+
+    .letter-container.J
+      .letter J
+      .front-view
+        +J
+      .isometric-view
+        +J
 
     .letter-container.K
       .letter K
@@ -115,12 +179,54 @@ html(lang='en')
       .isometric-view
         +L
 
+    .letter-container.M
+      .letter M
+      .front-view
+        +M
+      .isometric-view
+        +M
+
     .letter-container.N
       .letter N
       .front-view
         +N
       .isometric-view
         +N
+
+    .letter-container.O
+      .letter O
+      .front-view
+        +O
+      .isometric-view
+        +O
+
+    .letter-container.P
+      .letter P
+      .front-view
+        +P
+      .isometric-view
+        +P
+
+    .letter-container.Q
+      .letter Q
+      .front-view
+        +Q
+      .isometric-view
+        +Q
+
+    .letter-container.R
+      .letter R
+      .front-view
+        +R
+      .isometric-view
+        +R
+
+    .letter-container.S
+      .letter S
+      .front-view
+        +S
+      .isometric-view
+        +S
 
     .letter-container.T
       .letter T
@@ -129,12 +235,26 @@ html(lang='en')
       .isometric-view
         +T
 
+    .letter-container.U
+      .letter U
+      .front-view
+        +U
+      .isometric-view
+        +U
+
     .letter-container.V
       .letter V
       .front-view
         +V
       .isometric-view
         +V
+
+    .letter-container.W
+      .letter W
+      .front-view
+        +W
+      .isometric-view
+        +W
 
     .letter-container.X
       .letter X
