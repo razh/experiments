@@ -68,22 +68,226 @@ body {
   }
 }
 
-.N {
+.C {
+  .vertical-stroke {
+    @include box(10px, 60px, 10px);
+    @include transform(translateX(-25px));
+  }
+
+  .top-stroke,
+  .bottom-stroke {
+    @include box(40px, 10px, 10px);
+  }
+
+  .top-stroke {
+    @include transform(translateY(-35px));
+  }
+
+  .bottom-stroke {
+    @include transform(translateY(35px));
+  }
+}
+
+.E {
+  .vertical-stroke {
+    @include box(10px, 80px, 10px);
+    @include transform(translateX(-20px));
+  }
+
+  .top-stroke,
+  .middle-stroke,
+  .bottom-stroke {
+    @include box(30px, 10px, 10px);
+  }
+
+  .top-stroke {
+    @include transform(translateY(-35px));
+  }
+
+  .middle-stroke {
+    @include transform(translateY(-5px));
+  }
+
+  .bottom-stroke {
+    @include transform(translateY(35px));
+  }
+}
+
+.F {
+  .vertical-stroke {
+    @include box(10px, 80px, 10px);
+    @include transform(translateX(-20px));
+  }
+
+  .top-stroke,
+  .middle-stroke {
+    @include box(30px, 10px, 10px);
+  }
+
+  .top-stroke {
+    @include transform(translateY(-35px));
+  }
+
+  .middle-stroke {
+    @include transform(translateY(-5px));
+  }
+}
+
+.H {
   .left-stroke,
-  .right-stroke,
-  .diagonal {
+  .right-stroke {
     @include box(10px, 70px, 10px);
   }
 
   .left-stroke {
-    @include transform(translateX(-25px));
+    @include transform(translateX(-20px));
   }
 
   .right-stroke {
-    @include transform(translateX(25px));
+    @include transform(translateX(20px));
+  }
+
+  .crossbar {
+    @include box(30px, 10px, 10px);
+  }
+}
+
+.I {
+  .vertical-stroke {
+    @include box(10px, 80px, 10px);
+  }
+}
+
+.K {
+  .vertical-stroke {
+    @include box(10px, 80px, 10px);
+    @include transform(translateX(-30px));
+  }
+
+  .top-stroke,
+  .bottom-stroke {
+    @include box(15px, 40px, 10px);
+  }
+
+  .top-stroke {
+    @include transform(translateY(-20px) skewX(-45deg));
+  }
+
+  .bottom-stroke {
+    @include transform(translateY(20px) skewX(45deg));
+  }
+}
+
+.L {
+  .vertical-stroke {
+    @include box(10px, 80px, 10px);
+    @include transform(translateX(-20px));
+  }
+
+  .bottom-stroke {
+    @include box(30px, 10px, 10px);
+    @include transform(translateY(35px));
+  }
+}
+
+.N {
+  .left-stroke,
+  .right-stroke {
+    @include box(10px, 70px, 10px);
+  }
+
+  .left-stroke {
+    @include transform(translateX(-20px));
+  }
+
+  .right-stroke {
+    @include transform(translateX(20px));
   }
 
   .diagonal {
+    @include box(10px, 70px, 10px);
     @include transform(skewX(30deg));
+  }
+}
+
+.T {
+  .horizontal-stroke {
+    @include box(50px, 10px, 10px);
+    @include transform(translateY(-40px));
+  }
+
+  .vertical-stroke {
+    @include box(10px, 70px, 10px);
+  }
+}
+
+.V {
+  .left-stroke,
+  .right-stroke {
+    @include box(10px, 80px, 10px);
+  }
+
+  .left-stroke {
+    @include transform(translateX(-15px) skewX(20deg));
+  }
+
+  .right-stroke {
+    @include transform(translateX(15px) skewX(-20deg));
+  }
+}
+
+.X {
+  .back-stroke,
+  .forward-stroke {
+    @include box(10px, 70px, 10px);
+  }
+
+  .back-stroke {
+    @include transform(skewX(30deg));
+  }
+
+  .forward-stroke {
+    @include transform(skewX(-30deg));
+  }
+}
+
+.Y {
+  .left-stroke,
+  .right-stroke,
+  .vertical-stroke {
+    @include box(12px, 40px, 10px);
+  }
+
+  .left-stroke {
+    @include transform(translate3d(-12px, -20px, 0) skewX(30deg));
+  }
+
+  .right-stroke {
+    @include transform(translate3d(12px, -20px, 0) skewX(-30deg));
+  }
+
+  .vertical-stroke {
+    @include transform(translateY(20px));
+  }
+}
+
+.Z {
+  .top-stroke,
+  .bottom-stroke {
+    @include box(50px, 10px, 10px);
+  }
+
+  .top-stroke {
+    @include transform(translateY(-35px));
+  }
+
+  .bottom-stroke {
+    @include transform(translateY(35px));
+  }
+
+  .diagonal {
+    @include box(15px, 60px, 10px);
+    @include transform(skewX(-30deg));
+    @include transform-origin(0 0 0);
   }
 }
