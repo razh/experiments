@@ -254,14 +254,14 @@ body {
     @include transform(translate3d(10px, -10px, 0));
   }
 
-  .bottom-stroke {
-    @include box(10px, 10px, 10px);
-    @include transform(translate3d(0, 30px, 0));
+  .right-curl {
+    @include box(10px, 15px, 10px);
+    @include transform(translate3d(3px, 32px, 0)  skewX(-45deg));
   }
 
-  .curl {
-    @include box(10px, 10px, 10px);
-    @include transform(translate3d(-10px, 20px, 0));
+  .left-curl {
+    @include box(10px, 15px, 10px);
+    @include transform(translate3d(-12px, 32px, 0) skewX(45deg));
   }
 }
 
@@ -297,6 +297,31 @@ body {
   }
 }
 
+.M {
+  .left-outer-stroke,
+  .left-inner-stroke,
+  .right-inner-stroke,
+  .right-outer-stroke {
+    @include box(15px, 80px, 10px);
+  }
+
+  .left-outer-stroke {
+    @include transform(translateX(-30px) skewX(-10deg));
+  }
+
+  .left-inner-stroke {
+    @include transform(translateX(-12px) skewX(15deg));
+  }
+
+  .right-inner-stroke {
+    @include transform(translateX(12px) skewX(-15deg));
+  }
+
+  .right-outer-stroke {
+    @include transform(translateX(30px) skewX(10deg));
+  }
+}
+
 .N {
   .left-stroke,
   .right-stroke {
@@ -318,6 +343,34 @@ body {
   }
 }
 
+.O {
+  .left-stroke,
+  .right-stroke {
+    @include box(10px, 60px, 10px);
+  }
+
+  .top-stroke,
+  .bottom-stroke {
+    @include box(30px, 10px, 10px);
+  }
+
+  .left-stroke {
+    @include transform(translateX(-20px));
+  }
+
+  .right-stroke {
+    @include transform(translateX(20px));
+  }
+
+  .top-stroke {
+    @include transform(translateY(-35px));
+  }
+
+  .bottom-stroke {
+    @include transform(translateY(35px));
+  }
+}
+
 .T {
   .horizontal-stroke {
     @include box(50px, 10px, 10px);
@@ -326,6 +379,26 @@ body {
 
   .vertical-stroke {
     @include box(10px, 70px, 10px);
+  }
+}
+
+.U {
+  .left-stroke,
+  .right-stroke {
+    @include box(10px, 70px, 10px);
+  }
+
+  .left-stroke {
+    @include transform(translateX(-25px));
+  }
+
+  .right-stroke {
+    @include transform(translateX(25px));
+  }
+
+  .bottom-stroke {
+    @include box(40px, 10px, 10px);
+    @include transform(translateY(40px));
   }
 }
 
