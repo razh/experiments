@@ -383,6 +383,38 @@ body {
   }
 }
 
+.S {
+  .top-stroke,
+  .bottom-stroke {
+    @include box(45px, 10px, 10px);
+  }
+
+  .middle-stroke {
+    @include box(40px, 10px, 10px);
+  }
+
+  .left-stroke,
+  .right-stroke {
+    @include box(10px, 25px, 10px);
+  }
+
+  .top-stroke {
+    @include transform(translate3d(2.5px, -35px, 0));
+  }
+
+  .bottom-stroke {
+    @include transform(translate3d(-2.5px, 35px, 0));
+  }
+
+  .left-stroke {
+    @include transform(translate3d(-25px, -17.5px, 0));
+  }
+
+  .right-stroke {
+    @include transform(translate3d(25px, 17.5px, 0));
+  }
+}
+
 .T {
   .horizontal-stroke {
     @include box(50px, 10px, 10px);

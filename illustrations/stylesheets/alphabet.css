@@ -3634,7 +3634,311 @@ body {
   transform: translate3d(5.5px, 0, 0) rotateY(90deg);
 }
 
-/* line 387, ../sass/alphabet.scss */
+/* line 388, ../sass/alphabet.scss */
+.S .top-stroke,
+.S .bottom-stroke {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* line 21, ../sass/modules/_box.scss */
+.S .top-stroke .face,
+.S .bottom-stroke .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.S .top-stroke .top, .S .top-stroke .bottom,
+.S .bottom-stroke .top,
+.S .bottom-stroke .bottom {
+  width: 45px;
+  height: 10px;
+  margin-left: -22.5px;
+  margin-top: -5px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.S .top-stroke .top,
+.S .bottom-stroke .top {
+  -webkit-transform: translate3d(0, -5px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -5px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -5px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -5px, 0) rotateX(90deg);
+  transform: translate3d(0, -5px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.S .top-stroke .bottom,
+.S .bottom-stroke .bottom {
+  -webkit-transform: translate3d(0, 5px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 5px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 5px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 5px, 0) rotateX(-90deg);
+  transform: translate3d(0, 5px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.S .top-stroke .back, .S .top-stroke .front,
+.S .bottom-stroke .back,
+.S .bottom-stroke .front {
+  width: 45px;
+  height: 10px;
+  margin-left: -22.5px;
+  margin-top: -5px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.S .top-stroke .back,
+.S .bottom-stroke .back {
+  -webkit-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  transform: translate3d(0, 0, -5px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.S .top-stroke .front,
+.S .bottom-stroke .front {
+  -webkit-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  transform: translate3d(0, 0, 5px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.S .top-stroke .left, .S .top-stroke .right,
+.S .bottom-stroke .left,
+.S .bottom-stroke .right {
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  margin-top: -5px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.S .top-stroke .left,
+.S .bottom-stroke .left {
+  -webkit-transform: translate3d(-22.5px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-22.5px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-22.5px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-22.5px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-22.5px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.S .top-stroke .right,
+.S .bottom-stroke .right {
+  -webkit-transform: translate3d(22.5px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(22.5px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(22.5px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(22.5px, 0, 0) rotateY(90deg);
+  transform: translate3d(22.5px, 0, 0) rotateY(90deg);
+}
+/* line 392, ../sass/alphabet.scss */
+.S .middle-stroke {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* line 21, ../sass/modules/_box.scss */
+.S .middle-stroke .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.S .middle-stroke .top, .S .middle-stroke .bottom {
+  width: 40px;
+  height: 10px;
+  margin-left: -20px;
+  margin-top: -5px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.S .middle-stroke .top {
+  -webkit-transform: translate3d(0, -5px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -5px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -5px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -5px, 0) rotateX(90deg);
+  transform: translate3d(0, -5px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.S .middle-stroke .bottom {
+  -webkit-transform: translate3d(0, 5px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 5px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 5px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 5px, 0) rotateX(-90deg);
+  transform: translate3d(0, 5px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.S .middle-stroke .back, .S .middle-stroke .front {
+  width: 40px;
+  height: 10px;
+  margin-left: -20px;
+  margin-top: -5px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.S .middle-stroke .back {
+  -webkit-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  transform: translate3d(0, 0, -5px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.S .middle-stroke .front {
+  -webkit-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  transform: translate3d(0, 0, 5px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.S .middle-stroke .left, .S .middle-stroke .right {
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  margin-top: -5px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.S .middle-stroke .left {
+  -webkit-transform: translate3d(-20px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-20px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-20px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-20px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-20px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.S .middle-stroke .right {
+  -webkit-transform: translate3d(20px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(20px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(20px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(20px, 0, 0) rotateY(90deg);
+  transform: translate3d(20px, 0, 0) rotateY(90deg);
+}
+/* line 397, ../sass/alphabet.scss */
+.S .left-stroke,
+.S .right-stroke {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* line 21, ../sass/modules/_box.scss */
+.S .left-stroke .face,
+.S .right-stroke .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.S .left-stroke .top, .S .left-stroke .bottom,
+.S .right-stroke .top,
+.S .right-stroke .bottom {
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  margin-top: -5px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.S .left-stroke .top,
+.S .right-stroke .top {
+  -webkit-transform: translate3d(0, -12.5px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -12.5px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -12.5px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -12.5px, 0) rotateX(90deg);
+  transform: translate3d(0, -12.5px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.S .left-stroke .bottom,
+.S .right-stroke .bottom {
+  -webkit-transform: translate3d(0, 12.5px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 12.5px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 12.5px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 12.5px, 0) rotateX(-90deg);
+  transform: translate3d(0, 12.5px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.S .left-stroke .back, .S .left-stroke .front,
+.S .right-stroke .back,
+.S .right-stroke .front {
+  width: 10px;
+  height: 25px;
+  margin-left: -5px;
+  margin-top: -12.5px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.S .left-stroke .back,
+.S .right-stroke .back {
+  -webkit-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -5px) rotateY(180deg);
+  transform: translate3d(0, 0, -5px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.S .left-stroke .front,
+.S .right-stroke .front {
+  -webkit-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 5px) rotateY(0deg);
+  transform: translate3d(0, 0, 5px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.S .left-stroke .left, .S .left-stroke .right,
+.S .right-stroke .left,
+.S .right-stroke .right {
+  width: 10px;
+  height: 25px;
+  margin-left: -5px;
+  margin-top: -12.5px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.S .left-stroke .left,
+.S .right-stroke .left {
+  -webkit-transform: translate3d(-5px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-5px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-5px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-5px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-5px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.S .left-stroke .right,
+.S .right-stroke .right {
+  -webkit-transform: translate3d(5px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(5px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(5px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(5px, 0, 0) rotateY(90deg);
+  transform: translate3d(5px, 0, 0) rotateY(90deg);
+}
+/* line 401, ../sass/alphabet.scss */
+.S .top-stroke {
+  -webkit-transform: translate3d(2.5px, -35px, 0);
+  -moz-transform: translate3d(2.5px, -35px, 0);
+  -ms-transform: translate3d(2.5px, -35px, 0);
+  -o-transform: translate3d(2.5px, -35px, 0);
+  transform: translate3d(2.5px, -35px, 0);
+}
+/* line 405, ../sass/alphabet.scss */
+.S .bottom-stroke {
+  -webkit-transform: translate3d(-2.5px, 35px, 0);
+  -moz-transform: translate3d(-2.5px, 35px, 0);
+  -ms-transform: translate3d(-2.5px, 35px, 0);
+  -o-transform: translate3d(-2.5px, 35px, 0);
+  transform: translate3d(-2.5px, 35px, 0);
+}
+/* line 409, ../sass/alphabet.scss */
+.S .left-stroke {
+  -webkit-transform: translate3d(-25px, -17.5px, 0);
+  -moz-transform: translate3d(-25px, -17.5px, 0);
+  -ms-transform: translate3d(-25px, -17.5px, 0);
+  -o-transform: translate3d(-25px, -17.5px, 0);
+  transform: translate3d(-25px, -17.5px, 0);
+}
+/* line 413, ../sass/alphabet.scss */
+.S .right-stroke {
+  -webkit-transform: translate3d(25px, 17.5px, 0);
+  -moz-transform: translate3d(25px, 17.5px, 0);
+  -ms-transform: translate3d(25px, 17.5px, 0);
+  -o-transform: translate3d(25px, 17.5px, 0);
+  transform: translate3d(25px, 17.5px, 0);
+}
+
+/* line 419, ../sass/alphabet.scss */
 .T .horizontal-stroke {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -3720,7 +4024,7 @@ body {
   -o-transform: translate3d(25px, 0, 0) rotateY(90deg);
   transform: translate3d(25px, 0, 0) rotateY(90deg);
 }
-/* line 392, ../sass/alphabet.scss */
+/* line 424, ../sass/alphabet.scss */
 .T .vertical-stroke {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -3802,7 +4106,7 @@ body {
   transform: translate3d(5px, 0, 0) rotateY(90deg);
 }
 
-/* line 399, ../sass/alphabet.scss */
+/* line 431, ../sass/alphabet.scss */
 .U .left-stroke,
 .U .right-stroke {
   -webkit-transform-style: preserve-3d;
@@ -3897,7 +4201,7 @@ body {
   -o-transform: translate3d(5px, 0, 0) rotateY(90deg);
   transform: translate3d(5px, 0, 0) rotateY(90deg);
 }
-/* line 403, ../sass/alphabet.scss */
+/* line 435, ../sass/alphabet.scss */
 .U .left-stroke {
   -webkit-transform: translateX(-25px);
   -moz-transform: translateX(-25px);
@@ -3905,7 +4209,7 @@ body {
   -o-transform: translateX(-25px);
   transform: translateX(-25px);
 }
-/* line 407, ../sass/alphabet.scss */
+/* line 439, ../sass/alphabet.scss */
 .U .right-stroke {
   -webkit-transform: translateX(25px);
   -moz-transform: translateX(25px);
@@ -3913,7 +4217,7 @@ body {
   -o-transform: translateX(25px);
   transform: translateX(25px);
 }
-/* line 411, ../sass/alphabet.scss */
+/* line 443, ../sass/alphabet.scss */
 .U .bottom-stroke {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -4000,7 +4304,7 @@ body {
   transform: translate3d(20px, 0, 0) rotateY(90deg);
 }
 
-/* line 419, ../sass/alphabet.scss */
+/* line 451, ../sass/alphabet.scss */
 .V .left-stroke,
 .V .right-stroke {
   -webkit-transform-style: preserve-3d;
@@ -4095,7 +4399,7 @@ body {
   -o-transform: translate3d(5px, 0, 0) rotateY(90deg);
   transform: translate3d(5px, 0, 0) rotateY(90deg);
 }
-/* line 423, ../sass/alphabet.scss */
+/* line 455, ../sass/alphabet.scss */
 .V .left-stroke {
   -webkit-transform: translateX(-15px) skewX(20deg);
   -moz-transform: translateX(-15px) skewX(20deg);
@@ -4103,7 +4407,7 @@ body {
   -o-transform: translateX(-15px) skewX(20deg);
   transform: translateX(-15px) skewX(20deg);
 }
-/* line 427, ../sass/alphabet.scss */
+/* line 459, ../sass/alphabet.scss */
 .V .right-stroke {
   -webkit-transform: translateX(15px) skewX(-20deg);
   -moz-transform: translateX(15px) skewX(-20deg);
@@ -4112,7 +4416,7 @@ body {
   transform: translateX(15px) skewX(-20deg);
 }
 
-/* line 436, ../sass/alphabet.scss */
+/* line 468, ../sass/alphabet.scss */
 .W .left-outer-stroke,
 .W .left-inner-stroke,
 .W .right-inner-stroke,
@@ -4235,7 +4539,7 @@ body {
   -o-transform: translate3d(7.5px, 0, 0) rotateY(90deg);
   transform: translate3d(7.5px, 0, 0) rotateY(90deg);
 }
-/* line 440, ../sass/alphabet.scss */
+/* line 472, ../sass/alphabet.scss */
 .W .left-outer-stroke {
   -webkit-transform: translateX(-33px) skewX(15deg);
   -moz-transform: translateX(-33px) skewX(15deg);
@@ -4243,7 +4547,7 @@ body {
   -o-transform: translateX(-33px) skewX(15deg);
   transform: translateX(-33px) skewX(15deg);
 }
-/* line 444, ../sass/alphabet.scss */
+/* line 476, ../sass/alphabet.scss */
 .W .left-inner-stroke {
   -webkit-transform: translateX(-11px) skewX(-15deg);
   -moz-transform: translateX(-11px) skewX(-15deg);
@@ -4251,7 +4555,7 @@ body {
   -o-transform: translateX(-11px) skewX(-15deg);
   transform: translateX(-11px) skewX(-15deg);
 }
-/* line 448, ../sass/alphabet.scss */
+/* line 480, ../sass/alphabet.scss */
 .W .right-inner-stroke {
   -webkit-transform: translateX(11px) skewX(15deg);
   -moz-transform: translateX(11px) skewX(15deg);
@@ -4259,7 +4563,7 @@ body {
   -o-transform: translateX(11px) skewX(15deg);
   transform: translateX(11px) skewX(15deg);
 }
-/* line 452, ../sass/alphabet.scss */
+/* line 484, ../sass/alphabet.scss */
 .W .right-outer-stroke {
   -webkit-transform: translateX(33px) skewX(-15deg);
   -moz-transform: translateX(33px) skewX(-15deg);
@@ -4268,7 +4572,7 @@ body {
   transform: translateX(33px) skewX(-15deg);
 }
 
-/* line 459, ../sass/alphabet.scss */
+/* line 491, ../sass/alphabet.scss */
 .X .back-stroke,
 .X .forward-stroke {
   -webkit-transform-style: preserve-3d;
@@ -4363,7 +4667,7 @@ body {
   -o-transform: translate3d(5px, 0, 0) rotateY(90deg);
   transform: translate3d(5px, 0, 0) rotateY(90deg);
 }
-/* line 463, ../sass/alphabet.scss */
+/* line 495, ../sass/alphabet.scss */
 .X .back-stroke {
   -webkit-transform: skewX(30deg);
   -moz-transform: skewX(30deg);
@@ -4371,7 +4675,7 @@ body {
   -o-transform: skewX(30deg);
   transform: skewX(30deg);
 }
-/* line 467, ../sass/alphabet.scss */
+/* line 499, ../sass/alphabet.scss */
 .X .forward-stroke {
   -webkit-transform: skewX(-30deg);
   -moz-transform: skewX(-30deg);
@@ -4380,7 +4684,7 @@ body {
   transform: skewX(-30deg);
 }
 
-/* line 475, ../sass/alphabet.scss */
+/* line 507, ../sass/alphabet.scss */
 .Y .left-stroke,
 .Y .right-stroke,
 .Y .vertical-stroke {
@@ -4489,7 +4793,7 @@ body {
   -o-transform: translate3d(6px, 0, 0) rotateY(90deg);
   transform: translate3d(6px, 0, 0) rotateY(90deg);
 }
-/* line 479, ../sass/alphabet.scss */
+/* line 511, ../sass/alphabet.scss */
 .Y .left-stroke {
   -webkit-transform: translate3d(-12px, -20px, 0) skewX(30deg);
   -moz-transform: translate3d(-12px, -20px, 0) skewX(30deg);
@@ -4497,7 +4801,7 @@ body {
   -o-transform: translate3d(-12px, -20px, 0) skewX(30deg);
   transform: translate3d(-12px, -20px, 0) skewX(30deg);
 }
-/* line 483, ../sass/alphabet.scss */
+/* line 515, ../sass/alphabet.scss */
 .Y .right-stroke {
   -webkit-transform: translate3d(12px, -20px, 0) skewX(-30deg);
   -moz-transform: translate3d(12px, -20px, 0) skewX(-30deg);
@@ -4505,7 +4809,7 @@ body {
   -o-transform: translate3d(12px, -20px, 0) skewX(-30deg);
   transform: translate3d(12px, -20px, 0) skewX(-30deg);
 }
-/* line 487, ../sass/alphabet.scss */
+/* line 519, ../sass/alphabet.scss */
 .Y .vertical-stroke {
   -webkit-transform: translateY(20px);
   -moz-transform: translateY(20px);
@@ -4514,7 +4818,7 @@ body {
   transform: translateY(20px);
 }
 
-/* line 494, ../sass/alphabet.scss */
+/* line 526, ../sass/alphabet.scss */
 .Z .top-stroke,
 .Z .bottom-stroke {
   -webkit-transform-style: preserve-3d;
@@ -4609,7 +4913,7 @@ body {
   -o-transform: translate3d(25px, 0, 0) rotateY(90deg);
   transform: translate3d(25px, 0, 0) rotateY(90deg);
 }
-/* line 498, ../sass/alphabet.scss */
+/* line 530, ../sass/alphabet.scss */
 .Z .top-stroke {
   -webkit-transform: translateY(-35px);
   -moz-transform: translateY(-35px);
@@ -4617,7 +4921,7 @@ body {
   -o-transform: translateY(-35px);
   transform: translateY(-35px);
 }
-/* line 502, ../sass/alphabet.scss */
+/* line 534, ../sass/alphabet.scss */
 .Z .bottom-stroke {
   -webkit-transform: translateY(35px);
   -moz-transform: translateY(35px);
@@ -4625,7 +4929,7 @@ body {
   -o-transform: translateY(35px);
   transform: translateY(35px);
 }
-/* line 506, ../sass/alphabet.scss */
+/* line 538, ../sass/alphabet.scss */
 .Z .diagonal {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
