@@ -3,9 +3,9 @@ mixin faces
   each direction in [ 'top', 'bottom', 'back', 'front', 'left', 'right' ]
     div(class='face ' + direction)
 
-mixin parts(parts)
-  each part in parts
-    div(class=part)
+mixin parts(elements)
+  each element in elements
+    div(class=element)
       +faces
 
 //- We're using Jade due to the ease of creating mixins.
@@ -52,16 +52,16 @@ mixin N
   +parts(['left-stroke', 'right-stroke', 'diagonal'])
 
 mixin O
-  +parts([ 'top-stroke', 'right-stroke', 'bottom-stroke', 'left-stroke'])
+  +parts(['top-stroke', 'right-stroke', 'bottom-stroke', 'left-stroke'])
 
 mixin P
-  +parts([])
+  +parts(['vertical-stroke', 'top-stroke', 'middle-stroke', 'right-stroke'])
 
 mixin Q
-  +parts([])
+  +parts(['top-stroke', 'right-stroke', 'bottom-stroke', 'left-stroke', 'tail'])
 
 mixin R
-  +parts([])
+  +parts(['vertical-stroke', 'top-stroke', 'middle-stroke', 'right-stroke', 'tail'])
 
 mixin S
   +parts([])
@@ -73,7 +73,7 @@ mixin U
   +parts(['left-stroke', 'right-stroke', 'bottom-stroke'])
 
 mixin W
-  +parts([])
+  +parts(['left-outer-stroke', 'left-inner-stroke', 'right-inner-stroke', 'right-outer-stroke'])
 
 mixin V
   +parts(['left-stroke', 'right-stroke'])

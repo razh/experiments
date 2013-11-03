@@ -22,6 +22,7 @@ body {
     @include transform-style(preserve-3d);
   }
 
+  // Not really an isometric view.
   .isometric-view {
     @include transform(rotateX(-30deg) rotateY(-30deg));
     @include transform-origin(0 0 0);
@@ -194,23 +195,7 @@ body {
 }
 
 .G {
-  .vertical-stroke {
-    @include box(10px, 60px, 10px);
-    @include transform(translateX(-25px));
-  }
-
-  .top-stroke,
-  .bottom-stroke {
-    @include box(40px, 10px, 10px);
-  }
-
-  .top-stroke {
-    @include transform(translateY(-35px));
-  }
-
-  .bottom-stroke {
-    @include transform(translateY(35px));
-  }
+  @extend .C;
 
   .small-vertical-stroke {
     @include box(10px, 25px, 10px);
@@ -371,6 +356,33 @@ body {
   }
 }
 
+.P {
+  @extend .F;
+
+  .right-stroke {
+    @include box(10px, 20px, 10px);
+    @include transform(translate3d(20px, -20px, 0));
+  }
+}
+
+.Q {
+  @extend .O;
+
+  .tail {
+    @include box(10px, 30px, 10px);
+    @include transform(translate3d(15px, 25px, 0) skewX(45deg));
+  }
+}
+
+.R {
+  @extend .P;
+
+  .tail {
+    @include box(11px, 40px, 10px);
+    @include transform(translate3d(5px, 20px, 0) skewX(35deg));
+  }
+}
+
 .T {
   .horizontal-stroke {
     @include box(50px, 10px, 10px);
@@ -414,6 +426,31 @@ body {
 
   .right-stroke {
     @include transform(translateX(15px) skewX(-20deg));
+  }
+}
+
+.W {
+  .left-outer-stroke,
+  .left-inner-stroke,
+  .right-inner-stroke,
+  .right-outer-stroke {
+    @include box(15px, 80px, 10px);
+  }
+
+  .left-outer-stroke {
+    @include transform(translateX(-33px) skewX(15deg));
+  }
+
+  .left-inner-stroke {
+    @include transform(translateX(-11px) skewX(-15deg));
+  }
+
+  .right-inner-stroke {
+    @include transform(translateX(11px) skewX(15deg));
+  }
+
+  .right-outer-stroke {
+    @include transform(translateX(33px) skewX(-15deg));
   }
 }
 
