@@ -25,7 +25,7 @@ body {
   // Not really an isometric view.
   .isometric-view {
     @include transform(rotateX(-30deg) rotateY(-30deg));
-    @include transform-origin(0 0 0);
+    @include transform-origin(0, 0, 0);
     margin-left: 4em;
   }
 
@@ -324,7 +324,7 @@ body {
   .diagonal {
     @include box(30px, 18px, 10px);
     @include transform(skewY(60deg));
-    @include transform-origin(0 0 0);
+    @include transform-origin(0, 0, 0);
   }
 }
 
@@ -538,6 +538,6 @@ body {
   .diagonal {
     @include box(15px, 60px, 10px);
     @include transform(skewX(-30deg));
-    @include transform-origin(0 0 0);
+    @include transform-origin(0, 0, 0);
   }
 }
