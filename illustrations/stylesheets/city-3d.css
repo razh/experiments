@@ -827,111 +827,111 @@ html, body {
 }
 /* line 103, ../sass/city-3d.scss */
 .building-sans-bottom .building-edged-roof .top {
-  width: 260px;
-  height: 110px;
-  margin-left: 130px;
-  margin-top: 55px;
-  -webkit-transform: translate3d(0, -180px, 0) rotateX(90deg);
-  -moz-transform: translate3d(0, -180px, 0) rotateX(90deg);
-  -ms-transform: translate3d(0, -180px, 0) rotateX(90deg);
-  -o-transform: translate3d(0, -180px, 0) rotateX(90deg);
-  transform: translate3d(0, -180px, 0) rotateX(90deg);
+  width: 270px;
+  height: 120px;
+  margin-left: -135px;
+  margin-top: -60px;
+  -webkit-transform: translate3d(0, -185px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -185px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -185px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -185px, 0) rotateX(90deg);
+  transform: translate3d(0, -185px, 0) rotateX(90deg);
 }
 /* line 119, ../sass/city-3d.scss */
 .building-sans-bottom .building-edged-roof .back-top,
 .building-sans-bottom .building-edged-roof .front-top {
   width: 300px;
-  height: 20px;
+  height: 15px;
   margin-left: -150px;
-  margin-top: -10px;
+  margin-top: -7.5px;
 }
 /* line 127, ../sass/city-3d.scss */
 .building-sans-bottom .building-edged-roof .back-top {
-  -webkit-transform: translate3d(0, -200px, -65px) rotateX(90deg) rotateZ(180deg);
-  -moz-transform: translate3d(0, -200px, -65px) rotateX(90deg) rotateZ(180deg);
-  -ms-transform: translate3d(0, -200px, -65px) rotateX(90deg) rotateZ(180deg);
-  -o-transform: translate3d(0, -200px, -65px) rotateX(90deg) rotateZ(180deg);
-  transform: translate3d(0, -200px, -65px) rotateX(90deg) rotateZ(180deg);
+  -webkit-transform: translate3d(0, -200px, -67.5px) rotateX(90deg) rotateZ(180deg);
+  -moz-transform: translate3d(0, -200px, -67.5px) rotateX(90deg) rotateZ(180deg);
+  -ms-transform: translate3d(0, -200px, -67.5px) rotateX(90deg) rotateZ(180deg);
+  -o-transform: translate3d(0, -200px, -67.5px) rotateX(90deg) rotateZ(180deg);
+  transform: translate3d(0, -200px, -67.5px) rotateX(90deg) rotateZ(180deg);
 }
 /* line 128, ../sass/city-3d.scss */
 .building-sans-bottom .building-edged-roof .front-top {
-  -webkit-transform: translate3d(0, -200px, 65px) rotateX(90deg) rotateZ(0deg);
-  -moz-transform: translate3d(0, -200px, 65px) rotateX(90deg) rotateZ(0deg);
-  -ms-transform: translate3d(0, -200px, 65px) rotateX(90deg) rotateZ(0deg);
-  -o-transform: translate3d(0, -200px, 65px) rotateX(90deg) rotateZ(0deg);
-  transform: translate3d(0, -200px, 65px) rotateX(90deg) rotateZ(0deg);
+  -webkit-transform: translate3d(0, -200px, 67.5px) rotateX(90deg) rotateZ(0deg);
+  -moz-transform: translate3d(0, -200px, 67.5px) rotateX(90deg) rotateZ(0deg);
+  -ms-transform: translate3d(0, -200px, 67.5px) rotateX(90deg) rotateZ(0deg);
+  -o-transform: translate3d(0, -200px, 67.5px) rotateX(90deg) rotateZ(0deg);
+  transform: translate3d(0, -200px, 67.5px) rotateX(90deg) rotateZ(0deg);
 }
 /* line 131, ../sass/city-3d.scss */
 .building-sans-bottom .building-edged-roof .left-top,
 .building-sans-bottom .building-edged-roof .right-top {
-  width: 110px;
-  height: 20px;
-  margin-left: -55px;
-  margin-top: -10px;
+  width: 120px;
+  height: 15px;
+  margin-left: -60px;
+  margin-top: -7.5px;
 }
 /* line 139, ../sass/city-3d.scss */
 .building-sans-bottom .building-edged-roof .left-top {
-  -webkit-transform: translate3d(-140px, -200px, 0) rotateX(90deg) rotateZ(90deg);
-  -moz-transform: translate3d(-140px, -200px, 0) rotateX(90deg) rotateZ(90deg);
-  -ms-transform: translate3d(-140px, -200px, 0) rotateX(90deg) rotateZ(90deg);
-  -o-transform: translate3d(-140px, -200px, 0) rotateX(90deg) rotateZ(90deg);
-  transform: translate3d(-140px, -200px, 0) rotateX(90deg) rotateZ(90deg);
+  -webkit-transform: translate3d(-142.5px, -200px, 0) rotateX(90deg) rotateZ(90deg);
+  -moz-transform: translate3d(-142.5px, -200px, 0) rotateX(90deg) rotateZ(90deg);
+  -ms-transform: translate3d(-142.5px, -200px, 0) rotateX(90deg) rotateZ(90deg);
+  -o-transform: translate3d(-142.5px, -200px, 0) rotateX(90deg) rotateZ(90deg);
+  transform: translate3d(-142.5px, -200px, 0) rotateX(90deg) rotateZ(90deg);
 }
 /* line 140, ../sass/city-3d.scss */
 .building-sans-bottom .building-edged-roof .right-top {
-  -webkit-transform: translate3d(140px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
-  -moz-transform: translate3d(140px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
-  -ms-transform: translate3d(140px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
-  -o-transform: translate3d(140px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
-  transform: translate3d(140px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
+  -webkit-transform: translate3d(142.5px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
+  -moz-transform: translate3d(142.5px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
+  -ms-transform: translate3d(142.5px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
+  -o-transform: translate3d(142.5px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
+  transform: translate3d(142.5px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
 }
 /* line 147, ../sass/city-3d.scss */
 .building-sans-bottom .building-edged-roof .back-interior,
 .building-sans-bottom .building-edged-roof .front-interior {
-  width: 260px;
-  height: 20px;
-  margin-left: -130px;
-  margin-top: -10px;
+  width: 270px;
+  height: 15px;
+  margin-left: -135px;
+  margin-top: -7.5px;
 }
 /* line 155, ../sass/city-3d.scss */
 .building-sans-bottom .building-edged-roof .back-interior {
-  -webkit-transform: translate3d(0, -190px, -55px) rotateY(0deg);
-  -moz-transform: translate3d(0, -190px, -55px) rotateY(0deg);
-  -ms-transform: translate3d(0, -190px, -55px) rotateY(0deg);
-  -o-transform: translate3d(0, -190px, -55px) rotateY(0deg);
-  transform: translate3d(0, -190px, -55px) rotateY(0deg);
+  -webkit-transform: translate3d(0, -192.5px, -60px) rotateY(0deg);
+  -moz-transform: translate3d(0, -192.5px, -60px) rotateY(0deg);
+  -ms-transform: translate3d(0, -192.5px, -60px) rotateY(0deg);
+  -o-transform: translate3d(0, -192.5px, -60px) rotateY(0deg);
+  transform: translate3d(0, -192.5px, -60px) rotateY(0deg);
 }
 /* line 156, ../sass/city-3d.scss */
 .building-sans-bottom .building-edged-roof .front-interior {
-  -webkit-transform: translate3d(0, -190px, 55px) rotateY(180deg);
-  -moz-transform: translate3d(0, -190px, 55px) rotateY(180deg);
-  -ms-transform: translate3d(0, -190px, 55px) rotateY(180deg);
-  -o-transform: translate3d(0, -190px, 55px) rotateY(180deg);
-  transform: translate3d(0, -190px, 55px) rotateY(180deg);
+  -webkit-transform: translate3d(0, -192.5px, 60px) rotateY(180deg);
+  -moz-transform: translate3d(0, -192.5px, 60px) rotateY(180deg);
+  -ms-transform: translate3d(0, -192.5px, 60px) rotateY(180deg);
+  -o-transform: translate3d(0, -192.5px, 60px) rotateY(180deg);
+  transform: translate3d(0, -192.5px, 60px) rotateY(180deg);
 }
 /* line 159, ../sass/city-3d.scss */
 .building-sans-bottom .building-edged-roof .left-interior,
 .building-sans-bottom .building-edged-roof .right-interior {
-  width: 110px;
-  height: 20px;
-  margin-left: -110px;
-  margin-top: -10px;
+  width: 120px;
+  height: 15px;
+  margin-left: -60px;
+  margin-top: -7.5px;
 }
 /* line 167, ../sass/city-3d.scss */
 .building-sans-bottom .building-edged-roof .left-interior {
-  -webkit-transform: translate3d(-130px, -190px, 0) rotateY(90deg);
-  -moz-transform: translate3d(-130px, -190px, 0) rotateY(90deg);
-  -ms-transform: translate3d(-130px, -190px, 0) rotateY(90deg);
-  -o-transform: translate3d(-130px, -190px, 0) rotateY(90deg);
-  transform: translate3d(-130px, -190px, 0) rotateY(90deg);
+  -webkit-transform: translate3d(-135px, -192.5px, 0) rotateY(90deg);
+  -moz-transform: translate3d(-135px, -192.5px, 0) rotateY(90deg);
+  -ms-transform: translate3d(-135px, -192.5px, 0) rotateY(90deg);
+  -o-transform: translate3d(-135px, -192.5px, 0) rotateY(90deg);
+  transform: translate3d(-135px, -192.5px, 0) rotateY(90deg);
 }
 /* line 168, ../sass/city-3d.scss */
 .building-sans-bottom .building-edged-roof .right-interior {
-  -webkit-transform: translate3d(130px, -190px, 0) rotateY(-90deg);
-  -moz-transform: translate3d(130px, -190px, 0) rotateY(-90deg);
-  -ms-transform: translate3d(130px, -190px, 0) rotateY(-90deg);
-  -o-transform: translate3d(130px, -190px, 0) rotateY(-90deg);
-  transform: translate3d(130px, -190px, 0) rotateY(-90deg);
+  -webkit-transform: translate3d(135px, -192.5px, 0) rotateY(-90deg);
+  -moz-transform: translate3d(135px, -192.5px, 0) rotateY(-90deg);
+  -ms-transform: translate3d(135px, -192.5px, 0) rotateY(-90deg);
+  -o-transform: translate3d(135px, -192.5px, 0) rotateY(-90deg);
+  transform: translate3d(135px, -192.5px, 0) rotateY(-90deg);
 }
 /* line 282, ../sass/city-3d.scss */
 .building-sans-bottom .building-edged-roof .face {

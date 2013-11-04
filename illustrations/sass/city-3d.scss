@@ -104,8 +104,8 @@ html, body {
     width:  $widthInterior;
     height: $depthInterior;
 
-    margin-left: $halfWidthInterior;
-    margin-top:  $halfDepthInterior;
+    margin-left: -$halfWidthInterior;
+    margin-top:  -$halfDepthInterior;
 
     @include transform(translate3d(0, -$height + $edgeHeight, 0) rotateX(90deg));
   }
@@ -160,7 +160,7 @@ html, body {
     width:  $depthInterior;
     height: $edgeHeight;
 
-    margin-left: -$depthInterior;
+    margin-left: -$halfDepthInterior;
     margin-top:  -$halfEdgeHeight;
   }
 
@@ -275,7 +275,7 @@ $bottom-color: rgba(  0,   0,   0, 0.75);
   }
 
   .building-edged-roof {
-    @include building-edged-roof(300px, 200px, 150px, 20px, 20px);
+    @include building-edged-roof(300px, 200px, 150px, 15px, 15px);
     @include transform(translate3d(50%, 300px, 0) rotateX(-20deg) rotateY(0deg));
     @include transform-origin(0, 0, 0);
 
