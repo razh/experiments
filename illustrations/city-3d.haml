@@ -6,21 +6,30 @@
 
     %link(rel="stylesheet" href="./stylesheets/city-3d.css")
   %body
-    - def faces
-    -   ['top', 'bottom', 'back', 'front', 'left', 'right'].each do |direction|
+    - def faces(directions)
+    -   directions.each do |direction|
     -     haml_tag :div, :class => ['face', direction] end
     - end;
+
+    - def box; faces(['top', 'bottom', 'back', 'front', 'left', 'right']) end
+
+    - def building; faces(['top', 'back', 'front', 'left', 'right']) end
 
     .container
       %button.rotate.rotateX Rotate X
       %button.rotate.rotateY Rotate Y
 
       .building-test
-        - faces
+        - box
 
     .scene.buildings
       - (1..16).each do |i|
         .building
-          - faces
+          - box
       .ground
-        - faces
+        - box
+
+    .scene.building-sans-bottom
+      .building
+        - building
+
