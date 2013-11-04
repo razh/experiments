@@ -59,7 +59,7 @@ html, body {
     margin-left: -$halfWidth;
     margin-top:  -$halfDepth;
 
-    @include transform(translate3d(0, -$height, 0) rotateX( 90deg));
+    @include transform(translate3d(0, -$height, 0) rotateX(90deg));
   }
 
   .back, .front {
@@ -104,11 +104,16 @@ html, body {
     width:  $widthInterior;
     height: $depthInterior;
 
-    margin-left: -0.5 * $widthInterior;
-    margin-top:  -0.5 * $depthInterior;
+    margin-left: $halfWidthInterior;
+    margin-top:  $halfDepthInterior;
 
-    @include transform(translate3d(0, -$height + $edgeHeight, 0) rotateX( 90deg));
+    @include transform(translate3d(0, -$height + $edgeHeight, 0) rotateX(90deg));
   }
+
+
+  // Faces on the top of the buildng edge..
+  $x-top: $halfWidth - $halfEdgeWidth;
+  $z-top: $halfDepth - $halfEdgeWidth;
 
   .back-top,
   .front-top {
@@ -119,64 +124,48 @@ html, body {
     margin-top:  -$halfEdgeWidth;
   }
 
-  .back-top {
-    @include transform(translate3d(0, -$height, -$halfDepth + $halfEdgeWidth) rotateX(90deg) rotateZ(180deg));
-  }
-
-  .front-top {
-    @include transform(translate3d(0, -$height, $halfDepth - $halfEdgeWidth) rotateX(90deg) rotateZ(0deg));
-  }
+  .back-top  { @include transform(translate3d(0, -$height, -$z-top) rotateX(90deg) rotateZ(180deg)); }
+  .front-top { @include transform(translate3d(0, -$height,  $z-top) rotateX(90deg) rotateZ(  0deg)); }
 
   .left-top,
   .right-top {
-    width:  $depth - 2 * $edgeWidth;
+    width:  $depthInterior;
     height: $edgeWidth;
 
-    margin-left: -$halfDepth + $edgeWidth;
+    margin-left: -$halfDepthInterior;
     margin-top:  -$halfEdgeWidth;
   }
 
-  .left-top {
-    @include transform(translate3d(-$halfWidth + $halfEdgeWidth, -$height, 0) rotateX(90deg) rotateZ(90deg));
-  }
+  .left-top  { @include transform(translate3d(-$x-top, -$height, 0) rotateX(90deg) rotateZ( 90deg)); }
+  .right-top { @include transform(translate3d( $x-top, -$height, 0) rotateX(90deg) rotateZ(-90deg)); }
 
-  .right-top {
-    @include transform(translate3d($halfWidth - $halfEdgeWidth, -$height, 0) rotateX(90deg) rotateZ(-90deg));
-  }
+
+  // Faces on the interior of the building edge.
+  $y-interior: -$height + $halfEdgeHeight;
 
   .back-interior,
   .front-interior {
-    width:  $width - 2 * $edgeWidth;
+    width:  $widthInterior;
     height: $edgeHeight;
 
-    margin-left: -$halfWidth + $edgeWidth;
+    margin-left: -$halfWidthInterior;
     margin-top:  -$halfEdgeHeight;
   }
 
-  .back-interior {
-    @include transform(translate3d(0, -$height + $halfEdgeHeight, -$halfDepth + $edgeWidth) rotateY(0deg));
-  }
-
-  .front-interior {
-    @include transform(translate3d(0, -$height + $halfEdgeHeight, $halfDepth - $edgeWidth) rotateY(180deg));
-  }
+  .back-interior  { @include transform(translate3d(0, $y-interior, -$halfDepthInterior) rotateY(  0deg)); }
+  .front-interior { @include transform(translate3d(0, $y-interior,  $halfDepthInterior) rotateY(180deg)); }
 
   .left-interior,
   .right-interior {
-    width: $depth - 2 * $edgeWidth;
+    width:  $depthInterior;
     height: $edgeHeight;
 
-    margin-left: -$halfDepth + $edgeWidth;
-    margin-top: -$halfEdgeHeight;
+    margin-left: -$depthInterior;
+    margin-top:  -$halfEdgeHeight;
   }
 
-  .left-interior {
-    @include transform(translate3d(-$halfWidth + $edgeWidth, -$height + $halfEdgeHeight, 0) rotateY(90deg));
-  }
-
-  .right-interior {
-    @include transform(translate3d($halfWidth - $edgeWidth, -$height + $halfEdgeHeight, 0) rotateY(-90deg));
-  }
+  .left-interior  { @include transform(translate3d(-$halfWidthInterior, $y-interior, 0) rotateY( 90deg)); }
+  .right-interior { @include transform(translate3d( $halfWidthInterior, $y-interior, 0) rotateY(-90deg)); }
 }
 
 $top-color:    rgba(192, 192, 192, 0.75);
