@@ -110,8 +110,8 @@ html, body {
     @include transform(translate3d(0, -$height + $edgeHeight, 0) rotateX( 90deg));
   }
 
-  .front-top,
-  .back-top {
+  .back-top,
+  .front-top {
     width:  $width;
     height: $edgeWidth;
 
@@ -119,40 +119,92 @@ html, body {
     margin-top:  -$halfEdgeWidth;
   }
 
-  .front-top {
-    @include transform(translate3d(0, -$height, $halfDepthInterior + $halfEdgeWidth) rotateX(90deg));
+  .back-top {
+    @include transform(translate3d(0, -$height, -$halfDepth + $halfEdgeWidth) rotateX(90deg) rotateZ(180deg));
   }
 
-  .back-top {
-    @include transform(translate3d(0, -$height, -$halfDepthInterior - $halfEdgeWidth) rotateX(90deg));
+  .front-top {
+    @include transform(translate3d(0, -$height, $halfDepth - $halfEdgeWidth) rotateX(90deg) rotateZ(0deg));
   }
 
   .left-top,
   .right-top {
-    width:  $depth - $edgeWidth;
+    width:  $depth - 2 * $edgeWidth;
     height: $edgeWidth;
 
-    margin-left: $halfDepth - $halfEdgeWidth;
-    margin-top:  $halfEdgeWidth;
+    margin-left: -$halfDepth + $edgeWidth;
+    margin-top:  -$halfEdgeWidth;
   }
 
-  .left-top {}
-  .right-top {}
+  .left-top {
+    @include transform(translate3d(-$halfWidth + $halfEdgeWidth, -$height, 0) rotateX(90deg) rotateZ(90deg));
+  }
 
-  .front-interior {}
-  .back-interior {}
+  .right-top {
+    @include transform(translate3d($halfWidth - $halfEdgeWidth, -$height, 0) rotateX(90deg) rotateZ(-90deg));
+  }
 
-  .left-interior {}
-  .right-interior {}
+  .back-interior,
+  .front-interior {
+    width:  $width - 2 * $edgeWidth;
+    height: $edgeHeight;
+
+    margin-left: -$halfWidth + $edgeWidth;
+    margin-top:  -$halfEdgeHeight;
+  }
+
+  .back-interior {
+    @include transform(translate3d(0, -$height + $halfEdgeHeight, -$halfDepth + $edgeWidth) rotateY(0deg));
+  }
+
+  .front-interior {
+    @include transform(translate3d(0, -$height + $halfEdgeHeight, $halfDepth - $edgeWidth) rotateY(180deg));
+  }
+
+  .left-interior,
+  .right-interior {
+    width: $depth - 2 * $edgeWidth;
+    height: $edgeHeight;
+
+    margin-left: -$halfDepth + $edgeWidth;
+    margin-top: -$halfEdgeHeight;
+  }
+
+  .left-interior {
+    @include transform(translate3d(-$halfWidth + $edgeWidth, -$height + $halfEdgeHeight, 0) rotateY(90deg));
+  }
+
+  .right-interior {
+    @include transform(translate3d($halfWidth - $edgeWidth, -$height + $halfEdgeHeight, 0) rotateY(-90deg));
+  }
 }
 
+$top-color:    rgba(192, 192, 192, 0.75);
+$front-color:  rgba(144, 144, 144, 0.75);
+$right-color:  rgba( 96,  96,  96, 0.75);
+$back-color:   rgba( 64,  64,  64, 0.75);
+$left-color:   rgba( 32,  32,  32, 0.75);
+$bottom-color: rgba(  0,   0,   0, 0.75);
+
 @mixin simple-face-shading() {
-  .top    { background-color: rgba(192, 192, 192, 0.75); }
-  .front  { background-color: rgba(144, 144, 144, 0.75); }
-  .right  { background-color: rgba( 96,  96,  96, 0.75); }
-  .back   { background-color: rgba( 64,  64,  64, 0.75); }
-  .left   { background-color: rgba( 32,  32,  32, 0.75); }
-  .bottom { background-color: rgba(  0,   0,   0, 0.75); }
+  .top    { background-color: $top-color; }
+  .front  { background-color: $front-color; }
+  .right  { background-color: $right-color; }
+  .back   { background-color: $back-color; }
+  .left   { background-color: $left-color; }
+  .bottom { background-color: $bottom-color; }
+}
+
+@mixin face-debug() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 32px;
+  text-transform: uppercase;
+  @include text-shadow(0 2px 0 rgba(0, 0, 0, 0.3));
 }
 
 .building-test {
@@ -168,23 +220,14 @@ html, body {
   }
 
   .face {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: white;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 32px;
-    text-transform: uppercase;
-    @include text-shadow(0 2px 0 rgba(0, 0, 0, 0.3));
-
+    @include face-debug();
     @include backface-visibility(hidden);
   }
 
   .top:after { content: "top"; }
   .bottom:after { content: "bottom";  }
-  .front:after { content: "front";  }
   .back:after { content: "back";  }
+  .front:after { content: "front";  }
   .left:after { content: "left";  }
   .right:after { content: "right";  }
 }
@@ -224,7 +267,7 @@ html, body {
       background-color: #333;
     }
 
-    .front, .back, .left, .right {
+    .back, .front, .left, .right {
       background-color: #444;
     }
   }
@@ -244,16 +287,36 @@ html, body {
 
   .building-edged-roof {
     @include building-edged-roof(300px, 200px, 150px, 20px, 20px);
-    @include transform(translate3d(50%, 300px, 0) rotateX(-10deg) rotateY(0deg));
+    @include transform(translate3d(50%, 300px, 0) rotateX(-20deg) rotateY(0deg));
     @include transform-origin(0, 0, 0);
 
-    .front-top { @extend .top }
-    .back-top  { @extend .top }
-    .left-top  { @extend .top }
-    .right-top { @extend .top }
+    .face {
+      @include face-debug();
+      font-size: 12px;
+    }
+
+    .back-top { background-color: $top-color }
+    .front-top { background-color: $top-color; }
+    .left-top { background-color: $top-color; }
+    .right-top { background-color: $top-color; }
+
+    .back-top:after { content: "back-top"; }
+    .front-top:after { content: "front-top"; }
+    .left-top:after { content: "left-top"; }
+    .right-top:after { content: "right-top"; }
+
+    .back-interior { background-color: $front-color; }
+    .front-interior { background-color: $back-color; }
+    .left-interior { background-color: $right-color; }
+    .right-interior { background-color: $left-color; }
+
+    .back-interior:after { content: "back-inter"; }
+    .front-interior:after { content: "front-inter"; }
+    .left-interior:after { content: "left-inter"; }
+    .right-interior:after { content: "right-inter"; }
 
     &:hover {
-      @include transform(translate3d(50%, 300px, 0) rotateX(-30deg) rotateY(360deg));
+      @include transform(translate3d(50%, 300px, 0) rotateX(-60deg) rotateY(180deg));
     }
   }
 }
