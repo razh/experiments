@@ -42,8 +42,9 @@ html, body {
 }
 
 @mixin building($width, $height, $depth) {
-  $halfWidth: 0.5 * $width;
-  $halfDepth: 0.5 * $depth;
+  $halfWidth:  0.5 * $width;
+  $halfHeight: 0.5 * $height;
+  $halfDepth:  0.5 * $depth;
 
   @include transform-style(preserve-3d);
 
@@ -57,9 +58,9 @@ html, body {
 
     margin-left: -$halfWidth;
     margin-top:  -$halfDepth;
-  }
 
-  .top { @include transform(translate3d(0, -$halfHeight, 0) rotateX( 90deg)); }
+    @include transform(translate3d(0, -$height, 0) rotateX( 90deg));
+  }
 
   .back, .front {
     width:  $width;
@@ -69,8 +70,8 @@ html, body {
     margin-top:  -$halfHeight;
   }
 
-  .back  { @include transform(translate3d(0, 0, -$halfDepth) rotateY(180deg)); }
-  .front { @include transform(translate3d(0, 0,  $halfDepth) rotateY(  0deg)); }
+  .back  { @include transform(translate3d(0, -$halfHeight, -$halfDepth) rotateY(180deg)); }
+  .front { @include transform(translate3d(0, -$halfHeight,  $halfDepth) rotateY(  0deg)); }
 
   .left, .right {
     width:  $depth;
@@ -80,12 +81,69 @@ html, body {
     margin-top:  -$halfHeight;
   }
 
-  .left  { @include transform(translate3d(-$halfWidth, 0, 0) rotateY(-90deg)); }
-  .right { @include transform(translate3d( $halfWidth, 0, 0) rotateY( 90deg)); }
+  .left  { @include transform(translate3d(-$halfWidth, -$halfHeight, 0) rotateY(-90deg)); }
+  .right { @include transform(translate3d( $halfWidth, -$halfHeight, 0) rotateY( 90deg)); }
 }
 
-@mixin building-edged-roof($width, $height, $depth, $roof-width, $roof-height) {
+@mixin building-edged-roof($width, $height, $depth, $edgeWidth, $edgeHeight) {
   @include building($width, $height, $depth);
+
+  $widthInterior: $width - 2 * $edgeWidth;
+  $depthInterior: $depth - 2 * $edgeWidth;
+
+  $halfWidthInterior: 0.5 * $widthInterior;
+  $halfDepthInterior: 0.5 * $depthInterior;
+
+  $halfWidth: 0.5 * $width;
+  $halfDepth: 0.5 * $depth;
+
+  $halfEdgeWidth:  0.5 * $edgeWidth;
+  $halfEdgeHeight: 0.5 * $edgeHeight;
+
+  .top {
+    width:  $widthInterior;
+    height: $depthInterior;
+
+    margin-left: -0.5 * $widthInterior;
+    margin-top:  -0.5 * $depthInterior;
+
+    @include transform(translate3d(0, -$height + $edgeHeight, 0) rotateX( 90deg));
+  }
+
+  .front-top,
+  .back-top {
+    width:  $width;
+    height: $edgeWidth;
+
+    margin-left: -$halfWidth;
+    margin-top:  -$halfEdgeWidth;
+  }
+
+  .front-top {
+    @include transform(translate3d(0, -$height, $halfDepthInterior + $halfEdgeWidth) rotateX(90deg));
+  }
+
+  .back-top {
+    @include transform(translate3d(0, -$height, -$halfDepthInterior - $halfEdgeWidth) rotateX(90deg));
+  }
+
+  .left-top,
+  .right-top {
+    width:  $depth - $edgeWidth;
+    height: $edgeWidth;
+
+    margin-left: $halfDepth - $halfEdgeWidth;
+    margin-top:  $halfEdgeWidth;
+  }
+
+  .left-top {}
+  .right-top {}
+
+  .front-interior {}
+  .back-interior {}
+
+  .left-interior {}
+  .right-interior {}
 }
 
 @mixin simple-face-shading() {
@@ -175,8 +233,27 @@ html, body {
 .building-sans-bottom {
   @include simple-face-shading();
 
+  * {
+    @include transition(all 1s);
+  }
+
   .building {
-    @include box(300px, 200px, 150px);
+    @include building(300px, 200px, 150px);
     @include transform(translate3d(50%, 0, 0) rotateX(-10deg));
+  }
+
+  .building-edged-roof {
+    @include building-edged-roof(300px, 200px, 150px, 20px, 20px);
+    @include transform(translate3d(50%, 300px, 0) rotateX(-10deg) rotateY(0deg));
+    @include transform-origin(0, 0, 0);
+
+    .front-top { @extend .top }
+    .back-top  { @extend .top }
+    .left-top  { @extend .top }
+    .right-top { @extend .top }
+
+    &:hover {
+      @include transform(translate3d(50%, 300px, 0) rotateX(-30deg) rotateY(360deg));
+    }
   }
 }

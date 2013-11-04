@@ -15,6 +15,12 @@
 
     - def building; faces(['top', 'back', 'front', 'left', 'right']) end
 
+    - def building_edged_roof
+    -  building
+    -  faces(['front-top', 'back-top', 'left-top', 'right-top'])
+    -  faces(['front-interior', 'back-interior', 'left-interior', 'right-interior'])
+    - end;
+
     .container
       %button.rotate.rotateX Rotate X
       %button.rotate.rotateY Rotate Y
@@ -32,4 +38,6 @@
     .scene.building-sans-bottom
       .building
         - building
+      .building-edged-roof
+        - building_edged_roof
 
