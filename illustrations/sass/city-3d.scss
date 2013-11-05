@@ -184,6 +184,18 @@ $bottom-color: rgba(  0,   0,   0, 0.75);
   .bottom { background-color: $bottom-color; }
 }
 
+@mixin simple-face-shading-edged-roof() {
+  .back-top { background-color: $top-color }
+  .front-top { background-color: $top-color; }
+  .left-top { background-color: $top-color; }
+  .right-top { background-color: $top-color; }
+
+  .back-interior { background-color: $front-color; }
+  .front-interior { background-color: $back-color; }
+  .left-interior { background-color: $right-color; }
+  .right-interior { background-color: $left-color; }
+}
+
 @mixin face-debug() {
   display: flex;
   align-items: center;
@@ -279,25 +291,17 @@ $bottom-color: rgba(  0,   0,   0, 0.75);
     @include transform(translate3d(50%, 300px, 0) rotateX(-20deg) rotateY(0deg));
     @include transform-origin(0, 0, 0);
 
+    @include simple-face-shading-edged-roof();
+
     .face {
       @include face-debug();
       font-size: 12px;
     }
 
-    .back-top { background-color: $top-color }
-    .front-top { background-color: $top-color; }
-    .left-top { background-color: $top-color; }
-    .right-top { background-color: $top-color; }
-
     .back-top:after { content: "back-top"; }
     .front-top:after { content: "front-top"; }
     .left-top:after { content: "left-top"; }
     .right-top:after { content: "right-top"; }
-
-    .back-interior { background-color: $front-color; }
-    .front-interior { background-color: $back-color; }
-    .left-interior { background-color: $right-color; }
-    .right-interior { background-color: $left-color; }
 
     .back-interior:after { content: "back-inter"; }
     .front-interior:after { content: "front-inter"; }
