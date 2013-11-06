@@ -147,13 +147,17 @@ function Background() {
 }
 
 Background.prototype.css = function() {
-  var totalAlpha = this.gradients.reduce(function( previousValue, gradient ) {
-    return previousValue + gradient.maxAlpha();
-  }, 0 );
+  var totalAlpha = this.totalAlpha();
 
   return this.gradients.map(function( gradient ) {
     return gradient.css( totalAlpha );
   }).join( ', ' );
+};
+
+Background.prototype.totalAlpha = function() {
+  return this.gradients.reduce(function( previousValue, gradient ) {
+    return previousValue + gradient.maxAlpha();
+  }, 0 );
 };
 
 
