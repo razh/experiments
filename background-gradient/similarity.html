@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gradient similarity</title>
+
+  <style>
+    body {
+      background-color: black;
+      color: white;
+
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    .syntax > .gradient {
+      position: relative;
+      margin: 16px auto;
+      width: 640px;
+      height: 480px;
+      background-color: white;
+    }
+
+    .syntax > .gradient:before {
+      content: attr(data-type);
+      position: absolute;
+      top: 1em;
+      left: 1em;
+    }
+
+    .syntax > .gradient-css {
+      background-image: linear-gradient(#000, #fff);
+    }
+  </style>
+</head>
+<body>
+  <div class="section syntax">
+    <div class="title">Gradients: CSS vs. Canvas</div>
+    <div class="gradient gradient-css" data-type="css"></div>
+    <div class="gradient" data-type="canvas">
+      <canvas class="gradient-canvas"></canvas>
+    </div>
+  </div>
+
+  <script src="./js/defs.js"></script>
+  <script src="./js/similarity.js"></script>
+</body>
+</html>
