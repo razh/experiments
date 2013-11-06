@@ -1,19 +1,54 @@
-/*globals LinearGradient, ColorStop, RGBAColor*/
+/*globals DEG_TO_RAD, Background, LinearGradient, ColorStop, RGBAColor*/
 (function( window, document, undefined ) {
   'use strict';
 
   /**
    * Returns the canvas version of a linear gradient.
+   * Does not handle custom positions.
    */
-  LinearGradient.prototype.canvas = function( ctx, x, y, width, height ) {
+  LinearGradient.prototype.canvas = function( ctx, totalAlpha ) {
+    var width  = ctx.canvas.width,
+        height = ctx.canvas.height;
 
-    var gradient = ctx.createLinearGradient( x, y, width, height );
+    var angle = parseInt( this.angle, 10 ) * DEG_TO_RAD || 0;
 
-    this.colorStops.forEach(function( colorStop ) {
-      console.log( colorStop.css() );
+    var dx = Math.abs( Math.round( Math.sin( angle ) * width ) ),
+        dy = Math.abs( Math.round( Math.cos( angle ) * height ) );
+
+    console.log( dx, dy, width, height );
+
+    var gradient = ctx.createLinearGradient( 0, 0, dx, dy );
+
+    this.colorStops.forEach(function( colorStop, index ) {
+      console.log(colorStop.color.css( totalAlpha))
+      gradient.addColorStop( index, colorStop.color.css( totalAlpha ) );
     });
 
     return gradient;
+  };
+
+  Background.prototype.canvas = function( ctx ) {
+    var totalAlpha = this.totalAlpha();
+
+    var width  = ctx.canvas.width,
+        height = ctx.canvas.height;
+
+    var halfWidth  = 0.5 * width,
+        halfHeight = 0.5 * height;
+
+    this.gradients.forEach(function( gradient ) {
+      ctx.save();
+
+      // Rotate around center.
+      ctx.translate( -halfWidth, -halfHeight );
+      ctx.rotate( -parseInt( gradient.angle, 10 ) * DEG_TO_RAD );
+      ctx.translate( halfWidth, halfHeight );
+
+      ctx.fillStyle = gradient.canvas( ctx, totalAlpha );
+      ctx.fillRect( 0, 0, width, height );
+
+      ctx.restore();
+    });
   };
 
   // Syntax explorations.
@@ -35,9 +70,6 @@
 
     gradientCtx.fillStyle = grad;
     gradientCtx.fillRect( 0, 0, WIDTH, HEIGHT );
-
-
-
   }) ();
 
   // Test converting between CSS and canvas linear gradients.
@@ -49,18 +81,69 @@
     var gradientCanvas = el.querySelector( '.gradient-canvas' ),
         gradientCtx    = gradientCanvas.getContext( '2d' );
 
-    var grad = new LinearGradient();
+    gradientCanvas.width  = 640;
+    gradientCanvas.height = 480;
 
-    console.log( grad );
+    // Test data.
+    var data = [
+      {
+        angle: '45deg',
+        colorStops: [
+          [ 255, 0, 0, 1.0 ],
+          [ 255, 255, 128, 1.0 ]
+        ]
+      },
+      {
+        angle: '',
+        colorStops: [
+          [ 240, 128, 128, 1.0 ],
+          [ 127, 0, 127, 1.0 ]
+        ]
+      },
+      {
+        angle: '215deg',
+        colorStops: [
+          [ 128, 128, 128, 1.0 ],
+          [ 240, 128, 128, 1.0 ]
+        ]
+      }
+    ];
 
-    grad.colorStops = grad.colorStops.concat([
-      new ColorStop( new RGBAColor( 255, 255, 255, 1.0 ) ),
-      new ColorStop( new RGBAColor( 255, 255, 255, 1.0 ) )
-    ]);
+    data = [{
+      angle: '',
+      colorStops: [
+        [ 240, 128, 128, 1.0 ],
+        [ 127, 0, 127, 1.0 ]
+      ]
+    }];
 
-    grad.angle = '45deg';
+    data = [{
+      angle: '180deg',
+      colorStops: [
+        [ 0, 0, 0, 1.0 ],
+        [ 240, 128, 128, 1.0 ]
+      ]
+    }];
 
-    console.log( grad.css() );
+    var background = new Background();
+
+    data.forEach(function( gradientData ) {
+      var gradient = new LinearGradient();
+
+      gradient.angle = gradientData.angle;
+      gradientData.colorStops.forEach(function( colorStop ) {
+        gradient.colorStops.push(
+          new ColorStop(
+            new RGBAColor( colorStop[0], colorStop[1], colorStop[2], colorStop[3] )
+          )
+        );
+      });
+
+      background.gradients.push( gradient );
+    });
+
+    gradientCSS.style.backgroundImage = background.css();
+    background.canvas( gradientCtx );
   }) ();
 
   // Test diff.

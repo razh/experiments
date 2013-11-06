@@ -1,4 +1,4 @@
-/*globals $, requestAnimationFrame*/
+/*globals $, Background, LinearGradient, RadialGradient, ColorStop, RGBAColor, HSLAColor*/
 $(function() {
   'use strict';
 
