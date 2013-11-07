@@ -10,17 +10,24 @@
     var width  = ctx.canvas.width,
         height = ctx.canvas.height;
 
-    var angle = parseInt( this.angle, 10 ) * DEG_TO_RAD || 0;
+    var halfWidth  = 0.5 * width,
+        halfHeight = 0.5 * height;
 
-    var dx = Math.abs( Math.round( Math.sin( angle ) * width ) ),
-        dy = Math.abs( Math.round( Math.cos( angle ) * height ) );
+    var angle = -parseInt( this.angle, 10 ) * DEG_TO_RAD;
 
-    console.log( dx, dy, width, height );
+    if ( isNaN( angle ) ) {
+      angle = Math.PI;
+    }
 
-    var gradient = ctx.createLinearGradient( 0, 0, dx, dy );
+    var dx = Math.sin( angle ) * halfWidth,
+        dy = Math.cos( angle ) * halfHeight;
+
+    var gradient = ctx.createLinearGradient(
+      halfWidth + dx, halfHeight + dy,
+      halfWidth - dx, halfHeight - dy
+    );
 
     this.colorStops.forEach(function( colorStop, index ) {
-      console.log(colorStop.color.css( totalAlpha))
       gradient.addColorStop( index, colorStop.color.css( totalAlpha ) );
     });
 
@@ -33,16 +40,8 @@
     var width  = ctx.canvas.width,
         height = ctx.canvas.height;
 
-    var halfWidth  = 0.5 * width,
-        halfHeight = 0.5 * height;
-
     this.gradients.forEach(function( gradient ) {
       ctx.save();
-
-      // Rotate around center.
-      ctx.translate( -halfWidth, -halfHeight );
-      ctx.rotate( -parseInt( gradient.angle, 10 ) * DEG_TO_RAD );
-      ctx.translate( halfWidth, halfHeight );
 
       ctx.fillStyle = gradient.canvas( ctx, totalAlpha );
       ctx.fillRect( 0, 0, width, height );
@@ -108,22 +107,6 @@
         ]
       }
     ];
-
-    data = [{
-      angle: '',
-      colorStops: [
-        [ 240, 128, 128, 1.0 ],
-        [ 127, 0, 127, 1.0 ]
-      ]
-    }];
-
-    data = [{
-      angle: '180deg',
-      colorStops: [
-        [ 0, 0, 0, 1.0 ],
-        [ 240, 128, 128, 1.0 ]
-      ]
-    }];
 
     var background = new Background();
 
