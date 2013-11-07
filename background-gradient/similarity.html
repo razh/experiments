@@ -12,6 +12,10 @@
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
+    .section {
+      clear: left;
+    }
+
     .syntax > .gradient,
     .conversion > .gradient {
       position: relative;
@@ -19,6 +23,7 @@
       width: 640px;
       height: 480px;
       background-color: white;
+      float: left;
     }
 
     .syntax > .gradient:before,
@@ -44,7 +49,7 @@
   </div>
 
   <div class="section conversion">
-    <div class="title">Converting between Canvas and CSS gradients.</div>
+    <div class="title">Converting to Canvas and CSS gradients.</div>
     <div class="gradient gradient-css" data-type="css"></div>
     <div class="gradient" data-type="canvas">
       <canvas class="gradient-canvas"></canvas>

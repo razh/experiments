@@ -27,8 +27,9 @@
       halfWidth - dx, halfHeight - dy
     );
 
+    var lastIndex = this.colorStops.length - 1;
     this.colorStops.forEach(function( colorStop, index ) {
-      gradient.addColorStop( index, colorStop.color.css( totalAlpha ) );
+      gradient.addColorStop( index / lastIndex, colorStop.color.css( totalAlpha ) );
     });
 
     return gradient;
@@ -43,12 +44,8 @@
     var gradientsReverse = this.gradients.slice().reverse();
 
     gradientsReverse.forEach(function( gradient ) {
-      ctx.save();
-
       ctx.fillStyle = gradient.canvas( ctx, totalAlpha );
       ctx.fillRect( 0, 0, width, height );
-
-      ctx.restore();
     });
   };
 
@@ -73,7 +70,7 @@
     gradientCtx.fillRect( 0, 0, WIDTH, HEIGHT );
   }) ();
 
-  // Test converting between CSS and canvas linear gradients.
+  // Test converting to CSS and canvas linear gradients.
   (function() {
     var el = document.querySelector( '.conversion' );
 
