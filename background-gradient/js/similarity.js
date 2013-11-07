@@ -40,7 +40,9 @@
     var width  = ctx.canvas.width,
         height = ctx.canvas.height;
 
-    this.gradients.forEach(function( gradient ) {
+    var gradientsReverse = this.gradients.slice().reverse();
+
+    gradientsReverse.forEach(function( gradient ) {
       ctx.save();
 
       ctx.fillStyle = gradient.canvas( ctx, totalAlpha );
