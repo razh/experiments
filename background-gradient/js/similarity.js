@@ -11,23 +11,13 @@ Background, LinearGradient, ColorStop, RGBAColor*/
     var width  = ctx.canvas.width,
         height = ctx.canvas.height;
 
-    var halfWidth  = 0.5 * width,
-        halfHeight = 0.5 * height;
-
-    var angle = -parseInt( this.angle, 10 ) * DEG_TO_RAD;
-
-    if ( isNaN( angle ) ) {
-      angle = Math.PI;
-    }
-
     // Incorrect determination of the gradient line.
-    var dx = Math.sin( angle ) * halfWidth,
-        dy = Math.cos( angle ) * halfHeight;
+    var endPoints = this.endPointsFromAngle( width, height );
 
-    var x0 = halfWidth + dx,
-        y0 = halfHeight + dy,
-        x1 = halfWidth - dx,
-        y1 = halfHeight - dy;
+    var x0 = endPoints[0],
+        y0 = endPoints[1],
+        x1 = endPoints[2],
+        y1 = endPoints[3];
 
     var gradient = ctx.createLinearGradient( x0, y0, x1, y1 );
 
@@ -46,6 +36,88 @@ Background, LinearGradient, ColorStop, RGBAColor*/
     });
 
     return gradient;
+  };
+
+  /**
+   * Given the width and height of the gradient area, determine the endpoints
+   * of the
+   *
+   * Code taken from WebKit source code.
+   */
+  LinearGradient.prototype.endPointsFromAngle = function( width, height ) {
+    var angle = parseInt( this.angle, 10 );
+
+    if ( isNaN( angle ) ) {
+      angle = 90;
+    }
+
+    // Limit to [0, 360).
+    angle %= 360;
+    if ( angle < 0 ) {
+      angle += 360;
+    }
+
+    // 0 degrees.
+    if ( !angle ) {
+      return [
+        0, height,
+        0, 0
+      ];
+    }
+
+    if ( angle === 90 ) {
+      return [
+        0, 0,
+        width, 0
+      ];
+    }
+
+    if ( angle === 180 ) {
+      return [
+        0, 0,
+        0, height
+      ];
+    }
+
+    if ( angle === 270 ) {
+      return [
+        width, 0,
+        0, 0
+      ];
+    }
+
+    var slope = Math.tan( ( 90 - angle ) * DEG_TO_RAD ),
+        perpendicularSlope = -1 / slope;
+
+    var halfWidth  = 0.5 * width,
+        halfHeight = 0.5 * height;
+
+    // Determine the starting corner relative to the center.
+    // Note that positive-y is up.
+    var x, y;
+    if ( angle < 90 ) {
+      x = halfWidth;
+      y = halfHeight;
+    } else if ( angle < 180 ) {
+      x =  halfWidth;
+      y = -halfHeight;
+    } else if ( angle < 270 ) {
+      x = -halfWidth;
+      y = -halfHeight;
+    } else {
+      x = -halfWidth;
+      y =  halfHeight;
+    }
+
+    var yIntercept = x - perpendicularSlope * y;
+
+    var dx = yIntercept / ( slope - perpendicularSlope ),
+        dy = perpendicularSlope * x + yIntercept;
+
+    return [
+      halfWidth - dx, halfHeight + dy,
+      halfWidth + dx, halfHeight - dy
+    ];
   };
 
   Background.prototype.canvas = function( ctx ) {
@@ -165,6 +237,8 @@ Background, LinearGradient, ColorStop, RGBAColor*/
     var gradientCanvas = el.querySelector( '.gradient-canvas' ),
         gradientCtx    = gradientCanvas.getContext( '2d' );
 
+    var inputAngle = el.querySelector( '#input-angle' );
+
     gradientCanvas.width  = 640;
     gradientCanvas.height = 480;
 
@@ -179,10 +253,37 @@ Background, LinearGradient, ColorStop, RGBAColor*/
       ]
     }];
 
-    var background = createBackground( data );
+    function updateBackground() {
+      var background = createBackground( data );
 
-    gradientCSS.style.backgroundImage = background.css();
-    background.canvas( gradientCtx );
+      gradientCSS.style.backgroundImage = background.css();
+      background.canvas( gradientCtx );
+    }
+
+    updateBackground();
+
+    function onChange() {
+      var angle = parseInt( inputAngle.value, 10 );
+      angle %= 360;
+      if ( angle < 0 ) {
+        angle += 360;
+      }
+
+      inputAngle.value = angle;
+
+      data[0].angle = angle + 'deg';
+      updateBackground();
+    }
+
+    inputAngle.addEventListener( 'change', onChange );
+
+    // Prevent form submission.
+    inputAngle.addEventListener( 'keydown', function( event ) {
+      if ( event.which === 13 ) {
+        event.preventDefault();
+        onChange();
+      }
+    });
   }) ();
 
   // Test diff.
