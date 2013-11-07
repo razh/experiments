@@ -22,13 +22,31 @@ Background, LinearGradient, ColorStop, RGBAColor*/
     var gradient = ctx.createLinearGradient( x0, y0, x1, y1 );
 
     // Draw debug.
+    var halfWidth  = 0.5 * width,
+        halfHeight = 0.5 * height;
+
+    ctx.save();
+
+    ctx.translate( halfWidth, halfHeight );
+    ctx.scale( 0.5, 0.5 );
+    ctx.translate( -halfWidth, -halfHeight );
+
     ctx.beginPath();
     ctx.moveTo( x0, y0 );
     ctx.lineTo( x1, y1 );
 
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 10;
     ctx.strokeStyle = 'red';
     ctx.stroke();
+
+    // Draw bounding rect.
+    ctx.beginPath();
+    ctx.rect( 0, 0, width, height );
+    ctx.lineWidth = 10;
+    ctx.strokeStyle = 'green';
+    ctx.stroke();
+
+    ctx.restore();
 
     var lastIndex = this.colorStops.length - 1;
     this.colorStops.forEach(function( colorStop, index ) {
@@ -40,7 +58,7 @@ Background, LinearGradient, ColorStop, RGBAColor*/
 
   /**
    * Given the width and height of the gradient area, determine the endpoints
-   * of the
+   * of the gradient line.
    *
    * Code taken from WebKit source code.
    */
@@ -48,7 +66,7 @@ Background, LinearGradient, ColorStop, RGBAColor*/
     var angle = parseInt( this.angle, 10 );
 
     if ( isNaN( angle ) ) {
-      angle = 90;
+      angle = 180;
     }
 
     // Limit to [0, 360).
@@ -109,11 +127,12 @@ Background, LinearGradient, ColorStop, RGBAColor*/
       y =  halfHeight;
     }
 
-    var yIntercept = x - perpendicularSlope * y;
+    var yIntercept = y - perpendicularSlope * x;
 
     var dx = yIntercept / ( slope - perpendicularSlope ),
         dy = perpendicularSlope * x + yIntercept;
 
+    // Flip dy for canvas drawing space.
     return [
       halfWidth - dx, halfHeight + dy,
       halfWidth + dx, halfHeight - dy
@@ -167,7 +186,7 @@ Background, LinearGradient, ColorStop, RGBAColor*/
   (function() {
     var pullLeftInput = document.getElementById( 'pull-left-input' );
 
-    pullLeftInput.addEventListener( 'change', function() {
+    function onChange() {
       var gradientElements = [].slice.call( document.querySelectorAll( '.gradient' ) );
 
       gradientElements.forEach(function( element ) {
@@ -177,7 +196,12 @@ Background, LinearGradient, ColorStop, RGBAColor*/
           element.classList.remove( 'pull-left' );
         }
       });
-    });
+    }
+
+    pullLeftInput.addEventListener( 'change', onChange );
+
+    pullLeftInput.checked = true;
+    onChange();
   }) ();
 
   // Syntax explorations.
