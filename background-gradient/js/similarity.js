@@ -1,4 +1,5 @@
-/*globals DEG_TO_RAD, Background, LinearGradient, ColorStop, RGBAColor*/
+/*globals DEG_TO_RAD, closestPointOnUnitLine,
+Background, LinearGradient, ColorStop, RGBAColor*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -19,13 +20,25 @@
       angle = Math.PI;
     }
 
+    // Incorrect determination of the gradient line.
     var dx = Math.sin( angle ) * halfWidth,
         dy = Math.cos( angle ) * halfHeight;
 
-    var gradient = ctx.createLinearGradient(
-      halfWidth + dx, halfHeight + dy,
-      halfWidth - dx, halfHeight - dy
-    );
+    var x0 = halfWidth + dx,
+        y0 = halfHeight + dy,
+        x1 = halfWidth - dx,
+        y1 = halfHeight - dy;
+
+    var gradient = ctx.createLinearGradient( x0, y0, x1, y1 );
+
+    // Draw debug.
+    ctx.beginPath();
+    ctx.moveTo( x0, y0 );
+    ctx.lineTo( x1, y1 );
+
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = 'red';
+    ctx.stroke();
 
     var lastIndex = this.colorStops.length - 1;
     this.colorStops.forEach(function( colorStop, index ) {
@@ -46,8 +59,37 @@
     gradientsReverse.forEach(function( gradient ) {
       ctx.fillStyle = gradient.canvas( ctx, totalAlpha );
       ctx.fillRect( 0, 0, width, height );
+
+      // Draw the gradient line.
+      gradient.canvas( ctx, totalAlpha );
     });
   };
+
+
+  /**
+   * Utility method to quickly create a Background from an array of gradient
+   * data, where each gradient object has an angle and a bunch of colorstops.
+   */
+  function createBackground( data ) {
+    var background = new Background();
+
+    data.forEach(function( gradientData ) {
+      var gradient = new LinearGradient();
+
+      gradient.angle = gradientData.angle;
+      gradientData.colorStops.forEach(function( colorStop ) {
+        gradient.colorStops.push(
+          new ColorStop(
+            new RGBAColor( colorStop[0], colorStop[1], colorStop[2], colorStop[3] )
+          )
+        );
+      });
+
+      background.gradients.push( gradient );
+    });
+
+    return background;
+  }
 
   // Syntax explorations.
   (function() {
@@ -107,22 +149,37 @@
       }
     ];
 
-    var background = new Background();
+    var background = createBackground( data );
 
-    data.forEach(function( gradientData ) {
-      var gradient = new LinearGradient();
+    gradientCSS.style.backgroundImage = background.css();
+    background.canvas( gradientCtx );
+  }) ();
 
-      gradient.angle = gradientData.angle;
-      gradientData.colorStops.forEach(function( colorStop ) {
-        gradient.colorStops.push(
-          new ColorStop(
-            new RGBAColor( colorStop[0], colorStop[1], colorStop[2], colorStop[3] )
-          )
-        );
-      });
 
-      background.gradients.push( gradient );
-    });
+  // Test gradient line determination for canvas.
+  (function() {
+    var el = document.querySelector( '.angle' );
+
+    var gradientCSS = el.querySelector( '.gradient-css' );
+
+    var gradientCanvas = el.querySelector( '.gradient-canvas' ),
+        gradientCtx    = gradientCanvas.getContext( '2d' );
+
+    gradientCanvas.width  = 640;
+    gradientCanvas.height = 480;
+
+    var data = [{
+      angle: '30deg',
+      colorStops: [
+        [ 128, 128, 128, 1.0 ],
+        [ 240, 128, 128, 1.0 ],
+        [ 0, 0, 128, 1.0 ],
+        [ 0, 128, 128, 1.0 ],
+        [ 255, 255, 128, 1.0 ]
+      ]
+    }];
+
+    var background = createBackground( data );
 
     gradientCSS.style.backgroundImage = background.css();
     background.canvas( gradientCtx );
