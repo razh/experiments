@@ -163,6 +163,23 @@ Background, LinearGradient, ColorStop, RGBAColor*/
     return background;
   }
 
+  // Utility to toggle float: left on gradient elements.
+  (function() {
+    var pullLeftInput = document.getElementById( 'pull-left-input' );
+
+    pullLeftInput.addEventListener( 'change', function() {
+      var gradientElements = [].slice.call( document.querySelectorAll( '.gradient' ) );
+
+      gradientElements.forEach(function( element ) {
+        if ( pullLeftInput.checked ) {
+          element.classList.add( 'pull-left' );
+        } else {
+          element.classList.remove( 'pull-left' );
+        }
+      });
+    });
+  }) ();
+
   // Syntax explorations.
   (function() {
     var el = document.querySelector( '.syntax' );

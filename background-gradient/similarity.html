@@ -12,6 +12,10 @@
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
+    .pull-left {
+      float: left !important;
+    }
+
     .section {
       clear: left;
     }
@@ -33,6 +37,12 @@
 
     .syntax > .gradient-css {
       background-image: linear-gradient(#000, #fff);
+    }
+
+    .pull-left-form {
+      position: fixed;
+      right: 1em;
+      bottom: 1rem;
     }
   </style>
 </head>
@@ -66,6 +76,11 @@
       <canvas class="gradient-canvas"></canvas>
     </div>
   </div>
+
+  <form class="pull-left-form">
+    <label for="pull-left-input">Toggle <code>float: left</code>.</label>
+    <input type="checkbox" id="pull-left-input">
+  </form>
 
   <script src="./js/defs.js"></script>
   <script src="./js/similarity.js"></script>
