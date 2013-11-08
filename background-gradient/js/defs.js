@@ -17,23 +17,6 @@ function randomInt( min, max ) {
   return Math.round( min + Math.random() * ( max - min ) );
 }
 
-function lerp( a, b, t ) {
-  return a + t * ( b - a );
-}
-
-/**
- * For a point (x, y) and the unit segment [(x0, y0), (x1, y1)],
- * determine the closest point on the line that the segment lies on.
- */
-function closestPointOnUnitLine( x, y, x0, y0, x1, y1 ) {
-  var t = ( ( x - x0 ) * ( x1 - x0 ) + ( y - y0 ) * ( y1 - y0 ) );
-
-  return [
-    lerp( x0, x1, t ),
-    lerp( y0, y1, t )
-  ];
-}
-
 function RGBAColor( red, green, blue, alpha ) {
   this.red   = red   || 0;
   this.green = green || 0;
