@@ -1,5 +1,4 @@
-/*globals DEG_TO_RAD, closestPointOnUnitLine,
-Background, LinearGradient, ColorStop, RGBAColor*/
+/*globals DEG_TO_RAD, Background, LinearGradient, ColorStop, RGBAColor*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -11,7 +10,6 @@ Background, LinearGradient, ColorStop, RGBAColor*/
     var width  = ctx.canvas.width,
         height = ctx.canvas.height;
 
-    // Incorrect determination of the gradient line.
     var endPoints = this.endPointsFromAngle( width, height );
 
     var x0 = endPoints[0],
@@ -33,7 +31,6 @@ Background, LinearGradient, ColorStop, RGBAColor*/
     var width  = ctx.canvas.width,
         height = ctx.canvas.height;
 
-    // Incorrect determination of the gradient line.
     var endPoints = this.endPointsFromAngle( width, height );
 
     var x0 = endPoints[0],
