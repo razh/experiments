@@ -21,6 +21,26 @@ Background, LinearGradient, ColorStop, RGBAColor*/
 
     var gradient = ctx.createLinearGradient( x0, y0, x1, y1 );
 
+    var lastIndex = this.colorStops.length - 1;
+    this.colorStops.forEach(function( colorStop, index ) {
+      gradient.addColorStop( index / lastIndex, colorStop.color.css( totalAlpha ) );
+    });
+
+    return gradient;
+  };
+
+  LinearGradient.prototype.drawDebug = function( ctx ) {
+    var width  = ctx.canvas.width,
+        height = ctx.canvas.height;
+
+    // Incorrect determination of the gradient line.
+    var endPoints = this.endPointsFromAngle( width, height );
+
+    var x0 = endPoints[0],
+        y0 = endPoints[1],
+        x1 = endPoints[2],
+        y1 = endPoints[3];
+
     // Draw debug.
     var halfWidth  = 0.5 * width,
         halfHeight = 0.5 * height;
@@ -31,29 +51,23 @@ Background, LinearGradient, ColorStop, RGBAColor*/
     ctx.scale( 0.5, 0.5 );
     ctx.translate( -halfWidth, -halfHeight );
 
+    // Draw bounding rect.
+    ctx.beginPath();
+    ctx.rect( 0, 0, width, height );
+    ctx.lineWidth = 10;
+    ctx.strokeStyle = '#0f0';
+    ctx.stroke();
+
+    // Draw gradient line.
     ctx.beginPath();
     ctx.moveTo( x0, y0 );
     ctx.lineTo( x1, y1 );
 
     ctx.lineWidth = 10;
-    ctx.strokeStyle = 'red';
-    ctx.stroke();
-
-    // Draw bounding rect.
-    ctx.beginPath();
-    ctx.rect( 0, 0, width, height );
-    ctx.lineWidth = 10;
-    ctx.strokeStyle = 'green';
+    ctx.strokeStyle = '#f00';
     ctx.stroke();
 
     ctx.restore();
-
-    var lastIndex = this.colorStops.length - 1;
-    this.colorStops.forEach(function( colorStop, index ) {
-      gradient.addColorStop( index / lastIndex, colorStop.color.css( totalAlpha ) );
-    });
-
-    return gradient;
   };
 
   /**
@@ -130,7 +144,7 @@ Background, LinearGradient, ColorStop, RGBAColor*/
     var yIntercept = y - perpendicularSlope * x;
 
     var dx = yIntercept / ( slope - perpendicularSlope ),
-        dy = perpendicularSlope * x + yIntercept;
+        dy = perpendicularSlope * dx + yIntercept;
 
     // Flip dy for canvas drawing space.
     return [
@@ -150,9 +164,12 @@ Background, LinearGradient, ColorStop, RGBAColor*/
     gradientsReverse.forEach(function( gradient ) {
       ctx.fillStyle = gradient.canvas( ctx, totalAlpha );
       ctx.fillRect( 0, 0, width, height );
+    });
+  };
 
-      // Draw the gradient line.
-      gradient.canvas( ctx, totalAlpha );
+  Background.prototype.drawDebug = function( ctx ) {
+    this.gradients.forEach(function( gradient ) {
+      gradient.drawDebug( ctx );
     });
   };
 
@@ -199,9 +216,6 @@ Background, LinearGradient, ColorStop, RGBAColor*/
     }
 
     pullLeftInput.addEventListener( 'change', onChange );
-
-    pullLeftInput.checked = true;
-    onChange();
   }) ();
 
   // Syntax explorations.
@@ -299,6 +313,7 @@ Background, LinearGradient, ColorStop, RGBAColor*/
 
       gradientCSS.style.backgroundImage = background.css();
       background.canvas( gradientCtx );
+      background.drawDebug( gradientCtx );
     }
 
     updateBackground();
