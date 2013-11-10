@@ -196,6 +196,38 @@
     return background;
   }
 
+  function drawDiff( ctx, normal, diff ) {
+    var width  = ctx.canvas.width,
+        height = ctx.canvas.height;
+
+    ctx.globalCompositeOperation = 'normal';
+    ctx.fillStyle = normal;
+    ctx.fillRect( 0, 0, width, height );
+
+    ctx.globalCompositeOperation = 'difference';
+    ctx.fillStyle = diff;
+    ctx.fillRect( 0, 0, width, height );
+  }
+
+  function calculateDiff( ctx ) {
+    var width  = ctx.canvas.width,
+        height = ctx.canvas.height;
+
+    var imageData = ctx.getImageData( 0, 0, width, height ).data;
+
+    var r, g, b;
+    var diff = 0;
+    for ( var i = 0, il = imageData.length; i < il; i += 4 ) {
+      r = imageData[ i ];
+      g = imageData[ i + 1 ];
+      b = imageData[ i + 2 ];
+
+      diff += r + g + b;
+    }
+
+    return diff;
+  }
+
   // Utility to toggle float: left on gradient elements.
   (function() {
     var pullLeftInput = document.getElementById( 'pull-left-input' );
@@ -340,4 +372,7 @@
   }) ();
 
   // Test diff.
+  (function() {
+    var el = document.querySelector( '.diff' );
+  });
 }) ( window, document );
