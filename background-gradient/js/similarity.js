@@ -181,7 +181,7 @@
     data.forEach(function( gradientData ) {
       var gradient = new LinearGradient();
 
-      gradient.angle = gradientData.angle;
+      gradient.angle = gradientData.angle || '';
       gradientData.colorStops.forEach(function( colorStop ) {
         gradient.colorStops.push(
           new ColorStop(
@@ -196,17 +196,15 @@
     return background;
   }
 
-  function drawDiff( ctx, normal, diff ) {
+  function drawDiff( ctx, backgroundNormal, backgroundDiff ) {
     var width  = ctx.canvas.width,
         height = ctx.canvas.height;
 
     ctx.globalCompositeOperation = 'normal';
-    ctx.fillStyle = normal;
-    ctx.fillRect( 0, 0, width, height );
+    backgroundNormal.canvas( ctx );
 
     ctx.globalCompositeOperation = 'difference';
-    ctx.fillStyle = diff;
-    ctx.fillRect( 0, 0, width, height );
+    backgroundDiff.canvas( ctx );
   }
 
   function calculateDiff( ctx ) {
@@ -373,6 +371,37 @@
 
   // Test diff.
   (function() {
-    var el = document.querySelector( '.diff' );
-  });
+    // Offscreen canvas.
+    var canvas  = document.createElement( 'canvas' ),
+        context = canvas.getContext( '2d' );
+
+    var gradDataA = [{
+      colorStops: [
+        [ 128, 128, 128, 1.0 ],
+        [ 255, 128, 128, 1.0 ],
+      ]
+    }];
+
+    var gradDataB = [{
+      colorStops: [
+        [ 255, 128, 128, 1.0 ],
+        [ 128, 128, 128, 1.0 ]
+      ]
+    }];
+
+    var backgroundA = createBackground( gradDataA ),
+        backgroundB = createBackground( gradDataB );
+
+    drawDiff( context, backgroundA, backgroundA );
+    var diff = calculateDiff( context );
+    if ( diff !== 0 ) {
+      console.log( 'Diff: ' + diff + ' should be 0.' );
+    }
+
+    drawDiff( context, backgroundA, backgroundB );
+    diff = calculateDiff( context );
+    if ( diff === 0 ) {
+      console.log( diff + ' should be > 0.');
+    }
+  }) ();
 }) ( window, document );
