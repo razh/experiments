@@ -182,12 +182,18 @@
       var gradient = new LinearGradient();
 
       gradient.angle = gradientData.angle || '';
-      gradientData.colorStops.forEach(function( colorStop ) {
-        gradient.colorStops.push(
-          new ColorStop(
-            new RGBAColor( colorStop[0], colorStop[1], colorStop[2], colorStop[3] )
+      gradientData.colorStops.forEach(function( colorStopData ) {
+        var colorStop = new ColorStop(
+          new RGBAColor(
+            colorStopData[0],
+            colorStopData[1],
+            colorStopData[2],
+            colorStopData[3]
           )
         );
+
+        colorStop.position = colorStopData[4] || '';
+        gradient.colorStops.push( colorStop );
       });
 
       background.gradients.push( gradient );
@@ -197,9 +203,6 @@
   }
 
   function drawDiff( ctx, backgroundNormal, backgroundDiff ) {
-    var width  = ctx.canvas.width,
-        height = ctx.canvas.height;
-
     ctx.globalCompositeOperation = 'normal';
     backgroundNormal.canvas( ctx );
 
@@ -403,5 +406,27 @@
     if ( diff === 0 ) {
       console.log( diff + ' should be > 0.');
     }
+  }) ();
+
+  // Test percentages.
+  (function() {
+    var el = document.querySelector( '.percent' );
+
+    var gradientCSS = el.querySelector( '.gradient-css' );
+
+    var data = [
+      {
+        angle: '45deg',
+        colorStops: [
+          [ 0, 0, 0, 1.0 ],
+          [ 255, 255, 255, 1.0, '50%' ],
+          [ 0, 0, 0, 1.0 ],
+          [ 255, 0, 0, 1.0 ]
+        ]
+      }
+    ];
+
+    var background = createBackground( data );
+    gradientCSS.style.backgroundImage = background.css();
   }) ();
 }) ( window, document );
