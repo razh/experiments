@@ -88,9 +88,59 @@ define([
     tick();
   }
 
+  function setMouse( x, y ) {
+    mouse.x = Geometry.limit( x, margin + 1e-2, size - margin - 1e-2 );
+    mouse.y = Geometry.limit( y, margin + 1e-2, size - margin - 1e-2 );
+  }
+
   canvas.addEventListener( 'mousemove', function( event ) {
-    mouse.x = Geometry.limit( event.pageX, margin + 1e-2, size - margin - 1e-2 );
-    mouse.y = Geometry.limit( event.pageY, margin + 1e-2, size - margin - 1e-2 );
+    setMouse(
+      event.pageX - canvas.offsetLeft,
+      event.pageY - canvas.offsetTop
+    );
+  });
+
+  // Touch handlers.
+  canvas.addEventListener( 'touchstart', function( event ) {
+    setMouse(
+      event.touches[0].pageX - canvas.offsetLeft,
+      event.touches[0].pageY - canvas.offsetTop
+    );
+  });
+
+  canvas.addEventListener( 'touchmove', function( event ) {
+    event.preventDefault();
+    setMouse(
+      event.touches[0].pageX - canvas.offsetLeft,
+      event.touches[0].pageY - canvas.offsetTop
+    );
+  });
+
+  canvas.addEventListener( 'touchend', function( event ) {
+    if ( !event.touches.length ) {
+      return;
+    }
+    setMouse(
+      event.touches[0].pageX - canvas.offsetLeft,
+      event.touches[0].pageY - canvas.offsetTop
+    );
+  });
+
+  document.addEventListener( 'keydown', function( event ) {
+    // ESC.
+    if ( event.which === 27 ) {
+      running = false;
+    }
+
+    // Space.
+    if ( event.which === 32 ) {
+      running = true;
+      tick();
+    }
+  });
+
+  window.addEventListener( 'blur', function() {
+    running = false;
   });
 
   init();
