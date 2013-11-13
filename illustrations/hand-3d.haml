@@ -1,0 +1,45 @@
+!!! 5
+%html(lang="en")
+  %head
+    %meta(charset="UTF-8")
+    %title Hand 3D
+
+    %link(rel="stylesheet" href="./stylesheets/hand-3d.css")
+  %body
+    - def faces
+    -   ['top', 'bottom', 'back', 'front', 'left', 'right'].each do |direction|
+    -     haml_tag :div, :class => ['face', direction] end
+    - end;
+
+    - def finger
+    -   haml_tag :div, :class => 'metacarpal' do faces
+    -     haml_tag :div, :class => 'proximal' do faces
+    -       haml_tag :div, :class => 'middle' do faces
+    -         haml_tag :div, :class => 'distal' do faces end
+    -       end;
+    -     end;
+    -   end;
+    - end;
+
+    - def thumb
+    -   haml_tag :div, :class => 'metacarpal' do faces
+    -     haml_tag :div, :class => 'proximal' do faces
+    -       haml_tag :div, :class => 'distal' do faces end
+    -     end;
+    -   end;
+    - end;
+
+    .scene
+      .hand
+        .wrist
+          .thumb
+            - thumb
+          .index
+            - finger
+          .middle
+            - finger
+          .ring
+            - finger
+          .small
+            - finger
+
