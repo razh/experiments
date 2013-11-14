@@ -30,16 +30,18 @@
     - end;
 
     .scene
-      .hand
+      .hand.body
         .wrist
+          - faces
           .thumb
             - thumb
-          .index
+          .index.finger
             - finger
-          .middle
+          .middle.finger
             - finger
-          .ring
+          .ring.finger
             - finger
-          .small
+          .small.finger
             - finger
 
+    %script(src='./js/robot-3d.js')
