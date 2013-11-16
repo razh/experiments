@@ -44,6 +44,35 @@ $small-proximal-height: 80px;
 $small-middle-height: 40px;
 $small-distal-height: 30px;
 
+$thumb-transform: translate3d(-100px, -50px, 0);
+$thumb-metacarpal-transform: translate3d(0, -50px, 0);
+$thumb-proximal-transform: translate3d(0, -50px, 0);
+$thumb-distal-transform: translate3d(0, -50px, 0);
+
+$index-transform: translate3d(-50px, -50px, 0);
+$index-metacarpal-transform: translate3d(0, -50px, 0);
+$index-proximal-transform: translate3d(0, -50px, 0);
+$index-middle-transform: translate3d(0, -50px, 0);
+$index-distal-transform: translate3d(0, -50px, 0);
+
+$middle-transform: translate3d(0, -50px, 0);
+$middle-metacarpal-transform: translate3d(0, -50px, 0);
+$middle-proximal-transform: translate3d(0, -50px, 0);
+$middle-middle-transform: translate3d(0, -50px, 0);
+$middle-distal-transform: translate3d(0, -50px, 0);
+
+$ring-transform: translate3d(50px, -50px, 0);
+$ring-metacarpal-transform: translate3d(0, -50px, 0);
+$ring-proximal-transform: translate3d(0, -50px, 0);
+$ring-middle-transform: translate3d(0, -50px, 0);
+$ring-distal-transform: translate3d(0, -50px, 0);
+
+$small-transform: translate3d(100px, -50px, 0);
+$small-metacarpal-transform: translate3d(0, -50px, 0);
+$small-proximal-transform: translate3d(0, -50px, 0);
+$small-middle-transform: translate3d(0, -50px, 0);
+$small-distal-transform: translate3d(0, -50px, 0);
+
 .scene {
   @include perspective(2000px);
   @include perspective-origin(left top);
@@ -70,117 +99,117 @@ $small-distal-height: 30px;
   }
 
   .thumb {
-    @include transform(translate3d(-100px, -50px, 0));
+    @include transform($thumb-transform);
 
     .metacarpal {
       @include box($thumb-width, $thumb-metacarpal-height, $thumb-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($thumb-metacarpal-transform);
     }
 
     .proximal {
       @include box($thumb-width, $thumb-proximal-height, $thumb-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($thumb-proximal-transform);
     }
 
     .distal {
       @include box($thumb-width, $thumb-distal-height, $thumb-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($thumb-distal-transform);
     }
   }
 
   .index.finger {
-    @include transform(translate3d(-50px, -50px, 0));
+    @include transform($index-transform);
 
     .metacarpal {
       @include box($finger-width, $index-metacarpal-height, $finger-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($index-metacarpal-transform);
     }
 
     .proximal {
       @include box($finger-width, $index-proximal-height, $finger-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($index-proximal-transform);
     }
 
     .middle {
       @include box($finger-width, $index-middle-height, $finger-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($index-middle-transform);
     }
 
     .distal {
       @include box($finger-width, $index-distal-height, $finger-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($index-distal-transform);
     }
   }
 
   .middle.finger {
-    @include transform(translate3d(0, -50px, 0));
+    @include transform($middle-transform);
 
     .metacarpal {
       @include box($finger-width, $middle-metacarpal-height, $finger-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($middle-metacarpal-transform);
     }
 
     .proximal {
       @include box($finger-width, $middle-proximal-height, $finger-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($middle-proximal-transform);
     }
 
     .middle {
       @include box($finger-width, $middle-middle-height, $finger-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($middle-middle-transform);
     }
 
     .distal {
       @include box($finger-width, $middle-distal-height, $finger-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($middle-distal-transform);
     }
   }
 
   .ring.finger {
-    @include transform(translate3d(50px, -50px, 0));
+    @include transform($ring-transform);
 
     .metacarpal {
       @include box($finger-width, $ring-metacarpal-height, $finger-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($ring-metacarpal-transform);
     }
 
     .proximal {
       @include box($finger-width, $ring-proximal-height, $finger-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($ring-proximal-transform);
     }
 
     .middle {
       @include box($finger-width, $ring-middle-height, $finger-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($ring-middle-transform);
     }
 
     .distal {
       @include box($finger-width, $ring-distal-height, $finger-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($ring-distal-transform);
     }
   }
 
   .small.finger {
-    @include transform(translate3d(100px, -50px, 0));
+    @include transform($small-transform);
 
     .metacarpal {
       @include box($finger-width, $small-metacarpal-height, $finger-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($small-metacarpal-transform);
     }
 
     .proximal {
       @include box($finger-width, $small-proximal-height, $finger-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($small-proximal-transform);
     }
 
     .middle {
       @include box($finger-width, $small-middle-height, $finger-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($small-middle-transform);
     }
 
     .distal {
       @include box($finger-width, $small-distal-height, $finger-depth);
-      @include transform(translate3d(0, -50px, 0));
+      @include transform($small-distal-transform);
     }
   }
 }
