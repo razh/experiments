@@ -12,26 +12,70 @@
   var rectWidth  = 200,
       rectHeight = 300;
 
-  var particles = [];
+  var leftParticles = [],
+      rightParticles = [];
+
+  function xRandom() {
+    return Math.random() * rectWidth;
+  }
+
+  function yRandom() {
+    return Math.random() * rectHeight;
+  }
+
+  function radiusRandom() {
+    return Math.random() * 20 + 5;
+  }
+
+  function vxRandom() {
+    return Math.random() * 4 - 2;
+  }
+
+  function vyRandom() {
+    return -( Math.random() * 4 + 2 );
+  }
+
+  function randomParticle() {
+    return {
+      x: xRandom(),
+      y: yRandom(),
+      radius: radiusRandom(),
+      vx: vxRandom(),
+      vy:vyRandom()
+    };
+  }
 
   // Generate particles.
   (function() {
     var particleCount = 80;
     while ( particleCount-- ) {
-      particles.push([
-        // x.
-        Math.random() * 300 + 200,
-        // y.
-        Math.random() * 300 + 200,
-        // radius.
-        Math.random() * 20 + 10,
-        // vx.
-        Math.random() * 40 - 20,
-        // vy.
-        -( Math.random() * 10 + 10 )
-      ]);
+      leftParticles.push( randomParticle() );
+      rightParticles.push( randomParticle());
     }
   }) ();
+
+  function drawParticles( ctx, particles ) {
+    var width  = ctx.canvas.width,
+        height = ctx.canvas.height;
+
+    ctx.clearRect( 0, 0, width, height );
+
+    particles.forEach(function( particle ) {
+      ctx.beginPath();
+      ctx.arc( particle.x, particle.y, particle.radius, 0, 2 * Math.PI );
+      ctx.fillStyle = 'white';
+      ctx.fill();
+
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+      if ( particle.y + particle.radius < 0 ) {
+        particle.x = xRandom();
+        particle.y = rectHeight + particle.radius;
+        particle.vx = vxRandom();
+        particle.vy = vyRandom();
+      }
+    });
+  }
 
   function draw( ctx ) {
     var width  = ctx.canvas.width,
@@ -51,28 +95,33 @@
     gradient.addColorStop( 0, '#ff0' );
     gradient.addColorStop( 1, '#fff' );
 
+    var rectX = 0.5 * ( width - rectWidth ),
+        rectY = height - rectHeight;
+
     // Draw base rectangle.
     tempCtx.beginPath();
     tempCtx.fillStyle = gradient;
-    tempCtx.fillRect( 0.5 * ( width - rectWidth ), height - rectHeight, rectWidth, rectHeight );
+    tempCtx.fillRect( rectX, rectY, rectWidth, rectHeight );
+
+    var leftCanvas = document.createElement( 'canvas' ),
+        leftCtx    = leftCanvas.getContext( '2d' );
+
+    leftCanvas.width  = rectWidth;
+    leftCanvas.height = rectHeight;
+
+    var rightCanvas = document.createElement( 'canvas' ),
+        rightCtx    = rightCanvas.getContext( '2d' );
+
+    rightCanvas.width  = rectWidth;
+    rightCanvas.height = rectHeight;
 
     tempCtx.globalCompositeOperation = 'destination-out';
 
-    particles.forEach(function( particle ) {
-      tempCtx.beginPath();
-      tempCtx.arc( particle[0], particle[1], particle[2], 0, 2 * Math.PI );
-      tempCtx.fillStyle = 'white';
-      tempCtx.fill();
+    drawParticles( leftCtx, leftParticles );
+    drawParticles( rightCtx, rightParticles );
 
-      particle[0] += particle[3];
-      particle[1] += particle[4];
-      if ( particle[1] < 0 ) {
-        particle[0] = Math.random() * 300 + 200;
-        particle[1] = height + particle[2];
-        particle[3] = Math.random() * 40 - 20;
-        particle[4] = -( Math.random() * 10 + 10 );
-      }
-    });
+    tempCtx.drawImage( leftCanvas, rectX - 0.75 * rectWidth, rectY );
+    tempCtx.drawImage( rightCanvas, rectX + 0.75 * rectWidth, rectY );
 
     tempCtx.globalCompositeOperation = 'source-over';
 
