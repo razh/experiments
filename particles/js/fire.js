@@ -92,45 +92,49 @@
     ctx.restore();
   }
 
-  function draw( ctx ) {
-    var width  = ctx.canvas.width,
-        height = ctx.canvas.height;
+  var width  = context.canvas.width,
+      height = context.canvas.height;
 
+  // Generate all canvases.
+  var fireCanvas = document.createElement( 'canvas' ),
+      fireCtx    = fireCanvas.getContext( '2d' );
+
+  fireCanvas.width  = width;
+  fireCanvas.height = height;
+
+  var leftCanvas = document.createElement( 'canvas' ),
+      leftCtx    = leftCanvas.getContext( '2d' );
+
+  leftCanvas.width  = 1.5 * rectWidth;
+  leftCanvas.height = rectHeight;
+
+  var rightCanvas = document.createElement( 'canvas' ),
+      rightCtx    = rightCanvas.getContext( '2d' );
+
+  rightCanvas.width  = 1.5 * rectWidth;
+  rightCanvas.height = rectHeight;
+
+  var gradient = fireCtx.createLinearGradient( 0, 0, 0, height );
+  gradient.addColorStop( 0, '#ff0' );
+  gradient.addColorStop( 1, '#fff' );
+
+
+  function draw( ctx ) {
     ctx.beginPath();
     ctx.fillStyle = 'black';
     ctx.fillRect( 0, 0, width, height );
-
-    var tempCanvas = document.createElement( 'canvas' ),
-        tempCtx    = tempCanvas.getContext( '2d' );
-
-    tempCanvas.width  = width;
-    tempCanvas.height = height;
-
-    var gradient = tempCtx.createLinearGradient( 0, 0, 0, height );
-    gradient.addColorStop( 0, '#ff0' );
-    gradient.addColorStop( 1, '#fff' );
 
     var rectX = 0.5 * ( width - rectWidth ),
         rectY = height - rectHeight;
 
     // Draw base rectangle.
-    tempCtx.beginPath();
-    tempCtx.fillStyle = gradient;
-    tempCtx.fillRect( rectX, rectY, rectWidth, rectHeight );
+    fireCtx.clearRect( 0, 0, fireCtx.canvas.width, fireCtx.canvas.height );
 
-    var leftCanvas = document.createElement( 'canvas' ),
-        leftCtx    = leftCanvas.getContext( '2d' );
+    fireCtx.beginPath();
+    fireCtx.fillStyle = gradient;
+    fireCtx.fillRect( rectX, rectY, rectWidth, rectHeight );
 
-    leftCanvas.width  = 1.5 * rectWidth;
-    leftCanvas.height = rectHeight;
-
-    var rightCanvas = document.createElement( 'canvas' ),
-        rightCtx    = rightCanvas.getContext( '2d' );
-
-    rightCanvas.width  = 1.5 * rectWidth;
-    rightCanvas.height = rectHeight;
-
-    tempCtx.globalCompositeOperation = 'destination-out';
+    fireCtx.globalCompositeOperation = 'destination-out';
 
     drawParticles( leftCtx, leftParticles );
     drawParticles( rightCtx, rightParticles );
@@ -143,25 +147,25 @@
     var scaleX = 1.3;
     var scaleY = 1.5;
 
-    tempCtx.save();
-    tempCtx.translate( leftX, imageY );
-    tempCtx.rotate( angle );
-    tempCtx.scale( scaleX, scaleY );
-    tempCtx.translate( -leftX, -imageY );
-    tempCtx.drawImage( leftCanvas, rectX - rectWidth, rectY );
-    tempCtx.restore();
+    fireCtx.save();
+    fireCtx.translate( leftX, imageY );
+    fireCtx.rotate( angle );
+    fireCtx.scale( scaleX, scaleY );
+    fireCtx.translate( -leftX, -imageY );
+    fireCtx.drawImage( leftCanvas, rectX - rectWidth, rectY );
+    fireCtx.restore();
 
-    tempCtx.save();
-    tempCtx.translate( rightX, imageY );
-    tempCtx.rotate( -angle );
-    tempCtx.scale( scaleX, scaleY );
-    tempCtx.translate( -rightX, -imageY );
-    tempCtx.drawImage( rightCanvas, rectX + 0.5 * rectWidth, rectY );
-    tempCtx.restore();
+    fireCtx.save();
+    fireCtx.translate( rightX, imageY );
+    fireCtx.rotate( -angle );
+    fireCtx.scale( scaleX, scaleY );
+    fireCtx.translate( -rightX, -imageY );
+    fireCtx.drawImage( rightCanvas, rectX + 0.5 * rectWidth, rectY );
+    fireCtx.restore();
 
-    tempCtx.globalCompositeOperation = 'source-over';
+    fireCtx.globalCompositeOperation = 'source-over';
 
-    ctx.drawImage( tempCanvas, 0, 0 );
+    ctx.drawImage( fireCanvas, 0, 0 );
   }
 
   function tick() {
