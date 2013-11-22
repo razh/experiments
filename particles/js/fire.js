@@ -64,11 +64,7 @@
     ctx.translate( 0.25 * rectWidth, 0 );
 
     particles.forEach(function( particle ) {
-      ctx.beginPath();
-      ctx.arc( particle.x, particle.y, particle.radius, 0, 2 * Math.PI );
-      ctx.fillStyle = 'white';
-      ctx.fill();
-
+      // Update.
       particle.x += particle.vx;
       particle.y += particle.vy;
       if ( particle.x - particle.radius < 0 ) {
@@ -87,6 +83,12 @@
         particle.vx = vxRandom();
         particle.vy = vyRandom();
       }
+
+      // Draw.
+      ctx.beginPath();
+      ctx.arc( particle.x, particle.y, particle.radius, 0, 2 * Math.PI );
+      ctx.fillStyle = 'white';
+      ctx.fill();
     });
 
     ctx.restore();
@@ -177,7 +179,8 @@
     window.requestAnimationFrame( tick );
   }
 
-  // tick();
+  draw( context );
+
   document.addEventListener( 'keydown', function( event ) {
     // ESC.
     if ( event.which === 27 ) {
