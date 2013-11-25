@@ -1,0 +1,20 @@
+a {
+  color: #48c;
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  color: #269;
+  text-decoration: underline;
+}
+
+h1 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.text-center {
+  text-align: center;
+}
