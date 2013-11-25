@@ -306,13 +306,37 @@ $(function() {
     vdCircleCSS.update();
   }
 
-  $vdCanvas.on({
-    mousemove: onMouseMove
-  });
+  function touchMoveFn( mouseMoveFn ) {
+    return function( event ) {
+      event.pageX = event.touches[0].pageX;
+      event.pageY = event.touches[0].pageY;
 
-  $( '.oblivion-css' ).on({
-    mousemove: onMouseMoveCSS
-  });
+      mouseMoveFn( event );
+    };
+  }
+
+  var onTouchMove = touchMoveFn( onMouseMove );
+  var onTouchMoveCSS = touchMoveFn( onMouseMoveCSS );
+
+  (function() {
+    if ( typeof window.ontouchstart !== 'undefined' ) {
+      $vdCanvas.on({
+        touchmove: onTouchMove
+      });
+
+      $( '.oblivion-css' ).on({
+        touchMove: onTouchMoveCSS
+      });
+    }
+
+    $vdCanvas.on({
+      mousemove: onMouseMove
+    });
+
+    $( '.oblivion-css' ).on({
+      mousemove: onMouseMoveCSS
+    });
+  }) ();
 
   $( window ).on( 'resize', function() {
     cssCanvas.width = $cssCanvas.parent().width();
