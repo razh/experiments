@@ -308,10 +308,7 @@ $(function() {
 
   function touchMoveFn( mouseMoveFn ) {
     return function( event ) {
-      event.pageX = event.touches[0].pageX;
-      event.pageY = event.touches[0].pageY;
-
-      mouseMoveFn( event );
+      mouseMoveFn( event.touches[0] );
     };
   }
 
@@ -320,13 +317,8 @@ $(function() {
 
   (function() {
     if ( typeof window.ontouchstart !== 'undefined' ) {
-      $vdCanvas.on({
-        touchmove: onTouchMove
-      });
-
-      $( '.oblivion-css' ).on({
-        touchMove: onTouchMoveCSS
-      });
+      vdCanvas.addEventListener( 'touchmove', onTouchMove );
+      $( '.oblivion-css' )[0].addEventListener( 'touchmove', onTouchMoveCSS );
     }
 
     $vdCanvas.on({
