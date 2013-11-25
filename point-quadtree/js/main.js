@@ -143,7 +143,7 @@
     ctx.fillStyle = 'yellow';
     ctx.fill();
 
-    ctx.font = '12pt Monaco, Courier';
+    ctx.font = '12pt monospace';
     ctx.fillText( 'potential: ' + potentials.length, 25, 30 );
 
     ctx.beginPath();
@@ -174,21 +174,35 @@
     tick();
   }
 
+  function rectPosition( x, y ) {
+    rect.x = x - 0.5 * rect.width;
+    rect.y = y - 0.5 * rect.height;
+  }
+
   var mouseDown = false;
 
-  function onMouseDown( event ) {
+  function onMouseDown() {
     mouseDown = true;
   }
 
   function onMouseMove( event ) {
     if ( mouseDown ) {
-      rect.x = event.pageX - 0.5 * rect.width;
-      rect.y = event.pageY - 0.5 * rect.height;
+      rectPosition( event.pageX, event.pageY );
     }
   }
 
-  function onMouseUp( event ) {
+  function onMouseUp() {
     mouseDown = false;
+  }
+
+  function onTouch( event ) {
+    event.preventDefault();
+    rectPosition( event.touches[0].pageX, event.touches[0].pageY );
+  }
+
+  if ( typeof window.ontouchstart !== 'undefined' ) {
+    canvas.addEventListener( 'touchstart', onTouch );
+    canvas.addEventListener( 'touchmove', onTouch );
   }
 
   canvas.addEventListener( 'mousedown', onMouseDown );
