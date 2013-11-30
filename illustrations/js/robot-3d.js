@@ -19,11 +19,6 @@
     body.style.transform = transform;
   }
 
-  onMouseMove({
-    pageX: 0.5 * window.innerWidth,
-    pageY: 0.5 * window.inenrHeight
-  });
-
   // Toggle on/off the mouse-controlled rotating camera.
   document.addEventListener( 'keydown', function( event ) {
     // Space.
