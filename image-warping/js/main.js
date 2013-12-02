@@ -219,6 +219,53 @@
     ctx.stroke();
   }
 
+
+  /**
+   * Return the vertices of each quad as determined by the handler grid.
+   */
+  function getQuads( handlers ) {
+    var quads = [];
+
+    var quad;
+    var index;
+    var i, j;
+    for ( i = 0; i < yCount - 1; i++ ) {
+      for ( j = 0; j < xCount - 1; j++ ) {
+        index = i * xCount + j;
+
+        quad = [];
+
+        // Top left.
+        quad.push({
+          x: handlers[ index ].x,
+          y: handlers[ index ].y
+        });
+
+        // Bottom left.
+        quad.push({
+          x: handlers[ index + xCount ].x,
+          y: handlers[ index + xCount ].y
+        });
+
+        // Bottom right.
+        quad.push({
+          x: handlers[ index + xCount + 1 ].x,
+          y: handlers[ index + xCount + 1 ].y
+        });
+
+        // Top right.
+        quad.push({
+          x: handlers[ index + 1 ].x,
+          y: handlers[ index + 1 ].y
+        });
+
+        quads.push( quad );
+      }
+    }
+
+    return quads;
+  }
+
   function draw() {
     handlers.forEach(function( handler ) {
       handler.draw();
@@ -227,8 +274,21 @@
     warpCtx.clearRect( 0, 0, warpCtx.canvas.width, warpCtx.canvas.height );
     drawWarpGrid( warpCtx );
 
+
     gridCtx.clearRect( 0, 0, gridCtx.canvas.width, gridCtx.canvas.height );
     drawGridLines( gridCtx );
+
+    var quads = getQuads( handlers );
+    var quad = quads[0];
+
+    gridCtx.beginPath();
+    gridCtx.moveTo( quad[0].x, quad[0].y );
+    for ( var i = 1, il = quad.length; i < il; i++ ) {
+      gridCtx.lineTo( quad[i].x, quad[i].y );
+    }
+
+    gridCtx.fillStyle = 'rgba(0, 255, 0, 0.3)';
+    gridCtx.fill();
   }
 
   // http://stackoverflow.com/questions/4774172/image-manipulation-and-texture-mapping-using-html5-canvas
