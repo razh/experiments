@@ -340,10 +340,57 @@
     ctx.closePath();
   }
 
+  var circle = {
+    x: 20,
+    y: 30,
+    vx: 2,
+    vy: 1,
+    radius: 20
+  };
+
+  function drawMovingCircle( ctx ) {
+    var width  = ctx.canvas.width,
+        height = ctx.canvas.height;
+
+    // Update.
+    circle.x += circle.vx;
+    circle.y += circle.vy;
+
+    if ( circle.x < circle.radius ) {
+      circle.x = circle.radius;
+      circle.vx = -circle.vx;
+    }
+
+    if ( circle.x > width - circle.radius ) {
+      circle.x = width - circle.radius;
+      circle.vx = -circle.vx;
+    }
+
+    if ( circle.y < circle.radius ) {
+      circle.y = circle.radius;
+      circle.vy = -circle.vy;
+    }
+
+    if ( circle.y > height - circle.radius ) {
+      circle.y = height - circle.radius;
+      circle.vy = -circle.vy;
+    }
+
+    ctx.beginPath();
+
+    ctx.arc( circle.x, circle.y, circle.radius, 0, 2 * Math.PI  );
+
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+  }
+
   function draw() {
     handlers.forEach(function( handler ) {
       handler.draw();
     });
+
+    context.clearRect( 0, 0, context.canvas.width, context.canvas.height );
+    drawMovingCircle( context );
 
     warpCtx.clearRect( 0, 0, warpCtx.canvas.width, warpCtx.canvas.height );
     drawWarpGrid( warpCtx );
@@ -381,6 +428,10 @@
         }
 
         textureMap( warpCtx, image, warpQuad );
+      });
+    } else {
+      warpQuads.forEach(function( warpQuad ) {
+        textureMap( warpCtx, context.canvas, warpQuad );
       });
     }
   }
