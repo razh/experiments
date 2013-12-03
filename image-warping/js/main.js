@@ -9,20 +9,11 @@
   var canvas  = document.getElementById( 'canvas' ),
       context = canvas.getContext( '2d' );
 
-  canvas.width  = handlersEl.clientWidth;
-  canvas.height = handlersEl.clientHeight;
-
   var warpCanvas = document.getElementById( 'warp-canvas' ),
       warpCtx    = warpCanvas.getContext( '2d' );
 
-  warpCanvas.width  = handlersEl.clientWidth;
-  warpCanvas.height = handlersEl.clientHeight;
-
   var gridCanvas = document.getElementById( 'grid-canvas' ),
       gridCtx    = gridCanvas.getContext( '2d' );
-
-  gridCanvas.width  = handlersEl.clientWidth;
-  gridCanvas.height = handlersEl.clientHeight;
 
   var image = new Image();
   var imageLoaded = false;
@@ -461,28 +452,53 @@
       object.y = mouse.y + object.offset.y;
     });
 
-    draw();
+    if ( mouse.down ) {
+      draw();
+    }
   });
 
   document.addEventListener( 'mouseup', function() {
     mouse.down = false;
   });
 
-  function init() {
-    var width  = handlersEl.clientWidth - 2 * padding,
+  function resize() {
+    canvas.width  = handlersEl.clientWidth;
+    canvas.height = handlersEl.clientHeight;
+
+    warpCanvas.width  = handlersEl.clientWidth;
+    warpCanvas.height = handlersEl.clientHeight;
+
+    gridCanvas.width  = handlersEl.clientWidth;
+    gridCanvas.height = handlersEl.clientHeight;
+
+    var width  = handlersEl.clientWidth  - 2 * padding,
         height = handlersEl.clientHeight - 2 * padding;
 
-    // Create grid of handlers.
     var colWidth  = width  / ( xCount - 1 ),
         rowHeight = height / ( yCount - 1 );
 
+    var handler;
+    var index;
+    var i, j;
+    for ( i = 0; i < yCount; i++ ) {
+      for ( j = 0; j < xCount; j++ ) {
+        index = i * xCount + j;
+        handler = handlers[ index ];
+        handler.x = j * colWidth + padding;
+        handler.y = i * rowHeight + padding;
+      }
+    }
+
+    draw();
+  }
+
+  function init() {
+    // Create grid of handlers.
     var handler;
     var i, j;
     for ( i = 0; i < yCount; i++ ) {
       for ( j = 0; j < xCount; j++ ) {
         handler = new Handler({
-          x: j * colWidth + padding,
-          y: i * rowHeight + padding,
           id: i * xCount + j
         });
 
@@ -491,8 +507,10 @@
       }
     }
 
-    draw();
+    resize();
   }
+
+  window.addEventListener( 'resize', resize );
 
   init();
 }) ( window, document );
