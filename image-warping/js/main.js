@@ -340,48 +340,17 @@
     ctx.closePath();
   }
 
-  var circle = {
-    x: 20,
-    y: 30,
-    vx: 2,
-    vy: 1,
-    radius: 20
-  };
-
   function drawMovingCircle( ctx ) {
-    var width  = ctx.canvas.width,
-        height = ctx.canvas.height;
-
-    // Update.
-    circle.x += circle.vx;
-    circle.y += circle.vy;
-
-    if ( circle.x < circle.radius ) {
-      circle.x = circle.radius;
-      circle.vx = -circle.vx;
-    }
-
-    if ( circle.x > width - circle.radius ) {
-      circle.x = width - circle.radius;
-      circle.vx = -circle.vx;
-    }
-
-    if ( circle.y < circle.radius ) {
-      circle.y = circle.radius;
-      circle.vy = -circle.vy;
-    }
-
-    if ( circle.y > height - circle.radius ) {
-      circle.y = height - circle.radius;
-      circle.vy = -circle.vy;
-    }
-
     ctx.beginPath();
 
-    ctx.arc( circle.x, circle.y, circle.radius, 0, 2 * Math.PI  );
+    ctx.arc( mouse.x, mouse.y, 20, 0, 2 * Math.PI  );
 
     ctx.fillStyle = '#fff';
     ctx.fill();
+
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#000';
+    ctx.stroke();
   }
 
   function draw() {
@@ -503,9 +472,7 @@
       object.y = mouse.y + object.offset.y;
     });
 
-    if ( mouse.down ) {
-      draw();
-    }
+    draw();
   });
 
   document.addEventListener( 'mouseup', function() {
