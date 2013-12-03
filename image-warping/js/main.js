@@ -40,6 +40,7 @@
       yCount = 4;
 
   var padding = 50,
+      // Number of warp grid cells per axis.
       gridCount = 10;
 
   // Image warping method taken from https://github.com/adobe/cssfilterlab/.
@@ -186,6 +187,37 @@
     ctx.stroke();
   }
 
+  function getWarpGridQuads() {
+    var quads = [];
+
+    var gridCellRatio = 1 / gridCount;
+
+    var n = xCount - 1,
+        m = yCount - 1;
+
+    var quad;
+    var i, j;
+    // Unlike the drawWarpGrid(), we don't want vertices in the last row/column.
+    for ( i = 0; i < 1 - EPSILON; i += gridCellRatio ) {
+      for ( j = 0; j < 1 - EPSILON; j += gridCellRatio ) {
+        quad = [];
+
+        // Top left.
+        quad.push( calculate( i, j, n, m ) );
+        // Bottom left.
+        quad.push( calculate( i, j + gridCellRatio, n, m ) );
+        // Bottom right.
+        quad.push( calculate( i + gridCellRatio, j + gridCellRatio, n, m ) );
+        // Top right.
+        quad.push( calculate( i + gridCellRatio, j, n, m ) );
+
+        quads.push( quad );
+      }
+    }
+
+    return quads;
+  }
+
   function drawGridLines( ctx ) {
     var x0, y0;
     var index;
@@ -266,6 +298,17 @@
     return quads;
   }
 
+  function drawPolygonPath( ctx, vertices ) {
+    ctx.beginPath();
+
+    ctx.moveTo( vertices[0].x, vertices[0].y );
+    for ( var i = 1, il = vertices.length; i < il; i++ ) {
+      ctx.lineTo( vertices[i].x, vertices[i].y );
+    }
+
+    ctx.closePath();
+  }
+
   function draw() {
     handlers.forEach(function( handler ) {
       handler.draw();
@@ -278,15 +321,19 @@
     gridCtx.clearRect( 0, 0, gridCtx.canvas.width, gridCtx.canvas.height );
     drawGridLines( gridCtx );
 
+    // Draw warp grid test quad.
+    var warpQuads = getWarpGridQuads( handlers );
+    var warpQuad = warpQuads[ warpQuads.length - 1 ];
+
+    drawPolygonPath( warpCtx, warpQuad );
+    warpCtx.fillStyle = 'rgba(255, 0, 255, 0.3)';
+    warpCtx.fill();
+
+    // Draw test quad.
     var quads = getQuads( handlers );
     var quad = quads[0];
 
-    gridCtx.beginPath();
-    gridCtx.moveTo( quad[0].x, quad[0].y );
-    for ( var i = 1, il = quad.length; i < il; i++ ) {
-      gridCtx.lineTo( quad[i].x, quad[i].y );
-    }
-
+    drawPolygonPath( gridCtx, quad );
     gridCtx.fillStyle = 'rgba(0, 255, 0, 0.3)';
     gridCtx.fill();
   }
