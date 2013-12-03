@@ -25,6 +25,7 @@
   gridCanvas.height = handlersEl.clientHeight;
 
   var image = new Image();
+  var imageLoaded = false;
 
   var mouse = {
     x: 0,
@@ -32,6 +33,8 @@
 
     down: false
   };
+
+  var debug = false;
 
   var handlers  = [],
       selection = [];
@@ -103,6 +106,7 @@
     image.src = URL.createObjectURL( event.dataTransfer.files[0] );
     image.onload = function() {
       context.drawImage( image, padding, padding );
+      imageLoaded = true;
     };
   });
 
@@ -195,6 +199,7 @@
     var n = xCount - 1,
         m = yCount - 1;
 
+    var point;
     var quad;
     var i, j;
     // Unlike the drawWarpGrid(), we don't want vertices in the last row/column.
@@ -203,13 +208,40 @@
         quad = [];
 
         // Top left.
-        quad.push( calculate( i, j, n, m ) );
+        point = calculate( i, j, n, m );
+        quad.push({
+          x: point.x,
+          y: point.y,
+          u: j,
+          v: i
+        });
+
         // Bottom left.
-        quad.push( calculate( i, j + gridCellRatio, n, m ) );
+        point = calculate( i, j + gridCellRatio, n, m );
+        quad.push({
+          x: point.x,
+          y: point.y,
+          u: j + gridCellRatio,
+          v: i
+        });
+
         // Bottom right.
-        quad.push( calculate( i + gridCellRatio, j + gridCellRatio, n, m ) );
+        point = calculate( i + gridCellRatio, j + gridCellRatio, n, m );
+        quad.push({
+          x: point.x,
+          y: point.y,
+          u: j + gridCellRatio,
+          v: i + gridCellRatio
+        });
+
         // Top right.
-        quad.push( calculate( i + gridCellRatio, j, n, m ) );
+        point = calculate( i + gridCellRatio, j, n, m );
+        quad.push({
+          x: point.x,
+          y: point.y,
+          u: j,
+          v: i + gridCellRatio
+        });
 
         quads.push( quad );
       }
@@ -270,25 +302,33 @@
         // Top left.
         quad.push({
           x: handlers[ index ].x,
-          y: handlers[ index ].y
+          y: handlers[ index ].y,
+          u: j / xCount,
+          v: i / yCount
         });
 
         // Bottom left.
         quad.push({
           x: handlers[ index + xCount ].x,
-          y: handlers[ index + xCount ].y
+          y: handlers[ index + xCount ].y,
+          u: j / xCount,
+          v: ( i + 1 ) / yCount
         });
 
         // Bottom right.
         quad.push({
           x: handlers[ index + xCount + 1 ].x,
-          y: handlers[ index + xCount + 1 ].y
+          y: handlers[ index + xCount + 1 ].y,
+          u: ( j + 1 ) / xCount,
+          v: ( i + 1 ) / yCount
         });
 
         // Top right.
         quad.push({
           x: handlers[ index + 1 ].x,
-          y: handlers[ index + 1 ].y
+          y: handlers[ index + 1 ].y,
+          u: ( j + 1 ) / xCount,
+          v: i / yCount
         });
 
         quads.push( quad );
@@ -336,6 +376,22 @@
     drawPolygonPath( gridCtx, quad );
     gridCtx.fillStyle = 'rgba(0, 255, 0, 0.3)';
     gridCtx.fill();
+
+    if ( imageLoaded ) {
+      warpQuads.forEach(function( warpQuad ) {
+        if ( debug ) {
+          drawPolygonPath( warpCtx, warpQuad );
+          warpCtx.fillStyle = 'rgb(' +
+            Math.round( warpQuad[0].u * 255 ) + ', ' +
+            Math.round( warpQuad[0].v * 255 ) + ', ' +
+            Math.round( warpQuad[1].u * 255 ) +
+          ')';
+          warpCtx.fill();
+        }
+
+        textureMap( warpCtx, image, warpQuad );
+      });
+    }
   }
 
   // http://stackoverflow.com/questions/4774172/image-manipulation-and-texture-mapping-using-html5-canvas
@@ -348,15 +404,24 @@
       var u0 = pts[ pp[0] ].u, u1 = pts[ pp[1] ].u, u2 = pts[ pp[2] ].u;
       var v0 = pts[ pp[0] ].v, v1 = pts[ pp[1] ].v, v2 = pts[ pp[2] ].v;
 
+      u0 *= texture.width;
+      u1 *= texture.width;
+      u2 *= texture.width;
+
+      v0 *= texture.height;
+      v1 *= texture.height;
+      v2 *= texture.height;
+
       // Set clipping area so that only pixels inside the triangle will
       // be affected by the image drawing operation
+      ctx.save();
+
       ctx.beginPath();
       ctx.moveTo( x0, y0 );
       ctx.lineTo( x1, y1 );
       ctx.lineTo( x2, y2 );
       ctx.closePath();
 
-      ctx.save();
       ctx.clip();
 
       // Compute matrix transform
