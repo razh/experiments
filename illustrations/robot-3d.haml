@@ -24,11 +24,11 @@
 
     .scene.robot
       .body
-        .head
-          - faces
-
         .chest
           - faces
+
+          .head
+            - faces
 
           .arm.arm-left
             - arm
@@ -36,13 +36,13 @@
           .arm.arm-right
             - arm
 
-        .hips
-          - faces
+          .hips
+            - faces
 
-          .leg.leg-left
-            - leg
+            .leg.leg-left
+              - leg
 
-          .leg.leg-right
-            - leg
+            .leg.leg-right
+              - leg
 
     %script(src='./js/robot-3d.js')
