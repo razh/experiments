@@ -35,7 +35,7 @@
 
   var padding = 50,
       // Number of warp grid cells per axis.
-      gridCount = 10;
+      gridCount = 9;
 
   // Image warping method taken from https://github.com/adobe/cssfilterlab/.
   var factorial = (function() {
@@ -405,19 +405,14 @@
         textureMap( warpCtx, image, warpQuad );
       });
     } else {
-      warpQuads.forEach(function( warpQuad, index ) {
-        textureMap( warpCtx, context.canvas, warpQuad, index !== -1 );
+      warpQuads.forEach(function( warpQuad ) {
+        textureMap( warpCtx, context.canvas, warpQuad );
       });
     }
   }
 
   // http://stackoverflow.com/questions/4774172/image-manipulation-and-texture-mapping-using-html5-canvas
-  function textureMap( ctx, texture, pts, drawDebug ) {
-    var xmin = pts[0].u * texture.width,
-        ymin = pts[0].v * texture.height,
-        xmax = pts[2].u * texture.width,
-        ymax = pts[2].v * texture.width;
-
+  function textureMap( ctx, texture, pts ) {
     var tris = [ [ 0, 1, 2 ], [ 2, 3, 0 ] ]; // Split in two triangles
     for ( var t = 0; t < 2; t++ ) {
       var pp = tris[t];
@@ -444,7 +439,7 @@
       ctx.lineTo( x2, y2 );
       ctx.closePath();
 
-      // ctx.clip();
+      ctx.clip();
 
       // Compute matrix transform
       var delta  = u0 * v1 + v0 * u2 + u1 * v2 - v1 * u2 - v0 * u1 - u0 * v2;
@@ -462,81 +457,10 @@
         deltaC / delta, deltaF / delta
       );
 
-      // ctx.drawImage( texture, 0, 0 );
-      ctx.drawImage(
-        texture,
-        xmin, ymin, xmax - xmin, ymax - ymin,
-        xmin, ymin, xmax - xmin, ymax - ymin
-       );
-
-      if ( drawDebug ) {
-        // // Draw entire texture.
-        // ctx.beginPath();
-        // ctx.rect( 0, 0, texture.width, texture.height );
-        // ctx.lineWidth = 1;
-        // ctx.strokeStyle = '#f00';
-        // ctx.stroke();
-
-        var a = deltaA / delta,
-            b = deltaB / delta,
-            c = deltaC / delta,
-            d = deltaD / delta,
-            e = deltaE / delta,
-            f = deltaF / delta;
-
-        // Determine the inverse of the current transform matrix.
-        var det = a * e - b * d;
-
-        var at = e,
-            bt = -d,
-            ct = 0,
-            dt = -b,
-            et = a,
-            ft = 0,
-            gt = b * f - c * e,
-            ht = -( a * f - c * d ),
-            it =  a * e - b * d; // Same as determinant.
-
-        if ( !det ) {
-          console.log( 'Determinant is zero.' );
-        }
-
-        a = at / det;
-        b = bt / det;
-        c = dt / det;
-        d = et / det;
-        e = gt / det;
-        f = ht / det;
-
-        var txmin = a * xmin + c * ymin + e,
-            tymin = b * xmin + d * ymin + f;
-
-        var txmax = a * xmax + c * ymax + e,
-            tymax = b * xmax + d * ymax + f;
-
-        // ctx.beginPath();
-
-        // // Projected image grid.
-        // // ctx.rect( xmin, ymin, xmax - xmin, ymax - ymin );
-
-        // // Original image grid (transformed).
-        // ctx.rect( txmin, tymin, txmax - txmin, tymax - tymin );
-
-        // ctx.lineWidth = 2;
-        // ctx.strokeStyle = '#0f0';
-        // ctx.stroke();
-      }
+      ctx.drawImage( texture, 0, 0 );
 
       ctx.restore();
-
     }
-
-    // Original image grid.
-    ctx.beginPath();
-    ctx.rect( xmin, ymin, xmax - xmin, ymax - ymin );
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = '#0f0';
-    ctx.stroke();
   }
 
   document.addEventListener( 'mousedown', function( event ) {
