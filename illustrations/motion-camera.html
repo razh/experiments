@@ -6,6 +6,23 @@
     <link rel="stylesheet" href="./stylesheets/motion-camera.css">
   </head>
   <body ontouchstart="">
+    <div class="debug">
+      <div class="rotation">
+        <div class="alpha"></div>
+        <div class="beta"></div>
+        <div class="gamma"></div>
+      </div>
+      <div class="acceleration">
+        <div class="ax"></div>
+        <div class="ay"></div>
+        <div class="az"></div>
+      </div>
+      <div class="rotation-rate">
+        <div class="rotation-rate-alpha"></div>
+        <div class="rotation-rate-beta"></div>
+        <div class="rotation-rate-gamma"></div>
+      </div>
+    </div>
     <div class="container body">
       <div class="box back-top-left">
         <div class="face top"></div>
@@ -81,5 +98,6 @@
       </div>
     </div>
     <script src="./js/robot-3d.js"></script>
+    <script src="./js/motion-camera.js"></script>
   </body>
 </html>

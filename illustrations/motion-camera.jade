@@ -12,6 +12,20 @@ html(lang='en')
 
     link(rel='stylesheet', href='./stylesheets/motion-camera.css')
   body(ontouchstart='')
+    .debug
+      .rotation
+        .alpha
+        .beta
+        .gamma
+      .acceleration
+        .ax
+        .ay
+        .az
+      .rotation-rate
+        .rotation-rate-alpha
+        .rotation-rate-beta
+        .rotation-rate-gamma
+
     .container.body
       .box.back-top-left
         +faces
@@ -41,4 +55,5 @@ html(lang='en')
         +faces
 
     script(src='./js/robot-3d.js')
+    script(src='./js/motion-camera.js')
 

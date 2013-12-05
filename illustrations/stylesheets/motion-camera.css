@@ -81,7 +81,12 @@ html, body {
   width: 100%;
 }
 
-/* line 14, ../sass/motion-camera.scss */
+/* line 12, ../sass/motion-camera.scss */
+.debug {
+  position: absolute;
+}
+
+/* line 19, ../sass/motion-camera.scss */
 .container {
   position: absolute;
   top: 50%;
@@ -105,7 +110,7 @@ html, body {
   transform-style: preserve-3d;
 }
 
-/* line 28, ../sass/motion-camera.scss */
+/* line 33, ../sass/motion-camera.scss */
 .box {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -186,32 +191,32 @@ html, body {
   -o-transform: translate3d(50px, 0, 0) rotateY(90deg);
   transform: translate3d(50px, 0, 0) rotateY(90deg);
 }
-/* line 31, ../sass/motion-camera.scss */
+/* line 36, ../sass/motion-camera.scss */
 .box .top {
   background-color: rgba(192, 192, 192, 0.75);
 }
-/* line 32, ../sass/motion-camera.scss */
+/* line 37, ../sass/motion-camera.scss */
 .box .front {
   background-color: rgba(144, 144, 144, 0.75);
 }
-/* line 33, ../sass/motion-camera.scss */
+/* line 38, ../sass/motion-camera.scss */
 .box .right {
   background-color: rgba(96, 96, 96, 0.75);
 }
-/* line 34, ../sass/motion-camera.scss */
+/* line 39, ../sass/motion-camera.scss */
 .box .back {
   background-color: rgba(64, 64, 64, 0.75);
 }
-/* line 35, ../sass/motion-camera.scss */
+/* line 40, ../sass/motion-camera.scss */
 .box .left {
   background-color: rgba(32, 32, 32, 0.75);
 }
-/* line 36, ../sass/motion-camera.scss */
+/* line 41, ../sass/motion-camera.scss */
 .box .bottom {
   background-color: rgba(0, 0, 0, 0.75);
 }
 
-/* line 40, ../sass/motion-camera.scss */
+/* line 45, ../sass/motion-camera.scss */
 .center {
   -webkit-transform: translate3d(200px, 200px, -200px);
   -moz-transform: translate3d(200px, 200px, -200px);
@@ -220,7 +225,7 @@ html, body {
   transform: translate3d(200px, 200px, -200px);
 }
 
-/* line 44, ../sass/motion-camera.scss */
+/* line 49, ../sass/motion-camera.scss */
 .back-top-left {
   -webkit-transform: translate3d(0, 0, -400px);
   -moz-transform: translate3d(0, 0, -400px);
@@ -229,7 +234,7 @@ html, body {
   transform: translate3d(0, 0, -400px);
 }
 
-/* line 48, ../sass/motion-camera.scss */
+/* line 53, ../sass/motion-camera.scss */
 .back-top-right {
   -webkit-transform: translate3d(400px, 0, -400px);
   -moz-transform: translate3d(400px, 0, -400px);
@@ -238,7 +243,7 @@ html, body {
   transform: translate3d(400px, 0, -400px);
 }
 
-/* line 52, ../sass/motion-camera.scss */
+/* line 57, ../sass/motion-camera.scss */
 .back-bottom-left {
   -webkit-transform: translate3d(0, 400px, -400px);
   -moz-transform: translate3d(0, 400px, -400px);
@@ -247,7 +252,7 @@ html, body {
   transform: translate3d(0, 400px, -400px);
 }
 
-/* line 56, ../sass/motion-camera.scss */
+/* line 61, ../sass/motion-camera.scss */
 .back-bottom-right {
   -webkit-transform: translate3d(400px, 400px, -400px);
   -moz-transform: translate3d(400px, 400px, -400px);
@@ -256,7 +261,7 @@ html, body {
   transform: translate3d(400px, 400px, -400px);
 }
 
-/* line 60, ../sass/motion-camera.scss */
+/* line 65, ../sass/motion-camera.scss */
 .front-top-left {
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
@@ -265,7 +270,7 @@ html, body {
   transform: translate3d(0, 0, 0);
 }
 
-/* line 64, ../sass/motion-camera.scss */
+/* line 69, ../sass/motion-camera.scss */
 .front-top-right {
   -webkit-transform: translate3d(400px, 0, 0);
   -moz-transform: translate3d(400px, 0, 0);
@@ -274,7 +279,7 @@ html, body {
   transform: translate3d(400px, 0, 0);
 }
 
-/* line 68, ../sass/motion-camera.scss */
+/* line 73, ../sass/motion-camera.scss */
 .front-bottom-left {
   -webkit-transform: translate3d(0, 400px, 0);
   -moz-transform: translate3d(0, 400px, 0);
@@ -283,7 +288,7 @@ html, body {
   transform: translate3d(0, 400px, 0);
 }
 
-/* line 72, ../sass/motion-camera.scss */
+/* line 77, ../sass/motion-camera.scss */
 .front-bottom-right {
   -webkit-transform: translate3d(400px, 400px, 0);
   -moz-transform: translate3d(400px, 400px, 0);
