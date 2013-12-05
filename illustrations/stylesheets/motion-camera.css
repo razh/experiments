@@ -1,0 +1,288 @@
+/* line 17, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/**
+ * Creates a box centered at (0, 0, 0) with dimension
+ * $width, $height, and $depth.
+ *
+ * Each box consists of six elements with the generic 'face' class.
+ * Each element also has a class for a specific direction:
+ *
+ *    top, bottom,
+ *    front, back,
+ *    left, right
+ *
+ *  e.g., .face.top
+ */
+/* line 7, ../sass/motion-camera.scss */
+html, body {
+  width: 100%;
+}
+
+/* line 14, ../sass/motion-camera.scss */
+.container {
+  -webkit-perspective: 2000px;
+  -moz-perspective: 2000px;
+  -ms-perspective: 2000px;
+  -o-perspective: 2000px;
+  perspective: 2000px;
+  -webkit-perspective-origin: left center;
+  -moz-perspective-origin: left center;
+  -ms-perspective-origin: left center;
+  -o-perspective-origin: left center;
+  perspective-origin: left center;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+/* line 20, ../sass/motion-camera.scss */
+.box {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* line 21, ../sass/modules/_box.scss */
+.box .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.box .top, .box .bottom {
+  width: 100px;
+  height: 100px;
+  margin-left: -50px;
+  margin-top: -50px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.box .top {
+  -webkit-transform: translate3d(0, -50px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -50px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -50px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -50px, 0) rotateX(90deg);
+  transform: translate3d(0, -50px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.box .bottom {
+  -webkit-transform: translate3d(0, 50px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 50px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 50px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 50px, 0) rotateX(-90deg);
+  transform: translate3d(0, 50px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.box .back, .box .front {
+  width: 100px;
+  height: 100px;
+  margin-left: -50px;
+  margin-top: -50px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.box .back {
+  -webkit-transform: translate3d(0, 0, -50px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -50px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -50px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -50px) rotateY(180deg);
+  transform: translate3d(0, 0, -50px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.box .front {
+  -webkit-transform: translate3d(0, 0, 50px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 50px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 50px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 50px) rotateY(0deg);
+  transform: translate3d(0, 0, 50px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.box .left, .box .right {
+  width: 100px;
+  height: 100px;
+  margin-left: -50px;
+  margin-top: -50px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.box .left {
+  -webkit-transform: translate3d(-50px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-50px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-50px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-50px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-50px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.box .right {
+  -webkit-transform: translate3d(50px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(50px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(50px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(50px, 0, 0) rotateY(90deg);
+  transform: translate3d(50px, 0, 0) rotateY(90deg);
+}
+/* line 23, ../sass/motion-camera.scss */
+.box .top {
+  background-color: rgba(192, 192, 192, 0.75);
+}
+/* line 24, ../sass/motion-camera.scss */
+.box .front {
+  background-color: rgba(144, 144, 144, 0.75);
+}
+/* line 25, ../sass/motion-camera.scss */
+.box .right {
+  background-color: rgba(96, 96, 96, 0.75);
+}
+/* line 26, ../sass/motion-camera.scss */
+.box .back {
+  background-color: rgba(64, 64, 64, 0.75);
+}
+/* line 27, ../sass/motion-camera.scss */
+.box .left {
+  background-color: rgba(32, 32, 32, 0.75);
+}
+/* line 28, ../sass/motion-camera.scss */
+.box .bottom {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+/* line 32, ../sass/motion-camera.scss */
+.center {
+  -webkit-transform: translate3d(200px, 200px, -200px);
+  -moz-transform: translate3d(200px, 200px, -200px);
+  -ms-transform: translate3d(200px, 200px, -200px);
+  -o-transform: translate3d(200px, 200px, -200px);
+  transform: translate3d(200px, 200px, -200px);
+}
+
+/* line 36, ../sass/motion-camera.scss */
+.back-top-left {
+  -webkit-transform: translate3d(0, 0, -400px);
+  -moz-transform: translate3d(0, 0, -400px);
+  -ms-transform: translate3d(0, 0, -400px);
+  -o-transform: translate3d(0, 0, -400px);
+  transform: translate3d(0, 0, -400px);
+}
+
+/* line 40, ../sass/motion-camera.scss */
+.back-top-right {
+  -webkit-transform: translate3d(400px, 0, -400px);
+  -moz-transform: translate3d(400px, 0, -400px);
+  -ms-transform: translate3d(400px, 0, -400px);
+  -o-transform: translate3d(400px, 0, -400px);
+  transform: translate3d(400px, 0, -400px);
+}
+
+/* line 44, ../sass/motion-camera.scss */
+.back-bottom-left {
+  -webkit-transform: translate3d(0, 400px, -400px);
+  -moz-transform: translate3d(0, 400px, -400px);
+  -ms-transform: translate3d(0, 400px, -400px);
+  -o-transform: translate3d(0, 400px, -400px);
+  transform: translate3d(0, 400px, -400px);
+}
+
+/* line 48, ../sass/motion-camera.scss */
+.back-bottom-right {
+  -webkit-transform: translate3d(400px, 400px, -400px);
+  -moz-transform: translate3d(400px, 400px, -400px);
+  -ms-transform: translate3d(400px, 400px, -400px);
+  -o-transform: translate3d(400px, 400px, -400px);
+  transform: translate3d(400px, 400px, -400px);
+}
+
+/* line 52, ../sass/motion-camera.scss */
+.front-top-left {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+/* line 56, ../sass/motion-camera.scss */
+.front-top-right {
+  -webkit-transform: translate3d(400px, 0, 0);
+  -moz-transform: translate3d(400px, 0, 0);
+  -ms-transform: translate3d(400px, 0, 0);
+  -o-transform: translate3d(400px, 0, 0);
+  transform: translate3d(400px, 0, 0);
+}
+
+/* line 60, ../sass/motion-camera.scss */
+.front-bottom-left {
+  -webkit-transform: translate3d(0, 400px, 0);
+  -moz-transform: translate3d(0, 400px, 0);
+  -ms-transform: translate3d(0, 400px, 0);
+  -o-transform: translate3d(0, 400px, 0);
+  transform: translate3d(0, 400px, 0);
+}
+
+/* line 64, ../sass/motion-camera.scss */
+.front-bottom-right {
+  -webkit-transform: translate3d(400px, 400px, 0);
+  -moz-transform: translate3d(400px, 400px, 0);
+  -ms-transform: translate3d(400px, 400px, 0);
+  -o-transform: translate3d(400px, 400px, 0);
+  transform: translate3d(400px, 400px, 0);
+}
