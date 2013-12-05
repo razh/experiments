@@ -37,10 +37,6 @@
 
   intervalEl.innerHTML = '0';
 
-  function round( value, precision ) {
-    return parseFloat( value.toFixed( precision ) );
-  }
-
   function onResize() {
     var width  = window.innerWidth,
         height = window.innerHeight;
@@ -50,24 +46,24 @@
   }
 
   function onDeviceOrientation( event ) {
-    alphaEl.innerHTML = round( event.alpha, 2 );
-    betaEl.innerHTML  = round( event.beta,  2 );
-    gammaEl.innerHTML = round( event.gamma, 2 );
+    alphaEl.innerHTML = event.alpha.toFixed(2);
+    betaEl.innerHTML  = event.beta.toFixed(2);
+    gammaEl.innerHTML = event.gamma.toFixed(2);
   }
 
   function onDeviceMotion( event ) {
     var acceleration = event.acceleration;
-    axEl.innerHTML = round( acceleration.x, 2 );
-    ayEl.innerHTML = round( acceleration.y, 2 );
-    azEl.innerHTML = round( acceleration.z, 2 );
+    axEl.innerHTML = acceleration.x.toFixed(2);
+    ayEl.innerHTML = acceleration.y.toFixed(2);
+    azEl.innerHTML = acceleration.z.toFixed(2);
 
     var rotationRate = event.rotationRate;
-    rotationRateAlphaEl = round( rotationRate.alpha, 2 );
-    rotationRateBetaEl  = round( rotationRate.beta,  2 );
-    rotationRateGammaEl = round( rotationRate.gamma, 2 );
+    rotationRateAlphaEl.innerHTML = rotationRate.alpha.toFixed(2);
+    rotationRateBetaEl.innerHTML  = rotationRate.beta.toFixed(2);
+    rotationRateGammaEl.innerHTML = rotationRate.gamma.toFixed(2);
 
     // Refresh interval (in milliseconds).
-    intervalEl.innerHTML = round( event.interval, 2 );
+    intervalEl.innerHTML = event.interval.toFixed(2);
   }
 
   onResize();
