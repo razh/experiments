@@ -1,6 +1,11 @@
 (function( window, document, undefined ) {
   'use strict';
 
+  var width,
+      height;
+
+  var portrait;
+
   var debugEl = document.querySelector( '.debug' );
 
   var rotationEl = debugEl.querySelector( '.rotation' );
@@ -37,18 +42,33 @@
 
   intervalEl.innerHTML = '0';
 
-  function onResize() {
-    var width  = window.innerWidth,
-        height = window.innerHeight;
+  var el = document.querySelector( '.container' );
 
-    var portrait = width < height;
-    console.log( portrait );
+  function rotate( rx, ry ) {
+    var transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+    el.style.webkitTransform = transform;
+    el.style.transform = transform;
+  }
+
+  function onResize() {
+    width  = window.innerWidth;
+    height = window.innerHeight;
+
+    portrait = width < height;
   }
 
   function onDeviceOrientation( event ) {
     alphaEl.innerHTML = event.alpha.toFixed(2);
     betaEl.innerHTML  = event.beta.toFixed(2);
     gammaEl.innerHTML = event.gamma.toFixed(2);
+
+    onResize();
+
+    if ( portrait ) {
+      rotate( event.beta, event.gamma );
+    } else {
+      rotate( event.gamma, event.beta );
+    }
   }
 
   function onDeviceMotion( event ) {
