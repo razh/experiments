@@ -6,6 +6,36 @@
 
   var portrait;
 
+  function Box( el ) {
+    if ( typeof el === 'string' ) {
+      el = document.querySelector( el );
+    }
+
+    // Get the initial position.
+    var computedStyle = window.getComputedStyle( el );
+    if ( !computedStyle ) {
+      throw new TypeError( 'Not a valid Element.' );
+    }
+
+    var transform = computedStyle.webkitTransform || computedStyle.transform;
+
+    var translate3d;
+    if ( transform.match( /^matrix3d\(.*/ ) ) {
+      // Assume it's a matrix3d() transform, we only want the three translation values.
+      translate3d = transform.split( ',' ).slice( 12, 15 );
+    } else if ( transform.match( /^matrix\(.*/ ) ) {
+      translate3d = transform.split( ',' ).slice( 4, 6 );
+    } else {
+      translate3d = [];
+    }
+
+    this.el = el;
+
+    this.x = parseFloat( translate3d[0] ) || 0;
+    this.y = parseFloat( translate3d[1] ) || 0;
+    this.z = parseFloat( translate3d[2] ) || 0;
+  }
+
   function Camera( x, y, z ) {
     this.x = x || 0;
     this.y = y || 0;
@@ -18,29 +48,30 @@
     this.rotateZ = 0;
 
     // Pixels per second.
-    this.speed = 100;
+    this.speed = 1000;
   }
 
-  Camera.prototype.applyTransform = function( el ) {
-    var transform = 'translate3d(' +
-      -this.x + 'px, ' +
-       this.y + 'px, ' +
-      -this.z + 'px) ' +
-      'rotateX(' + this.rotateX + 'deg) ' +
-      'rotateY(' + this.rotateY + 'deg) ' +
-      'rotateZ(' + this.rotateZ + 'deg)';
+  Camera.prototype.applyTransformToObject = function( object ) {
+    var x = object.x,
+        y = object.y,
+        z = object.z;
 
-    el.style.webkitTransform = transform;
-    el.style.transform = transform;
+    var transform = 'translate3d(' +
+      ( x - this.x ) + 'px, ' +
+      ( y + this.y ) + 'px, ' +
+      ( z - this.z ) + 'px)';
+
+    object.el.style.webkitTransform = transform;
+    object.el.style.transform = transform;
   };
 
   Camera.prototype.update = function( dt ) {
     var speed = this.speed * dt;
 
-    // Ctrl.
-    if ( keys[ 17 ] ) { this.y -= speed; }
-    // Space.
-    if ( keys[ 32 ] ) { this.y += speed; }
+    // Up arrow.
+    if ( keys[ 38 ] ) { this.y -= speed; }
+    // Down arrow.
+    if ( keys[ 40 ] ) { this.y += speed; }
     // A.
     if ( keys[ 65 ] ) { this.x -= speed; }
     // D.
@@ -50,6 +81,18 @@
     // S.
     if ( keys[ 83 ] ) { this.z += speed; }
   };
+
+  var scene = [
+    new Box( '.center' ),
+    new Box( '.back-top-left' ),
+    new Box( '.back-top-right' ),
+    new Box( '.back-bottom-left' ),
+    new Box( '.back-bottom-right' ),
+    new Box( '.front-top-left' ),
+    new Box( '.front-top-right' ),
+    new Box( '.front-bottom-left' ),
+    new Box( '.front-bottom-right' )
+  ];
 
   var camera = new Camera();
 
@@ -77,7 +120,9 @@
   }
 
   function draw() {
-    camera.applyTransform( el );
+    scene.forEach(function( box ) {
+      camera.applyTransformToObject( box );
+    });
   }
 
   function tick() {
@@ -192,11 +237,26 @@
 
   document.addEventListener( 'keydown', function( event ) {
     keys[ event.which ] = true;
+    if ( event.altKey ) {
+      running = true;
+      tick();
+    }
+
+    // R. Reset.
+    if ( event.which === 82 ) {
+      camera.x = 0;
+      camera.y = 0;
+      camera.z = 0;
+      draw();
+
+      rotate( 0, 0 );
+    }
   });
 
   document.addEventListener( 'keyup', function( event ) {
     keys[ event.which ] = false;
+    if ( !event.altKey ) {
+      running = false;
+    }
   });
-
-  // tick();
 }) ( window, document );
