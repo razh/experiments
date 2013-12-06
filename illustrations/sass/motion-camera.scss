@@ -15,6 +15,12 @@ html, body {
   font-size: 3em;
 }
 
+.help {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
 $box-size: 100px;
 $box-spacing: 400px;
 $half-box-spacing: 0.5 * $box-spacing;
