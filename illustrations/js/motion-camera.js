@@ -69,9 +69,9 @@
     var speed = this.speed * dt;
 
     // Up arrow.
-    if ( keys[ 38 ] ) { this.y -= speed; }
+    if ( keys[ 38 ] ) { this.y += speed; }
     // Down arrow.
-    if ( keys[ 40 ] ) { this.y += speed; }
+    if ( keys[ 40 ] ) { this.y -= speed; }
     // A.
     if ( keys[ 65 ] ) { this.x -= speed; }
     // D.
@@ -80,6 +80,11 @@
     if ( keys[ 87 ] ) { this.z -= speed; }
     // S.
     if ( keys[ 83 ] ) { this.z += speed; }
+
+    // Update debug elements.
+    cameraXEl.innerHTML = 'camera-x: ' + this.x.toFixed(2);
+    cameraYEl.innerHTML = 'camera-y: ' + this.y.toFixed(2);
+    cameraZEl.innerHTML = 'camera-z: ' + this.z.toFixed(2);
   };
 
   var scene = [
@@ -138,6 +143,7 @@
 
   var debugEl = document.querySelector( '.debug' );
 
+  // Device orientation.
   var rotationEl = debugEl.querySelector( '.rotation' );
 
   var alphaEl = rotationEl.querySelector( '.alpha' ),
@@ -148,6 +154,7 @@
   betaEl.innerHTML  = 'beta';
   gammaEl.innerHTML = 'gamma';
 
+  // Device motion.
   var accelerationEl = debugEl.querySelector( '.acceleration' );
 
   var axEl = accelerationEl.querySelector( '.ax' ),
@@ -169,10 +176,18 @@
   rotationRateGammaEl.innerHTML = 'rate-gamma';
 
   var intervalEl = debugEl.querySelector( '.interval' );
+  intervalEl.innerHTML = 'interval';
 
-  intervalEl.innerHTML = '0';
+  // Camera.
+  var cameraEl = debugEl.querySelector( '.camera' );
 
+  var cameraXEl = cameraEl.querySelector( '.camera-x' ),
+      cameraYEl = cameraEl.querySelector( '.camera-y' ),
+      cameraZEl = cameraEl.querySelector( '.camera-z' );
+
+  // Scene element.
   var el = document.querySelector( '.container' );
+
 
   function rotate( rx, ry ) {
     var transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
@@ -195,9 +210,9 @@
   }
 
   function onDeviceOrientation( event ) {
-    alphaEl.innerHTML = event.alpha.toFixed(2);
-    betaEl.innerHTML  = event.beta.toFixed(2);
-    gammaEl.innerHTML = event.gamma.toFixed(2);
+    alphaEl.innerHTML = 'alpha: ' + event.alpha.toFixed(2);
+    betaEl.innerHTML  = 'beta:  ' + event.beta.toFixed(2);
+    gammaEl.innerHTML = 'gamme: ' + event.gamma.toFixed(2);
 
     onResize();
 
@@ -210,23 +225,18 @@
 
   function onDeviceMotion( event ) {
     var acceleration = event.acceleration;
-    axEl.innerHTML = acceleration.x.toFixed(2);
-    ayEl.innerHTML = acceleration.y.toFixed(2);
-    azEl.innerHTML = acceleration.z.toFixed(2);
+    axEl.innerHTML = 'ax: ' + acceleration.x.toFixed(2);
+    ayEl.innerHTML = 'ay: ' + acceleration.y.toFixed(2);
+    azEl.innerHTML = 'az: ' + acceleration.z.toFixed(2);
 
     var rotationRate = event.rotationRate;
-    rotationRateAlphaEl.innerHTML = rotationRate.alpha.toFixed(2);
-    rotationRateBetaEl.innerHTML  = rotationRate.beta.toFixed(2);
-    rotationRateGammaEl.innerHTML = rotationRate.gamma.toFixed(2);
+    rotationRateAlphaEl.innerHTML = 'rate-alpha: ' + rotationRate.alpha.toFixed(2);
+    rotationRateBetaEl.innerHTML  = 'rate-beta:  ' + rotationRate.beta.toFixed(2);
+    rotationRateGammaEl.innerHTML = 'rate-gamma: ' + rotationRate.gamma.toFixed(2);
 
     // Refresh interval (in milliseconds).
     var interval = event.interval;
-    intervalEl.innerHTML = interval.toFixed(2);
-
-    // This isn't right.
-    camera.x += acceleration.x * interval;
-    camera.y += acceleration.y * interval;
-    camera.z += acceleration.z * interval;
+    intervalEl.innerHTML = 'interval: ' + interval.toFixed(2);
   }
 
   onResize();
@@ -237,7 +247,7 @@
 
   document.addEventListener( 'keydown', function( event ) {
     keys[ event.which ] = true;
-    if ( event.altKey ) {
+    if ( event.shiftKey ) {
       running = true;
       tick();
     }
@@ -255,8 +265,10 @@
 
   document.addEventListener( 'keyup', function( event ) {
     keys[ event.which ] = false;
-    if ( !event.altKey ) {
+    if ( !event.shiftKey ) {
       running = false;
     }
   });
+
+  tick();
 }) ( window, document );

@@ -26,6 +26,10 @@ html(lang='en')
         .rotation-rate-beta
         .rotation-rate-gamma
       .interval
+      .camera
+        .camera-x
+        .camera-y
+        .camera-z
 
     .container.body
       .box.back-top-left
@@ -56,9 +60,9 @@ html(lang='en')
         +faces
 
     .help
-      p Alt key to activate free-camera.
+      p SHIFT to activate free look.
       p WASD to move along ground plane (XZ).
-      p Up/down arrow to move up and down.
+      p Up/down arrows to move up and down.
       p R to reset.
 
     script(src='./js/motion-camera.js')
