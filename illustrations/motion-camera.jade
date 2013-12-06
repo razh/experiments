@@ -3,8 +3,8 @@ mixin faces
   each direction in [ 'top', 'bottom', 'back', 'front', 'left', 'right' ]
     div(class='face ' + direction)
 
-//- This isn't really an illustration but since we're using the box SASS module
-//- and the mouse/rotation code in robot-3d, it's just easier to place it here.
+//- This isn't really an illustration but since we're using the box SASS module,
+//- it's just easier to place it here.
 html(lang='en')
   head
     meta(charset='UTF-8')
@@ -55,6 +55,5 @@ html(lang='en')
       .box.front-bottom-right
         +faces
 
-    script(src='./js/robot-3d.js')
     script(src='./js/motion-camera.js')
 

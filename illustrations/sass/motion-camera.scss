@@ -17,6 +17,7 @@ html, body {
 
 $box-size: 100px;
 $box-spacing: 400px;
+$half-box-spacing: 0.5 * $box-spacing;
 
 .container {
   position: absolute;
@@ -28,8 +29,9 @@ $box-spacing: 400px;
   margin-top:  -0.5 * $box-spacing;
 
   @include perspective(2000px);
-  @include perspective-origin(0.5 * $box-spacing 0.5 * $box-spacing);
+  @include perspective-origin($half-box-spacing $half-box-spacing);
   @include transform-style(preserve-3d);
+  @include transform-origin($half-box-spacing, $half-box-spacing);
 }
 
 .box {

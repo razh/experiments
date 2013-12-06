@@ -6,6 +6,14 @@
 
   var portrait;
 
+  function Camera( x, y, z ) {
+    this.x = x || 0;
+    this.y = y || 0;
+    this.z = z || 0;
+  }
+
+  var camera = new Camera();
+
   var debugEl = document.querySelector( '.debug' );
 
   var rotationEl = debugEl.querySelector( '.rotation' );
@@ -50,6 +58,13 @@
     el.style.transform = transform;
   }
 
+  function onMouseMove( event ) {
+    var rx =   ( 0.5 - ( event.clientY / window.innerHeight ) ) * 180,
+        ry =  -( 0.5 - ( event.clientX / window.innerWidth  ) ) * 180;
+
+    rotate( rx, ry );
+  }
+
   function onResize() {
     width  = window.innerWidth;
     height = window.innerHeight;
@@ -87,6 +102,7 @@
   }
 
   onResize();
+  document.addEventListener( 'mousemove', onMouseMove );
   window.addEventListener( 'resize', onResize );
   window.addEventListener( 'deviceorientation', onDeviceOrientation );
   window.addEventListener( 'devicemotion', onDeviceMotion );
