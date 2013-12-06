@@ -10,9 +10,86 @@
     this.x = x || 0;
     this.y = y || 0;
     this.z = z || 0;
+
+    // Yeah, we should probably use a quaternion, but we're too lazy to do a
+    // full implementation here.
+    this.rotateX = 0;
+    this.rotateY = 0;
+    this.rotateZ = 0;
+
+    // Pixels per second.
+    this.speed = 100;
   }
 
+  Camera.prototype.applyTransform = function( el ) {
+    var transform = 'translate3d(' +
+      -this.x + 'px, ' +
+       this.y + 'px, ' +
+      -this.z + 'px) ' +
+      'rotateX(' + this.rotateX + 'deg) ' +
+      'rotateY(' + this.rotateY + 'deg) ' +
+      'rotateZ(' + this.rotateZ + 'deg)';
+
+    el.style.webkitTransform = transform;
+    el.style.transform = transform;
+  };
+
+  Camera.prototype.update = function( dt ) {
+    var speed = this.speed * dt;
+
+    // Ctrl.
+    if ( keys[ 17 ] ) { this.y -= speed; }
+    // Space.
+    if ( keys[ 32 ] ) { this.y += speed; }
+    // A.
+    if ( keys[ 65 ] ) { this.x -= speed; }
+    // D.
+    if ( keys[ 68 ] ) { this.x += speed; }
+    // W.
+    if ( keys[ 87 ] ) { this.z -= speed; }
+    // S.
+    if ( keys[ 83 ] ) { this.z += speed; }
+  };
+
   var camera = new Camera();
+
+  var prevTime = Date.now(),
+      currTime;
+
+  var running = true;
+
+  var keys = [];
+
+  function update() {
+    currTime = Date.now();
+    var dt = currTime - prevTime;
+    prevTime = currTime;
+
+    // Limit frame time to
+    if ( dt > 1e2 ) {
+      dt = 1e2;
+    }
+
+    // Seconds to milliseconds.
+    dt *= 1e-3;
+
+    camera.update( dt );
+  }
+
+  function draw() {
+    camera.applyTransform( el );
+  }
+
+  function tick() {
+    if ( !running ) {
+      return;
+    }
+
+    update();
+    draw();
+
+    window.requestAnimationFrame( tick );
+  }
 
   var debugEl = document.querySelector( '.debug' );
 
@@ -98,7 +175,13 @@
     rotationRateGammaEl.innerHTML = rotationRate.gamma.toFixed(2);
 
     // Refresh interval (in milliseconds).
-    intervalEl.innerHTML = event.interval.toFixed(2);
+    var interval = event.interval;
+    intervalEl.innerHTML = interval.toFixed(2);
+
+    // This isn't right.
+    camera.x += acceleration.x * interval;
+    camera.y += acceleration.y * interval;
+    camera.z += acceleration.z * interval;
   }
 
   onResize();
@@ -106,4 +189,14 @@
   window.addEventListener( 'resize', onResize );
   window.addEventListener( 'deviceorientation', onDeviceOrientation );
   window.addEventListener( 'devicemotion', onDeviceMotion );
+
+  document.addEventListener( 'keydown', function( event ) {
+    keys[ event.which ] = true;
+  });
+
+  document.addEventListener( 'keyup', function( event ) {
+    keys[ event.which ] = false;
+  });
+
+  // tick();
 }) ( window, document );
