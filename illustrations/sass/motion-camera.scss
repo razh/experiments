@@ -25,13 +25,12 @@ $half-box-spacing: 0.5 * $box-spacing;
   top: 50%;
   left: 50%;
 
-  margin-left: -0.5 * $box-spacing;
-  margin-top:  -0.5 * $box-spacing;
+  margin-left: -$half-box-spacing;
+  margin-top:  -$half-box-spacing;
 
   @include perspective(2000px);
-  @include perspective-origin($half-box-spacing $half-box-spacing);
   @include transform-style(preserve-3d);
-  @include transform-origin($half-box-spacing, $half-box-spacing);
+  @include transform-origin($half-box-spacing, $half-box-spacing, -$box-spacing);
 }
 
 .box {

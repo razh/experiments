@@ -157,7 +157,7 @@
     onResize();
 
     if ( portrait ) {
-      rotate( event.beta, event.gamma );
+      rotate( event.beta, -event.gamma );
     } else {
       rotate( event.gamma, event.beta );
     }
