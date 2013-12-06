@@ -59,8 +59,8 @@
   }
 
   function onMouseMove( event ) {
-    var rx =   ( 0.5 - ( event.clientY / window.innerHeight ) ) * 180,
-        ry =  -( 0.5 - ( event.clientX / window.innerWidth  ) ) * 180;
+    var rx = -( event.clientY / window.innerHeight - 0.5 ) * 180,
+        ry =  ( event.clientX / window.innerWidth  - 0.5 ) * 180;
 
     rotate( rx, ry );
   }
