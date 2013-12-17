@@ -11,15 +11,24 @@
       margin: 0;
     }
 
-    .button {
+    .toggle-btn {
       position: absolute;
       bottom: 25px;
-      left: 25px;
+    }
+
+    #toggleQuadtree {
+      left: 30px;
+    }
+
+    #toggleQuadtreeVisibility {
+      left: 160px;
     }
   </style>
 </head>
 <body>
-  <button class="button" id="toggleQuadtreeVisibility">Toggle Quadtree Visibility</button>
+  <!-- Since we’re only doing a single lookup per frame, the benefits of a Quadtree implementation are lost in this demo. -->
+  <button class="toggle-btn" id="toggleQuadtree">Toggle Quadtree</button>
+  <button class="toggle-btn" id="toggleQuadtreeVisibility">Toggle Quadtree Visibility</button>
   <canvas id="canvas"></canvas>
 
   <script src="./js/quadtree.js"></script>

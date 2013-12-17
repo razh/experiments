@@ -86,6 +86,9 @@
       potentials = [],
       actuals    = [];
 
+  var usingQuadtree = true;
+  var drawingQuadtree = false;
+
   var quadtree = new Quadtree( 0, 0, Math.max( canvas.width, canvas.height ) );
   var rect = new Rect( 200, 200, 100, 100 );
 
@@ -110,24 +113,25 @@
       point.update( dt );
     });
 
-    quadtree.clear();
-    quadtree.insertAll( points );
+    if ( usingQuadtree ) {
+      quadtree.clear();
+      quadtree.insertAll( points );
 
-    potentials = quadtree.retrieve( rect.x, rect.y, rect.width, rect.height );
+      potentials = quadtree.retrieve( rect.x, rect.y, rect.width, rect.height );
+    } else {
+      potentials = points;
+    }
+
     actuals = potentials.filter(function( point ) {
       return rect.contains( point.x, point.y );
     });
   }
 
-  var drawing = {
-    quadtree: false,
-  };
-
   function draw( ctx ) {
     ctx.fillStyle = 'black';
     ctx.fillRect( 0, 0, canvas.width, canvas.height );
 
-    if ( drawing.quadtree ) {
+    if ( usingQuadtree && drawingQuadtree ) {
       ctx.beginPath();
       quadtree.draw( ctx );
       ctx.lineWidth = 1;
@@ -142,15 +146,17 @@
     ctx.fillStyle = 'white';
     ctx.fill();
 
-    ctx.beginPath();
-    potentials.forEach(function( point ) {
-      point.draw( ctx );
-    });
-    ctx.fillStyle = 'yellow';
-    ctx.fill();
-
     ctx.font = '12pt monospace';
-    ctx.fillText( 'potential: ' + potentials.length, 25, 30 );
+    ctx.fillStyle = 'yellow';
+    ctx.fillText( 'potential: ' + potentials.length, 25, 60 );
+
+    if ( usingQuadtree ) {
+      ctx.beginPath();
+      potentials.forEach(function( point ) {
+        point.draw( ctx );
+      });
+      ctx.fill();
+    }
 
     ctx.beginPath();
     rect.draw( ctx );
@@ -164,10 +170,12 @@
     });
     ctx.fillStyle = '#0f0';
     ctx.fill();
-    ctx.fillText( 'actual: ' + actuals.length, 175, 30 );
+    ctx.fillText( 'actual: ' + actuals.length, 25, 30 );
 
-    ctx.fillStyle = '#fff';
-    ctx.fillText( 'quadtree nodes: ' + quadtree.count(), 25, 60 );
+    if ( usingQuadtree ) {
+      ctx.fillStyle = '#fff';
+      ctx.fillText( 'quadtree nodes: ' + quadtree.count(), 25, 90 );
+    }
   }
 
   function randomInt( min, max ) {
@@ -218,9 +226,14 @@
   canvas.addEventListener( 'mousemove', onMouseMove );
   canvas.addEventListener( 'mouseup', onMouseUp );
 
+  document.getElementById( 'toggleQuadtree' )
+    .addEventListener( 'click', function() {
+      usingQuadtree = !usingQuadtree;
+    });
+
   document.getElementById( 'toggleQuadtreeVisibility' )
     .addEventListener( 'click', function() {
-      drawing.quadtree = !drawing.quadtree;
+      drawingQuadtree = !drawingQuadtree;
     });
 
   init();
