@@ -67,6 +67,12 @@
     });
   };
 
+  Quadtree.prototype.count = function() {
+    return this.children.reduce(function( sum, child ) {
+      return sum + child.count();
+    }, 1 );
+  };
+
   var canvas  = document.getElementById( 'canvas' ),
       context = canvas.getContext( '2d' );
 
@@ -156,9 +162,12 @@
     actuals.forEach(function( point ) {
       point.draw( ctx );
     });
-    ctx.fillStyle = 'rgba(0, 255, 0, 1.0)';
+    ctx.fillStyle = '#0f0';
     ctx.fill();
     ctx.fillText( 'actual: ' + actuals.length, 175, 30 );
+
+    ctx.fillStyle = '#fff';
+    ctx.fillText( 'quadtree nodes: ' + quadtree.count(), 25, 60 );
   }
 
   function randomInt( min, max ) {
