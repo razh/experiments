@@ -44,7 +44,7 @@ define([
       }
     });
 
-    if ( Game.player ) {
+    if ( Game.player && Game.player.living && Game.player.visible ) {
       currDistanceSquared = Geometry.distanceSquared( x, y, Game.player.x, Game.player.y );
       if ( currDistanceSquared < radiusSquared &&
            currDistanceSquared < minDistanceSquared ) {

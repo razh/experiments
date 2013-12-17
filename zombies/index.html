@@ -7,11 +7,35 @@
   <style>
     body {
       margin: 0;
+      background-color: #000;
+      overflow: hidden;
+    }
+
+    .help {
+      position: absolute;
+      left: 25px;
+      bottom: 1em;
+
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 1em;
+      color: white;
+
+      opacity: 0.5;
+    }
+
+    .help > p {
+      line-height: 0;
     }
   </style>
 </head>
 <body>
   <canvas id="canvas"></canvas>
+
+  <div class="help">
+    <p>WASD to move.</p>
+    <p>Arrow keys to shoot.</p>
+    <p>Spacebar to stealth mode.</p>
+  </div>
 
   <script data-main="js/main" src="../app/components/requirejs/require.js"></script>
 </body>

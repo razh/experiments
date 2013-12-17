@@ -6,6 +6,8 @@ define(function() {
     padding: 10,
     player: {
       color: 'rgba(0, 255, 0, 1.0)',
+      invisibleColor: 'rgba(0, 255, 0, 0.3)',
+      deadColor: 'rgba(255, 128, 0, 0.8)',
       health: 100,
       speed: 50,
       frequency: 1000 / 10, // Number of ms to fire n bullets/second.

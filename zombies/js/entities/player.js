@@ -16,13 +16,28 @@ define([
     this.health = config.player.health;
     this.living = true;
     this.injured = false;
+    this.visible = true;
+
+    document.addEventListener( 'keydown', function( event ) {
+      // Space.
+      if ( event.which === 32 ) {
+        this.visible = !this.visible;
+      }
+    }.bind( this ));
   }
 
   Player.prototype = new Character();
   Player.prototype.constructor = Player;
 
   Player.prototype.draw = function( ctx ) {
-    ctx.fillStyle = config.player.color;
+    if ( !this.living ) {
+      ctx.fillStyle = config.player.deadColor;
+    } else if ( this.visible ) {
+      ctx.fillStyle = config.player.color;
+    } else {
+      ctx.fillStyle = config.player.invisibleColor;
+    }
+
     ctx.fillRect( this.x - 3, this.y - 3, this.width + 7, this.height + 7 );
   };
 
@@ -49,7 +64,7 @@ define([
     bx += Input.keys[ 39 ] ?  1 : 0; // Right.
 
     by += Input.keys[ 38 ] ? -1 : 0; // Top.
-    by += Input.keys[ 40 ] ?  1 : 0;  // Bottom.
+    by += Input.keys[ 40 ] ?  1 : 0; // Bottom.
 
     if ( !bx && !by || !this.canFire ) {
       return;
