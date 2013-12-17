@@ -25,7 +25,7 @@ function Quadtree( x, y, size, parent ) {
   }
 }
 
-Quadtree.MIN_SIZE = 4;
+Quadtree.MIN_SIZE = 8;
 
 Quadtree.prototype.clear = function() {
   this.objects = [];

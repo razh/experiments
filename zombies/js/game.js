@@ -5,6 +5,8 @@ define([
 ], function( config, Quadtree ) {
   'use strict';
 
+  Quadtree.MIN_SIZE = 128;
+
   function Game() {
     this.canvas  = document.getElementById( 'canvas' );
     this.context = this.canvas.getContext( '2d' );

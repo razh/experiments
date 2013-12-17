@@ -4,6 +4,11 @@
 
   var Quadtree = window.Quadtree;
 
+  /**
+   * WARNING: You really don't need to use this. Modern JS garbage collectors
+   * appear to handle the creation of hundreds of Quadtree nodes per frame with
+   * relative ease.
+   */
   function QuadtreePool() {
     Quadtree.apply( this, arguments );
   }
@@ -15,13 +20,13 @@
 
   QuadtreePool.prototype.clear = function() {
     this.objects = [];
+
     this.children.forEach(function( child ) {
       child.clear();
+      QuadtreePool.pool.push( child );
     });
 
-    if ( this.parent ) {
-      QuadtreePool.pool.push( this );
-    }
+    this.children = [];
   };
 
   QuadtreePool.prototype.insert = function( object ) {
