@@ -3,9 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Pixel Art</title>
+
+  <style>
+    textarea {
+      display: block;
+    }
+  </style>
 </head>
 <body>
   <textarea id="export" cols="30" rows="20"></textarea>
+  <label for="scale">size of a pixel</label>
+  <input type="number" id="scale" value="1" min="1" max="100">
   <script src="./js/main.js"></script>
 </body>
 </html>

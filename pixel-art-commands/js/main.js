@@ -5,6 +5,9 @@
   var canvas = document.createElement( 'canvas' ),
       ctx    = canvas.getContext( '2d' );
 
+  canvas.width = 0;
+  canvas.height = 0;
+
   document.body.appendChild( canvas );
 
   function exportCommands( image ) {
@@ -38,20 +41,55 @@
       }
     }
 
-    var commands = [];
+    // Sort.
+    pixels.sort(function( a, b ) {
+      // Red.
+      var d = a[2] - b[2];
+      if ( d ) { return d; }
+
+      // Green.
+      d = a[3] - b[3];
+      if ( d ) { return d; }
+
+      // Blue.
+      d = a[4] - b[4];
+      if ( d ) { return d; }
+
+      return 0;
+    });
+
+    var scale = parseInt( document.getElementById( 'scale' ).value, 10 );
+
+    // To strings.
+    var commands = [ 'noStroke();' ];
     var pixel;
+    r = null;
+    g = null;
+    b = null;
     for ( i = 0; i < pixels.length; i++ ) {
       pixel = pixels[i];
 
-      commands.push(
-        'fill(' +
-        pixel[2] + ', ' +
-        pixel[3] + ', ' +
-        pixel[4] + ');'
-      );
+      if ( r !== pixel[2] ||
+           g !== pixel[3] ||
+           b !== pixel[4] ) {
+        r = pixel[2];
+        g = pixel[3];
+        b = pixel[4];
+
+
+        commands.push(
+          'fill(' +
+          r + ', ' +
+          g + ', ' +
+          b + ');'
+        );
+      }
 
       commands.push(
-        'rect(' + pixel[0] + ', ' + pixel[1] + ', 1, 1);'
+        'rect(' +
+        ( pixel[0] * scale ) + ', ' +
+        ( pixel[1] * scale ) + ', ' +
+        scale + ', ' + scale + ');'
       );
     }
 
