@@ -5,12 +5,18 @@
   var canvas = document.createElement( 'canvas' ),
       ctx    = canvas.getContext( '2d' );
 
+  var image;
+
   canvas.width = 0;
   canvas.height = 0;
 
   document.body.appendChild( canvas );
 
   function exportCommands( image ) {
+    if ( !image ) {
+      return;
+    }
+
     var width = image.width;
     var height = image.height;
 
@@ -33,6 +39,11 @@
         r = data[ index ];
         g = data[ index + 1 ];
         b = data[ index + 2 ];
+
+        // Alpha. Ignore transparent pixels.
+        if ( !data[ index + 3 ] ) {
+          continue;
+        }
 
         pixels.push([
           j, i,
@@ -58,10 +69,15 @@
       return 0;
     });
 
-    var scale = parseInt( document.getElementById( 'scale' ).value, 10 );
+    var scale = parseInt( scaleEl.value, 10 );
+    var spaces = '    ';
 
     // To strings.
-    var commands = [ 'noStroke();' ];
+    var commands = [
+      'var drawPixels = function(x, y) {',
+      spaces + 'noStroke();'
+    ];
+
     var pixel;
     r = null;
     g = null;
@@ -76,8 +92,8 @@
         g = pixel[3];
         b = pixel[4];
 
-
         commands.push(
+          spaces +
           'fill(' +
           r + ', ' +
           g + ', ' +
@@ -86,12 +102,15 @@
       }
 
       commands.push(
+        spaces +
         'rect(' +
-        ( pixel[0] * scale ) + ', ' +
-        ( pixel[1] * scale ) + ', ' +
+        'x + ' + ( pixel[0] * scale ) + ', ' +
+        'y + ' + ( pixel[1] * scale ) + ', ' +
         scale + ', ' + scale + ');'
       );
     }
+
+    commands.push( '};' );
 
     document.getElementById( 'export' ).value = commands.join( '\n' );
   }
@@ -100,7 +119,7 @@
     event.stopPropagation();
     event.preventDefault();
 
-    var image = new Image();
+    image = new Image();
     image.src = URL.createObjectURL( event.dataTransfer.files[0] );
     image.onload = function() {
       exportCommands( image );
@@ -110,6 +129,11 @@
   document.addEventListener( 'dragover', function( event ) {
     event.stopPropagation();
     event.preventDefault();
+  });
+
+  var scaleEl = document.getElementById( 'scale' );
+  scaleEl.addEventListener( 'change', function() {
+    exportCommands( image );
   });
 
 }) ( window, document );
