@@ -1,0 +1,143 @@
+@import "compass/reset";
+
+@import "compass/css3/text-shadow";
+
+
+$gray: #333;
+
+@mixin proxima-nova {
+  font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: #fff;
+}
+
+.section {
+  width: 100%;
+  min-height: 128px;
+  height: 100%;
+}
+
+#section-00 {
+  padding: 1em 0;
+
+  @include proxima-nova();
+  font-weight: 700;
+  font-size: 7em;
+  color: white;
+
+  text-align: center;
+  text-transform: uppercase;
+
+  // WARNING: This is not accurate. The outline is larger than the text-shadow.
+  -webkit-text-stroke: 3px;
+  -webkit-text-stroke-color: $gray;
+
+  text-shadow:
+    // Depth shadow.
+    -1px 1px $gray,
+    -2px 2px $gray,
+    -3px 3px $gray,
+    -4px 4px $gray,
+    -5px 5px $gray,
+    -6px 6px $gray,
+    -7px 7px $gray,
+    -8px 8px $gray,
+
+    // Shadow.
+    -16px 16px 0 #cc9;
+}
+
+
+$light-rust: #d52;
+$dark-rust: #820;
+$light-shadow: #799;
+
+#section-01 {
+  background-color: #9cc;
+  padding: 1em 0;
+
+  @include proxima-nova();
+  font-weight: 700;
+  font-size: 7em;
+  color: $light-rust;
+
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+
+  text-shadow:
+    // Depth shadow.
+    -1px 1px $dark-rust,
+    -2px 2px $dark-rust,
+    -3px 3px $dark-rust,
+    -4px 4px $dark-rust,
+    -5px 5px $dark-rust,
+    -6px 6px $dark-rust,
+    -7px 7px $dark-rust,
+    -8px 8px $dark-rust,
+
+    // Light shadow.
+    -7px 9px $light-shadow,
+    -6px 9px $light-shadow,
+    -5px 10px $light-shadow,
+    -4px 10px $light-shadow,
+    -3px 11px $light-shadow,
+    -2px 12px $light-shadow,
+    -1px 12px $light-shadow,
+    -0px 13px $light-shadow,
+    1px 13px $light-shadow,
+    2px 14px $light-shadow,
+    3px 14px $light-shadow;
+}
+
+
+$dark-gray-shadow: #566;
+$light-gray-shadow: #8aa;
+
+#section-02 {
+  background-color: #9cc;
+  padding: 0.5em 0;
+
+  @include proxima-nova();
+  font-weight: 700;
+  font-size: 10em;
+  color: #eee;
+
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+
+  text-shadow:
+    // Depth shadow.
+    1px 1px $dark-gray-shadow,
+    2px 2px $dark-gray-shadow,
+    3px 3px $dark-gray-shadow,
+    4px 4px $dark-gray-shadow,
+    5px 5px $dark-gray-shadow,
+    6px 6px $dark-gray-shadow,
+    7px 7px $dark-gray-shadow,
+    8px 8px $dark-gray-shadow,
+    9px 9px $dark-gray-shadow,
+    10px 10px $dark-gray-shadow,
+    11px 11px $dark-gray-shadow,
+    12px 12px $dark-gray-shadow,
+
+    // Light shadow.
+    13px 12px $light-gray-shadow,
+    14px 12px $light-gray-shadow,
+    15px 13px $light-gray-shadow,
+    16px 13px $light-gray-shadow,
+    17px 14px $light-gray-shadow,
+    18px 14px $light-gray-shadow,
+    19px 15px $light-gray-shadow,
+    20px 15px $light-gray-shadow,
+    21px 16px $light-gray-shadow,
+    22px 16px $light-gray-shadow,
+    23px 17px $light-gray-shadow,
+    24px 17px $light-gray-shadow,
+    25px 18px $light-gray-shadow,
+    26px 18px $light-gray-shadow;
+
+}

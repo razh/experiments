@@ -1,0 +1,118 @@
+/* line 17, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 12, ../sass/text-shadow-effects.scss */
+body {
+  background-color: #fff;
+}
+
+/* line 16, ../sass/text-shadow-effects.scss */
+.section {
+  width: 100%;
+  min-height: 128px;
+  height: 100%;
+}
+
+/* line 22, ../sass/text-shadow-effects.scss */
+#section-00 {
+  padding: 1em 0;
+  font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 7em;
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  -webkit-text-stroke: 3px;
+  -webkit-text-stroke-color: #333333;
+  text-shadow: -1px 1px #333333, -2px 2px #333333, -3px 3px #333333, -4px 4px #333333, -5px 5px #333333, -6px 6px #333333, -7px 7px #333333, -8px 8px #333333, -16px 16px 0 #cccc99;
+}
+
+/* line 57, ../sass/text-shadow-effects.scss */
+#section-01 {
+  background-color: #9cc;
+  padding: 1em 0;
+  font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 7em;
+  color: #dd5522;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: -1px 1px #882200, -2px 2px #882200, -3px 3px #882200, -4px 4px #882200, -5px 5px #882200, -6px 6px #882200, -7px 7px #882200, -8px 8px #882200, -7px 9px #779999, -6px 9px #779999, -5px 10px #779999, -4px 10px #779999, -3px 11px #779999, -2px 12px #779999, -1px 12px #779999, 0px 13px #779999, 1px 13px #779999, 2px 14px #779999, 3px 14px #779999;
+}
+
+/* line 99, ../sass/text-shadow-effects.scss */
+#section-02 {
+  background-color: #9cc;
+  padding: 0.5em 0;
+  font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 10em;
+  color: #eee;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 1px 1px #556666, 2px 2px #556666, 3px 3px #556666, 4px 4px #556666, 5px 5px #556666, 6px 6px #556666, 7px 7px #556666, 8px 8px #556666, 9px 9px #556666, 10px 10px #556666, 11px 11px #556666, 12px 12px #556666, 13px 12px #88aaaa, 14px 12px #88aaaa, 15px 13px #88aaaa, 16px 13px #88aaaa, 17px 14px #88aaaa, 18px 14px #88aaaa, 19px 15px #88aaaa, 20px 15px #88aaaa, 21px 16px #88aaaa, 22px 16px #88aaaa, 23px 17px #88aaaa, 24px 17px #88aaaa, 25px 18px #88aaaa, 26px 18px #88aaaa;
+}
