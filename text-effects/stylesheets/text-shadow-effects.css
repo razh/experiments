@@ -63,19 +63,19 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 12, ../sass/text-shadow-effects.scss */
+/* line 9, ../sass/text-shadow-effects.scss */
 body {
   background-color: #fff;
 }
 
-/* line 16, ../sass/text-shadow-effects.scss */
+/* line 13, ../sass/text-shadow-effects.scss */
 .section {
   width: 100%;
   min-height: 128px;
   height: 100%;
 }
 
-/* line 22, ../sass/text-shadow-effects.scss */
+/* line 20, ../sass/text-shadow-effects.scss */
 #section-00 {
   padding: 1em 0;
   font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -89,7 +89,7 @@ body {
   text-shadow: -1px 1px #333333, -2px 2px #333333, -3px 3px #333333, -4px 4px #333333, -5px 5px #333333, -6px 6px #333333, -7px 7px #333333, -8px 8px #333333, -16px 16px 0 #cccc99;
 }
 
-/* line 57, ../sass/text-shadow-effects.scss */
+/* line 53, ../sass/text-shadow-effects.scss */
 #section-01 {
   background-color: #9cc;
   padding: 1em 0;
@@ -103,7 +103,7 @@ body {
   text-shadow: -1px 1px #882200, -2px 2px #882200, -3px 3px #882200, -4px 4px #882200, -5px 5px #882200, -6px 6px #882200, -7px 7px #882200, -8px 8px #882200, -7px 9px #779999, -6px 9px #779999, -5px 10px #779999, -4px 10px #779999, -3px 11px #779999, -2px 12px #779999, -1px 12px #779999, 0px 13px #779999, 1px 13px #779999, 2px 14px #779999, 3px 14px #779999;
 }
 
-/* line 99, ../sass/text-shadow-effects.scss */
+/* line 96, ../sass/text-shadow-effects.scss */
 #section-02 {
   background-color: #9cc;
   padding: 0.5em 0;
@@ -115,4 +115,26 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   text-shadow: 1px 1px #556666, 2px 2px #556666, 3px 3px #556666, 4px 4px #556666, 5px 5px #556666, 6px 6px #556666, 7px 7px #556666, 8px 8px #556666, 9px 9px #556666, 10px 10px #556666, 11px 11px #556666, 12px 12px #556666, 13px 12px #88aaaa, 14px 12px #88aaaa, 15px 13px #88aaaa, 16px 13px #88aaaa, 17px 14px #88aaaa, 18px 14px #88aaaa, 19px 15px #88aaaa, 20px 15px #88aaaa, 21px 16px #88aaaa, 22px 16px #88aaaa, 23px 17px #88aaaa, 24px 17px #88aaaa, 25px 18px #88aaaa, 26px 18px #88aaaa;
+}
+
+/* line 145, ../sass/text-shadow-effects.scss */
+#section-03 {
+  background-color: #ffe;
+  padding: 0.5em 0;
+  font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 8em;
+  color: #e77;
+  line-height: 0.9;
+  text-align: center;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 1px 1px #883344, 2px 2px #883344, 3px 3px #883344, 4px 4px #883344, 5px 5px #883344, 6px 6px #883344, 7px 7px #883344, 8px 8px #883344, 9px 8px #ccbbaa, 10px 8px #ccbbaa, 11px 9px #ccbbaa, 12px 9px #ccbbaa, 13px 10px #ccbbaa, 14px 10px #ccbbaa, 15px 11px #ccbbaa, 16px 11px #ccbbaa;
+}
+/* line 186, ../sass/text-shadow-effects.scss */
+#section-03 .text {
+  width: 1em;
+  word-wrap: break-word;
 }
