@@ -128,12 +128,15 @@ body {
   line-height: 0.9;
   text-align: center;
   text-transform: uppercase;
+  display: -webkit-flex;
   display: flex;
+  -webkit-align-items: center;
   align-items: center;
+  -webkit-justify-content: center;
   justify-content: center;
   text-shadow: 1px 1px #883344, 2px 2px #883344, 3px 3px #883344, 4px 4px #883344, 5px 5px #883344, 6px 6px #883344, 7px 7px #883344, 8px 8px #883344, 9px 8px #ccbbaa, 10px 8px #ccbbaa, 11px 9px #ccbbaa, 12px 9px #ccbbaa, 13px 10px #ccbbaa, 14px 10px #ccbbaa, 15px 11px #ccbbaa, 16px 11px #ccbbaa;
 }
-/* line 186, ../sass/text-shadow-effects.scss */
+/* line 191, ../sass/text-shadow-effects.scss */
 #section-03 .text {
   width: 1em;
   word-wrap: break-word;
