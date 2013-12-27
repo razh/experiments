@@ -14,6 +14,35 @@
       margin: 0;
       padding: 0;
     }
+
+    .origins {
+      position: relative;
+      width: 64px;
+      height: 64px;
+
+      margin-left: 8px;
+      margin-top: 8px;
+
+      border: 2px solid #aaa;
+    }
+
+    input[type=radio] {
+      position: absolute;
+
+      width: 16px;
+      height: 16px;
+
+      margin-left: -8px;
+      margin-top: -8px;
+    }
+
+    input[type=radio].top    { top:    0; }
+    input[type=radio].middle { top:  50%; }
+    input[type=radio].bottom { top: 100%; }
+
+    input[type=radio].left   { left:    0; }
+    input[type=radio].center { left:  50%; }
+    input[type=radio].right  { left: 100%; }
   </style>
 </head>
 <body>
@@ -28,6 +57,17 @@
       <input type="number" id="scale" value="1" min="1" max="100">
     </fieldset>
   </form>
+  <div class="origins">
+    <input type="radio" name="origin" class="top left" value="0">
+    <input type="radio" name="origin" class="top center" value="1">
+    <input type="radio" name="origin" class="top right" value="2">
+    <input type="radio" name="origin" class="middle left" value="3">
+    <input type="radio" name="origin" class="middle center" value="4">
+    <input type="radio" name="origin" class="middle right" value="5">
+    <input type="radio" name="origin" class="bottom left" value="6">
+    <input type="radio" name="origin" class="bottom center" value="7">
+    <input type="radio" name="origin" class="bottom right" value="8">
+  </div>
   <script src="./js/main.js"></script>
 </body>
 </html>
