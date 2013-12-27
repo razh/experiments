@@ -8,12 +8,26 @@
     textarea {
       display: block;
     }
+
+    fieldset {
+      border: none;
+      margin: 0;
+      padding: 0;
+    }
   </style>
 </head>
 <body>
-  <textarea id="export" cols="30" rows="20"></textarea>
-  <label for="scale">size of a pixel</label>
-  <input type="number" id="scale" value="1" min="1" max="100">
+  <textarea id="export" cols="30" rows="20" spellcheck="false"></textarea>
+  <form>
+    <fieldset>
+      <label for="name">name</label>
+      <input type="text" id="name">
+    </fieldset>
+    <fieldset>
+      <label for="scale">size of a pixel</label>
+      <input type="number" id="scale" value="1" min="1" max="100">
+    </fieldset>
+  </form>
   <script src="./js/main.js"></script>
 </body>
 </html>
