@@ -7,6 +7,10 @@
 
   var image;
 
+  // Relative units.
+  var originX = 0,
+      originY = 0;
+
   canvas.width = 0;
   canvas.height = 0;
 
@@ -80,6 +84,8 @@
       spaces + 'this.scaleX = 1;',
       spaces + 'this.scaleY = 1;',
       spaces + 'this.angle = 0;',
+      spaces + 'this.originX = ' + originX + ';',
+      spaces + 'this.originY = ' + originY + ';',
       spaces + 'this.pixelSize = ' + scale + ';',
       spaces + 'this.imageWidth = ' + image.width + ';',
       spaces + 'this.imageHeight = ' + image.height + ';',
@@ -139,6 +145,10 @@
       spaces + 'pushMatrix();',
       spaces + 'translate(this.x, this.y);',
       spaces + 'rotate(this.angle);',
+      spaces + 'translate(' +
+        '-this.originX * this.imageWidth * this.pixelSize,' +
+        '-this.originY * this.imageHeight * this.pixelSize' +
+      ');',
       spaces + 'scale(this.scaleX, this.scaleY);',
       spaces + 'image(this.ctx, 0, 0);',
       spaces + 'popMatrix();',
@@ -178,5 +188,25 @@
 
   var nameEl = document.getElementById( 'name' );
   nameEl.addEventListener( 'change', exportImage );
+
+  // Handle origin change.
+  function onOriginClick( event ) {
+    var value = parseInt( event.currentTarget.value, 10 );
+
+    /**
+     * Order of origin elements:
+     *   0  1  2
+     *   3  4  5
+     *   6  7  8
+     */
+    originX = 0.5 * ( value % 3 );
+    originY = 0.5 * Math.floor( value / 3 );
+    exportImage();
+  }
+
+  var originEls = [].slice.call( document.getElementsByName( 'origin' ) );
+  originEls.forEach(function( el ) {
+    el.addEventListener( 'click', onOriginClick );
+  });
 
 }) ( window, document );
