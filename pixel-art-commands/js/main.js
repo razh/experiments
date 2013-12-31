@@ -155,9 +155,33 @@
       '};'
     ];
 
+    // TODO: Handle origin offsets. Fix scaling not working with origin.
+    var toLocalFn = [
+      name + '.prototype.toLocal = function(x, y) {',
+      spaces + 'x -= this.x;',
+      spaces + 'y -= this.y;',
+      spaces + 'var angle = this.angle;',
+      spaces + 'var c, s;',
+      spaces + 'var rx, ry;',
+      spaces + 'if (angle) {',
+      spaces + '  c = cos(angle);',
+      spaces + '  s = sin(angle);',
+      spaces + '  rx = c * x - s * y;',
+      spaces + '  ry = s * x + c * y;',
+      spaces + '  x = rx;',
+      spaces + '  y = ry;',
+      spaces + '}',
+      spaces + 'return {',
+      spaces + '  x: x / this.scaleX,',
+      spaces + '  y: y / this.scaleY',
+      spaces + '};',
+      '};'
+    ];
+
     var commands = constructorFn
       .concat( prerenderFn )
-      .concat( drawFn );
+      .concat( drawFn )
+      .concat( toLocalFn );
 
     document.getElementById( 'export' ).value = commands.join( '\n' );
   }
