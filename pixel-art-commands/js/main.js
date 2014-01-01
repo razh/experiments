@@ -145,11 +145,11 @@
       spaces + 'pushMatrix();',
       spaces + 'translate(this.x, this.y);',
       spaces + 'rotate(this.angle);',
+      spaces + 'scale(this.scaleX, this.scaleY);',
       spaces + 'translate(' +
         '-this.originX * this.imageWidth * this.pixelSize,' +
         '-this.originY * this.imageHeight * this.pixelSize' +
       ');',
-      spaces + 'scale(this.scaleX, this.scaleY);',
       spaces + 'image(this.ctx, 0, 0);',
       spaces + 'popMatrix();',
       '};'
