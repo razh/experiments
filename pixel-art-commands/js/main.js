@@ -2,14 +2,19 @@
 (function( window, document, undefined ) {
   'use strict';
 
+  // Utility functions.
+  function capitalize( str ) {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  }
+
   var canvas = document.createElement( 'canvas' ),
       ctx    = canvas.getContext( '2d' );
 
   var image;
 
   // Relative units.
-  var originX = 0,
-      originY = 0;
+  var originRatioX = 0,
+      originRatioY = 0;
 
   canvas.width = 0;
   canvas.height = 0;
@@ -84,8 +89,8 @@
       spaces + 'this.scaleX = 1;',
       spaces + 'this.scaleY = 1;',
       spaces + 'this.angle = 0;',
-      spaces + 'this.originX = ' + originX + ';',
-      spaces + 'this.originY = ' + originY + ';',
+      spaces + 'this.originRatioX = ' + originRatioX + ';',
+      spaces + 'this.originRatioY = ' + originRatioY + ';',
       spaces + 'this.pixelSize = ' + scale + ';',
       spaces + 'this.imageWidth = ' + image.width + ';',
       spaces + 'this.imageHeight = ' + image.height + ';',
@@ -146,10 +151,7 @@
       spaces + 'translate(this.x, this.y);',
       spaces + 'rotate(this.angle);',
       spaces + 'scale(this.scaleX, this.scaleY);',
-      spaces + 'translate(' +
-        '-this.originX * this.imageWidth * this.pixelSize,' +
-        '-this.originY * this.imageHeight * this.pixelSize' +
-      ');',
+      spaces + 'translate(-this.originX, -this.originY);',
       spaces + 'image(this.ctx, 0, 0);',
       spaces + 'popMatrix();',
       '};'
@@ -164,24 +166,44 @@
       spaces + 'var c, s;',
       spaces + 'var rx, ry;',
       spaces + 'if (angle) {',
-      spaces + '  c = cos(angle);',
-      spaces + '  s = sin(angle);',
-      spaces + '  rx = c * x - s * y;',
-      spaces + '  ry = s * x + c * y;',
-      spaces + '  x = rx;',
-      spaces + '  y = ry;',
+      spaces + spaces + 'c = cos(angle);',
+      spaces + spaces + 's = sin(angle);',
+      spaces + spaces + 'rx = c * x - s * y;',
+      spaces + spaces + 'ry = s * x + c * y;',
+      spaces + spaces + 'x = rx;',
+      spaces + spaces + 'y = ry;',
       spaces + '}',
       spaces + 'return {',
-      spaces + '  x: x / this.scaleX,',
-      spaces + '  y: y / this.scaleY',
+      spaces + spaces + 'x: x / this.scaleX,',
+      spaces + spaces + 'y: y / this.scaleY',
       spaces + '};',
       '};'
     ];
 
+    function originFn( axis, dimension ) {
+      axis = capitalize( axis );
+      dimension = capitalize( dimension );
+
+      return [
+        'Object.defineProperty(' + name + '.prototype, \'origin' + axis + '\', {',
+        spaces + 'get: function() {',
+        spaces + spaces + 'return this.originRatio' + axis +
+          ' * this.image' + dimension + ' * this.pixelSize;',
+        spaces + '},',
+        spaces + 'set: function(origin' + axis + ') {',
+        spaces + spaces + 'this.originRatio' + axis +
+          ' = origin' + axis + ' / (this.image' + dimension + ' * this.pixelSize);',
+        spaces + '}',
+        '});'
+      ];
+    }
+
     var commands = constructorFn
       .concat( prerenderFn )
       .concat( drawFn )
-      .concat( toLocalFn );
+      .concat( toLocalFn )
+      .concat( originFn( 'x', 'width' ) )
+      .concat( originFn( 'y', 'height' ) );
 
     document.getElementById( 'export' ).value = commands.join( '\n' );
   }
@@ -223,8 +245,8 @@
      *   3  4  5
      *   6  7  8
      */
-    originX = 0.5 * ( value % 3 );
-    originY = 0.5 * Math.floor( value / 3 );
+    originRatioX = 0.5 * ( value % 3 );
+    originRatioY = 0.5 * Math.floor( value / 3 );
     exportImage();
   }
 
