@@ -166,6 +166,32 @@
       spaces + 'var c, s;',
       spaces + 'var rx, ry;',
       spaces + 'if (angle) {',
+      spaces + spaces + 'c = cos(-angle);',
+      spaces + spaces + 's = sin(-angle);',
+      spaces + spaces + 'rx = c * x - s * y;',
+      spaces + spaces + 'ry = s * x + c * y;',
+      spaces + spaces + 'x = rx;',
+      spaces + spaces + 'y = ry;',
+      spaces + '}',
+      spaces + 'x /= this.scaleX;',
+      spaces + 'y /= this.scaleY;',
+      spaces + 'return {',
+      spaces + spaces + 'x: x + this.originX,',
+      spaces + spaces + 'y: y + this.originY',
+      spaces + '};',
+      '};'
+    ];
+
+    var toWorldFn = [
+      name + '.prototype.toWorld = function(x, y) {',
+      spaces + 'x -= this.originX;',
+      spaces + 'y -= this.originY;',
+      spaces + 'x *= this.scaleX;',
+      spaces + 'y *= this.scaleY;',
+      spaces + 'var angle = this.angle;',
+      spaces + 'var c, s;',
+      spaces + 'var rx, ry;',
+      spaces + 'if (angle) {',
       spaces + spaces + 'c = cos(angle);',
       spaces + spaces + 's = sin(angle);',
       spaces + spaces + 'rx = c * x - s * y;',
@@ -174,8 +200,8 @@
       spaces + spaces + 'y = ry;',
       spaces + '}',
       spaces + 'return {',
-      spaces + spaces + 'x: x / this.scaleX,',
-      spaces + spaces + 'y: y / this.scaleY',
+      spaces + spaces + 'x: x + this.x,',
+      spaces + spaces + 'y: y + this.y',
       spaces + '};',
       '};'
     ];
@@ -202,6 +228,7 @@
       .concat( prerenderFn )
       .concat( drawFn )
       .concat( toLocalFn )
+      .concat( toWorldFn )
       .concat( originFn( 'x', 'width' ) )
       .concat( originFn( 'y', 'height' ) );
 
