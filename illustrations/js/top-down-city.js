@@ -1,9 +1,23 @@
 (function( window, document, undefined ) {
   'use strict';
 
-  var shadowColor = '#555',
-      shadowBlur  = 0,
-      shadowCount = 4;
+  var shadowColor = {
+    red: 85,
+    green: 85,
+    blue: 85,
+    alpha: 1,
+    toString: function() {
+      return 'rgba(' +
+        Math.round( this.red   ) + ', ' +
+        Math.round( this.green ) + ', ' +
+        Math.round( this.blue  ) + ', ' +
+        this.alpha +
+      ')';
+    }
+  };
+
+  var shadowBlur  = 0,
+      shadowCount = 16;
 
   var shadows   = [].slice.call( document.getElementsByClassName( 'shadow' ) ),
       buildings = [].slice.call( document.getElementsByClassName( 'building' ) );
@@ -46,6 +60,8 @@
       x = event.pageX - shadow.offsetLeft - halfSize;
       y = event.pageY - shadow.offsetTop  - halfSize;
 
+      shadowColor.alpha = 1;
+      shadowBlur = 0;
       shadow.style.boxShadow = generateCSS( x, y, halfSize );
     });
   }
@@ -55,13 +71,15 @@
 
     var length = Math.sqrt( x * x + y * y );
 
-    var dx = -x / length * 32,
-        dy = -y / length * 32;
+    var dx = -x / length * 4,
+        dy = -y / length * 4;
 
     var shadowSpread;
     for ( var i = 0; i < shadowCount; i++ ) {
       // Increase shadow spread up to 1.25 of building size (0.5 * halfSize).
-      shadowSpread = Math.round( 0.5 * ( i / shadowCount ) * halfSize );
+      shadowSpread = Math.round( 0.2 * ( i / shadowCount ) * halfSize );
+      shadowColor.alpha = 1 - 0.75 * ( i / shadowCount );
+      shadowBlur++;
 
       css += Math.round( ( i + 1 ) * dx ) + 'px ' +
         Math.round( ( i + 1 ) * dy ) + 'px ' +

@@ -77,7 +77,7 @@ html, body {
 
 /* line 15, ../sass/top-down-city.scss */
 body {
-  background-color: #ddf;
+  background-color: #ddd;
 }
 
 /* line 27, ../sass/top-down-city.scss */
@@ -104,8 +104,8 @@ body {
   height: 96px;
   margin-bottom: 32px;
   margin-right: 32px;
-  background-color: #7777aa;
-  border: 8px solid #555577;
+  background-color: #777777;
+  border: 8px solid #333333;
 }
 /* line 55, ../sass/top-down-city.scss */
 .building:first-child:after {
@@ -115,5 +115,5 @@ body {
   height: 16px;
   bottom: 8px;
   right: 8px;
-  background-color: #555577;
+  background-color: #333333;
 }
