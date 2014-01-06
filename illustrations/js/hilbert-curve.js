@@ -352,7 +352,7 @@
         z0 + 'px)';
 
       if ( axis === Axis.X && dx < 0 ) {
-        transform += 'rotateZ(180deg)';
+        transform += ' rotateZ(180deg)';
       }
 
       if ( axis === Axis.Y ) {
