@@ -6,16 +6,7 @@
 @import "compass/css3/transition";
 @import "compass/css3/user-interface";
 
-
-@mixin keyframes($name) {
-  @-webkit-keyframes #{$name} { @content; }
-  @keyframes #{$name} { @content; }
-}
-
-@mixin animation($animation) {
-  -webkit-animation: #{$animation};
-          animation: #{$animation};
-}
+@import "../../illustrations/sass/modules/animation";
 
 * {
   @include box-sizing(border-box);

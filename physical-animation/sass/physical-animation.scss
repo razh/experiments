@@ -1,15 +1,6 @@
 @import "compass/reset";
 
-@mixin keyframes($name) {
-  @-webkit-keyframes #{$name} { @content; }
-  @keyframes #{$name} { @content; }
-}
-
-@mixin animation($animation) {
-  -webkit-animation: #{$animation};
-          animation: #{$animation};
-}
-
+@import "../../illustrations/sass/modules/animation";
 
 .test {
   float: left;
