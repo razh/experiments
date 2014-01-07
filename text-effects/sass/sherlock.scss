@@ -1,4 +1,94 @@
 @import "compass/reset";
 
-$phone-width: 248px;
+@import "compass/css3/transform";
+
+$phone-width: 224px;
 $phone-height: 480px;
+$phone-depth: 32px;
+
+$half-phone-width: 0.5 * $phone-width;
+$half-phone-height: 0.5 * $phone-height;
+$half-phone-depth: 0.5 * $phone-depth;
+
+$phone-transform: rotateY(-45deg) rotateX(80deg);
+$text-transform:
+  translate3d(-0.5 * $half-phone-width, $half-phone-height, 2 * $phone-depth)
+  rotateX(-80deg);
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #ddd;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+
+  @include perspective(1000px);
+  @include perspective-origin(left top);
+  @include transform-style(preserve-3d);
+}
+
+.phone {
+  position: relative;
+  top: 50%;
+  left: 50%;
+
+  @include transform-style(preserve-3d);
+  @include transform($phone-transform);
+
+  .face {
+    position: absolute;
+  }
+
+  .bottom {
+    background-color: #111;
+
+    width:  $phone-width + 0.5;
+    height: $phone-depth + 0.5;
+
+    margin-left: -$half-phone-width;
+    margin-top:  -$half-phone-depth;
+
+    @include transform(translate3d(0, $half-phone-height, 0) rotateX(-90deg));
+  }
+
+  .front {
+    background-color: #222;
+
+    width:  $phone-width + 0.5;
+    height: $phone-height + 0.5;
+
+    margin-left: -$half-phone-width;
+    margin-top:  -$half-phone-height;
+
+    @include transform(translate3d(0, 0, $half-phone-depth));
+  }
+
+  .right {
+    background-color: #000;
+
+    width:  $phone-depth + 0.5;
+    height: $phone-height + 0.5;
+
+    margin-left: -$half-phone-depth;
+    margin-top:  -$half-phone-height;
+
+    @include transform(translate3d($half-phone-width, 0, 0) rotateY(90deg));
+  }
+}
+
+.text {
+  position: absolute;
+
+  font-family: "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 4em;
+  color: white;
+
+  text-transform: capitalize;
+
+  @include transform($text-transform);
+}

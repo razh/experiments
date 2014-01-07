@@ -62,3 +62,108 @@ a img {
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block;
 }
+
+/* line 18, ../sass/sherlock.scss */
+html, body {
+  height: 100%;
+}
+
+/* line 22, ../sass/sherlock.scss */
+body {
+  background-color: #ddd;
+}
+
+/* line 26, ../sass/sherlock.scss */
+.container {
+  width: 100%;
+  height: 100%;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  -ms-perspective: 1000px;
+  -o-perspective: 1000px;
+  perspective: 1000px;
+  -webkit-perspective-origin: left top;
+  -moz-perspective-origin: left top;
+  -ms-perspective-origin: left top;
+  -o-perspective-origin: left top;
+  perspective-origin: left top;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+/* line 35, ../sass/sherlock.scss */
+.phone {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: rotateY(-45deg) rotateX(80deg);
+  -moz-transform: rotateY(-45deg) rotateX(80deg);
+  -ms-transform: rotateY(-45deg) rotateX(80deg);
+  -o-transform: rotateY(-45deg) rotateX(80deg);
+  transform: rotateY(-45deg) rotateX(80deg);
+}
+/* line 43, ../sass/sherlock.scss */
+.phone .face {
+  position: absolute;
+}
+/* line 47, ../sass/sherlock.scss */
+.phone .bottom {
+  background-color: #111;
+  width: 224.5px;
+  height: 32.5px;
+  margin-left: -112px;
+  margin-top: -16px;
+  -webkit-transform: translate3d(0, 240px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 240px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 240px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 240px, 0) rotateX(-90deg);
+  transform: translate3d(0, 240px, 0) rotateX(-90deg);
+}
+/* line 59, ../sass/sherlock.scss */
+.phone .front {
+  background-color: #222;
+  width: 224.5px;
+  height: 480.5px;
+  margin-left: -112px;
+  margin-top: -240px;
+  -webkit-transform: translate3d(0, 0, 16px);
+  -moz-transform: translate3d(0, 0, 16px);
+  -ms-transform: translate3d(0, 0, 16px);
+  -o-transform: translate3d(0, 0, 16px);
+  transform: translate3d(0, 0, 16px);
+}
+/* line 71, ../sass/sherlock.scss */
+.phone .right {
+  background-color: #000;
+  width: 32.5px;
+  height: 480.5px;
+  margin-left: -16px;
+  margin-top: -240px;
+  -webkit-transform: translate3d(112px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(112px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(112px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(112px, 0, 0) rotateY(90deg);
+  transform: translate3d(112px, 0, 0) rotateY(90deg);
+}
+
+/* line 84, ../sass/sherlock.scss */
+.text {
+  position: absolute;
+  font-family: "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 4em;
+  color: white;
+  text-transform: capitalize;
+  -webkit-transform: translate3d(-56px, 240px, 64px) rotateX(-80deg);
+  -moz-transform: translate3d(-56px, 240px, 64px) rotateX(-80deg);
+  -ms-transform: translate3d(-56px, 240px, 64px) rotateX(-80deg);
+  -o-transform: translate3d(-56px, 240px, 64px) rotateX(-80deg);
+  transform: translate3d(-56px, 240px, 64px) rotateX(-80deg);
+}
