@@ -1,26 +1,35 @@
 @import "compass/reset";
 
 @import "compass/css3/transform";
+@import "compass/css3/transition";
 
-$phone-width: 224px;
-$phone-height: 480px;
-$phone-depth: 32px;
+// Add pixels to close up gaps between divs.
+$epsilon: 0.5;
+
+$phone-width: 448px;
+$phone-height: 960px;
+$phone-depth: 64px;
 
 $half-phone-width: 0.5 * $phone-width;
 $half-phone-height: 0.5 * $phone-height;
 $half-phone-depth: 0.5 * $phone-depth;
 
-$phone-transform: rotateY(-45deg) rotateX(80deg);
-$text-transform:
-  translate3d(-0.5 * $half-phone-width, $half-phone-height, 2 * $phone-depth)
-  rotateX(-80deg);
+$phone-transform: translateZ(-$phone-height) rotateX(80deg) rotateZ(30deg);
+
+$text-x: -0.5 * $half-phone-width;
+$text-y: 0;
+$text-z: 2 * $phone-depth;
+$text-z-active: 5 * $phone-depth;
+$text-translate: translate3d($text-x, $text-y, $text-z);
+$text-translate-active: translate3d($text-x, $text-y, $text-z-active);
+$text-rotate: rotateX(-90deg);
 
 html, body {
   height: 100%;
 }
 
 body {
-  background-color: #ddd;
+  background-color: #334;
 }
 
 .container {
@@ -28,12 +37,10 @@ body {
   height: 100%;
 
   @include perspective(1000px);
-  @include perspective-origin(left top);
-  @include transform-style(preserve-3d);
 }
 
 .phone {
-  position: relative;
+  position: absolute;
   top: 50%;
   left: 50%;
 
@@ -42,13 +49,20 @@ body {
 
   .face {
     position: absolute;
+
+    &:hover {
+      ~ .text {
+        opacity: 1;
+        @include transform($text-translate-active $text-rotate);
+      }
+    }
   }
 
   .bottom {
     background-color: #111;
 
-    width:  $phone-width + 0.5;
-    height: $phone-depth + 0.5;
+    width:  $phone-width + $epsilon;
+    height: $phone-depth + $epsilon;
 
     margin-left: -$half-phone-width;
     margin-top:  -$half-phone-depth;
@@ -59,8 +73,8 @@ body {
   .front {
     background-color: #222;
 
-    width:  $phone-width + 0.5;
-    height: $phone-height + 0.5;
+    width:  $phone-width + $epsilon;
+    height: $phone-height + $epsilon;
 
     margin-left: -$half-phone-width;
     margin-top:  -$half-phone-height;
@@ -71,8 +85,8 @@ body {
   .right {
     background-color: #000;
 
-    width:  $phone-depth + 0.5;
-    height: $phone-height + 0.5;
+    width:  $phone-depth + $epsilon;
+    height: $phone-height + $epsilon;
 
     margin-left: -$half-phone-depth;
     margin-top:  -$half-phone-height;
@@ -85,10 +99,12 @@ body {
   position: absolute;
 
   font-family: "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 4em;
+  font-size: 6em;
   color: white;
 
   text-transform: capitalize;
 
-  @include transform($text-transform);
+  opacity: 0;
+  @include transform($text-translate $text-rotate);
+  @include transition(all 0.5s);
 }
