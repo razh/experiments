@@ -1,4 +1,4 @@
-/*globals $, requestAnimationFrame*/
+/*globals $, requestAnimationFrame, cancelAnimationFrame*/
 $(function() {
   'use strict';
 
@@ -21,8 +21,8 @@ $(function() {
     }
   };
 
+  var animationFrame;
   var backgroundColor = '#222';
-
   var snapping = true;
 
   function Handler( x, y, radius ) {
@@ -253,7 +253,7 @@ $(function() {
 
   function tick() {
     draw( context );
-    requestAnimationFrame( tick );
+    animationFrame = requestAnimationFrame( tick );
   }
 
   function draw( ctx ) {
@@ -286,6 +286,10 @@ $(function() {
         });
       }
     }
+
+    if ( selection.length ) {
+      tick();
+    }
   }
 
   function onMouseMove( event ) {
@@ -301,6 +305,7 @@ $(function() {
   }
 
   function onMouseUp() {
+    cancelAnimationFrame( animationFrame );
     selection = [];
     offsets = [];
   }
@@ -531,5 +536,5 @@ $(function() {
     }
   });
 
-  tick();
+  draw( context );
 });
