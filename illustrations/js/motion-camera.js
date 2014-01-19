@@ -186,13 +186,12 @@
       cameraZEl = cameraEl.querySelector( '.camera-z' );
 
   // Scene element.
-  var el = document.querySelector( '.container' );
-
+  var sceneEl = document.querySelector( '.scene' );
 
   function rotate( rx, ry ) {
     var transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
-    el.style.webkitTransform = transform;
-    el.style.transform = transform;
+    sceneEl.style.webkitTransform = transform;
+    sceneEl.style.transform = transform;
   }
 
   function onMouseMove( event ) {

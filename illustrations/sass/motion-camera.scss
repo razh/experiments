@@ -35,6 +35,9 @@ $half-box-spacing: 0.5 * $box-spacing;
   margin-top:  -$half-box-spacing;
 
   @include perspective(2000px);
+}
+
+.scene {
   @include transform-style(preserve-3d);
   @include transform-origin($half-box-spacing, $half-box-spacing, -$box-spacing);
 }
