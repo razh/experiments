@@ -109,8 +109,13 @@ $icon-names: (
 );
 
 @mixin flex-center() {
+  display: -webkit-flex;
   display: flex;
+
+  -webkit-align-items: center;
   align-items: center;
+
+  -webkit-justify-content: center;
   justify-content: center;
 }
 
@@ -135,6 +140,7 @@ $icon-margin: 0.5 * 16px;
   @include perspective-origin(center center);
 
   @include flex-center();
+  -webkit-flex-direction: column;
   flex-direction: column;
 
   @for $i from 1 to $row-count + 1 {
