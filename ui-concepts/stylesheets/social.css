@@ -87,7 +87,7 @@ body {
 }
 
 @-webkit-keyframes shake {
-  /* line 42, ../sass/social.scss */
+  /* line 47, ../sass/social.scss */
   0% {
     -webkit-transform: translateX(0);
     -moz-transform: translateX(0);
@@ -96,7 +96,7 @@ body {
     transform: translateX(0);
   }
 
-  /* line 46, ../sass/social.scss */
+  /* line 51, ../sass/social.scss */
   20% {
     -webkit-transform: translateX(5px);
     -moz-transform: translateX(5px);
@@ -105,7 +105,7 @@ body {
     transform: translateX(5px);
   }
 
-  /* line 46, ../sass/social.scss */
+  /* line 51, ../sass/social.scss */
   40% {
     -webkit-transform: translateX(-5px);
     -moz-transform: translateX(-5px);
@@ -114,7 +114,7 @@ body {
     transform: translateX(-5px);
   }
 
-  /* line 46, ../sass/social.scss */
+  /* line 51, ../sass/social.scss */
   60% {
     -webkit-transform: translateX(5px);
     -moz-transform: translateX(5px);
@@ -123,7 +123,7 @@ body {
     transform: translateX(5px);
   }
 
-  /* line 50, ../sass/social.scss */
+  /* line 55, ../sass/social.scss */
   100% {
     -webkit-transform: translateX(0px);
     -moz-transform: translateX(0px);
@@ -134,7 +134,7 @@ body {
 }
 
 @keyframes shake {
-  /* line 42, ../sass/social.scss */
+  /* line 47, ../sass/social.scss */
   0% {
     -webkit-transform: translateX(0);
     -moz-transform: translateX(0);
@@ -143,7 +143,7 @@ body {
     transform: translateX(0);
   }
 
-  /* line 46, ../sass/social.scss */
+  /* line 51, ../sass/social.scss */
   20% {
     -webkit-transform: translateX(5px);
     -moz-transform: translateX(5px);
@@ -152,7 +152,7 @@ body {
     transform: translateX(5px);
   }
 
-  /* line 46, ../sass/social.scss */
+  /* line 51, ../sass/social.scss */
   40% {
     -webkit-transform: translateX(-5px);
     -moz-transform: translateX(-5px);
@@ -161,7 +161,7 @@ body {
     transform: translateX(-5px);
   }
 
-  /* line 46, ../sass/social.scss */
+  /* line 51, ../sass/social.scss */
   60% {
     -webkit-transform: translateX(5px);
     -moz-transform: translateX(5px);
@@ -170,7 +170,7 @@ body {
     transform: translateX(5px);
   }
 
-  /* line 50, ../sass/social.scss */
+  /* line 55, ../sass/social.scss */
   100% {
     -webkit-transform: translateX(0px);
     -moz-transform: translateX(0px);
@@ -180,24 +180,27 @@ body {
   }
 }
 
-/* line 53, ../sass/social.scss */
+/* line 58, ../sass/social.scss */
 .section#section-00 {
   font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #99bbee;
   background-color: #222;
   min-height: 640px;
+  display: -webkit-flex;
   display: flex;
+  -webkit-align-items: center;
   align-items: center;
+  -webkit-justify-content: center;
   justify-content: center;
 }
-/* line 54, ../sass/social.scss */
+/* line 59, ../sass/social.scss */
 .section#section-00 * {
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   -o-transition: all 0.5s;
   transition: all 0.5s;
 }
-/* line 65, ../sass/social.scss */
+/* line 70, ../sass/social.scss */
 .section#section-00 .login-box {
   width: 320px;
   height: 480px;
@@ -208,15 +211,19 @@ body {
   -ms-transform: translateZ(0);
   -o-transform: translateZ(0);
   transform: translateZ(0);
+  display: -webkit-flex;
   display: flex;
+  -webkit-align-items: center;
   align-items: center;
+  -webkit-justify-content: center;
   justify-content: center;
+  -webkit-flex-direction: column;
   flex-direction: column;
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
-/* line 77, ../sass/social.scss */
+/* line 84, ../sass/social.scss */
 .section#section-00 .login-box .face {
   width: 100px;
   height: 100px;
@@ -224,18 +231,24 @@ body {
   border: 10px solid #99bbee;
   position: relative;
   background-color: #dbe7f9;
+  display: -webkit-flex;
   display: flex;
+  -webkit-align-items: center;
   align-items: center;
+  -webkit-justify-content: center;
   justify-content: center;
 }
-/* line 87, ../sass/social.scss */
+/* line 94, ../sass/social.scss */
 .section#section-00 .login-box .face .eyes {
   width: 100%;
+  display: -webkit-flex;
   display: flex;
+  -webkit-align-items: center;
   align-items: center;
+  -webkit-justify-content: center;
   justify-content: center;
 }
-/* line 91, ../sass/social.scss */
+/* line 98, ../sass/social.scss */
 .section#section-00 .login-box .face .eyes .eye {
   float: left;
   width: 20px;
@@ -245,7 +258,7 @@ body {
   margin: 5px;
   margin-top: -7px;
 }
-/* line 102, ../sass/social.scss */
+/* line 109, ../sass/social.scss */
 .section#section-00 .login-box .face .mouth {
   position: absolute;
   width: 60px;
@@ -258,7 +271,7 @@ body {
   border-right: 8px solid transparent;
   border-bottom: 8px solid #99bbee;
 }
-/* line 121, ../sass/social.scss */
+/* line 128, ../sass/social.scss */
 .section#section-00 .login-box hr {
   width: 80%;
   height: 2px;
@@ -266,14 +279,17 @@ body {
   background-color: rgba(0, 0, 0, 0.1);
   margin: 30px;
 }
-/* line 129, ../sass/social.scss */
+/* line 136, ../sass/social.scss */
 .section#section-00 .login-box .form-group {
   width: 80%;
+  display: -webkit-flex;
   display: flex;
+  -webkit-align-items: center;
   align-items: center;
+  -webkit-justify-content: center;
   justify-content: center;
 }
-/* line 134, ../sass/social.scss */
+/* line 141, ../sass/social.scss */
 .section#section-00 .login-box input {
   margin: 5px 0 5px 10%;
   padding: 7px;
@@ -285,13 +301,13 @@ body {
   font-size: 16px;
   color: #78a;
 }
-/* line 143, ../sass/social.scss */
+/* line 150, ../sass/social.scss */
 .section#section-00 .login-box input:focus {
   color: black;
   outline: none;
   border: 2px solid #99bbee;
 }
-/* line 150, ../sass/social.scss */
+/* line 157, ../sass/social.scss */
 .section#section-00 .login-box .login-btn {
   width: 80%;
   height: 50px;
@@ -310,14 +326,14 @@ body {
   -o-transition: all 0.1s;
   transition: all 0.1s;
 }
-/* line 165, ../sass/social.scss */
+/* line 172, ../sass/social.scss */
 .section#section-00 .login-box .login-btn:focus {
   outline: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
 }
-/* line 170, ../sass/social.scss */
+/* line 177, ../sass/social.scss */
 .section#section-00 .login-box .login-btn:active {
   -webkit-transform: translateY(5px);
   -moz-transform: translateY(5px);
@@ -328,57 +344,66 @@ body {
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 177, ../sass/social.scss */
+/* line 184, ../sass/social.scss */
 .section#section-00 .shake {
   -webkit-animation: shake 0.2s;
   animation: shake 0.2s;
 }
 
-/* line 187, ../sass/social.scss */
+/* line 194, ../sass/social.scss */
 .section#section-01 {
   background-color: #444;
   font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
   height: 100px;
 }
-/* line 192, ../sass/social.scss */
+/* line 199, ../sass/social.scss */
 .section#section-01 .navbar {
   width: 100%;
   height: 50px;
   background-color: white;
+  display: -webkit-flex;
   display: flex;
+  -webkit-align-items: center;
   align-items: center;
+  -webkit-justify-content: center;
   justify-content: center;
 }
-/* line 201, ../sass/social.scss */
+/* line 206, ../sass/social.scss */
 .section#section-01 .navbar .home {
+  -webkit-flex: 1 auto;
   flex: 1 auto;
   margin-left: 20px;
   font-weight: bold;
 }
-/* line 207, ../sass/social.scss */
+/* line 214, ../sass/social.scss */
 .section#section-01 .navbar .links {
+  display: -webkit-flex;
   display: flex;
+  -webkit-justify-content: space-around;
   justify-content: space-around;
   margin-right: 20px;
 }
-/* line 212, ../sass/social.scss */
+/* line 223, ../sass/social.scss */
 .section#section-01 .navbar .links li {
   margin: 0 20px;
   display: inline;
 }
-/* line 218, ../sass/social.scss */
+/* line 229, ../sass/social.scss */
 .section#section-01 .navbar a, .section#section-01 .navbar a:active, .section#section-01 .navbar a:visited {
   color: #ff4455;
   text-decoration: none;
 }
 
-/* line 226, ../sass/social.scss */
+/* line 237, ../sass/social.scss */
 .section#section-02 {
   background-color: #333;
   font-family: Monaco, Consolas, "Courier New", Courier, monospace;
   font-size: 0.6em;
+  display: -webkit-flex;
   display: flex;
+  -webkit-align-items: center;
   align-items: center;
+  -webkit-justify-content: center;
   justify-content: center;
   -webkit-perspective: 500px;
   -moz-perspective: 500px;
@@ -386,14 +411,14 @@ body {
   -o-perspective: 500px;
   perspective: 500px;
 }
-/* line 227, ../sass/social.scss */
+/* line 238, ../sass/social.scss */
 .section#section-02 * {
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   -o-transition: all 0.2s;
   transition: all 0.2s;
 }
-/* line 239, ../sass/social.scss */
+/* line 250, ../sass/social.scss */
 .section#section-02 .post {
   width: 320px;
   height: 480px;
@@ -401,7 +426,9 @@ body {
   border: 1px solid #ccc;
   background-color: white;
   color: #ccc;
+  display: -webkit-flex;
   display: flex;
+  -webkit-flex-direction: column;
   flex-direction: column;
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -409,7 +436,7 @@ body {
   -o-transform: translateZ(0);
   transform: translateZ(0);
 }
-/* line 253, ../sass/social.scss */
+/* line 267, ../sass/social.scss */
 .section#section-02 .post .title {
   font-size: 2em;
   color: #555;
@@ -417,11 +444,11 @@ body {
   letter-spacing: -0.02em;
   line-height: 1.5;
 }
-/* line 262, ../sass/social.scss */
+/* line 276, ../sass/social.scss */
 .section#section-02 .post .content p {
   line-height: 2;
 }
-/* line 267, ../sass/social.scss */
+/* line 281, ../sass/social.scss */
 .section#section-02 .post:hover {
   -webkit-transform: rotateY(30deg);
   -moz-transform: rotateY(30deg);
