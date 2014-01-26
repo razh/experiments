@@ -77,6 +77,19 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
  *  e.g., .face.top
  */
 /**
+ * Creates a box centered at (0, 0, 0) with dimension
+ * $width, $height, and $depth.
+ *
+ * Each box consists of six elements with the generic 'face' class.
+ * Each element also has a class for a specific direction:
+ *
+ *    top, bottom,
+ *    front, back,
+ *    left, right
+ *
+ *  e.g., .face.top
+ */
+/**
  * A building is a box without a bottom face. Unlike a box, which is centered on
  * the origin, the building's bottom has a y-coordinate of 0.
  */
@@ -691,30 +704,88 @@ html, body {
   -o-transform: translate3d(50%, 0, 0) rotateX(-10deg);
   transform: translate3d(50%, 0, 0) rotateX(-10deg);
 }
-/* line 12, ../sass/modules/_building.scss */
+/* line 21, ../sass/modules/_box.scss */
 .building-sans-bottom .building .face {
   position: absolute;
 }
-/* line 16, ../sass/modules/_building.scss */
-.building-sans-bottom .building .top {
+/* line 25, ../sass/modules/_box.scss */
+.building-sans-bottom .building .top, .building-sans-bottom .building .bottom {
   width: 300px;
   height: 150px;
   margin-left: -150px;
   margin-top: -75px;
-  -webkit-transform: translate3d(0, -200px, 0) rotateX(90deg);
-  -moz-transform: translate3d(0, -200px, 0) rotateX(90deg);
-  -ms-transform: translate3d(0, -200px, 0) rotateX(90deg);
-  -o-transform: translate3d(0, -200px, 0) rotateX(90deg);
-  transform: translate3d(0, -200px, 0) rotateX(90deg);
 }
-/* line 26, ../sass/modules/_building.scss */
+/* line 33, ../sass/modules/_box.scss */
+.building-sans-bottom .building .top {
+  -webkit-transform: translate3d(0, -100px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -100px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -100px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -100px, 0) rotateX(90deg);
+  transform: translate3d(0, -100px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.building-sans-bottom .building .bottom {
+  -webkit-transform: translate3d(0, 100px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 100px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 100px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 100px, 0) rotateX(-90deg);
+  transform: translate3d(0, 100px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
 .building-sans-bottom .building .back, .building-sans-bottom .building .front {
   width: 300px;
   height: 200px;
   margin-left: -150px;
   margin-top: -100px;
 }
-/* line 34, ../sass/modules/_building.scss */
+/* line 44, ../sass/modules/_box.scss */
+.building-sans-bottom .building .back {
+  -webkit-transform: translate3d(0, 0, -75px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -75px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -75px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -75px) rotateY(180deg);
+  transform: translate3d(0, 0, -75px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.building-sans-bottom .building .front {
+  -webkit-transform: translate3d(0, 0, 75px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 75px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 75px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 75px) rotateY(0deg);
+  transform: translate3d(0, 0, 75px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.building-sans-bottom .building .left, .building-sans-bottom .building .right {
+  width: 150px;
+  height: 200px;
+  margin-left: -75px;
+  margin-top: -100px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.building-sans-bottom .building .left {
+  -webkit-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.building-sans-bottom .building .right {
+  -webkit-transform: translate3d(150px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(150px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(150px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(150px, 0, 0) rotateY(90deg);
+  transform: translate3d(150px, 0, 0) rotateY(90deg);
+}
+/* line 13, ../sass/modules/_building.scss */
+.building-sans-bottom .building .top {
+  -webkit-transform: translate3d(0, -200px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -200px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -200px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -200px, 0) rotateX(90deg);
+  transform: translate3d(0, -200px, 0) rotateX(90deg);
+}
+/* line 17, ../sass/modules/_building.scss */
 .building-sans-bottom .building .back {
   -webkit-transform: translate3d(0, -100px, -75px) rotateY(180deg);
   -moz-transform: translate3d(0, -100px, -75px) rotateY(180deg);
@@ -722,7 +793,7 @@ html, body {
   -o-transform: translate3d(0, -100px, -75px) rotateY(180deg);
   transform: translate3d(0, -100px, -75px) rotateY(180deg);
 }
-/* line 35, ../sass/modules/_building.scss */
+/* line 18, ../sass/modules/_building.scss */
 .building-sans-bottom .building .front {
   -webkit-transform: translate3d(0, -100px, 75px) rotateY(0deg);
   -moz-transform: translate3d(0, -100px, 75px) rotateY(0deg);
@@ -730,14 +801,7 @@ html, body {
   -o-transform: translate3d(0, -100px, 75px) rotateY(0deg);
   transform: translate3d(0, -100px, 75px) rotateY(0deg);
 }
-/* line 37, ../sass/modules/_building.scss */
-.building-sans-bottom .building .left, .building-sans-bottom .building .right {
-  width: 150px;
-  height: 200px;
-  margin-left: -75px;
-  margin-top: -100px;
-}
-/* line 45, ../sass/modules/_building.scss */
+/* line 20, ../sass/modules/_building.scss */
 .building-sans-bottom .building .left {
   -webkit-transform: translate3d(-150px, -100px, 0) rotateY(-90deg);
   -moz-transform: translate3d(-150px, -100px, 0) rotateY(-90deg);
@@ -745,7 +809,7 @@ html, body {
   -o-transform: translate3d(-150px, -100px, 0) rotateY(-90deg);
   transform: translate3d(-150px, -100px, 0) rotateY(-90deg);
 }
-/* line 46, ../sass/modules/_building.scss */
+/* line 21, ../sass/modules/_building.scss */
 .building-sans-bottom .building .right {
   -webkit-transform: translate3d(150px, -100px, 0) rotateY(90deg);
   -moz-transform: translate3d(150px, -100px, 0) rotateY(90deg);
@@ -771,30 +835,88 @@ html, body {
   -o-transform-origin: 0 0 0;
   transform-origin: 0 0 0;
 }
-/* line 12, ../sass/modules/_building.scss */
+/* line 21, ../sass/modules/_box.scss */
 .building-sans-bottom .building-edged-roof .face {
   position: absolute;
 }
-/* line 16, ../sass/modules/_building.scss */
-.building-sans-bottom .building-edged-roof .top {
+/* line 25, ../sass/modules/_box.scss */
+.building-sans-bottom .building-edged-roof .top, .building-sans-bottom .building-edged-roof .bottom {
   width: 300px;
   height: 150px;
   margin-left: -150px;
   margin-top: -75px;
-  -webkit-transform: translate3d(0, -200px, 0) rotateX(90deg);
-  -moz-transform: translate3d(0, -200px, 0) rotateX(90deg);
-  -ms-transform: translate3d(0, -200px, 0) rotateX(90deg);
-  -o-transform: translate3d(0, -200px, 0) rotateX(90deg);
-  transform: translate3d(0, -200px, 0) rotateX(90deg);
 }
-/* line 26, ../sass/modules/_building.scss */
+/* line 33, ../sass/modules/_box.scss */
+.building-sans-bottom .building-edged-roof .top {
+  -webkit-transform: translate3d(0, -100px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -100px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -100px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -100px, 0) rotateX(90deg);
+  transform: translate3d(0, -100px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.building-sans-bottom .building-edged-roof .bottom {
+  -webkit-transform: translate3d(0, 100px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 100px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 100px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 100px, 0) rotateX(-90deg);
+  transform: translate3d(0, 100px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
 .building-sans-bottom .building-edged-roof .back, .building-sans-bottom .building-edged-roof .front {
   width: 300px;
   height: 200px;
   margin-left: -150px;
   margin-top: -100px;
 }
-/* line 34, ../sass/modules/_building.scss */
+/* line 44, ../sass/modules/_box.scss */
+.building-sans-bottom .building-edged-roof .back {
+  -webkit-transform: translate3d(0, 0, -75px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -75px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -75px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -75px) rotateY(180deg);
+  transform: translate3d(0, 0, -75px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.building-sans-bottom .building-edged-roof .front {
+  -webkit-transform: translate3d(0, 0, 75px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 75px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 75px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 75px) rotateY(0deg);
+  transform: translate3d(0, 0, 75px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.building-sans-bottom .building-edged-roof .left, .building-sans-bottom .building-edged-roof .right {
+  width: 150px;
+  height: 200px;
+  margin-left: -75px;
+  margin-top: -100px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.building-sans-bottom .building-edged-roof .left {
+  -webkit-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.building-sans-bottom .building-edged-roof .right {
+  -webkit-transform: translate3d(150px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(150px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(150px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(150px, 0, 0) rotateY(90deg);
+  transform: translate3d(150px, 0, 0) rotateY(90deg);
+}
+/* line 13, ../sass/modules/_building.scss */
+.building-sans-bottom .building-edged-roof .top {
+  -webkit-transform: translate3d(0, -200px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -200px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -200px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -200px, 0) rotateX(90deg);
+  transform: translate3d(0, -200px, 0) rotateX(90deg);
+}
+/* line 17, ../sass/modules/_building.scss */
 .building-sans-bottom .building-edged-roof .back {
   -webkit-transform: translate3d(0, -100px, -75px) rotateY(180deg);
   -moz-transform: translate3d(0, -100px, -75px) rotateY(180deg);
@@ -802,7 +924,7 @@ html, body {
   -o-transform: translate3d(0, -100px, -75px) rotateY(180deg);
   transform: translate3d(0, -100px, -75px) rotateY(180deg);
 }
-/* line 35, ../sass/modules/_building.scss */
+/* line 18, ../sass/modules/_building.scss */
 .building-sans-bottom .building-edged-roof .front {
   -webkit-transform: translate3d(0, -100px, 75px) rotateY(0deg);
   -moz-transform: translate3d(0, -100px, 75px) rotateY(0deg);
@@ -810,14 +932,7 @@ html, body {
   -o-transform: translate3d(0, -100px, 75px) rotateY(0deg);
   transform: translate3d(0, -100px, 75px) rotateY(0deg);
 }
-/* line 37, ../sass/modules/_building.scss */
-.building-sans-bottom .building-edged-roof .left, .building-sans-bottom .building-edged-roof .right {
-  width: 150px;
-  height: 200px;
-  margin-left: -75px;
-  margin-top: -100px;
-}
-/* line 45, ../sass/modules/_building.scss */
+/* line 20, ../sass/modules/_building.scss */
 .building-sans-bottom .building-edged-roof .left {
   -webkit-transform: translate3d(-150px, -100px, 0) rotateY(-90deg);
   -moz-transform: translate3d(-150px, -100px, 0) rotateY(-90deg);
@@ -825,7 +940,7 @@ html, body {
   -o-transform: translate3d(-150px, -100px, 0) rotateY(-90deg);
   transform: translate3d(-150px, -100px, 0) rotateY(-90deg);
 }
-/* line 46, ../sass/modules/_building.scss */
+/* line 21, ../sass/modules/_building.scss */
 .building-sans-bottom .building-edged-roof .right {
   -webkit-transform: translate3d(150px, -100px, 0) rotateY(90deg);
   -moz-transform: translate3d(150px, -100px, 0) rotateY(90deg);
@@ -833,7 +948,7 @@ html, body {
   -o-transform: translate3d(150px, -100px, 0) rotateY(90deg);
   transform: translate3d(150px, -100px, 0) rotateY(90deg);
 }
-/* line 68, ../sass/modules/_building.scss */
+/* line 43, ../sass/modules/_building.scss */
 .building-sans-bottom .building-edged-roof .top {
   width: 270px;
   height: 120px;
@@ -845,7 +960,7 @@ html, body {
   -o-transform: translate3d(0, -185px, 0) rotateX(90deg);
   transform: translate3d(0, -185px, 0) rotateX(90deg);
 }
-/* line 84, ../sass/modules/_building.scss */
+/* line 59, ../sass/modules/_building.scss */
 .building-sans-bottom .building-edged-roof .back-top,
 .building-sans-bottom .building-edged-roof .front-top {
   width: 300px;
@@ -853,7 +968,7 @@ html, body {
   margin-left: -150px;
   margin-top: -7.5px;
 }
-/* line 92, ../sass/modules/_building.scss */
+/* line 67, ../sass/modules/_building.scss */
 .building-sans-bottom .building-edged-roof .back-top {
   -webkit-transform: translate3d(0, -200px, -67.5px) rotateX(90deg) rotateZ(180deg);
   -moz-transform: translate3d(0, -200px, -67.5px) rotateX(90deg) rotateZ(180deg);
@@ -861,7 +976,7 @@ html, body {
   -o-transform: translate3d(0, -200px, -67.5px) rotateX(90deg) rotateZ(180deg);
   transform: translate3d(0, -200px, -67.5px) rotateX(90deg) rotateZ(180deg);
 }
-/* line 93, ../sass/modules/_building.scss */
+/* line 68, ../sass/modules/_building.scss */
 .building-sans-bottom .building-edged-roof .front-top {
   -webkit-transform: translate3d(0, -200px, 67.5px) rotateX(90deg) rotateZ(0deg);
   -moz-transform: translate3d(0, -200px, 67.5px) rotateX(90deg) rotateZ(0deg);
@@ -869,7 +984,7 @@ html, body {
   -o-transform: translate3d(0, -200px, 67.5px) rotateX(90deg) rotateZ(0deg);
   transform: translate3d(0, -200px, 67.5px) rotateX(90deg) rotateZ(0deg);
 }
-/* line 96, ../sass/modules/_building.scss */
+/* line 71, ../sass/modules/_building.scss */
 .building-sans-bottom .building-edged-roof .left-top,
 .building-sans-bottom .building-edged-roof .right-top {
   width: 120px;
@@ -877,7 +992,7 @@ html, body {
   margin-left: -60px;
   margin-top: -7.5px;
 }
-/* line 104, ../sass/modules/_building.scss */
+/* line 79, ../sass/modules/_building.scss */
 .building-sans-bottom .building-edged-roof .left-top {
   -webkit-transform: translate3d(-142.5px, -200px, 0) rotateX(90deg) rotateZ(90deg);
   -moz-transform: translate3d(-142.5px, -200px, 0) rotateX(90deg) rotateZ(90deg);
@@ -885,7 +1000,7 @@ html, body {
   -o-transform: translate3d(-142.5px, -200px, 0) rotateX(90deg) rotateZ(90deg);
   transform: translate3d(-142.5px, -200px, 0) rotateX(90deg) rotateZ(90deg);
 }
-/* line 105, ../sass/modules/_building.scss */
+/* line 80, ../sass/modules/_building.scss */
 .building-sans-bottom .building-edged-roof .right-top {
   -webkit-transform: translate3d(142.5px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
   -moz-transform: translate3d(142.5px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
@@ -893,7 +1008,7 @@ html, body {
   -o-transform: translate3d(142.5px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
   transform: translate3d(142.5px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
 }
-/* line 112, ../sass/modules/_building.scss */
+/* line 87, ../sass/modules/_building.scss */
 .building-sans-bottom .building-edged-roof .back-interior,
 .building-sans-bottom .building-edged-roof .front-interior {
   width: 270px;
@@ -901,7 +1016,7 @@ html, body {
   margin-left: -135px;
   margin-top: -7.5px;
 }
-/* line 120, ../sass/modules/_building.scss */
+/* line 95, ../sass/modules/_building.scss */
 .building-sans-bottom .building-edged-roof .back-interior {
   -webkit-transform: translate3d(0, -192.5px, -60px) rotateY(0deg);
   -moz-transform: translate3d(0, -192.5px, -60px) rotateY(0deg);
@@ -909,7 +1024,7 @@ html, body {
   -o-transform: translate3d(0, -192.5px, -60px) rotateY(0deg);
   transform: translate3d(0, -192.5px, -60px) rotateY(0deg);
 }
-/* line 121, ../sass/modules/_building.scss */
+/* line 96, ../sass/modules/_building.scss */
 .building-sans-bottom .building-edged-roof .front-interior {
   -webkit-transform: translate3d(0, -192.5px, 60px) rotateY(180deg);
   -moz-transform: translate3d(0, -192.5px, 60px) rotateY(180deg);
@@ -917,7 +1032,7 @@ html, body {
   -o-transform: translate3d(0, -192.5px, 60px) rotateY(180deg);
   transform: translate3d(0, -192.5px, 60px) rotateY(180deg);
 }
-/* line 124, ../sass/modules/_building.scss */
+/* line 99, ../sass/modules/_building.scss */
 .building-sans-bottom .building-edged-roof .left-interior,
 .building-sans-bottom .building-edged-roof .right-interior {
   width: 120px;
@@ -925,7 +1040,7 @@ html, body {
   margin-left: -60px;
   margin-top: -7.5px;
 }
-/* line 132, ../sass/modules/_building.scss */
+/* line 107, ../sass/modules/_building.scss */
 .building-sans-bottom .building-edged-roof .left-interior {
   -webkit-transform: translate3d(-135px, -192.5px, 0) rotateY(90deg);
   -moz-transform: translate3d(-135px, -192.5px, 0) rotateY(90deg);
@@ -933,7 +1048,7 @@ html, body {
   -o-transform: translate3d(-135px, -192.5px, 0) rotateY(90deg);
   transform: translate3d(-135px, -192.5px, 0) rotateY(90deg);
 }
-/* line 133, ../sass/modules/_building.scss */
+/* line 108, ../sass/modules/_building.scss */
 .building-sans-bottom .building-edged-roof .right-interior {
   -webkit-transform: translate3d(135px, -192.5px, 0) rotateY(-90deg);
   -moz-transform: translate3d(135px, -192.5px, 0) rotateY(-90deg);

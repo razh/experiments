@@ -1,46 +1,21 @@
+@import "box";
 /**
  * A building is a box without a bottom face. Unlike a box, which is centered on
  * the origin, the building's bottom has a y-coordinate of 0.
  */
 @mixin building($width, $height, $depth) {
+  @include box($width, $height, $depth);
+
   $halfWidth:  0.5 * $width;
   $halfHeight: 0.5 * $height;
   $halfDepth:  0.5 * $depth;
 
-  @include transform-style(preserve-3d);
-
-  .face {
-    position: absolute;
-  }
-
   .top {
-    width: $width;
-    height: $depth;
-
-    margin-left: -$halfWidth;
-    margin-top:  -$halfDepth;
-
     @include transform(translate3d(0, -$height, 0) rotateX(90deg));
-  }
-
-  .back, .front {
-    width:  $width;
-    height: $height;
-
-    margin-left: -$halfWidth;
-    margin-top:  -$halfHeight;
   }
 
   .back  { @include transform(translate3d(0, -$halfHeight, -$halfDepth) rotateY(180deg)); }
   .front { @include transform(translate3d(0, -$halfHeight,  $halfDepth) rotateY(  0deg)); }
-
-  .left, .right {
-    width:  $depth;
-    height: $height;
-
-    margin-left: -$halfDepth;
-    margin-top:  -$halfHeight;
-  }
 
   .left  { @include transform(translate3d(-$halfWidth, -$halfHeight, 0) rotateY(-90deg)); }
   .right { @include transform(translate3d( $halfWidth, -$halfHeight, 0) rotateY( 90deg)); }
