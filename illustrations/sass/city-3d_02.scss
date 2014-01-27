@@ -1,0 +1,68 @@
+@import "compass/reset";
+@import "compass/css3/transform";
+
+@import "modules/building";
+
+html, body {
+  height: 100%;
+}
+
+.scene {
+  width: 100%;
+  height: 100%;
+
+  @include transform-style(preserve-3d);
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  @include perspective(1000px);
+  @include perspective-origin(center top);
+  @include transform-style(preserve-3d);
+}
+
+$top-color:    rgba(192, 192, 192, 1);
+$front-color:  rgba(144, 144, 144, 1);
+$right-color:  rgba( 96,  96,  96, 1);
+$back-color:   rgba( 64,  64,  64, 1);
+$left-color:   rgba( 32,  32,  32, 1);
+$bottom-color: rgba(  0,   0,   0, 1);
+
+@mixin simple-face-shading() {
+  .top    { background-color: $top-color; }
+  .front  { background-color: $front-color; }
+  .right  { background-color: $right-color; }
+  .back   { background-color: $back-color; }
+  .left   { background-color: $left-color; }
+  .bottom { background-color: $bottom-color; }
+}
+
+
+@mixin simple-face-shading-edged-roof() {
+  .back-top { background-color: $top-color }
+  .front-top { background-color: $top-color; }
+  .left-top { background-color: $top-color; }
+  .right-top { background-color: $top-color; }
+
+  .back-interior { background-color: $front-color; }
+  .front-interior { background-color: $back-color; }
+  .left-interior { background-color: $right-color; }
+  .right-interior { background-color: $left-color; }
+}
+
+.a {
+  @include transform(translate3d(300px, 400px, 0));
+  @include transform-style(preserve-3d);
+  @include building-edged-roof(300px, 200px, 150px, 15px, 15px);
+  @include simple-face-shading();
+  @include simple-face-shading-edged-roof();
+}
+
+
+.b {
+  @extend .a;
+  @include transform(translate3d(350px, 400px, -50px));
+  @include transform-style(preserve-3d);
+  @include building-edged-roof(300px, 300px, 150px, 15px, 15px);
+}

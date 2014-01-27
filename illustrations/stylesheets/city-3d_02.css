@@ -1,0 +1,662 @@
+/* line 17, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/**
+ * Creates a box centered at (0, 0, 0) with dimension
+ * $width, $height, and $depth.
+ *
+ * Each box consists of six elements with the generic 'face' class.
+ * Each element also has a class for a specific direction:
+ *
+ *    top, bottom,
+ *    front, back,
+ *    left, right
+ *
+ *  e.g., .face.top
+ */
+/**
+ * A building is a box without a bottom face. Unlike a box, which is centered on
+ * the origin, the building's bottom has a y-coordinate of 0.
+ */
+/**
+ * A building with an edged roof insets the top edge and adds
+ * border faces (top and interior sides).
+ */
+/* line 6, ../sass/city-3d_02.scss */
+html, body {
+  height: 100%;
+}
+
+/* line 10, ../sass/city-3d_02.scss */
+.scene {
+  width: 100%;
+  height: 100%;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+/* line 17, ../sass/city-3d_02.scss */
+.container {
+  width: 100%;
+  height: 100%;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  -ms-perspective: 1000px;
+  -o-perspective: 1000px;
+  perspective: 1000px;
+  -webkit-perspective-origin: center top;
+  -moz-perspective-origin: center top;
+  -ms-perspective-origin: center top;
+  -o-perspective-origin: center top;
+  perspective-origin: center top;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+/* line 54, ../sass/city-3d_02.scss */
+.a, .b {
+  -webkit-transform: translate3d(300px, 400px, 0);
+  -moz-transform: translate3d(300px, 400px, 0);
+  -ms-transform: translate3d(300px, 400px, 0);
+  -o-transform: translate3d(300px, 400px, 0);
+  transform: translate3d(300px, 400px, 0);
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* line 21, ../sass/modules/_box.scss */
+.a .face, .b .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.a .top, .b .top, .a .bottom, .b .bottom {
+  width: 300px;
+  height: 150px;
+  margin-left: -150px;
+  margin-top: -75px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.a .top, .b .top {
+  -webkit-transform: translate3d(0, -100px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -100px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -100px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -100px, 0) rotateX(90deg);
+  transform: translate3d(0, -100px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.a .bottom, .b .bottom {
+  -webkit-transform: translate3d(0, 100px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 100px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 100px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 100px, 0) rotateX(-90deg);
+  transform: translate3d(0, 100px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.a .back, .b .back, .a .front, .b .front {
+  width: 300px;
+  height: 200px;
+  margin-left: -150px;
+  margin-top: -100px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.a .back, .b .back {
+  -webkit-transform: translate3d(0, 0, -75px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -75px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -75px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -75px) rotateY(180deg);
+  transform: translate3d(0, 0, -75px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.a .front, .b .front {
+  -webkit-transform: translate3d(0, 0, 75px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 75px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 75px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 75px) rotateY(0deg);
+  transform: translate3d(0, 0, 75px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.a .left, .b .left, .a .right, .b .right {
+  width: 150px;
+  height: 200px;
+  margin-left: -75px;
+  margin-top: -100px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.a .left, .b .left {
+  -webkit-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.a .right, .b .right {
+  -webkit-transform: translate3d(150px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(150px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(150px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(150px, 0, 0) rotateY(90deg);
+  transform: translate3d(150px, 0, 0) rotateY(90deg);
+}
+/* line 13, ../sass/modules/_building.scss */
+.a .top, .b .top {
+  -webkit-transform: translate3d(0, -200px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -200px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -200px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -200px, 0) rotateX(90deg);
+  transform: translate3d(0, -200px, 0) rotateX(90deg);
+}
+/* line 17, ../sass/modules/_building.scss */
+.a .back, .b .back {
+  -webkit-transform: translate3d(0, -100px, -75px) rotateY(180deg);
+  -moz-transform: translate3d(0, -100px, -75px) rotateY(180deg);
+  -ms-transform: translate3d(0, -100px, -75px) rotateY(180deg);
+  -o-transform: translate3d(0, -100px, -75px) rotateY(180deg);
+  transform: translate3d(0, -100px, -75px) rotateY(180deg);
+}
+/* line 18, ../sass/modules/_building.scss */
+.a .front, .b .front {
+  -webkit-transform: translate3d(0, -100px, 75px) rotateY(0deg);
+  -moz-transform: translate3d(0, -100px, 75px) rotateY(0deg);
+  -ms-transform: translate3d(0, -100px, 75px) rotateY(0deg);
+  -o-transform: translate3d(0, -100px, 75px) rotateY(0deg);
+  transform: translate3d(0, -100px, 75px) rotateY(0deg);
+}
+/* line 20, ../sass/modules/_building.scss */
+.a .left, .b .left {
+  -webkit-transform: translate3d(-150px, -100px, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-150px, -100px, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-150px, -100px, 0) rotateY(-90deg);
+  -o-transform: translate3d(-150px, -100px, 0) rotateY(-90deg);
+  transform: translate3d(-150px, -100px, 0) rotateY(-90deg);
+}
+/* line 21, ../sass/modules/_building.scss */
+.a .right, .b .right {
+  -webkit-transform: translate3d(150px, -100px, 0) rotateY(90deg);
+  -moz-transform: translate3d(150px, -100px, 0) rotateY(90deg);
+  -ms-transform: translate3d(150px, -100px, 0) rotateY(90deg);
+  -o-transform: translate3d(150px, -100px, 0) rotateY(90deg);
+  transform: translate3d(150px, -100px, 0) rotateY(90deg);
+}
+/* line 43, ../sass/modules/_building.scss */
+.a .top, .b .top {
+  width: 270px;
+  height: 120px;
+  margin-left: -135px;
+  margin-top: -60px;
+  -webkit-transform: translate3d(0, -185px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -185px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -185px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -185px, 0) rotateX(90deg);
+  transform: translate3d(0, -185px, 0) rotateX(90deg);
+}
+/* line 59, ../sass/modules/_building.scss */
+.a .back-top, .b .back-top,
+.a .front-top,
+.b .front-top {
+  width: 300px;
+  height: 15px;
+  margin-left: -150px;
+  margin-top: -7.5px;
+}
+/* line 67, ../sass/modules/_building.scss */
+.a .back-top, .b .back-top {
+  -webkit-transform: translate3d(0, -200px, -67.5px) rotateX(90deg) rotateZ(180deg);
+  -moz-transform: translate3d(0, -200px, -67.5px) rotateX(90deg) rotateZ(180deg);
+  -ms-transform: translate3d(0, -200px, -67.5px) rotateX(90deg) rotateZ(180deg);
+  -o-transform: translate3d(0, -200px, -67.5px) rotateX(90deg) rotateZ(180deg);
+  transform: translate3d(0, -200px, -67.5px) rotateX(90deg) rotateZ(180deg);
+}
+/* line 68, ../sass/modules/_building.scss */
+.a .front-top, .b .front-top {
+  -webkit-transform: translate3d(0, -200px, 67.5px) rotateX(90deg) rotateZ(0deg);
+  -moz-transform: translate3d(0, -200px, 67.5px) rotateX(90deg) rotateZ(0deg);
+  -ms-transform: translate3d(0, -200px, 67.5px) rotateX(90deg) rotateZ(0deg);
+  -o-transform: translate3d(0, -200px, 67.5px) rotateX(90deg) rotateZ(0deg);
+  transform: translate3d(0, -200px, 67.5px) rotateX(90deg) rotateZ(0deg);
+}
+/* line 71, ../sass/modules/_building.scss */
+.a .left-top, .b .left-top,
+.a .right-top,
+.b .right-top {
+  width: 120px;
+  height: 15px;
+  margin-left: -60px;
+  margin-top: -7.5px;
+}
+/* line 79, ../sass/modules/_building.scss */
+.a .left-top, .b .left-top {
+  -webkit-transform: translate3d(-142.5px, -200px, 0) rotateX(90deg) rotateZ(90deg);
+  -moz-transform: translate3d(-142.5px, -200px, 0) rotateX(90deg) rotateZ(90deg);
+  -ms-transform: translate3d(-142.5px, -200px, 0) rotateX(90deg) rotateZ(90deg);
+  -o-transform: translate3d(-142.5px, -200px, 0) rotateX(90deg) rotateZ(90deg);
+  transform: translate3d(-142.5px, -200px, 0) rotateX(90deg) rotateZ(90deg);
+}
+/* line 80, ../sass/modules/_building.scss */
+.a .right-top, .b .right-top {
+  -webkit-transform: translate3d(142.5px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
+  -moz-transform: translate3d(142.5px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
+  -ms-transform: translate3d(142.5px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
+  -o-transform: translate3d(142.5px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
+  transform: translate3d(142.5px, -200px, 0) rotateX(90deg) rotateZ(-90deg);
+}
+/* line 87, ../sass/modules/_building.scss */
+.a .back-interior, .b .back-interior,
+.a .front-interior,
+.b .front-interior {
+  width: 270px;
+  height: 15px;
+  margin-left: -135px;
+  margin-top: -7.5px;
+}
+/* line 95, ../sass/modules/_building.scss */
+.a .back-interior, .b .back-interior {
+  -webkit-transform: translate3d(0, -192.5px, -60px) rotateY(0deg);
+  -moz-transform: translate3d(0, -192.5px, -60px) rotateY(0deg);
+  -ms-transform: translate3d(0, -192.5px, -60px) rotateY(0deg);
+  -o-transform: translate3d(0, -192.5px, -60px) rotateY(0deg);
+  transform: translate3d(0, -192.5px, -60px) rotateY(0deg);
+}
+/* line 96, ../sass/modules/_building.scss */
+.a .front-interior, .b .front-interior {
+  -webkit-transform: translate3d(0, -192.5px, 60px) rotateY(180deg);
+  -moz-transform: translate3d(0, -192.5px, 60px) rotateY(180deg);
+  -ms-transform: translate3d(0, -192.5px, 60px) rotateY(180deg);
+  -o-transform: translate3d(0, -192.5px, 60px) rotateY(180deg);
+  transform: translate3d(0, -192.5px, 60px) rotateY(180deg);
+}
+/* line 99, ../sass/modules/_building.scss */
+.a .left-interior, .b .left-interior,
+.a .right-interior,
+.b .right-interior {
+  width: 120px;
+  height: 15px;
+  margin-left: -60px;
+  margin-top: -7.5px;
+}
+/* line 107, ../sass/modules/_building.scss */
+.a .left-interior, .b .left-interior {
+  -webkit-transform: translate3d(-135px, -192.5px, 0) rotateY(90deg);
+  -moz-transform: translate3d(-135px, -192.5px, 0) rotateY(90deg);
+  -ms-transform: translate3d(-135px, -192.5px, 0) rotateY(90deg);
+  -o-transform: translate3d(-135px, -192.5px, 0) rotateY(90deg);
+  transform: translate3d(-135px, -192.5px, 0) rotateY(90deg);
+}
+/* line 108, ../sass/modules/_building.scss */
+.a .right-interior, .b .right-interior {
+  -webkit-transform: translate3d(135px, -192.5px, 0) rotateY(-90deg);
+  -moz-transform: translate3d(135px, -192.5px, 0) rotateY(-90deg);
+  -ms-transform: translate3d(135px, -192.5px, 0) rotateY(-90deg);
+  -o-transform: translate3d(135px, -192.5px, 0) rotateY(-90deg);
+  transform: translate3d(135px, -192.5px, 0) rotateY(-90deg);
+}
+/* line 33, ../sass/city-3d_02.scss */
+.a .top, .b .top {
+  background-color: silver;
+}
+/* line 34, ../sass/city-3d_02.scss */
+.a .front, .b .front {
+  background-color: #909090;
+}
+/* line 35, ../sass/city-3d_02.scss */
+.a .right, .b .right {
+  background-color: #606060;
+}
+/* line 36, ../sass/city-3d_02.scss */
+.a .back, .b .back {
+  background-color: #404040;
+}
+/* line 37, ../sass/city-3d_02.scss */
+.a .left, .b .left {
+  background-color: #202020;
+}
+/* line 38, ../sass/city-3d_02.scss */
+.a .bottom, .b .bottom {
+  background-color: black;
+}
+/* line 43, ../sass/city-3d_02.scss */
+.a .back-top, .b .back-top {
+  background-color: silver;
+}
+/* line 44, ../sass/city-3d_02.scss */
+.a .front-top, .b .front-top {
+  background-color: silver;
+}
+/* line 45, ../sass/city-3d_02.scss */
+.a .left-top, .b .left-top {
+  background-color: silver;
+}
+/* line 46, ../sass/city-3d_02.scss */
+.a .right-top, .b .right-top {
+  background-color: silver;
+}
+/* line 48, ../sass/city-3d_02.scss */
+.a .back-interior, .b .back-interior {
+  background-color: #909090;
+}
+/* line 49, ../sass/city-3d_02.scss */
+.a .front-interior, .b .front-interior {
+  background-color: #404040;
+}
+/* line 50, ../sass/city-3d_02.scss */
+.a .left-interior, .b .left-interior {
+  background-color: #606060;
+}
+/* line 51, ../sass/city-3d_02.scss */
+.a .right-interior, .b .right-interior {
+  background-color: #202020;
+}
+
+/* line 63, ../sass/city-3d_02.scss */
+.b {
+  -webkit-transform: translate3d(350px, 400px, -50px);
+  -moz-transform: translate3d(350px, 400px, -50px);
+  -ms-transform: translate3d(350px, 400px, -50px);
+  -o-transform: translate3d(350px, 400px, -50px);
+  transform: translate3d(350px, 400px, -50px);
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* line 21, ../sass/modules/_box.scss */
+.b .face {
+  position: absolute;
+}
+/* line 25, ../sass/modules/_box.scss */
+.b .top, .b .bottom {
+  width: 300px;
+  height: 150px;
+  margin-left: -150px;
+  margin-top: -75px;
+}
+/* line 33, ../sass/modules/_box.scss */
+.b .top {
+  -webkit-transform: translate3d(0, -150px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -150px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -150px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -150px, 0) rotateX(90deg);
+  transform: translate3d(0, -150px, 0) rotateX(90deg);
+}
+/* line 34, ../sass/modules/_box.scss */
+.b .bottom {
+  -webkit-transform: translate3d(0, 150px, 0) rotateX(-90deg);
+  -moz-transform: translate3d(0, 150px, 0) rotateX(-90deg);
+  -ms-transform: translate3d(0, 150px, 0) rotateX(-90deg);
+  -o-transform: translate3d(0, 150px, 0) rotateX(-90deg);
+  transform: translate3d(0, 150px, 0) rotateX(-90deg);
+}
+/* line 36, ../sass/modules/_box.scss */
+.b .back, .b .front {
+  width: 300px;
+  height: 300px;
+  margin-left: -150px;
+  margin-top: -150px;
+}
+/* line 44, ../sass/modules/_box.scss */
+.b .back {
+  -webkit-transform: translate3d(0, 0, -75px) rotateY(180deg);
+  -moz-transform: translate3d(0, 0, -75px) rotateY(180deg);
+  -ms-transform: translate3d(0, 0, -75px) rotateY(180deg);
+  -o-transform: translate3d(0, 0, -75px) rotateY(180deg);
+  transform: translate3d(0, 0, -75px) rotateY(180deg);
+}
+/* line 45, ../sass/modules/_box.scss */
+.b .front {
+  -webkit-transform: translate3d(0, 0, 75px) rotateY(0deg);
+  -moz-transform: translate3d(0, 0, 75px) rotateY(0deg);
+  -ms-transform: translate3d(0, 0, 75px) rotateY(0deg);
+  -o-transform: translate3d(0, 0, 75px) rotateY(0deg);
+  transform: translate3d(0, 0, 75px) rotateY(0deg);
+}
+/* line 47, ../sass/modules/_box.scss */
+.b .left, .b .right {
+  width: 150px;
+  height: 300px;
+  margin-left: -75px;
+  margin-top: -150px;
+}
+/* line 55, ../sass/modules/_box.scss */
+.b .left {
+  -webkit-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+  -o-transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+  transform: translate3d(-150px, 0, 0) rotateY(-90deg);
+}
+/* line 56, ../sass/modules/_box.scss */
+.b .right {
+  -webkit-transform: translate3d(150px, 0, 0) rotateY(90deg);
+  -moz-transform: translate3d(150px, 0, 0) rotateY(90deg);
+  -ms-transform: translate3d(150px, 0, 0) rotateY(90deg);
+  -o-transform: translate3d(150px, 0, 0) rotateY(90deg);
+  transform: translate3d(150px, 0, 0) rotateY(90deg);
+}
+/* line 13, ../sass/modules/_building.scss */
+.b .top {
+  -webkit-transform: translate3d(0, -300px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -300px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -300px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -300px, 0) rotateX(90deg);
+  transform: translate3d(0, -300px, 0) rotateX(90deg);
+}
+/* line 17, ../sass/modules/_building.scss */
+.b .back {
+  -webkit-transform: translate3d(0, -150px, -75px) rotateY(180deg);
+  -moz-transform: translate3d(0, -150px, -75px) rotateY(180deg);
+  -ms-transform: translate3d(0, -150px, -75px) rotateY(180deg);
+  -o-transform: translate3d(0, -150px, -75px) rotateY(180deg);
+  transform: translate3d(0, -150px, -75px) rotateY(180deg);
+}
+/* line 18, ../sass/modules/_building.scss */
+.b .front {
+  -webkit-transform: translate3d(0, -150px, 75px) rotateY(0deg);
+  -moz-transform: translate3d(0, -150px, 75px) rotateY(0deg);
+  -ms-transform: translate3d(0, -150px, 75px) rotateY(0deg);
+  -o-transform: translate3d(0, -150px, 75px) rotateY(0deg);
+  transform: translate3d(0, -150px, 75px) rotateY(0deg);
+}
+/* line 20, ../sass/modules/_building.scss */
+.b .left {
+  -webkit-transform: translate3d(-150px, -150px, 0) rotateY(-90deg);
+  -moz-transform: translate3d(-150px, -150px, 0) rotateY(-90deg);
+  -ms-transform: translate3d(-150px, -150px, 0) rotateY(-90deg);
+  -o-transform: translate3d(-150px, -150px, 0) rotateY(-90deg);
+  transform: translate3d(-150px, -150px, 0) rotateY(-90deg);
+}
+/* line 21, ../sass/modules/_building.scss */
+.b .right {
+  -webkit-transform: translate3d(150px, -150px, 0) rotateY(90deg);
+  -moz-transform: translate3d(150px, -150px, 0) rotateY(90deg);
+  -ms-transform: translate3d(150px, -150px, 0) rotateY(90deg);
+  -o-transform: translate3d(150px, -150px, 0) rotateY(90deg);
+  transform: translate3d(150px, -150px, 0) rotateY(90deg);
+}
+/* line 43, ../sass/modules/_building.scss */
+.b .top {
+  width: 270px;
+  height: 120px;
+  margin-left: -135px;
+  margin-top: -60px;
+  -webkit-transform: translate3d(0, -285px, 0) rotateX(90deg);
+  -moz-transform: translate3d(0, -285px, 0) rotateX(90deg);
+  -ms-transform: translate3d(0, -285px, 0) rotateX(90deg);
+  -o-transform: translate3d(0, -285px, 0) rotateX(90deg);
+  transform: translate3d(0, -285px, 0) rotateX(90deg);
+}
+/* line 59, ../sass/modules/_building.scss */
+.b .back-top,
+.b .front-top {
+  width: 300px;
+  height: 15px;
+  margin-left: -150px;
+  margin-top: -7.5px;
+}
+/* line 67, ../sass/modules/_building.scss */
+.b .back-top {
+  -webkit-transform: translate3d(0, -300px, -67.5px) rotateX(90deg) rotateZ(180deg);
+  -moz-transform: translate3d(0, -300px, -67.5px) rotateX(90deg) rotateZ(180deg);
+  -ms-transform: translate3d(0, -300px, -67.5px) rotateX(90deg) rotateZ(180deg);
+  -o-transform: translate3d(0, -300px, -67.5px) rotateX(90deg) rotateZ(180deg);
+  transform: translate3d(0, -300px, -67.5px) rotateX(90deg) rotateZ(180deg);
+}
+/* line 68, ../sass/modules/_building.scss */
+.b .front-top {
+  -webkit-transform: translate3d(0, -300px, 67.5px) rotateX(90deg) rotateZ(0deg);
+  -moz-transform: translate3d(0, -300px, 67.5px) rotateX(90deg) rotateZ(0deg);
+  -ms-transform: translate3d(0, -300px, 67.5px) rotateX(90deg) rotateZ(0deg);
+  -o-transform: translate3d(0, -300px, 67.5px) rotateX(90deg) rotateZ(0deg);
+  transform: translate3d(0, -300px, 67.5px) rotateX(90deg) rotateZ(0deg);
+}
+/* line 71, ../sass/modules/_building.scss */
+.b .left-top,
+.b .right-top {
+  width: 120px;
+  height: 15px;
+  margin-left: -60px;
+  margin-top: -7.5px;
+}
+/* line 79, ../sass/modules/_building.scss */
+.b .left-top {
+  -webkit-transform: translate3d(-142.5px, -300px, 0) rotateX(90deg) rotateZ(90deg);
+  -moz-transform: translate3d(-142.5px, -300px, 0) rotateX(90deg) rotateZ(90deg);
+  -ms-transform: translate3d(-142.5px, -300px, 0) rotateX(90deg) rotateZ(90deg);
+  -o-transform: translate3d(-142.5px, -300px, 0) rotateX(90deg) rotateZ(90deg);
+  transform: translate3d(-142.5px, -300px, 0) rotateX(90deg) rotateZ(90deg);
+}
+/* line 80, ../sass/modules/_building.scss */
+.b .right-top {
+  -webkit-transform: translate3d(142.5px, -300px, 0) rotateX(90deg) rotateZ(-90deg);
+  -moz-transform: translate3d(142.5px, -300px, 0) rotateX(90deg) rotateZ(-90deg);
+  -ms-transform: translate3d(142.5px, -300px, 0) rotateX(90deg) rotateZ(-90deg);
+  -o-transform: translate3d(142.5px, -300px, 0) rotateX(90deg) rotateZ(-90deg);
+  transform: translate3d(142.5px, -300px, 0) rotateX(90deg) rotateZ(-90deg);
+}
+/* line 87, ../sass/modules/_building.scss */
+.b .back-interior,
+.b .front-interior {
+  width: 270px;
+  height: 15px;
+  margin-left: -135px;
+  margin-top: -7.5px;
+}
+/* line 95, ../sass/modules/_building.scss */
+.b .back-interior {
+  -webkit-transform: translate3d(0, -292.5px, -60px) rotateY(0deg);
+  -moz-transform: translate3d(0, -292.5px, -60px) rotateY(0deg);
+  -ms-transform: translate3d(0, -292.5px, -60px) rotateY(0deg);
+  -o-transform: translate3d(0, -292.5px, -60px) rotateY(0deg);
+  transform: translate3d(0, -292.5px, -60px) rotateY(0deg);
+}
+/* line 96, ../sass/modules/_building.scss */
+.b .front-interior {
+  -webkit-transform: translate3d(0, -292.5px, 60px) rotateY(180deg);
+  -moz-transform: translate3d(0, -292.5px, 60px) rotateY(180deg);
+  -ms-transform: translate3d(0, -292.5px, 60px) rotateY(180deg);
+  -o-transform: translate3d(0, -292.5px, 60px) rotateY(180deg);
+  transform: translate3d(0, -292.5px, 60px) rotateY(180deg);
+}
+/* line 99, ../sass/modules/_building.scss */
+.b .left-interior,
+.b .right-interior {
+  width: 120px;
+  height: 15px;
+  margin-left: -60px;
+  margin-top: -7.5px;
+}
+/* line 107, ../sass/modules/_building.scss */
+.b .left-interior {
+  -webkit-transform: translate3d(-135px, -292.5px, 0) rotateY(90deg);
+  -moz-transform: translate3d(-135px, -292.5px, 0) rotateY(90deg);
+  -ms-transform: translate3d(-135px, -292.5px, 0) rotateY(90deg);
+  -o-transform: translate3d(-135px, -292.5px, 0) rotateY(90deg);
+  transform: translate3d(-135px, -292.5px, 0) rotateY(90deg);
+}
+/* line 108, ../sass/modules/_building.scss */
+.b .right-interior {
+  -webkit-transform: translate3d(135px, -292.5px, 0) rotateY(-90deg);
+  -moz-transform: translate3d(135px, -292.5px, 0) rotateY(-90deg);
+  -ms-transform: translate3d(135px, -292.5px, 0) rotateY(-90deg);
+  -o-transform: translate3d(135px, -292.5px, 0) rotateY(-90deg);
+  transform: translate3d(135px, -292.5px, 0) rotateY(-90deg);
+}

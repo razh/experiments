@@ -1,6 +1,14 @@
-mixin faces
-  each direction in [ 'top', 'bottom', 'back', 'front', 'left', 'right' ]
+mixin faces(directions)
+  each direction in directions
     div(class='face ' + direction)
+
+mixin building
+  +faces(['top', 'back', 'front', 'left', 'right'])
+
+mixin building-edged-roof
+  +building
+  +faces(['front-top', 'back-top', 'left-top', 'right-top'])
+  +faces(['front-interior', 'back-interior', 'left-interior', 'right-interior'])
 
 !!! 5
 html(lang='en')
@@ -10,3 +18,10 @@ html(lang='en')
 
     link(rel='stylesheet', href='./stylesheets/city-3d_02.css')
   body(ontouchstart='')
+    .container
+      .scene.rotatable
+        .building
+          .a
+            +building-edged-roof()
+          .b
+            +building-edged-roof()
