@@ -1,0 +1,12 @@
+mixin faces
+  each direction in [ 'top', 'bottom', 'back', 'front', 'left', 'right' ]
+    div(class='face ' + direction)
+
+!!! 5
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title City 3D 02
+
+    link(rel='stylesheet', href='./stylesheets/city-3d_02.css')
+  body(ontouchstart='')
