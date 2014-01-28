@@ -107,3 +107,52 @@
   .left-interior  { @include transform(translate3d(-$halfWidthInterior, $y-interior, 0) rotateY( 90deg)); }
   .right-interior { @include transform(translate3d( $halfWidthInterior, $y-interior, 0) rotateY(-90deg)); }
 }
+
+/**
+ * A building missing the back left corner.
+ */
+@mixin building-missing-corner($width, $height, $depth, $clipWidth, $clipDepth) {
+  @include building($width, $height, $depth);
+
+  $halfWidth:  0.5 * $width;
+  $halfHeight: 0.5 * $height;
+  $halfDepth:  0.5 * $depth;
+
+  $shortWidth: $width - $clipWidth;
+  $shortDepth: $depth - $clipDepth;
+
+  $halfShortWidth: 0.5 * $shortWidth;
+  $halfShortDepth: 0.5 * $shortDepth;
+
+  $halfClipWidth: 0.5 * $clipWidth;
+  $halfClipDepth: 0.5 * $clipDepth;
+
+  .top {
+    height: $shortDepth;
+    margin-top: -$halfShortDepth;
+    // margin-top: $shortDepth + $halfDepth;
+    @include transform(translate3d(0, -$height, $halfClipDepth) rotateX(90deg));
+  }
+
+  // The shorter (width) top face.
+  .short {
+    width: $shortWidth;
+    height: $clipDepth;
+
+    margin-left: $clipWidth - $shortWidth;
+    margin-top: $clipDepth;
+    @include transform(translate3d($halfClipWidth - $halfShortWidth, -$height, -$halfShortDepth) rotateX(90deg));
+
+  }
+
+  .back {
+    width: $shortWidth;
+    margin-left: $halfWidth - $shortWidth;
+  }
+
+  .left {
+    width: $shortDepth;
+    margin-left: -$clipDepth;
+    @include transform-origin(0, 0, 0);
+  }
+}

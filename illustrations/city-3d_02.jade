@@ -10,6 +10,10 @@ mixin building-edged-roof
   +faces(['front-top', 'back-top', 'left-top', 'right-top'])
   +faces(['front-interior', 'back-interior', 'left-interior', 'right-interior'])
 
+mixin building-missing-corner
+  +building
+  div(class='face top short')
+
 !!! 5
 html(lang='en')
   head
@@ -21,7 +25,4 @@ html(lang='en')
     .container
       .scene.rotatable
         .building
-          .a
-            +building-edged-roof()
-          .b
-            +building-edged-roof()
+          +building-missing-corner()

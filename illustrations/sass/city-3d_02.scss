@@ -51,18 +51,14 @@ $bottom-color: rgba(  0,   0,   0, 1);
   .right-interior { background-color: $left-color; }
 }
 
-.a {
+.building {
   @include transform(translate3d(300px, 400px, 0));
   @include transform-style(preserve-3d);
-  @include building-edged-roof(300px, 200px, 150px, 15px, 15px);
+  @include building-missing-corner(300px, 200px, 150px, 100px, 50px);
+  // @include building(300px, 200px, 150px);
   @include simple-face-shading();
-  @include simple-face-shading-edged-roof();
-}
 
-
-.b {
-  @extend .a;
-  @include transform(translate3d(350px, 400px, -50px));
-  @include transform-style(preserve-3d);
-  @include building-edged-roof(300px, 300px, 150px, 15px, 15px);
+  .short {
+    background-color: red;
+  }
 }

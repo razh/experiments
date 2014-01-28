@@ -97,6 +97,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
  * A building with an edged roof insets the top edge and adds
  * border faces (top and interior sides).
  */
+/**
+ * A building missing the back left corner.
+ */
 /* line 12, ../sass/city-3d.scss */
 html, body {
   height: 100%;
