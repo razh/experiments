@@ -54,11 +54,20 @@ $bottom-color: rgba(  0,   0,   0, 1);
 .building {
   @include transform(translate3d(300px, 400px, 0));
   @include transform-style(preserve-3d);
-  @include building-missing-corner(300px, 200px, 150px, 100px, 50px);
-  // @include building(300px, 200px, 150px);
-  @include simple-face-shading();
 
-  .short {
-    background-color: red;
+  .a {
+    @include building-missing-corner(300px, 200px, 150px, 120px, 60px);
+    @include simple-face-shading();
+
+    .short {
+      background-color: red;
+    }
+  }
+
+  .b {
+    @include building(120px, 300px, 60px);
+    @include transform(translate3d(-0.5 * (300px - 120px), 0, -0.5 * (150px - 60px)));
+    @include simple-face-shading();
+    opacity: 0.2;
   }
 }

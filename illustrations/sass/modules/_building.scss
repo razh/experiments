@@ -127,10 +127,21 @@
   $halfClipWidth: 0.5 * $clipWidth;
   $halfClipDepth: 0.5 * $clipDepth;
 
+  .back {
+    width: $shortWidth;
+    margin-left: -$halfShortWidth;
+     @include transform(translate3d($halfClipWidth, -$halfHeight, -$halfDepth) rotateY(180deg));
+  }
+
+  .left {
+    width: $shortDepth;
+    margin-left: -$halfShortDepth;
+    @include transform(translate3d(-$halfWidth, -$halfHeight, $halfClipDepth) rotateY(-90deg));
+  }
+
   .top {
     height: $shortDepth;
     margin-top: -$halfShortDepth;
-    // margin-top: $shortDepth + $halfDepth;
     @include transform(translate3d(0, -$height, $halfClipDepth) rotateX(90deg));
   }
 
@@ -139,20 +150,9 @@
     width: $shortWidth;
     height: $clipDepth;
 
-    margin-left: $clipWidth - $shortWidth;
-    margin-top: $clipDepth;
-    @include transform(translate3d($halfClipWidth - $halfShortWidth, -$height, -$halfShortDepth) rotateX(90deg));
+    margin-left: -$halfShortWidth;
+    margin-top: -$halfClipDepth;
 
-  }
-
-  .back {
-    width: $shortWidth;
-    margin-left: $halfWidth - $shortWidth;
-  }
-
-  .left {
-    width: $shortDepth;
-    margin-left: -$clipDepth;
-    @include transform-origin(0, 0, 0);
+    @include transform(translate3d($halfClipWidth, -$height, -$halfShortDepth) rotateX(90deg));
   }
 }
