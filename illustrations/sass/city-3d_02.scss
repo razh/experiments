@@ -5,6 +5,7 @@
 
 html, body {
   height: 100%;
+  overflow-x: hidden;
 }
 
 .scene {
@@ -38,7 +39,6 @@ $bottom-color: rgba(  0,   0,   0, 1);
   .bottom { background-color: $bottom-color; }
 }
 
-
 @mixin simple-face-shading-edged-roof() {
   .back-top { background-color: $top-color }
   .front-top { background-color: $top-color; }
@@ -52,7 +52,7 @@ $bottom-color: rgba(  0,   0,   0, 1);
 }
 
 .building {
-  @include transform(translate3d(300px, 400px, 0));
+  @include transform(translate3d(50%, 400px, 0));
   @include transform-style(preserve-3d);
 
   .a {
