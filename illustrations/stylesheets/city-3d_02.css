@@ -145,6 +145,10 @@ html, body {
   -ms-transform-style: preserve-3d;
   -o-transform-style: preserve-3d;
   transform-style: preserve-3d;
+  /**
+   * If the clipWidth or clipDepth is 0,
+   * don't change the dimensions of the top face.
+   */
 }
 /* line 21, ../sass/modules/_box.scss */
 .building .a .face {
@@ -279,7 +283,7 @@ html, body {
   -o-transform: translate3d(-150px, -100px, 30px) rotateY(-90deg);
   transform: translate3d(-150px, -100px, 30px) rotateY(-90deg);
 }
-/* line 142, ../sass/modules/_building.scss */
+/* line 147, ../sass/modules/_building.scss */
 .building .a .top {
   height: 90px;
   margin-top: -45px;
@@ -289,7 +293,7 @@ html, body {
   -o-transform: translate3d(0, -200px, 30px) rotateX(90deg);
   transform: translate3d(0, -200px, 30px) rotateX(90deg);
 }
-/* line 149, ../sass/modules/_building.scss */
+/* line 154, ../sass/modules/_building.scss */
 .building .a .short {
   width: 180px;
   height: 60px;

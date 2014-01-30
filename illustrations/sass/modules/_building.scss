@@ -139,20 +139,26 @@
     @include transform(translate3d(-$halfWidth, -$halfHeight, $halfClipDepth) rotateY(-90deg));
   }
 
-  .top {
-    height: $shortDepth;
-    margin-top: -$halfShortDepth;
-    @include transform(translate3d(0, -$height, $halfClipDepth) rotateX(90deg));
-  }
+  /**
+   * If the clipWidth or clipDepth is 0,
+   * don't change the dimensions of the top face.
+   */
+  @if $clipWidth != 0 and $clipDepth != 0 {
+    .top {
+      height: $shortDepth;
+      margin-top: -$halfShortDepth;
+      @include transform(translate3d(0, -$height, $halfClipDepth) rotateX(90deg));
+    }
 
-  // The shorter (width) top face.
-  .short {
-    width: $shortWidth;
-    height: $clipDepth;
+    // The shorter (width) top face.
+    .short {
+      width: $shortWidth;
+      height: $clipDepth;
 
-    margin-left: -$halfShortWidth;
-    margin-top: -$halfClipDepth;
+      margin-left: -$halfShortWidth;
+      margin-top: -$halfClipDepth;
 
-    @include transform(translate3d($halfClipWidth, -$height, -$halfShortDepth) rotateX(90deg));
+      @include transform(translate3d($halfClipWidth, -$height, -$halfShortDepth) rotateX(90deg));
+    }
   }
 }
