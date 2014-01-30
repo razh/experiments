@@ -79,4 +79,11 @@ $bottom-color: rgba(  0,   0,   0, 1.0);
     @include simple-face-shading();
     opacity: 0.2;
   }
+
+  // A basic extended edged roof example.
+  .c {
+    @include building-edged-roof(125px, 10px, 65px, 10px, 10px);
+    @include transform(translate3d(0, -300px, 0));
+    @include simple-face-shading-edged-roof();
+  }
 }

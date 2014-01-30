@@ -5,10 +5,18 @@ mixin faces(directions)
 mixin building
   +faces(['top', 'back', 'front', 'left', 'right'])
 
-mixin building-edged-roof
-  +building
+mixin edged-roof
   +faces(['front-top', 'back-top', 'left-top', 'right-top'])
   +faces(['front-interior', 'back-interior', 'left-interior', 'right-interior'])
+
+mixin building-edged-roof
+  +building
+  +edged-roof
+
+//- Only the edge, with no top face.
+mixin edged-roof-extension
+  +faces(['back', 'front', 'left', 'right'])
+  +edged-roof
 
 mixin building-missing-corner
   +building
@@ -29,4 +37,7 @@ html(lang='en')
             +building-missing-corner()
           .b
             +building()
+            .c
+              +edged-roof-extension()
+
 
