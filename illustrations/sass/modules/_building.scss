@@ -176,37 +176,40 @@
   $halfHeight: 0.5 * $height;
   $halfDepth:  0.5 * $depth;
 
-  // Edged roof variables.
-  $widthInterior: $width - 2 * $edgeWidth;
-  $depthInterior: $depth - 2 * $edgeWidth;
-
-  $halfWidthInterior: 0.5 * $widthInterior;
-  $halfDepthInterior: 0.5 * $depthInterior;
-
-  $halfEdgeWidth:  0.5 * $edgeWidth;
-  $halfEdgeHeight: 0.5 * $edgeHeight;
-
-  // Missing corner variables.
-  $shortWidth: $width - $clipWidth;
-  $shortDepth: $depth - $clipDepth;
-
-  $halfShortWidth: 0.5 * $shortWidth;
-  $halfShortDepth: 0.5 * $shortDepth;
-
-  $halfClipWidth: 0.5 * $clipWidth;
-  $halfClipDepth: 0.5 * $clipDepth;
-
-  // Combination variables.
-  $clipDepthInterior: $clipDepth - $edgeWidth;
-  $halfClipDepthInterior: 0.5 * $clipDepthInterior;
-
-  $shortWidthInterior: $shortWidth - $edgeWidth;
-  $shortDepthInterior: $shortDepth - $edgeWidth;
-
-  $halfShortWidthInterior: 0.5 * $shortWidthInterior;
-  $halfShortDepthInterior: 0.5 * $shortDepthInterior;
-
   @if $clipWidth != 0 and $clipDepth != 0 {
+    // Edged roof variables.
+    $widthInterior: $width - 2 * $edgeWidth;
+    $depthInterior: $depth - 2 * $edgeWidth;
+
+    $halfWidthInterior: 0.5 * $widthInterior;
+    $halfDepthInterior: 0.5 * $depthInterior;
+
+    $halfEdgeWidth:  0.5 * $edgeWidth;
+    $halfEdgeHeight: 0.5 * $edgeHeight;
+
+    // Missing corner variables.
+    $shortWidth: $width - $clipWidth;
+    $shortDepth: $depth - $clipDepth;
+
+    $halfShortWidth: 0.5 * $shortWidth;
+    $halfShortDepth: 0.5 * $shortDepth;
+
+    $halfClipWidth: 0.5 * $clipWidth;
+    $halfClipDepth: 0.5 * $clipDepth;
+
+    // Combination variables.
+    $clipWidthInterior: $clipWidth - $edgeWidth;
+    $clipDepthInterior: $clipDepth - $edgeWidth;
+
+    $halfClipWidthInterior: 0.5 * $clipWidthInterior;
+    $halfClipDepthInterior: 0.5 * $clipDepthInterior;
+
+    $shortWidthInterior: $shortWidth - $edgeWidth;
+    $shortDepthInterior: $shortDepth - $edgeWidth;
+
+    $halfShortWidthInterior: 0.5 * $shortWidthInterior;
+    $halfShortDepthInterior: 0.5 * $shortDepthInterior;
+
     .top {
       width:  $widthInterior;
       height: $shortDepthInterior;
@@ -214,18 +217,19 @@
       margin-left: -$halfWidthInterior;
       margin-top:  -$halfShortDepthInterior;
 
-      @include transform(translate3d(0, -$height + $edgeHeight, $halfClipDepth - $halfEdgeWidth) rotateX(90deg));
+      @include transform(translate3d(0, -$height + $edgeHeight, $halfClipDepthInterior) rotateX(90deg));
     }
 
     .short {
-      width: $shortWidthInterior;
+      width:  $shortWidthInterior;
       height: $clipDepthInterior;
 
       margin-left: -$halfShortWidthInterior;
-      margin-top: -$halfClipDepthInterior;
+      margin-top:  -$halfClipDepthInterior;
 
-      @include transform(translate3d($halfClipWidth - $halfEdgeWidth, -$height + $edgeHeight, -$halfShortDepthInterior) rotateX(90deg));
+      @include transform(translate3d($halfClipWidthInterior, -$height + $edgeHeight, -$halfShortDepthInterior) rotateX(90deg));
     }
+
 
     // Faces on the top of the buildng edge.
     $x-top: $halfWidth - $halfEdgeWidth;
@@ -240,7 +244,7 @@
     .left-top {
       width: $shortDepthInterior;
       margin-left: -$halfShortDepthInterior;
-      @include transform(translate3d(-$x-top, -$height, $halfClipDepth - $halfEdgeWidth) rotateX(90deg) rotateZ(90deg));
+      @include transform(translate3d(-$x-top, -$height, $halfClipDepthInterior) rotateX(90deg) rotateZ(90deg));
     }
 
 
@@ -250,13 +254,13 @@
     .back-interior {
       width: $shortWidthInterior;
       margin-left: -$halfShortWidthInterior;
-      @include transform(translate3d($halfClipWidth - $halfEdgeWidth, $y-interior, -$halfDepthInterior) rotateY(0deg));
+      @include transform(translate3d($halfClipWidthInterior, $y-interior, -$halfDepthInterior) rotateY(0deg));
     }
 
     .left-interior {
       width: $shortDepthInterior;
       margin-left: -$halfShortDepthInterior;
-      @include transform(translate3d(-$halfWidthInterior, $y-interior, $halfClipDepth - $halfEdgeWidth) rotateY( 90deg));
+      @include transform(translate3d(-$halfWidthInterior, $y-interior, $halfClipDepthInterior) rotateY( 90deg));
     }
   }
 }

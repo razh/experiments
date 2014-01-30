@@ -1197,7 +1197,7 @@ html, body {
   -o-transform: translate3d(60px, -200px, -45px) rotateX(90deg);
   transform: translate3d(60px, -200px, -45px) rotateX(90deg);
 }
-/* line 210, ../sass/modules/_building.scss */
+/* line 213, ../sass/modules/_building.scss */
 .building .d .top {
   width: 270px;
   height: 75px;
@@ -1209,7 +1209,7 @@ html, body {
   -o-transform: translate3d(0, -185px, 22.5px) rotateX(90deg);
   transform: translate3d(0, -185px, 22.5px) rotateX(90deg);
 }
-/* line 220, ../sass/modules/_building.scss */
+/* line 223, ../sass/modules/_building.scss */
 .building .d .short {
   width: 165px;
   height: 45px;
@@ -1221,7 +1221,7 @@ html, body {
   -o-transform: translate3d(52.5px, -185px, -37.5px) rotateX(90deg);
   transform: translate3d(52.5px, -185px, -37.5px) rotateX(90deg);
 }
-/* line 234, ../sass/modules/_building.scss */
+/* line 238, ../sass/modules/_building.scss */
 .building .d .back-top {
   width: 180px;
   margin-left: -90px;
@@ -1231,7 +1231,7 @@ html, body {
   -o-transform: translate3d(60px, -200px, -67.5px) rotateX(90deg) rotateZ(180deg);
   transform: translate3d(60px, -200px, -67.5px) rotateX(90deg) rotateZ(180deg);
 }
-/* line 240, ../sass/modules/_building.scss */
+/* line 244, ../sass/modules/_building.scss */
 .building .d .left-top {
   width: 75px;
   margin-left: -37.5px;
@@ -1241,7 +1241,7 @@ html, body {
   -o-transform: translate3d(-142.5px, -200px, 22.5px) rotateX(90deg) rotateZ(90deg);
   transform: translate3d(-142.5px, -200px, 22.5px) rotateX(90deg) rotateZ(90deg);
 }
-/* line 250, ../sass/modules/_building.scss */
+/* line 254, ../sass/modules/_building.scss */
 .building .d .back-interior {
   width: 165px;
   margin-left: -82.5px;
@@ -1251,7 +1251,7 @@ html, body {
   -o-transform: translate3d(52.5px, -192.5px, -60px) rotateY(0deg);
   transform: translate3d(52.5px, -192.5px, -60px) rotateY(0deg);
 }
-/* line 256, ../sass/modules/_building.scss */
+/* line 260, ../sass/modules/_building.scss */
 .building .d .left-interior {
   width: 75px;
   margin-left: -37.5px;
