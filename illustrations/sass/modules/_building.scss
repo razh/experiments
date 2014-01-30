@@ -1,4 +1,5 @@
 @import "box";
+
 /**
  * A building is a box without a bottom face. Unlike a box, which is centered on
  * the origin, the building's bottom has a y-coordinate of 0.
@@ -130,7 +131,7 @@
   .back {
     width: $shortWidth;
     margin-left: -$halfShortWidth;
-     @include transform(translate3d($halfClipWidth, -$halfHeight, -$halfDepth) rotateY(180deg));
+    @include transform(translate3d($halfClipWidth, -$halfHeight, -$halfDepth) rotateY(180deg));
   }
 
   .left {
@@ -159,6 +160,103 @@
       margin-top: -$halfClipDepth;
 
       @include transform(translate3d($halfClipWidth, -$height, -$halfShortDepth) rotateX(90deg));
+    }
+  }
+}
+
+@mixin building-edged-roof-missing-corner(
+  $width, $height, $depth,
+  $edgeWidth, $edgeHeight,
+  $clipWidth, $clipDepth
+) {
+  @include building-edged-roof($width, $height, $depth, $edgeWidth, $edgeHeight);
+  @include building-missing-corner($width, $height, $depth, $clipWidth, $clipDepth);
+
+  $halfWidth:  0.5 * $width;
+  $halfHeight: 0.5 * $height;
+  $halfDepth:  0.5 * $depth;
+
+  // Edged roof variables.
+  $widthInterior: $width - 2 * $edgeWidth;
+  $depthInterior: $depth - 2 * $edgeWidth;
+
+  $halfWidthInterior: 0.5 * $widthInterior;
+  $halfDepthInterior: 0.5 * $depthInterior;
+
+  $halfEdgeWidth:  0.5 * $edgeWidth;
+  $halfEdgeHeight: 0.5 * $edgeHeight;
+
+  // Missing corner variables.
+  $shortWidth: $width - $clipWidth;
+  $shortDepth: $depth - $clipDepth;
+
+  $halfShortWidth: 0.5 * $shortWidth;
+  $halfShortDepth: 0.5 * $shortDepth;
+
+  $halfClipWidth: 0.5 * $clipWidth;
+  $halfClipDepth: 0.5 * $clipDepth;
+
+  // Combination variables.
+  $clipDepthInterior: $clipDepth - $edgeWidth;
+  $halfClipDepthInterior: 0.5 * $clipDepthInterior;
+
+  $shortWidthInterior: $shortWidth - $edgeWidth;
+  $shortDepthInterior: $shortDepth - $edgeWidth;
+
+  $halfShortWidthInterior: 0.5 * $shortWidthInterior;
+  $halfShortDepthInterior: 0.5 * $shortDepthInterior;
+
+  @if $clipWidth != 0 and $clipDepth != 0 {
+    .top {
+      width:  $widthInterior;
+      height: $shortDepthInterior;
+
+      margin-left: -$halfWidthInterior;
+      margin-top:  -$halfShortDepthInterior;
+
+      @include transform(translate3d(0, -$height + $edgeHeight, $halfClipDepth - $halfEdgeWidth) rotateX(90deg));
+    }
+
+    .short {
+      width: $shortWidthInterior;
+      height: $clipDepthInterior;
+
+      margin-left: -$halfShortWidthInterior;
+      margin-top: -$halfClipDepthInterior;
+
+      @include transform(translate3d($halfClipWidth - $halfEdgeWidth, -$height + $edgeHeight, -$halfShortDepthInterior) rotateX(90deg));
+    }
+
+    // Faces on the top of the buildng edge.
+    $x-top: $halfWidth - $halfEdgeWidth;
+    $z-top: $halfDepth - $halfEdgeWidth;
+
+    .back-top {
+      width: $shortWidth;
+      margin-left: -$halfShortWidth;
+      @include transform(translate3d($halfClipWidth, -$height, -$z-top) rotateX(90deg) rotateZ(180deg));
+    }
+
+    .left-top {
+      width: $shortDepthInterior;
+      margin-left: -$halfShortDepthInterior;
+      @include transform(translate3d(-$x-top, -$height, $halfClipDepth - $halfEdgeWidth) rotateX(90deg) rotateZ(90deg));
+    }
+
+
+    // Faces on the interior of the building edge.
+    $y-interior: -$height + $halfEdgeHeight;
+
+    .back-interior {
+      width: $shortWidthInterior;
+      margin-left: -$halfShortWidthInterior;
+      @include transform(translate3d($halfClipWidth - $halfEdgeWidth, $y-interior, -$halfDepthInterior) rotateY(0deg));
+    }
+
+    .left-interior {
+      width: $shortDepthInterior;
+      margin-left: -$halfShortDepthInterior;
+      @include transform(translate3d(-$halfWidthInterior, $y-interior, $halfClipDepth - $halfEdgeWidth) rotateY( 90deg));
     }
   }
 }

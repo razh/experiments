@@ -22,6 +22,10 @@ mixin building-missing-corner
   +building
   div(class='face top short')
 
+mixin building-edged-roof-missing-corner
+  +building-missing-corner
+  +edged-roof
+
 !!! 5
 html(lang='en')
   head
@@ -39,5 +43,11 @@ html(lang='en')
             +building()
             .c
               +edged-roof-extension()
+    .container
+      .scene.rotatable
+        .building
+          .d
+            +building-edged-roof-missing-corner()
+
 
 

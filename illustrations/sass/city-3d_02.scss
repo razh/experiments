@@ -59,10 +59,14 @@ $bottom-color: rgba(  0,   0,   0, 1.0);
   .left  { background: linear-gradient($top-color, $front-color); }
 }
 
+// Basic template.
 .building {
   @include transform(translate3d(50%, 400px, 0));
   @include transform-style(preserve-3d);
+}
 
+// First scene.
+.building {
   .a {
     @include building-missing-corner(300px, 200px, 150px, 120px, 60px);
     @include simple-face-shading();
@@ -85,5 +89,15 @@ $bottom-color: rgba(  0,   0,   0, 1.0);
     @include building-edged-roof(125px, 10px, 65px, 10px, 10px);
     @include transform(translate3d(0, -300px, 0));
     @include simple-face-shading-edged-roof();
+  }
+}
+
+// Second scene.
+.building {
+  .d {
+    @include simple-face-shading-edged-roof();
+    @include building-edged-roof-missing-corner(300px, 200px, 150px, 15px, 15px, 120px, 60px);
+    @include simple-face-shading();
+    @include gradient-face-shading();
   }
 }
