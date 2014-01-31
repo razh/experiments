@@ -479,7 +479,9 @@
         return null;
       }
 
-      return str.substring( prefixLen, str.length - matSuffixLen ).split( ', ' );
+      return str.substring( prefixLen, str.length - matSuffixLen )
+        .split( ', ' )
+        .map( parseFloat );
     }
 
     var formGroups = [].slice.call( document.getElementsByClassName( 'form-group' ) );
@@ -503,10 +505,6 @@
 
         var matrix = extractMatrix( transformString );
         if ( matrix && matrix.length ) {
-          matrix = matrix.map(function( value ) {
-            return parseFloat( value );
-          });
-
           // In matrix(a, b, c, d, tx, ty) shorthand form.
           if ( matrix.length === 6 ) {
             matrix = matrixToMatrix3D( matrix );
