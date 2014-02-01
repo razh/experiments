@@ -1,3 +1,7 @@
+/**
+ * Applies mouse-based 180-degree vertical and horizontal rotation to the
+ * first '.body' element in the document.
+ */
 (function( window, document, undefined ) {
   'use strict';
 
