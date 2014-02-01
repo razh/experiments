@@ -125,7 +125,7 @@ html, body {
   transform-style: preserve-3d;
 }
 
-/* line 63, ../sass/city-3d_02.scss */
+/* line 65, ../sass/city-3d_02.scss */
 .building {
   -webkit-transform: translate3d(50%, 400px, 0);
   -moz-transform: translate3d(50%, 400px, 0);
@@ -139,7 +139,7 @@ html, body {
   transform-style: preserve-3d;
 }
 
-/* line 70, ../sass/city-3d_02.scss */
+/* line 72, ../sass/city-3d_02.scss */
 .building .a {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -330,31 +330,31 @@ html, body {
 .building .a .bottom {
   background-color: black;
 }
-/* line 55, ../sass/city-3d_02.scss */
+/* line 57, ../sass/city-3d_02.scss */
 .building .a .top {
   background-color: #e0e0e0;
 }
-/* line 56, ../sass/city-3d_02.scss */
+/* line 58, ../sass/city-3d_02.scss */
 .building .a .front {
   background: linear-gradient(#c0c0c0, #909090);
 }
-/* line 57, ../sass/city-3d_02.scss */
+/* line 59, ../sass/city-3d_02.scss */
 .building .a .back {
   background: linear-gradient(#c0c0c0, #909090);
 }
-/* line 58, ../sass/city-3d_02.scss */
+/* line 60, ../sass/city-3d_02.scss */
 .building .a .right {
   background: linear-gradient(#c0c0c0, #909090);
 }
-/* line 59, ../sass/city-3d_02.scss */
+/* line 61, ../sass/city-3d_02.scss */
 .building .a .left {
   background: linear-gradient(#c0c0c0, #909090);
 }
-/* line 75, ../sass/city-3d_02.scss */
+/* line 77, ../sass/city-3d_02.scss */
 .building .a .short {
   background-color: red;
 }
-/* line 80, ../sass/city-3d_02.scss */
+/* line 82, ../sass/city-3d_02.scss */
 .building .b {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -505,7 +505,7 @@ html, body {
 .building .b .bottom {
   background-color: black;
 }
-/* line 88, ../sass/city-3d_02.scss */
+/* line 90, ../sass/city-3d_02.scss */
 .building .c {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -772,7 +772,7 @@ html, body {
   background-color: #202020;
 }
 
-/* line 97, ../sass/city-3d_02.scss */
+/* line 99, ../sass/city-3d_02.scss */
 .building .d {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -1285,23 +1285,23 @@ html, body {
 .building .d .bottom {
   background-color: black;
 }
-/* line 55, ../sass/city-3d_02.scss */
+/* line 57, ../sass/city-3d_02.scss */
 .building .d .top {
   background-color: #e0e0e0;
 }
-/* line 56, ../sass/city-3d_02.scss */
+/* line 58, ../sass/city-3d_02.scss */
 .building .d .front {
   background: linear-gradient(#c0c0c0, #909090);
 }
-/* line 57, ../sass/city-3d_02.scss */
+/* line 59, ../sass/city-3d_02.scss */
 .building .d .back {
   background: linear-gradient(#c0c0c0, #909090);
 }
-/* line 58, ../sass/city-3d_02.scss */
+/* line 60, ../sass/city-3d_02.scss */
 .building .d .right {
   background: linear-gradient(#c0c0c0, #909090);
 }
-/* line 59, ../sass/city-3d_02.scss */
+/* line 61, ../sass/city-3d_02.scss */
 .building .d .left {
   background: linear-gradient(#c0c0c0, #909090);
 }

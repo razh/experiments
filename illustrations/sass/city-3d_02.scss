@@ -40,19 +40,21 @@ $bottom-color: rgba(  0,   0,   0, 1.0);
 }
 
 @mixin simple-face-shading-edged-roof() {
-  .back-top { background-color: $top-color }
+  .back-top  { background-color: $top-color; }
   .front-top { background-color: $top-color; }
-  .left-top { background-color: $top-color; }
+  .left-top  { background-color: $top-color; }
   .right-top { background-color: $top-color; }
 
-  .back-interior { background-color: $front-color; }
+  .back-interior  { background-color: $front-color; }
   .front-interior { background-color: $back-color; }
-  .left-interior { background-color: $right-color; }
+  .left-interior  { background-color: $right-color; }
   .right-interior { background-color: $left-color; }
 }
 
+$gradient-top-color: rgba(224, 224, 224, 1.0);
+
 @mixin gradient-face-shading() {
-  .top   { background-color: rgba(224, 224, 224, 1.0); }
+  .top   { background-color: $gradient-top-color; }
   .front { background: linear-gradient($top-color, $front-color); }
   .back  { background: linear-gradient($top-color, $front-color); }
   .right { background: linear-gradient($top-color, $front-color); }
