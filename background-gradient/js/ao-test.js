@@ -43,10 +43,10 @@
       ctx.rect( 0, 0, WIDTH, HEIGHT );
 
       var grad = ctx.createLinearGradient( 0, 0, WIDTH, 0 );
-      grad.addColorStop( 0.00, 'rgb(116,  41,  41)' );
-      grad.addColorStop( 0.02, 'rgb(137,  59,  47)' );
-      grad.addColorStop( 0.07, 'rgb(164,  83,  41)' );
-      grad.addColorStop( 0.34, 'rgb(211, 112,  57)' );
+      grad.addColorStop( 0.00, 'rgb(112,  41,  41)' );
+      grad.addColorStop( 0.02, 'rgb(135,  59,  47)' );
+      grad.addColorStop( 0.07, 'rgb(167,  83,  41)' );
+      grad.addColorStop( 0.34, 'rgb(205, 112,  57)' );
       grad.addColorStop( 0.72, 'rgb(216, 128,  57)' );
       grad.addColorStop( 1.00, 'rgb(203, 112,  55)' );
 
