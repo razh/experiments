@@ -4,7 +4,8 @@
   var imageCanvas, imageContext;
   var gradientCanvas, gradientContext;
   var diffCanvas, diffContext;
-  var channelCanvas, channelContext;
+  var imgChannelCanvas, imgChannelContext;
+  var gradChannelCanvas, gradChannelContext;
 
   var image;
 
@@ -23,20 +24,26 @@
     diffCanvas  = document.getElementById( 'diff-canvas' );
     diffContext = diffCanvas.getContext( '2d' );
 
-    channelCanvas  = document.getElementById( 'channel-canvas' );
-    channelContext = channelCanvas.getContext( '2d' );
+    imgChannelCanvas  = document.getElementById( 'img-channel-canvas' );
+    imgChannelContext = imgChannelCanvas.getContext( '2d' );
+
+    gradChannelCanvas  = document.getElementById( 'grad-channel-canvas' );
+    gradChannelContext = gradChannelCanvas.getContext( '2d' );
 
     [
       imageCanvas,
-      gradientCanvas,
       diffCanvas,
-      channelCanvas
+      gradientCanvas,
+      imgChannelCanvas,
+      gradChannelCanvas
     ].forEach(function( canvas ) {
       canvas.width  = WIDTH;
       canvas.height = HEIGHT;
     });
 
-    channelCanvas.height = 64;
+    var channelsHeight = 255;
+    imgChannelCanvas.height  = channelsHeight;
+    gradChannelCanvas.height = channelsHeight;
 
     function drawGradient( ctx ) {
       ctx.beginPath();
@@ -44,9 +51,9 @@
 
       var grad = ctx.createLinearGradient( 0, 0, WIDTH, 0 );
       grad.addColorStop( 0.00, 'rgb(112,  41,  41)' );
-      grad.addColorStop( 0.02, 'rgb(135,  59,  47)' );
-      grad.addColorStop( 0.07, 'rgb(167,  83,  41)' );
-      grad.addColorStop( 0.34, 'rgb(205, 112,  57)' );
+      grad.addColorStop( 0.02, 'rgb(135,  59,  45)' );
+      grad.addColorStop( 0.07, 'rgb(167,  83,  53)' );
+      grad.addColorStop( 0.33, 'rgb(204, 113,  56)' );
       grad.addColorStop( 0.72, 'rgb(216, 128,  57)' );
       grad.addColorStop( 1.00, 'rgb(203, 112,  55)' );
 
@@ -116,7 +123,7 @@
 
         // Calculate index of pixel at (i, height).
         index = i + 4 * ( graphWidth * height );
-        graphData[ index + offset ] = value;
+        graphData[ index + offset ] = 255;
         graphData[ index + 3 ] = 255;
       }
 
@@ -130,11 +137,21 @@
       drawDiff( diffContext );
       console.log( averageCanvas( diffContext ) );
 
-      channelContext.fillStyle = '#000';
-      channelContext.fillRect( 0, 0, channelCanvas.width, channelCanvas.height );
-      graphChannel( channelContext, gradientContext, 0 );
-      graphChannel( channelContext, gradientContext, 1 );
-      graphChannel( channelContext, gradientContext, 2 );
+      [
+        [ imgChannelContext, imageContext ],
+        [ gradChannelContext, gradientContext ]
+      ].forEach(function( contexts ) {
+        var channelContext = contexts[0],
+            inputContext   = contexts[1];
+
+        var channelCanvas  = channelContext.canvas;
+
+        channelContext.fillStyle = '#000';
+        channelContext.fillRect( 0, 0, channelCanvas.width, channelCanvas.height );
+        graphChannel( channelContext, inputContext, 0 );
+        graphChannel( channelContext, inputContext, 1 );
+        graphChannel( channelContext, inputContext, 2 );
+      });
     };
   }) ();
 }) ( window, document );
