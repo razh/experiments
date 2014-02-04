@@ -116,7 +116,7 @@
 
         // Calculate index of pixel at (i, height).
         index = i + 4 * ( graphWidth * height );
-        graphData[ index ] = value;
+        graphData[ index + offset ] = value;
         graphData[ index + 3 ] = 255;
       }
 
@@ -133,6 +133,8 @@
       channelContext.fillStyle = '#000';
       channelContext.fillRect( 0, 0, channelCanvas.width, channelCanvas.height );
       graphChannel( channelContext, gradientContext, 0 );
+      graphChannel( channelContext, gradientContext, 1 );
+      graphChannel( channelContext, gradientContext, 2 );
     };
   }) ();
 }) ( window, document );
