@@ -84,6 +84,17 @@
     Game.instance = new Game();
     document.body.appendChild( Game.instance.canvas );
 
-    tick();
+    document.addEventListener( 'keydown', function( event ) {
+      // Space.
+      if ( event.which === 32 ) {
+        tick();
+      }
+
+      // ESC.
+      if ( event.which === 27 ) {
+        Game.instance.running = false;
+      }
+    });
+
   }) ();
 }) ( window, document );
