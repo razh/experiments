@@ -155,14 +155,15 @@
 
     document.addEventListener( 'keydown', function( event ) {
       // Space.
-      if ( event.which === 32 && !game.running ) {
-        game.running = true;
-        tick();
-      }
-
-      // ESC.
-      if ( event.which === 27 ) {
-        game.running = false;
+      if ( event.which === 32 ) {
+        if ( game.running ) {
+          // Pause.
+          game.running = false;
+        } else {
+          // Play.
+          game.running = true;
+          tick();
+        }
       }
     });
 
