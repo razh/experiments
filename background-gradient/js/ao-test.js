@@ -146,8 +146,7 @@
 
         var channelCanvas  = channelContext.canvas;
 
-        channelContext.fillStyle = '#000';
-        channelContext.fillRect( 0, 0, channelCanvas.width, channelCanvas.height );
+        channelContext.clearRect( 0, 0, channelCanvas.width, channelCanvas.height );
         graphChannel( channelContext, inputContext, 0 );
         graphChannel( channelContext, inputContext, 1 );
         graphChannel( channelContext, inputContext, 2 );
