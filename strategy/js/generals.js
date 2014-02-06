@@ -1,7 +1,8 @@
 (function( window, document, undefined ) {
   'use strict';
 
-  var PI2 = 2 * Math.PI;
+  var TWO_PI = 2 * Math.PI;
+  var HALF_PI = 0.5 * Math.PI;
 
   function Entity( x, y ) {
     this.x = x || 0;
@@ -47,6 +48,8 @@
 
   function Soldier( x, y ) {
     PhysicsEntity.call( this, x, y );
+
+    this.attacking = false;
   }
 
   Soldier.prototype = Object.create( PhysicsEntity.prototype );
@@ -60,8 +63,16 @@
 
     ctx.beginPath();
     ctx.moveTo( 0, 0 );
-    ctx.arc( 0, 0, 5, 0, PI2 );
+    ctx.arc( 0, 0, 5, 0, TWO_PI );
     ctx.closePath();
+
+    if ( this.attacking ) {
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc( 0, 0, 12, -0.5 * HALF_PI, 0.5 * HALF_PI );
+      ctx.stroke();
+    }
 
     ctx.restore();
 
@@ -178,10 +189,11 @@
 
       // Set soldier properties.
       speed = 50 + Math.random() * 50;
-      angle = Math.random() * PI2;
+      angle = Math.random() * TWO_PI;
       soldier.angle = angle;
       soldier.vx = speed * Math.cos( -angle );
       soldier.vy = speed * Math.sin( -angle );
+      soldier.attacking = Math.random() < 0.75 ? false : true;
 
       game.add( soldier );
       count--;
