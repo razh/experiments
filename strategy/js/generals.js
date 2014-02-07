@@ -4,6 +4,42 @@
   var TWO_PI = 2 * Math.PI;
   var HALF_PI = 0.5 * Math.PI;
 
+  /**
+   * Returns a number in [-1, +1).
+   */
+  function signedRandom() {
+    return Math.random() * 2 - 1;
+  }
+
+  // Similar to toxiclibs' AttractionBehavior.
+  function AttractionBehavior( attractor, radius, strength, jitter ) {
+    this.attractor = attractor || { x: 0, y: 0 };
+    this.radius = radius || 0;
+    this.strength = strength || 0;
+    this.jitter = jitter || 0;
+  }
+
+  AttractionBehavior.prototype.applyBehavior = function( dt, target ) {
+    var dx = this.attractor.x - target.x,
+        dy = this.attractor.y - target.y;
+
+    var distance = dx * dx + dy * dy;
+    var radiusSquared = this.radius * this.radius;
+    // Force.
+    var fx, fy;
+    // Relative distance from attactor.
+    var intensity;
+    if ( distance < radiusSquared ) {
+      // Normalize.
+      intensity = 1 - distance / radiusSquared;
+      fx = intensity * signedRandom() * this.strength;
+      fy = intensity * signedRandom() * this.strength;
+
+      target.ax += fx * dt;
+      target.ay += fy * dt;
+    }
+  };
+
   function Entity( x, y ) {
     this.x = x || 0;
     this.y = y || 0;
