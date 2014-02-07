@@ -9,6 +9,10 @@
     y: 0
   };
 
+  function clamp( value, min, max ) {
+    return Math.min( Math.max( value, min ), max );
+  }
+
   /**
    * Returns a number in [-1, +1).
    */
@@ -168,9 +172,18 @@
       });
     }.bind( this ));
 
+    var width  = this.canvas.width,
+        height = this.canvas.height;
+
     this.entities.forEach(function( entity ) {
+      this.behaviors.forEach(function( behavior ) {
+        behavior.applyBehavior( dt, entity );
+      });
+
       entity.update( dt );
-    });
+      entity.x = clamp( entity.x, 0, width );
+      entity.y = clamp( entity.y, 0, height );
+    }.bind( this ));
 
     // Clean-up entities removed during this update cycle.
     this.removed.forEach(function( removed ) {
