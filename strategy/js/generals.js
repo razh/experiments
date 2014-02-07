@@ -4,6 +4,11 @@
   var TWO_PI = 2 * Math.PI;
   var HALF_PI = 0.5 * Math.PI;
 
+  var mouse = {
+    x: 0,
+    y: 0
+  };
+
   /**
    * Returns a number in [-1, +1).
    */
@@ -23,20 +28,26 @@
     var dx = this.attractor.x - target.x,
         dy = this.attractor.y - target.y;
 
-    var distance = dx * dx + dy * dy;
+    if ( !dx && !dy ) {
+      return;
+    }
+
     var radiusSquared = this.radius * this.radius;
+    var distanceSquared = dx * dx + dy * dy;
+    var distanceInverse;
     // Force.
     var fx, fy;
     // Relative distance from attactor.
     var intensity;
-    if ( distance < radiusSquared ) {
+    if ( distanceSquared < radiusSquared ) {
       // Normalize.
-      intensity = 1 - distance / radiusSquared;
-      fx = intensity * signedRandom() * this.strength;
-      fy = intensity * signedRandom() * this.strength;
+      intensity = 1 - distanceSquared / radiusSquared;
+      distanceInverse = 1 / Math.sqrt( distanceSquared );
+      fx = dx * distanceInverse * intensity * this.strength;
+      fy = dy * distanceInverse * intensity * this.strength;
 
-      target.ax += fx * dt;
-      target.ay += fy * dt;
+      target.vx += fx * dt;
+      target.vy += fy * dt;
     }
   };
 
@@ -129,8 +140,11 @@
     this.running = true;
 
     this.entities = [];
+    this.behaviors = [];
 
     this.removed = [];
+
+    this.debug = {};
   }
 
   Game.instance = null;
@@ -147,6 +161,12 @@
 
     // Convert milliseconds to seconds.
     dt *= 1e-3;
+
+    this.behaviors.forEach(function( behavior ) {
+      this.entities.forEach(function( entity ) {
+        behavior.applyBehavior( dt, entity );
+      });
+    }.bind( this ));
 
     this.entities.forEach(function( entity ) {
       entity.update( dt );
@@ -167,6 +187,14 @@
     this.entities.forEach(function( entity ) {
       entity.draw( ctx );
     });
+
+
+    this.debug.x = this.entities[0].x;
+    this.debug.y = this.entities[0].y;
+
+    ctx.fillStyle = 'white';
+    ctx.font = '40px "Helvetica Neue"';
+    ctx.fillText( this.debug.x.toFixed(2) + ', ' + this.debug.y.toFixed(2), 20, 40 );
   };
 
   Game.prototype.tick = function() {
@@ -199,6 +227,11 @@
   (function init() {
     var game = Game.instance = new Game();
     document.body.appendChild( game.canvas );
+
+    window.addEventListener( 'mousemove', function( event ) {
+      mouse.x = event.pageX - game.canvas.offsetLeft;
+      mouse.y = event.pageY - game.canvas.offsetTop;
+    });
 
     document.addEventListener( 'keydown', function( event ) {
       // Space.
@@ -234,6 +267,8 @@
       game.add( soldier );
       count--;
     }
+
+    game.behaviors.push( new AttractionBehavior( mouse, 500, 1000, 0.01 ) );
 
     // Tick once.
     console.time( 'tick' );
