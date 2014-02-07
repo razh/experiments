@@ -106,6 +106,11 @@
   Soldier.prototype = Object.create( PhysicsEntity.prototype );
   Soldier.prototype.constructor = Soldier;
 
+  Soldier.prototype.update = function( dt ) {
+    PhysicsEntity.prototype.update.call( this, dt );
+    this.angle = Math.atan2( -this.vy, this.vx );
+  };
+
   Soldier.prototype.draw = function( ctx ) {
     ctx.save();
 
