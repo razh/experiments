@@ -5,6 +5,26 @@
 
   var count = 10;
 
+  /*
+    Three states for drawing a formation:
+
+             <--  1. RANK  -->       ^
+      ^      [] [] [] [] [] []       |
+      |      [] [] [] [] [] []       |
+    2. FILE  [] [] [] [] [] []       |
+      |      [] [] [] [] [] []       |
+      v      [] [] [] [] [] []  3. DIRECTION
+
+      A rank is horizontal and a file is vertical. In the above diagram,
+      the formation is 5 ranks deep and 6 files wide.
+   */
+
+  var States = {
+    RANK: 0,
+    FILE: 1,
+    DIRECTION: 2
+  };
+
   var mouse = {
     x: 0,
     y: 0,
