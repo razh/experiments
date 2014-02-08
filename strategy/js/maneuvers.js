@@ -3,6 +3,9 @@
 
   var canvas, context;
 
+  // Formation coordinates array.
+  var formation = [];
+  // Unit count.
   var count = 10;
 
   /*
@@ -19,11 +22,13 @@
       the formation is 5 ranks deep and 6 files wide.
    */
 
-  var States = {
+  var State = {
     RANK: 0,
     FILE: 1,
     DIRECTION: 2
   };
+
+  var state = State.RANK;
 
   var mouse = {
     x: 0,
@@ -38,6 +43,40 @@
 
   function draw( ctx ) {
     ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
+
+    ctx.beginPath();
+
+    if ( mouse.down && state === State.RANK ) {
+      ctx.moveTo( mouse.xi, mouse.yi );
+      ctx.lineTo( mouse.x, mouse.y );
+    } else if ( state === State.FILE ) {
+      var x0 = formation[0][0],
+          y0 = formation[0][1],
+          x1 = formation[1][0],
+          y1 = formation[1][1];
+
+      var dx = x1 - x0,
+          dy = y1 - y0;
+
+      var angle = Math.atan2( -dy, dx );
+      var rankWidth = Math.sqrt( dx * dx + dy * dy );
+
+      ctx.save();
+
+      ctx.fillText( Math.round( angle * 180 / Math.PI ), 300, 40 );
+
+      ctx.translate( x0, y0 );
+      ctx.rotate( -angle );
+
+      // Need to handle coordinate conversions for rect height.
+      ctx.rect( 0, 0, rankWidth, mouse.y - y1 );
+
+      ctx.restore();
+    }
+
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = '#fff';
+    ctx.stroke();
 
     ctx.font = '16pt "Helvetica Neue", Helvetica, Arial, sans-serif';
     ctx.fillStyle = 'white';
@@ -72,7 +111,24 @@
     });
 
     window.addEventListener( 'mouseup', function() {
+      mousePosition( event );
       mouse.down = false;
+
+      if ( state === State.RANK ) {
+        var dx = mouse.x - mouse.xi,
+            dy = mouse.y - mouse.yi;
+
+        if ( !dx && !dy ) {
+          return;
+        }
+
+        formation = [
+          [ mouse.xi, mouse.yi ],
+          [ mouse.x, mouse.y ]
+        ];
+
+        state = State.FILE;
+      }
     });
 
     document.addEventListener( 'keydown', function( event ) {
@@ -84,6 +140,13 @@
       // Down arrow.
       if ( event.which === 40 ) {
         count = Math.max( count - 1, 0 );
+      }
+
+      // ESC.
+      // Reset everything.
+      if ( event.which === 27 ) {
+        formation = [];
+        state = State.RANK;
       }
 
       draw( context );
