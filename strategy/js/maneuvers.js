@@ -61,6 +61,22 @@
       var angle = Math.atan2( -dy, dx );
       var rankWidth = Math.sqrt( dx * dx + dy * dy );
 
+      var x2 = mouse.x - x1,
+          y2 = mouse.y - y1;
+
+      var cos, sin;
+      var rx, ry;
+      if ( angle ) {
+        cos = Math.cos( angle );
+        sin = Math.sin( angle );
+
+        rx = cos * x2 - sin * y2;
+        ry = sin * x2 + cos * y2;
+
+        x2 = rx;
+        y2 = ry;
+      }
+
       ctx.save();
 
       ctx.fillText( Math.round( angle * 180 / Math.PI ), 300, 40 );
@@ -68,8 +84,7 @@
       ctx.translate( x0, y0 );
       ctx.rotate( -angle );
 
-      // Need to handle coordinate conversions for rect height.
-      ctx.rect( 0, 0, rankWidth, mouse.y - y1 );
+      ctx.rect( 0, 0, rankWidth, y2 );
 
       ctx.restore();
     }
