@@ -1,8 +1,7 @@
 (function( window, document, undefined ) {
   'use strict';
 
-  var TWO_PI = 2 * Math.PI;
-  var HALF_PI = 0.5 * Math.PI;
+  var PI2 = 2 * Math.PI;
 
   var mouse = {
     x: 0,
@@ -119,14 +118,16 @@
 
     ctx.beginPath();
     ctx.moveTo( 0, 0 );
-    ctx.arc( 0, 0, 5, 0, TWO_PI );
+    ctx.arc( 0, 0, 5, 0, PI2 );
     ctx.closePath();
+
+    var QUARTER_PI = 0.25 * Math.PI;
 
     if ( this.attacking ) {
       ctx.stroke();
 
       ctx.beginPath();
-      ctx.arc( 0, 0, 12, -0.5 * HALF_PI, 0.5 * HALF_PI );
+      ctx.arc( 0, 0, 12, -QUARTER_PI, QUARTER_PI );
       ctx.stroke();
     }
 
@@ -276,7 +277,7 @@
 
       // Set soldier properties.
       speed = 50 + Math.random() * 50;
-      angle = Math.random() * TWO_PI;
+      angle = Math.random() * PI2;
       soldier.angle = angle;
       soldier.vx = speed * Math.cos( -angle );
       soldier.vy = speed * Math.sin( -angle );
