@@ -5,7 +5,8 @@
 
   var canvas, context;
 
-  // Formation coordinates array.
+  // Formations coordinates array.
+  var formations = [];
   var formation = [];
   // Unit count.
   var count = 10;
@@ -75,7 +76,6 @@
 
     ctx.beginPath();
     ctx.rect( 0, 0, width, dy1 );
-    ctx.moveTo( 0.5 * width, 0.5 * dy1 );
 
     ctx.restore();
   }
@@ -88,10 +88,23 @@
     ctx.fillStyle = '#fff';
     ctx.font = '16pt "Helvetica Neue", Helvetica, Arial, sans-serif';
 
-    // Draw mouse.
+    // Mouse.
     ctx.beginPath();
     ctx.arc( mouse.x, mouse.y, 10, 0, PI2 );
     ctx.stroke();
+
+    // Formations.
+    formations.forEach(function( formation ) {
+      var x0 = formation[0][0],
+          y0 = formation[0][1],
+          x1 = formation[1][0],
+          y1 = formation[1][1],
+          x2 = formation[2][0],
+          y2 = formation[2][1];
+
+      drawRectFromPoints( ctx, x0, y0, x1, y1, x2, y2 );
+      ctx.stroke();
+    });
 
     var x0, y0,
         x1, y1,
@@ -122,6 +135,9 @@
       drawRectFromPoints( ctx, x0, y0, x1, y1, mouse.x, mouse.y );
     } else if ( state === State.DIRECTION ) {
       drawRectFromPoints( ctx, x0, y0, x1, y1, x2, y2 );
+      ctx.moveTo( x0, y0 );
+      ctx.lineTo( mouse.x, mouse.y );
+      ctx.moveTo( x1, y1 );
       ctx.lineTo( mouse.x, mouse.y );
     }
 
@@ -153,6 +169,8 @@
       mouse.down = true;
 
       if ( state === State.DIRECTION ) {
+        formations.push( formation );
+        formation = [];
         state = State.RANK;
       }
     });
