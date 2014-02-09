@@ -131,18 +131,18 @@
       ctx.beginPath();
       ctx.moveTo( mouse.xi, mouse.yi );
       ctx.lineTo( mouse.x, mouse.y );
+      ctx.stroke();
     } else if ( state === State.FILE ) {
       drawRectFromPoints( ctx, x0, y0, x1, y1, mouse.x, mouse.y );
+      ctx.stroke();
     } else if ( state === State.DIRECTION ) {
       drawRectFromPoints( ctx, x0, y0, x1, y1, x2, y2 );
       ctx.moveTo( x0, y0 );
       ctx.lineTo( mouse.x, mouse.y );
       ctx.moveTo( x1, y1 );
       ctx.lineTo( mouse.x, mouse.y );
+      ctx.stroke();
     }
-
-    ctx.stroke();
-
     ctx.fillText( 'state: ' + state, 32, 32 );
     ctx.fillText( count, 32, 72 );
   }
