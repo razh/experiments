@@ -75,6 +75,7 @@
 
     ctx.beginPath();
     ctx.rect( 0, 0, width, dy1 );
+    ctx.moveTo( 0.5 * width, 0.5 * dy1 );
 
     ctx.restore();
   }
@@ -85,35 +86,49 @@
     ctx.lineWidth = 1;
     ctx.strokeStyle = '#fff';
     ctx.fillStyle = '#fff';
+    ctx.font = '16pt "Helvetica Neue", Helvetica, Arial, sans-serif';
 
     // Draw mouse.
     ctx.beginPath();
     ctx.arc( mouse.x, mouse.y, 10, 0, PI2 );
     ctx.stroke();
 
-    if ( mouse.down && state === State.RANK ) {
-      ctx.beginPath();
-      ctx.moveTo( mouse.xi, mouse.yi );
-      ctx.lineTo( mouse.x, mouse.y );
-    } else if ( state === State.FILE ) {
-      var x0 = formation[0][0],
-          y0 = formation[0][1],
-          x1 = formation[1][0],
-          y1 = formation[1][1];
+    var x0, y0,
+        x1, y1,
+        x2, y2;
+    if ( formation.length ) {
+      x0 = formation[0][0];
+      y0 = formation[0][1];
+      x1 = formation[1][0];
+      y1 = formation[1][1];
+
+      if ( formation.length > 2 ) {
+        x2 = formation[2][0];
+        y2 = formation[2][1];
+      }
 
       var dx = x1 - x0,
           dy = y1 - y0;
 
       var angle = Math.atan2( -dy, dx );
       ctx.fillText( Math.round( angle * 180 / Math.PI ), 300, 40 );
+    }
 
+    if ( mouse.down && state === State.RANK ) {
+      ctx.beginPath();
+      ctx.moveTo( mouse.xi, mouse.yi );
+      ctx.lineTo( mouse.x, mouse.y );
+    } else if ( state === State.FILE ) {
       drawRectFromPoints( ctx, x0, y0, x1, y1, mouse.x, mouse.y );
+    } else if ( state === State.DIRECTION ) {
+      drawRectFromPoints( ctx, x0, y0, x1, y1, x2, y2 );
+      ctx.lineTo( mouse.x, mouse.y );
     }
 
     ctx.stroke();
 
-    ctx.font = '16pt "Helvetica Neue", Helvetica, Arial, sans-serif';
-    ctx.fillText( count, 32, 32 );
+    ctx.fillText( 'state: ' + state, 32, 32 );
+    ctx.fillText( count, 32, 72 );
   }
 
   (function init() {
@@ -136,6 +151,10 @@
       mouse.yi = mouse.y;
 
       mouse.down = true;
+
+      if ( state === State.DIRECTION ) {
+        state = State.RANK;
+      }
     });
 
     window.addEventListener( 'mousemove', function( event ) {
@@ -162,7 +181,8 @@
 
         state = State.FILE;
       } else if ( state === State.FILE ) {
-        state = State.RANK;
+        formation[2] = [ mouse.x, mouse.y ];
+        state = State.DIRECTION;
       }
     });
 
