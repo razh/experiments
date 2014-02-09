@@ -1,6 +1,8 @@
 (function( window, document, undefined ) {
   'use strict';
 
+  var PI2 = 2 * Math.PI;
+
   var canvas, context;
 
   // Formation coordinates array.
@@ -41,12 +43,56 @@
     down: false
   };
 
+  function drawRectFromPoints( ctx, x0, y0, x1, y1, x2, y2 ) {
+    // First edge (width).
+    var dx0 = x1 - x0,
+        dy0 = y1 - y0;
+
+    var angle = Math.atan2( -dy0, dx0 );
+    var width = Math.sqrt( dx0 * dx0 + dy0 * dy0 );
+
+    // Second edge (height).
+    var dx1 = x2 - x1,
+        dy1 = y2 - y1;
+
+    var cos, sin;
+    var rx, ry;
+    if ( angle ) {
+      cos = Math.cos( angle );
+      sin = Math.sin( angle );
+
+      rx = cos * dx1 - sin * dy1;
+      ry = sin * dx1 + cos * dy1;
+
+      dx1 = rx;
+      dy1 = ry;
+    }
+
+    ctx.save();
+
+    ctx.translate( x0, y0 );
+    ctx.rotate( -angle );
+
+    ctx.beginPath();
+    ctx.rect( 0, 0, width, dy1 );
+
+    ctx.restore();
+  }
+
   function draw( ctx ) {
     ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
 
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = '#fff';
+    ctx.fillStyle = '#fff';
+
+    // Draw mouse.
     ctx.beginPath();
+    ctx.arc( mouse.x, mouse.y, 10, 0, PI2 );
+    ctx.stroke();
 
     if ( mouse.down && state === State.RANK ) {
+      ctx.beginPath();
       ctx.moveTo( mouse.xi, mouse.yi );
       ctx.lineTo( mouse.x, mouse.y );
     } else if ( state === State.FILE ) {
@@ -59,42 +105,14 @@
           dy = y1 - y0;
 
       var angle = Math.atan2( -dy, dx );
-      var rankWidth = Math.sqrt( dx * dx + dy * dy );
-
-      var x2 = mouse.x - x1,
-          y2 = mouse.y - y1;
-
-      var cos, sin;
-      var rx, ry;
-      if ( angle ) {
-        cos = Math.cos( angle );
-        sin = Math.sin( angle );
-
-        rx = cos * x2 - sin * y2;
-        ry = sin * x2 + cos * y2;
-
-        x2 = rx;
-        y2 = ry;
-      }
-
-      ctx.save();
-
       ctx.fillText( Math.round( angle * 180 / Math.PI ), 300, 40 );
 
-      ctx.translate( x0, y0 );
-      ctx.rotate( -angle );
-
-      ctx.rect( 0, 0, rankWidth, y2 );
-
-      ctx.restore();
+      drawRectFromPoints( ctx, x0, y0, x1, y1, mouse.x, mouse.y );
     }
 
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = '#fff';
     ctx.stroke();
 
     ctx.font = '16pt "Helvetica Neue", Helvetica, Arial, sans-serif';
-    ctx.fillStyle = 'white';
     ctx.fillText( count, 32, 32 );
   }
 
@@ -143,6 +161,8 @@
         ];
 
         state = State.FILE;
+      } else if ( state === State.FILE ) {
+        state = State.RANK;
       }
     });
 
