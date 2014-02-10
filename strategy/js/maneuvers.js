@@ -8,8 +8,15 @@
   // Formations coordinates array.
   var formations = [];
   var formation = [];
-  // Unit count.
-  var count = 10;
+
+  var config = {
+    // Unit count.
+    count: 10,
+    spacing: {
+      rank: 10,
+      file: 20
+    }
+  };
 
   /*
     Three states for drawing a formation:
@@ -144,7 +151,7 @@
       ctx.stroke();
     }
     ctx.fillText( 'state: ' + state, 32, 32 );
-    ctx.fillText( count, 32, 72 );
+    ctx.fillText( config.count, 32, 72 );
   }
 
   (function init() {
@@ -207,12 +214,12 @@
     document.addEventListener( 'keydown', function( event ) {
       // Up arrow.
       if ( event.which === 38 ) {
-        count++;
+        config.count++;
       }
 
       // Down arrow.
       if ( event.which === 40 ) {
-        count = Math.max( count - 1, 0 );
+        config.count = Math.max( config.count - 1, 0 );
       }
 
       // ESC.
