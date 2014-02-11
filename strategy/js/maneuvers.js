@@ -60,29 +60,15 @@
     this.y2 = y2;
 
     // First edge (width).
-    var dx0 = x1 - x0,
-        dy0 = y1 - y0;
+    var dx = x1 - x0,
+        dy = y1 - y0;
 
-    this.angle = Math.atan2( -dy0, dx0 );
-    this.width = Math.sqrt( dx0 * dx0 + dy0 * dy0 );
+    this.angle = Math.atan2( -dy, dx );
+    this.width = Math.sqrt( dx * dx + dy * dy );
 
-    var dx1 = x2 - x1,
-        dy1 = y2 - y1;
-
-    var cos, sin;
-    var rx, ry;
-    if ( this.angle ) {
-      cos = Math.cos( this.angle );
-      sin = Math.sin( this.angle );
-
-      rx = cos * dx1 - sin * dy1;
-      ry = sin * dx1 + cos * dy1;
-
-      dx1 = rx;
-      dy1 = ry;
-    }
-
-    this.height = dy1;
+    // Second edge (height).
+    var point = this.toLocal( x2 - x1, y2 - y1 );
+    this.height = point.y;
 
     Object.freeze( this );
   }
@@ -103,14 +89,14 @@
     }
 
     return {
-      x: x + this.x,
-      y: y + this.y
+      x: x + this.x0,
+      y: y + this.y0
     };
   };
 
   Formation.prototype.toLocal = function( x, y ) {
-    x -= this.x;
-    y -= this.y;
+    x -= this.x0;
+    y -= this.y0;
 
     var cos, sin;
     var rx, ry;
