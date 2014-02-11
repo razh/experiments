@@ -67,7 +67,7 @@
     this.width = Math.sqrt( dx * dx + dy * dy );
 
     // Second edge (height).
-    var point = this.toLocal( x2 - x1, y2 - y1 );
+    var point = this.toLocal( x2, y2 );
     this.height = point.y;
 
     Object.freeze( this );
@@ -81,7 +81,7 @@
   Formation.prototype.draw = function( ctx ) {
     ctx.save();
 
-    this.applyTransform();
+    this.applyTransform( ctx );
     ctx.rect( 0, 0, this.width, this.height );
 
     ctx.restore();
@@ -182,17 +182,13 @@
     ctx.stroke();
 
     // Formations.
-    formations.forEach(function( formation ) {
-      var x0 = formation[0][0],
-          y0 = formation[0][1],
-          x1 = formation[1][0],
-          y1 = formation[1][1],
-          x2 = formation[2][0],
-          y2 = formation[2][1];
+    ctx.beginPath();
 
-      drawRectFromPoints( ctx, x0, y0, x1, y1, x2, y2 );
-      ctx.stroke();
+    formations.forEach(function( formation ) {
+      formation.draw( ctx );
     });
+
+    ctx.stroke();
 
     var x0, y0,
         x1, y1,
@@ -257,7 +253,14 @@
       mouse.down = true;
 
       if ( state === State.DIRECTION ) {
-        formations.push( formation );
+        formations.push(
+          new Formation(
+            formation[0][0], formation[0][1],
+            formation[1][0], formation[1][1],
+            formation[2][0], formation[2][1]
+          )
+        );
+
         formation = [];
         state = State.RANK;
       }
