@@ -73,6 +73,20 @@
     Object.freeze( this );
   }
 
+  Formation.prototype.applyTransform = function( ctx ) {
+    ctx.translate( this.x0, this.y0 );
+    ctx.rotate( -this.angle );
+  };
+
+  Formation.prototype.draw = function( ctx ) {
+    ctx.save();
+
+    this.applyTransform();
+    ctx.rect( 0, 0, this.width, this.height );
+
+    ctx.restore();
+  };
+
   Formation.prototype.toWorld = function( x, y ) {
     var cos, sin;
     var rx, ry;
