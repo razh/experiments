@@ -11,10 +11,10 @@
 
   var config = {
     // Unit count.
-    count: 10,
+    count: 20,
     spacing: {
-      rank: 10,
-      file: 20
+      rank: 40,
+      file: 70
     }
   };
 
@@ -132,6 +132,23 @@
     };
   };
 
+  Formation.prototype.getPositions = function( count, rankSpacing, fileSpacing ) {
+    var xCount = Math.floor( this.width / rankSpacing ) + 1;
+
+    var positions = [];
+    var i = 0;
+    while ( i < count ) {
+      positions.push({
+        x: ( i % xCount ) * rankSpacing,
+        y: Math.floor( i / xCount ) * fileSpacing
+      });
+
+      i++;
+    }
+
+    return positions;
+  };
+
   function drawRectFromPoints( ctx, x0, y0, x1, y1, x2, y2 ) {
     // First edge (width).
     var dx0 = x1 - x0,
@@ -182,13 +199,29 @@
     ctx.stroke();
 
     // Formations.
-    ctx.beginPath();
-
     formations.forEach(function( formation ) {
+      ctx.beginPath();
       formation.draw( ctx );
-    });
+      ctx.stroke();
 
-    ctx.stroke();
+      ctx.globalAlpha = 0.25;
+
+      var positions = formation.getPositions(
+        config.count,
+        config.spacing.rank,
+        config.spacing.file
+      );
+
+      positions.forEach(function( position ) {
+        position = formation.toWorld( position.x, position.y );
+
+        ctx.beginPath();
+        ctx.arc( position.x, position.y, 10, 0, PI2 );
+        ctx.fill();
+      });
+
+      ctx.globalAlpha = 1;
+    });
 
     var x0, y0,
         x1, y1,
@@ -227,6 +260,7 @@
       ctx.lineTo( mouse.x, mouse.y );
       ctx.stroke();
     }
+
     ctx.fillText( 'state: ' + state, 32, 32 );
     ctx.fillText( config.count, 32, 72 );
   }
