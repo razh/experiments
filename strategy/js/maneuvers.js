@@ -191,7 +191,7 @@
     ctx.lineWidth = 1;
     ctx.strokeStyle = '#fff';
     ctx.fillStyle = '#fff';
-    ctx.font = '16pt "Helvetica Neue", Helvetica, Arial, sans-serif';
+    ctx.font = '10pt Monaco, "Courier Neue", Courier, monospace';
 
     // Mouse.
     ctx.beginPath();
@@ -206,6 +206,7 @@
 
       ctx.globalAlpha = 0.25;
 
+      // Unit positions.
       var positions = formation.getPositions(
         config.count,
         config.spacing.rank,
@@ -216,7 +217,7 @@
         position = formation.toWorld( position.x, position.y );
 
         ctx.beginPath();
-        ctx.arc( position.x, position.y, 10, 0, PI2 );
+        ctx.arc( position.x, position.y, 8, 0, PI2 );
         ctx.fill();
       });
 
@@ -261,8 +262,11 @@
       ctx.stroke();
     }
 
+    // Debug text.
     ctx.fillText( 'state: ' + state, 32, 32 );
-    ctx.fillText( config.count, 32, 72 );
+    ctx.fillText( 'count: ' + config.count, 32, 48 );
+    ctx.fillText( 'rank spacing: ' + config.spacing.rank, 32, 64 );
+    ctx.fillText( 'file spacing: ' + config.spacing.file, 32, 80 );
   }
 
   (function init() {
@@ -330,14 +334,40 @@
     });
 
     document.addEventListener( 'keydown', function( event ) {
+      var delta = 1;
+      if ( event.shiftKey ) {
+        delta = 10;
+      }
+
+      // A.
+      if ( event.which === 65 ) {
+        config.count += delta;
+      }
+
+      // Z.
+      if ( event.which === 90 ) {
+        config.count = Math.max( config.count - delta, 0 );
+      }
+
+      // Rank spacing.
+      // Left arrow.
+      if ( event.which === 37 ) {
+        config.spacing.rank -= delta;
+      }
+
+      if ( event.which === 39 ) {
+        config.spacing.rank += delta;
+      }
+
+      // File spacing.
       // Up arrow.
       if ( event.which === 38 ) {
-        config.count++;
+        config.spacing.file += delta;
       }
 
       // Down arrow.
       if ( event.which === 40 ) {
-        config.count = Math.max( config.count - 1, 0 );
+        config.spacing.file -= delta;
       }
 
       // ESC.
