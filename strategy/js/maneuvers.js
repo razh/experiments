@@ -149,6 +149,23 @@
     return positions;
   };
 
+  /**
+   * Unlike getPositions() which takes a predetermined unit count,
+   * getPositionsFilled() fills the entire formation box with units
+   * separated by the given spacing parameters.
+   */
+  Formation.prototype.getPositionsFilled = function( rankSpacing, fileSpacing ) {
+    // Return empty array if zero-spacing (results in infinite unit count).
+    if ( !rankSpacing || !fileSpacing ) {
+      return [];
+    }
+
+    var xCount = Math.floor( this.width  / rankSpacing ) + 1,
+        yCount = Math.floor( this.height / fileSpacing ) + 1;
+
+    return this.getPositions( xCount * yCount, rankSpacing, fileSpacing );
+  };
+
   function drawRectFromPoints( ctx, x0, y0, x1, y1, x2, y2 ) {
     // First edge (width).
     var dx0 = x1 - x0,
@@ -213,7 +230,13 @@
         config.spacing.file
       );
 
-      positions.forEach(function( position ) {
+      // Unit positions which fill the formation.
+      var filledPositions = formation.getPositionsFilled(
+        config.spacing.rank,
+        config.spacing.file
+      );
+
+      positions.concat( filledPositions ).forEach(function( position ) {
         position = formation.toWorld( position.x, position.y );
 
         ctx.beginPath();
