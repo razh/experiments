@@ -242,7 +242,7 @@
           dy = y1 - y0;
 
       var angle = Math.atan2( -dy, dx );
-      ctx.fillText( Math.round( angle * 180 / Math.PI ), 300, 40 );
+      ctx.fillText( 'formation angle: ' + Math.round( angle * 180 / Math.PI ) + '°', 224, 32 );
     }
 
     if ( mouse.down && state === State.RANK ) {
@@ -355,6 +355,7 @@
         config.spacing.rank -= delta;
       }
 
+      // Right arrow.
       if ( event.which === 39 ) {
         config.spacing.rank += delta;
       }

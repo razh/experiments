@@ -13,9 +13,35 @@
       margin: 0;
       background-color: #222;
     }
+
+    .help {
+      position: absolute;
+      left: 25px;
+      bottom: 1em;
+
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 1em;
+      color: white;
+
+      opacity: 0.25;
+    }
+
+    .help > p {
+      line-height: 0;
+    }
   </style>
 </head>
 <body>
+
+  <div class="help">
+    <p>Click to draw formation.</p>
+    <p>Right/left arrows — rank spacing.</p>
+    <p>Up/down arrows — file spacing.</p>
+    <p>A/Z — unit count.</p>
+    <p>Shift — 10x faster.</p>
+    <p>ESC — Stop drawing.</p>
+  </div>
+
   <script src="./js/maneuvers.js"></script>
 </body>
 </html>
