@@ -60,15 +60,19 @@
     this.x2 = x2;
     this.y2 = y2;
 
-    // First edge (width).
     var dx = x1 - x0,
         dy = y1 - y0;
 
     this.angle = Math.atan2( -dy, dx );
-    this.width = Math.sqrt( dx * dx + dy * dy );
+
+    // First edge (width).
+    // Using (x0, y0) to (x1, y1) distance to calculate width loses information
+    // about direction. Convert to local space instead.
+    var point = this.toLocal( x1, y1 );
+    this.width = point.x;
 
     // Second edge (height).
-    var point = this.toLocal( x2, y2 );
+    point = this.toLocal( x2, y2 );
     this.height = point.y;
 
     Object.freeze( this );
