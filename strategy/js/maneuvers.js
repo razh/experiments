@@ -33,12 +33,13 @@
    */
 
   var State = {
-    RANK: 0,
-    FILE: 1,
-    DIRECTION: 2
+    DEFAULT: 0,
+    RANK: 1,
+    FILE: 2,
+    DIRECTION: 3
   };
 
-  var state = State.RANK;
+  var state = State.DEFAULT;
 
   var mouse = {
     x: 0,
@@ -313,7 +314,9 @@
 
       mouse.down = true;
 
-      if ( state === State.DIRECTION ) {
+      if ( state === State.DEFAULT ) {
+        state = State.RANK;
+      } else if ( state === State.DIRECTION ) {
         formations.push(
           new Formation(
             formation[0][0], formation[0][1],
@@ -323,7 +326,7 @@
         );
 
         formation = [];
-        state = State.RANK;
+        state = State.DEFAULT;
       }
     });
 
@@ -398,7 +401,7 @@
       // Reset everything.
       if ( event.which === 27 ) {
         formation = [];
-        state = State.RANK;
+        state = State.DEFAULT;
       }
 
       draw( context );
