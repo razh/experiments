@@ -203,6 +203,17 @@
     ctx.restore();
   }
 
+  /**
+   * Draws a local unit position in world space.
+   */
+  function drawUnit( ctx, formation, localPosition ) {
+    var position = formation.toWorld( localPosition.x, localPosition.y );
+
+    ctx.beginPath();
+    ctx.arc( position.x, position.y, 8, 0, PI2 );
+    ctx.fill();
+  }
+
   function draw( ctx ) {
     ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
 
@@ -218,31 +229,31 @@
 
     // Formations.
     formations.forEach(function( formation ) {
+      ctx.globalAlpha = 1;
+
       ctx.beginPath();
       formation.draw( ctx );
       ctx.stroke();
 
-      ctx.globalAlpha = 0.25;
+      ctx.globalAlpha = 0.5;
 
       // Unit positions.
-      var positions = formation.getPositions(
+      formation.getPositions(
         config.count,
         config.spacing.rank,
         config.spacing.file
-      );
+      ).forEach(function( position ) {
+        drawUnit( ctx, formation, position );
+      });
+
+      ctx.globalAlpha = 0.1;
 
       // Unit positions which fill the formation.
-      var filledPositions = formation.getPositionsFilled(
+      formation.getPositionsFilled(
         config.spacing.rank,
         config.spacing.file
-      );
-
-      positions.concat( filledPositions ).forEach(function( position ) {
-        position = formation.toWorld( position.x, position.y );
-
-        ctx.beginPath();
-        ctx.arc( position.x, position.y, 8, 0, PI2 );
-        ctx.fill();
+      ).forEach(function( position ) {
+        drawUnit( ctx, formation, position );
       });
 
       ctx.globalAlpha = 1;
