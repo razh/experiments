@@ -134,7 +134,10 @@
   };
 
   Formation.prototype.getPositions = function( count, rankSpacing, fileSpacing ) {
-    var xCount = Math.floor( this.width / rankSpacing ) + 1;
+    var xCount = Math.ceil( this.width / rankSpacing );
+
+    // Flip fileSpacing if height is negative.
+    fileSpacing *= this.height < 0 ? -1 : 1;
 
     var positions = [];
     var i = 0;
@@ -161,8 +164,9 @@
       return [];
     }
 
-    var xCount = Math.floor( this.width  / rankSpacing ) + 1,
-        yCount = Math.floor( this.height / fileSpacing ) + 1;
+    // Absolute value allow for positive yCounts if height is negative.
+    var xCount = Math.ceil( this.width / rankSpacing ),
+        yCount = Math.ceil( Math.abs( this.height ) / fileSpacing );
 
     return this.getPositions( xCount * yCount, rankSpacing, fileSpacing );
   };
