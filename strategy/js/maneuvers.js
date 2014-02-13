@@ -293,6 +293,11 @@
     ctx.fillText( 'file spacing: ' + config.spacing.file, 32, 80 );
   }
 
+  function clearFormation() {
+    formation = [];
+    state = State.DEFAULT;
+  }
+
   (function init() {
     canvas  = document.createElement( 'canvas' );
     context = canvas.getContext( '2d' );
@@ -325,8 +330,7 @@
           )
         );
 
-        formation = [];
-        state = State.DEFAULT;
+        clearFormation();
       }
     });
 
@@ -400,8 +404,7 @@
       // ESC.
       // Reset everything.
       if ( event.which === 27 ) {
-        formation = [];
-        state = State.DEFAULT;
+        clearFormation();
       }
 
       draw( context );
