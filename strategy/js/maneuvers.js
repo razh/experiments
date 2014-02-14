@@ -13,6 +13,7 @@
   var config = {
     // Unit count.
     count: 20,
+    radius: 8,
     spacing: {
       rank: 40,
       file: 70
@@ -96,7 +97,7 @@
     var position = formation.toWorld( localPosition.x, localPosition.y );
 
     ctx.beginPath();
-    ctx.arc( position.x, position.y, 8, 0, PI2 );
+    ctx.arc( position.x, position.y, config.radius, 0, PI2 );
     ctx.fill();
   }
 
@@ -184,10 +185,16 @@
     }
 
     // Debug text.
-    ctx.fillText( 'state: ' + state, 32, 32 );
+    var stateName = Object.keys( State )
+      .filter(function( key ) {
+        return State[ key ] === state;
+      });
+
+    ctx.fillText( 'state: ' + stateName, 32, 32 );
     ctx.fillText( 'count: ' + config.count, 32, 48 );
-    ctx.fillText( 'rank spacing: ' + config.spacing.rank, 32, 64 );
-    ctx.fillText( 'file spacing: ' + config.spacing.file, 32, 80 );
+    ctx.fillText( 'radius: ' + config.radius, 32, 64 );
+    ctx.fillText( 'rank spacing: ' + config.spacing.rank, 32, 80 );
+    ctx.fillText( 'file spacing: ' + config.spacing.file, 32, 96 );
   }
 
   function clearFormation() {
@@ -266,6 +273,7 @@
         delta = 10;
       }
 
+      // Unit count.
       // A.
       if ( event.which === 65 ) {
         config.count += delta;
@@ -296,6 +304,17 @@
       // Down arrow.
       if ( event.which === 40 ) {
         config.spacing.file -= delta;
+      }
+
+      // Radius.
+      // , and <.
+      if ( event.which === 188 ) {
+        config.radius = Math.max( config.radius - delta, 1 );
+      }
+
+      // . and >.
+      if ( event.which === 190 ) {
+        config.radius += delta;
       }
 
       // ESC.
