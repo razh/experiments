@@ -52,13 +52,12 @@
     down: false
   };
 
+  /**
+   * An oriented bounding box calculated from three points.
+   */
   function Formation( x0, y0, x1, y1, x2, y2 ) {
-    this.x0 = x0;
-    this.y0 = y0;
-    this.x1 = x1;
-    this.y1 = y1;
-    this.x2 = x2;
-    this.y2 = y2;
+    this.x = x0;
+    this.y = y0;
 
     // First edge (width).
     var dx = x1 - x0,
@@ -75,7 +74,7 @@
   }
 
   Formation.prototype.applyTransform = function( ctx ) {
-    ctx.translate( this.x0, this.y0 );
+    ctx.translate( this.x, this.y );
     ctx.rotate( -this.angle );
   };
 
@@ -104,14 +103,14 @@
     }
 
     return {
-      x: x + this.x0,
-      y: y + this.y0
+      x: x + this.x,
+      y: y + this.y
     };
   };
 
   Formation.prototype.toLocal = function( x, y ) {
-    x -= this.x0;
-    y -= this.y0;
+    x -= this.x;
+    y -= this.y;
 
     var cos, sin;
     var rx, ry;
