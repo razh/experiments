@@ -12,7 +12,7 @@
   var rectWidth  = 100,
       rectHeight = 300;
 
-  var leftParticles = [],
+  var leftParticles  = [],
       rightParticles = [];
 
   function xRandom() {
@@ -41,7 +41,7 @@
       y: yRandom(),
       radius: radiusRandom(),
       vx: vxRandom(),
-      vy:vyRandom()
+      vy: vyRandom()
     };
   }
 
@@ -50,7 +50,7 @@
     var particleCount = 150;
     while ( particleCount-- ) {
       leftParticles.push( randomParticle() );
-      rightParticles.push( randomParticle());
+      rightParticles.push( randomParticle() );
     }
   }) ();
 

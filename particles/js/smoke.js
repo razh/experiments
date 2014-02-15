@@ -50,7 +50,7 @@
 
   (function init() {
     var particleCount = 100;
-    while( particleCount-- ) {
+    while ( particleCount-- ) {
       var point = randomPointInCircle( source.x, source.y, source.radius );
 
       particles.push({
@@ -68,11 +68,14 @@
     var dt = currTime - prevTime;
     prevTime = currTime;
 
+    // Maximum frame time.
     if ( dt > 1e2 ) {
       dt = 1e2;
     }
 
+    // Milliseconds to seconds.
     dt *= 1e-3;
+
     particles.forEach(function( particle ) {
       var dtSquared = dt * dt;
       particle.vx += config.wind * Math.random() * dtSquared;
