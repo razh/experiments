@@ -119,26 +119,59 @@ Formation.prototype.getPositionsFilled = function( rankSpacing, fileSpacing ) {
 };
 
 // World space coordinate getters.
+Object.defineProperty( Formation.prototype, 'p0', {
+  get: function() {
+    return {
+      x: this.x,
+      y: this.y
+    };
+  }
+});
+
+Object.defineProperty( Formation.prototype, 'p1', {
+  get: function() {
+    return this.toWorld( this.width, 0 );
+  }
+});
+
+Object.defineProperty( Formation.prototype, 'p2' ,{
+  get: function() {
+    return this.toWorld( this.width, this.height );
+  }
+});
+
+Object.defineProperty( Formation.prototype, 'x0', {
+  get: function() {
+    return this.x;
+  }
+});
+
+Object.defineProperty( Formation.prototype, 'y0', {
+  get: function() {
+    return this.y;
+  }
+});
+
 Object.defineProperty( Formation.prototype, 'x1', {
   get: function() {
-    return this.toWorld( this.width, 0 ).x;
+    return this.p1.x;
   }
 });
 
 Object.defineProperty( Formation.prototype, 'y1', {
   get: function() {
-    return this.toWorld( this.width, 0 ).y;
+    return this.p1.y;
   }
 });
 
 Object.defineProperty( Formation.prototype, 'x2', {
   get: function() {
-    return this.toWorld( this.width, this.height ).x;
+    return this.p2.x;
   }
 });
 
 Object.defineProperty( Formation.prototype, 'y2', {
   get: function() {
-    return this.toWorld( this.width, this.height ).y;
+    return this.p2.y;
   }
 });
