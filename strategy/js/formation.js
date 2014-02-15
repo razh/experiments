@@ -117,3 +117,28 @@ Formation.prototype.getPositionsFilled = function( rankSpacing, fileSpacing ) {
 
   return this.getPositions( xCount * yCount, rankSpacing, fileSpacing );
 };
+
+// World space coordinate getters.
+Object.defineProperty( Formation.prototype, 'x1', {
+  get: function() {
+    return this.toWorld( this.width, 0 ).x;
+  }
+});
+
+Object.defineProperty( Formation.prototype, 'y1', {
+  get: function() {
+    return this.toWorld( this.width, 0 ).y;
+  }
+});
+
+Object.defineProperty( Formation.prototype, 'x2', {
+  get: function() {
+    return this.toWorld( this.width, this.height ).x;
+  }
+});
+
+Object.defineProperty( Formation.prototype, 'y2', {
+  get: function() {
+    return this.toWorld( this.width, this.height ).y;
+  }
+});
