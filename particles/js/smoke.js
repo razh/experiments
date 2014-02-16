@@ -132,16 +132,11 @@
     window.requestAnimationFrame( tick );
   }
 
-  document.addEventListener( 'keydown', function() {
-    // ESC.
-    if ( event.which === 27 ) {
-      running = false;
-    }
-
+  document.addEventListener( 'keydown', function( event ) {
     // Space.
     if ( event.which === 32 ) {
-      if ( !running ) {
-        running = true;
+      running = !running;
+      if ( running ) {
         tick();
       }
     }

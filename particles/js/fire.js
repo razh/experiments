@@ -182,15 +182,10 @@
   draw( context );
 
   document.addEventListener( 'keydown', function( event ) {
-    // ESC.
-    if ( event.which === 27 ) {
-      running = false;
-    }
-
     // Space.
     if ( event.which === 32 ) {
-      if ( !running ) {
-        running = true;
+      running = !running;
+      if ( running ) {
         tick();
       }
     }
