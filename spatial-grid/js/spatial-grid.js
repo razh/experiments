@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * Should the grid be divided by cell size or cell count?
+ */
 function SpatialGrid( x, y, width, height, count ) {
   this.x = x || 0;
   this.y = y || 0;
@@ -17,8 +20,16 @@ function SpatialGrid( x, y, width, height, count ) {
   this.grid = [];
 }
 
+SpatialGrid.prototype.initialize = function() {
+  var count = this.count * this.count;
+  while ( count-- ) {
+    this.grid.push( [] );
+  }
+};
+
 SpatialGrid.prototype.clear = function() {
   this.grid = [];
+  this.initialize();
 };
 
 SpatialGrid.prototype.insert = function( object ) {
