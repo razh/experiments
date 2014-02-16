@@ -99,12 +99,7 @@
     });
   }
 
-  function draw( ctx ) {
-    var width  = ctx.canvas.width,
-        height = ctx.canvas.height;
-
-    ctx.clearRect( 0, 0, width, height );
-
+  function drawParticles( ctx ) {
     ctx.globalCompositeOperation = 'lighter';
     ctx.fillStyle = '#f43';
 
@@ -115,6 +110,55 @@
     });
 
     ctx.globalCompositeOperation = 'source-over';
+  }
+
+  /**
+   * Draws pixels to imageData rather than using fill().
+   *
+   * Allows for a far greater number of particles, but suffers at higher
+   * resolutions where there is a greater number of pixels.
+   */
+  function drawParticlesImageData( ctx ) {
+    var width  = ctx.canvas.width,
+        height = ctx.canvas.height;
+
+    var red   = 255,
+        green = 68,
+        blue  = 51,
+        alpha = 128;
+
+    // createImageData() is faster than getImageData() at higher resolutions.
+    //
+    // Both methods appear to suffer a problem wherein performance drops
+    // significantly after a period of execution (perhaps memory-related?).
+    //
+    // var imageData = ctx.getImageData( 0, 0, width, height );
+    var imageData = ctx.createImageData( width, height );
+    var data = imageData.data;
+
+    particles.forEach(function( particle ) {
+      var x = Math.floor( particle.x ),
+          y = Math.floor( particle.y );
+
+      var index = 4 * ( y * width + x );
+
+      // Image data is an Uint8ClampedArray, automatically clamped.
+      data[ index     ] += red;
+      data[ index + 1 ] += green;
+      data[ index + 2 ] += blue;
+      data[ index + 3 ] += alpha;
+    });
+
+    ctx.putImageData( imageData, 0, 0 );
+  }
+
+  function draw( ctx ) {
+    ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
+
+    drawParticles( ctx );
+
+    // Particle count of about 10000, but should be able to go up to 50k.
+    // drawParticlesImageData( ctx );
   }
 
   function tick() {
