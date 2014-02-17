@@ -194,6 +194,42 @@
     }
   };
 
+  Hilbert3D.prototype.aabb = function() {
+    if ( !this.vertices.length ) {
+      return;
+    }
+
+    var x0 = this.vertices[0][0],
+        y0 = this.vertices[0][1],
+        z0 = this.vertices[0][2],
+        x1 = x0,
+        y1 = y0,
+        z1 = z0;
+
+    var x, y, z;
+    for ( var i = 1, il = this.vertices.length; i < il; i++ ) {
+      x = this.vertices[i][0];
+      y = this.vertices[i][1];
+      z = this.vertices[i][2];
+
+      if ( x < x0 ) { x0 = x; }
+      if ( x > x1 ) { x1 = x; }
+      if ( y < y0 ) { y0 = y; }
+      if ( y > y1 ) { y1 = y; }
+      if ( z < z0 ) { z0 = z; }
+      if ( z > z1 ) { z1 = z; }
+    }
+
+    return {
+      x0: x0,
+      y0: y0,
+      z0: z0,
+      x1: x1,
+      y1: y1,
+      z1: z1
+    };
+  };
+
 
   /**
    * Matrix functions.
@@ -389,6 +425,20 @@
     depth: 2
   });
 
+  // Print AABB.
+  (function() {
+    var aabb = h3d.aabb();
+    console.log( '(' +
+      aabb.x0 + ', ' +
+      aabb.y0 + ', ' +
+      aabb.z0 + '), (' +
+      aabb.x1 + ', ' +
+      aabb.y1 + ', ' +
+      aabb.z1 + ')'
+    );
+  }) ();
+
+  // Create segment elements.
   var h3dDivs = segmentsToDivs( pointsToSegments( h3d.vertices ) );
 
   var h3dContainer = document.querySelector( '.hilbert3d-container' );
