@@ -50,6 +50,18 @@ SpatialGrid.prototype.insertAll = function( array ) {
   }.bind( this ));
 };
 
+SpatialGrid.prototype.xIndexOf = function( x ) {
+  return Math.floor( x / this.spacing.x );
+};
+
+SpatialGrid.prototype.yIndexOf = function( y ) {
+  return Math.floor( y / this.spacing.y );
+};
+
+SpatialGrid.prototype.indexOf = function( x, y ) {
+  return this.yIndexOf( y ) * this.count + this.xIndexOf( x );
+};
+
 SpatialGrid.prototype.contains = function( x, y ) {
   return this.x <= x && x <= this.x + this.width &&
          this.y <= y && y <= this.y + this.height;
