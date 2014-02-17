@@ -316,7 +316,7 @@
   }
 
   function segmentsToDivs( segments ) {
-    var divs = document.createElement( 'div' );
+    var divs = document.createDocumentFragment();
 
     var div;
     var dx, dy, dz;
@@ -385,17 +385,20 @@
   }
 
   var h3d = new Hilbert3D({
-    size: 200,
+    size: curveWidth,
     depth: 2
   });
 
   var h3dDivs = segmentsToDivs( pointsToSegments( h3d.vertices ) );
 
+  var h3dContainer = document.querySelector( '.hilbert3d-container' );
   var h3dDiv = document.getElementById( 'hilbert3d' );
+
   h3dDiv.appendChild( h3dDivs );
+
   var h3dTransform = {
-    translateX: 200,
-    translateY: 200,
+    translateX: h3d.size,
+    translateY: h3d.size,
 
     rotateX: 0,
     rotateY: 0,
@@ -406,7 +409,7 @@
 
   var h3dMatrix = identityMatrix.slice();
 
-  function setTransformAndPerspective( el, options ) {
+  function setTransform( el, options ) {
     options = options ? options : {};
 
     var translateX = options.translateX || 0,
@@ -414,9 +417,7 @@
 
         rotateX = options.rotateX || 0,
         rotateY = options.rotateY || 0,
-        rotateZ = options.rotateZ || 0,
-
-        perspective = options.perspective || 0;
+        rotateZ = options.rotateZ || 0;
 
     el.style.webkitTransform = el.style.transform = 'translate(' +
       translateX + 'px, ' +
@@ -424,19 +425,29 @@
       rotateX + 'deg) rotateY(' +
       rotateY + 'deg) rotateZ(' +
       rotateZ + 'deg)';
+  }
 
+  function setPerspective( el, options ) {
+    options = options ? options : {};
+
+    var perspective = options.perspective || 0;
     el.style.webkitPerspective = el.style.perspective = perspective + 'px';
   }
 
-  setTransformAndPerspective( h3dDivs, h3dTransform );
+  setTransform( h3dDiv, h3dTransform );
+  setPerspective( h3dContainer, h3dTransform );
+
+  var h3dTransformOrigin = '0 0 0';
+  h3dDiv.style.webkitTransformOrigin = h3dTransformOrigin;
+  h3dDiv.style.transformOrigin = h3dTransformOrigin;
 
   var h3dTransformStyle = 'preserve-3d';
-  h3dDivs.style.webkitTransformStyle = h3dTransformStyle;
-  h3dDivs.style.transformStyle = h3dTransformStyle;
+  h3dDiv.style.webkitTransformStyle = h3dTransformStyle;
+  h3dDiv.style.transformStyle = h3dTransformStyle;
 
-  var h3dPerspectiveOrigin = 'left top';
-  h3dDivs.style.webkitPerspectiveOrigin = h3dPerspectiveOrigin;
-  h3dDivs.style.perspectiveOrigin = h3dPerspectiveOrigin;
+  var h3dPerspectiveOrigin = h3d.size + 'px ' + h3d.size + 'px';
+  h3dContainer.style.webkitPerspectiveOrigin = h3dPerspectiveOrigin;
+  h3dContainer.style.perspectiveOrigin = h3dPerspectiveOrigin;
 
 
   // Hilbert3D canvas.
@@ -495,12 +506,13 @@
 
       function onChange() {
         h3dTransform[ input.id ] = parseInt( input.value, 10 );
-        setTransformAndPerspective( h3dDivs, h3dTransform );
+        setTransform( h3dDiv, h3dTransform );
+        setPerspective( h3dContainer, h3dTransform );
 
         value.innerHTML = h3dTransform[ input.id ] + units;
 
         // Grab the computed transform matrix and draw the canvas Hilbert3D.
-        var computedStyle = window.getComputedStyle( h3dDivs ),
+        var computedStyle = window.getComputedStyle( h3dDiv ),
             transformString = computedStyle.webkitTransform || computedStyle.transform;
 
         var matrix = extractMatrix( transformString );
@@ -532,8 +544,8 @@
     resetBtn.addEventListener( 'click', function( event ) {
       event.preventDefault();
 
-      h3dTransform.translateX = 200;
-      h3dTransform.translateY = 200;
+      h3dTransform.translateX = h3d.size;
+      h3dTransform.translateY = h3d.size;
 
       h3dTransform.rotateX = 0;
       h3dTransform.rotateY = 0;
@@ -541,7 +553,8 @@
 
       h3dTransform.perspective = 1000;
 
-      setTransformAndPerspective( h3dDivs, h3dTransform );
+      setTransform( h3dDiv, h3dTransform );
+      setPerspective( h3dContainer, h3dTransform );
 
       var changeEvent = new CustomEvent( 'change' );
 
