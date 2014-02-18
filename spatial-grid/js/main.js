@@ -3,8 +3,8 @@
   'use strict';
 
   SpatialGrid.prototype.draw = function( ctx ) {
-    var cellWidth  = this.spacing.x,
-        cellHeight = this.spacing.y;
+    var cellWidth  = this.cellWidth,
+        cellHeight = this.cellHeight;
 
     var x, y;
     for ( var i = 0, il = this.count * this.count; i < il; i++ ) {
@@ -45,7 +45,7 @@
     draw( context );
 
     context.beginPath();
-    context.rect( xIndex * grid.spacing.x, yIndex * grid.spacing.y, grid.spacing.x, grid.spacing.y );
+    context.rect( xIndex * grid.cellWidth, yIndex * grid.cellHeight, grid.cellWidth, grid.cellHeight );
     context.fillStyle = 'rgba(0, 255, 0, 0.25)';
     context.fill();
   });

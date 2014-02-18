@@ -12,10 +12,8 @@ function SpatialGrid( x, y, width, height, count ) {
 
   this.count = count || 1;
 
-  this.spacing = {
-    x: this.width  / this.count,
-    y: this.height / this.count
-  };
+  this.cellWidth  = this.width  / this.count;
+  this.cellHeight = this.height / this.count;
 
   this.grid = [];
 }
@@ -51,11 +49,11 @@ SpatialGrid.prototype.insertAll = function( array ) {
 };
 
 SpatialGrid.prototype.xIndexOf = function( x ) {
-  return Math.floor( x / this.spacing.x );
+  return Math.floor( x / this.cellWidth );
 };
 
 SpatialGrid.prototype.yIndexOf = function( y ) {
-  return Math.floor( y / this.spacing.y );
+  return Math.floor( y / this.cellHeight );
 };
 
 SpatialGrid.prototype.indexOf = function( x, y ) {
