@@ -1,8 +1,5 @@
 'use strict';
 
-/**
- * Should the grid be divided by cell size or cell count?
- */
 function SpatialGrid( x, y, width, height, count ) {
   this.x = x || 0;
   this.y = y || 0;
@@ -16,6 +13,8 @@ function SpatialGrid( x, y, width, height, count ) {
   this.cellHeight = this.height / this.count;
 
   this.grid = [];
+
+  this.initialize();
 }
 
 SpatialGrid.prototype.initialize = function() {
@@ -34,9 +33,10 @@ SpatialGrid.prototype.insert = function( object ) {
   var x = object.x,
       y = object.y;
 
+  var index;
   if ( this.contains( x, y ) ) {
-    // TODO: Implementation.
-    return true;
+    index = this.indexOf( x, y );
+    return this.grid[ index ].push( object );
   }
 
   return false;
@@ -65,12 +65,25 @@ SpatialGrid.prototype.contains = function( x, y ) {
          this.y <= y && y <= this.y + this.height;
 };
 
+/**
+ * Returns an array of cells that intersect the given bounding box.
+ */
 SpatialGrid.prototype.retrieve = function( x, y, width, height ) {
-  // TODO: Implementation.
-  return {
-    x: x,
-    y: y,
-    width: width,
-    height: height
-  };
+  var xminIndex = this.xIndexOf( x ),
+      yminIndex = this.yIndexOf( y ),
+      xmaxIndex = this.xIndexOf( x + width ),
+      ymaxIndex = this.yIndexOf( y + height );
+
+  var results = [];
+
+  var index;
+  var i, j;
+  for ( i = yminIndex; i < ymaxIndex; i++ ) {
+    for ( j = xminIndex; j < xmaxIndex; j++ ) {
+      index = i * this.count + j;
+      results.push( this.grid[ index ] );
+    }
+  }
+
+  return results;
 };
