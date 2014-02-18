@@ -23,6 +23,11 @@
 
   var grid = new SpatialGrid( 0, 0, canvas.width, canvas.height, 16 );
 
+  var mouse = {
+    x: 0,
+    y: 0
+  };
+
   function draw( ctx ) {
     ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
 
@@ -33,21 +38,27 @@
     ctx.lineWidth = 1;
     ctx.strokeStyle = 'red';
     ctx.stroke();
+
+    // Highlight cell of current mouse position.
+    ctx.beginPath();
+
+    var xIndex = grid.xIndexOf( mouse.x ),
+        yIndex = grid.yIndexOf( mouse.y );
+
+    ctx.rect(
+      xIndex * grid.cellWidth, yIndex * grid.cellHeight,
+      grid.cellWidth, grid.cellHeight
+    );
+
+    ctx.fillStyle = 'rgba(0, 255, 0, 0.25)';
+    ctx.fill();
   }
 
   window.addEventListener( 'mousemove', function( event ) {
-    var x = event.pageX - canvas.offsetLeft,
-        y = event.pageY - canvas.offsetTop;
-
-    var xIndex = grid.xIndexOf( x ),
-        yIndex = grid.yIndexOf( y );
+    mouse.x = event.pageX - canvas.offsetLeft;
+    mouse.y = event.pageY - canvas.offsetTop;
 
     draw( context );
-
-    context.beginPath();
-    context.rect( xIndex * grid.cellWidth, yIndex * grid.cellHeight, grid.cellWidth, grid.cellHeight );
-    context.fillStyle = 'rgba(0, 255, 0, 0.25)';
-    context.fill();
   });
 
 }) ( window, document );
