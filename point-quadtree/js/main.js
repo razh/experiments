@@ -1,63 +1,11 @@
-/*globals Quadtree*/
+/*globals
+canvas, context,
+points,
+update, draw, init,
+rect, drawRect,
+Quadtree*/
 (function( window, document, undefined ) {
   'use strict';
-
-  var PI2 = 2 * Math.PI;
-  var pointSpeed = 100;
-
-  function Point( x, y ) {
-    this.x = x || 0;
-    this.y = y || 0;
-
-    var angle = Math.random() * PI2;
-    this.vx = Math.cos( angle ) * pointSpeed;
-    this.vy = Math.sin( angle ) * pointSpeed;
-  }
-
-  Point.prototype.draw = function( ctx ) {
-    ctx.rect( this.x - 1, this.y - 1, 2, 2 );
-  };
-
-  Point.prototype.update = function( dt ) {
-    this.x += this.vx * dt;
-    this.y += this.vy * dt;
-
-    if ( this.x < 0 ) {
-      this.x = 0;
-      this.vx = -this.vx;
-    }
-
-    if ( this.x > canvas.width ) {
-      this.x = canvas.width;
-      this.vx = -this.vx;
-    }
-
-    if ( this.y < 0 ) {
-      this.y = 0;
-      this.vy = -this.vy;
-    }
-
-    if ( this.y > canvas.height ) {
-      this.y = canvas.height;
-      this.vy = -this.vy;
-    }
-  };
-
-  function Rect( x, y, width, height ) {
-    this.x = x || 0;
-    this.y = y || 0;
-    this.width = width || 0;
-    this.height = height || 0;
-  }
-
-  Rect.prototype.draw = function( ctx ) {
-    ctx.rect( this.x, this.y, this.width, this.height );
-  };
-
-  Rect.prototype.contains = function( x, y ) {
-    return this.x <= x && x <= this.x + this.width &&
-           this.y <= y && y <= this.y + this.height;
-  };
 
   Quadtree.prototype.draw = function( ctx ) {
     ctx.rect( this.x, this.y, this.size, this.size );
@@ -73,45 +21,16 @@
     }, 1 );
   };
 
-  var canvas  = document.getElementById( 'canvas' ),
-      context = canvas.getContext( '2d' );
-
-  canvas.width  = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  var prevTime = Date.now(),
-      currTime = prevTime;
-
-  var points     = [],
-      potentials = [],
+  var potentials = [],
       actuals    = [];
 
   var usingQuadtree = true;
   var drawingQuadtree = false;
 
   var quadtree = new Quadtree( 0, 0, Math.max( canvas.width, canvas.height ) );
-  var rect = new Rect( 200, 200, 100, 100 );
 
-  function tick() {
+  function updateQuadtree() {
     update();
-    draw( context );
-    window.requestAnimationFrame( tick );
-  }
-
-  function update() {
-    currTime = Date.now();
-    var dt = currTime - prevTime;
-    prevTime = currTime;
-
-    if ( dt > 1e2 ) {
-      dt = 1e2;
-    }
-
-    dt *= 1e-3;
-
-    points.forEach(function( point ) {
-      point.update( dt );
-    });
 
     if ( usingQuadtree ) {
       quadtree.clear();
@@ -127,10 +46,10 @@
     });
   }
 
-  function draw( ctx ) {
-    ctx.fillStyle = 'black';
-    ctx.fillRect( 0, 0, canvas.width, canvas.height );
+  function drawQuadtree( ctx ) {
+    draw( ctx );
 
+    // Quadtree.
     if ( usingQuadtree && drawingQuadtree ) {
       ctx.beginPath();
       quadtree.draw( ctx );
@@ -139,13 +58,9 @@
       ctx.stroke();
     }
 
-    ctx.beginPath();
-    points.forEach(function( point ) {
-      point.draw( ctx );
-    });
-    ctx.fillStyle = 'white';
-    ctx.fill();
+    drawRect( ctx );
 
+    // Potentials.
     ctx.font = '12pt monospace';
     ctx.fillStyle = 'yellow';
     ctx.fillText( 'potential: ' + potentials.length, 25, 60 );
@@ -158,73 +73,29 @@
       ctx.fill();
     }
 
-    ctx.beginPath();
-    rect.draw( ctx );
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = 'yellow';
-    ctx.stroke();
-
+    // Actuals.
     ctx.beginPath();
     actuals.forEach(function( point ) {
       point.draw( ctx );
     });
+
     ctx.fillStyle = '#0f0';
     ctx.fill();
+
     ctx.fillText( 'actual: ' + actuals.length, 25, 30 );
 
+    // Quadtree nodes,
     if ( usingQuadtree ) {
       ctx.fillStyle = '#fff';
       ctx.fillText( 'quadtree nodes: ' + quadtree.count(), 25, 90 );
     }
   }
 
-  function randomInt( min, max ) {
-    return Math.round( min + Math.random() * ( max - min ) );
+  function tick() {
+    updateQuadtree();
+    drawQuadtree( context );
+    window.requestAnimationFrame( tick );
   }
-
-  function init() {
-    var pointCount = 1000;
-    while ( pointCount-- ) {
-      points.push( new Point( randomInt( 0, canvas.width ), randomInt( 0, canvas.height ) ) );
-    }
-
-    tick();
-  }
-
-  function rectPosition( x, y ) {
-    rect.x = x - 0.5 * rect.width;
-    rect.y = y - 0.5 * rect.height;
-  }
-
-  var mouseDown = false;
-
-  function onMouseDown() {
-    mouseDown = true;
-  }
-
-  function onMouseMove( event ) {
-    if ( mouseDown ) {
-      rectPosition( event.pageX, event.pageY );
-    }
-  }
-
-  function onMouseUp() {
-    mouseDown = false;
-  }
-
-  function onTouch( event ) {
-    event.preventDefault();
-    rectPosition( event.touches[0].pageX, event.touches[0].pageY );
-  }
-
-  if ( typeof window.ontouchstart !== 'undefined' ) {
-    canvas.addEventListener( 'touchstart', onTouch );
-    canvas.addEventListener( 'touchmove', onTouch );
-  }
-
-  canvas.addEventListener( 'mousedown', onMouseDown );
-  canvas.addEventListener( 'mousemove', onMouseMove );
-  canvas.addEventListener( 'mouseup', onMouseUp );
 
   document.getElementById( 'toggleQuadtree' )
     .addEventListener( 'click', function() {
@@ -237,4 +108,5 @@
     });
 
   init();
+  tick();
 }) ( window, document );
