@@ -1,4 +1,9 @@
-/*globals SpatialGrid*/
+/*globals
+canvas, context,
+points,
+update, draw, init,
+rect, drawRect,
+SpatialGrid*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -15,50 +20,89 @@
     }
   };
 
-  var canvas  = document.getElementById( 'canvas' ),
-      context = canvas.getContext( '2d' );
+  var potentials = [],
+      actuals    = [];
 
-  canvas.width  = window.innerWidth;
-  canvas.height = window.innerHeight;
+  var usingGrid = true,
+      drawingGrid = false;
 
   var grid = new SpatialGrid( 0, 0, canvas.width, canvas.height, 16 );
 
-  var mouse = {
-    x: 0,
-    y: 0
-  };
+  function updateGrid() {
+    update();
 
-  function draw( ctx ) {
-    ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
+    if ( usingGrid ) {
+      grid.clear();
+      grid.insertAll( points );
 
-    ctx.beginPath();
+      potentials = grid.retrieve( rect.x, rect.y, rect.width, rect.height )
+        .reduce(function( array, points ) {
+          return array.concat( points );
+        }, [] );
+    } else {
+      potentials = points;
+    }
 
-    grid.draw( ctx );
-
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = 'red';
-    ctx.stroke();
-
-    // Highlight cell of current mouse position.
-    ctx.beginPath();
-
-    var xIndex = grid.xIndexOf( mouse.x ),
-        yIndex = grid.yIndexOf( mouse.y );
-
-    ctx.rect(
-      xIndex * grid.cellWidth, yIndex * grid.cellHeight,
-      grid.cellWidth, grid.cellHeight
-    );
-
-    ctx.fillStyle = 'rgba(0, 255, 0, 0.25)';
-    ctx.fill();
+    actuals = potentials.filter(function( point ) {
+      return rect.contains( point.x, point.y );
+    });
   }
 
-  window.addEventListener( 'mousemove', function( event ) {
-    mouse.x = event.pageX - canvas.offsetLeft;
-    mouse.y = event.pageY - canvas.offsetTop;
+  function drawGrid( ctx ) {
+    draw( ctx );
 
-    draw( context );
-  });
+    // Grid.
+    if ( usingGrid && drawingGrid ) {
+      ctx.beginPath();
+      grid.draw( ctx );
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'red';
+      ctx.stroke();
+    }
 
+    drawRect( ctx );
+
+    // Potentials.
+    ctx.font = '12pt monospace';
+    ctx.fillStyle = 'yellow';
+    ctx.fillText( 'potential: ' + potentials.length, 25, 60 );
+
+    if ( usingGrid ) {
+      ctx.beginPath();
+      potentials.forEach(function( point ) {
+        point.draw( ctx );
+      });
+      ctx.fill();
+    }
+
+    // Actuals.
+    ctx.beginPath();
+    actuals.forEach(function( point ) {
+      point.draw( ctx );
+    });
+
+    ctx.fillStyle = '#0f0';
+    ctx.fill();
+
+    ctx.fillText( 'actual: ' + actuals.length, 25, 30 );
+  }
+
+  function tick() {
+    updateGrid();
+    drawGrid( context );
+    window.requestAnimationFrame( tick );
+  }
+
+  document.getElementById( 'toggleGrid' )
+    .addEventListener( 'click', function() {
+      usingGrid = !usingGrid;
+    });
+
+  document.getElementById( 'toggleGridVisibility' )
+    .addEventListener( 'click', function() {
+      drawingGrid = !drawingGrid;
+    });
+
+  init();
+  tick();
 }) ( window, document );

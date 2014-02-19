@@ -9,11 +9,27 @@
       margin: 0;
       background-color: #222;
     }
+
+    .toggle-btn {
+      position: absolute;
+      bottom: 25px;
+    }
+
+    #toggleGrid {
+      left: 30px;
+    }
+
+    #toggleGridVisibility {
+      left: 130px;
+    }
   </style>
 </head>
 <body>
+  <button class="toggle-btn" id="toggleGrid">Toggle Grid</button>
+  <button class="toggle-btn" id="toggleGridVisibility">Toggle Grid Visibility</button>
   <canvas id="canvas"></canvas>
 
+  <script src="./../spatial-partition/js/main.js"></script>
   <script src="./js/spatial-grid.js"></script>
   <script src="./js/main.js"></script>
 </body>
