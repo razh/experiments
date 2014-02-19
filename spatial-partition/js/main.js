@@ -8,6 +8,7 @@
  * Globals:
  *   canvas, context,
  *   points,
+ *   running,
  *   update, draw, init,
  *   rect, drawRect
  */
@@ -23,6 +24,8 @@ canvas.height = window.innerHeight;
 
 var prevTime = Date.now(),
     currTime = prevTime;
+
+var running = false;
 
 var points  = [];
 
@@ -164,6 +167,15 @@ function init() {
     rectPosition( event.touches[0].pageX, event.touches[0].pageY );
   }
 
+  function onKeyDown( event ) {
+    // Space.
+    if ( event.which === 32 ) {
+      event.preventDefault();
+      running = !running;
+      prevTime = Date.now();
+    }
+  }
+
   if ( typeof window.ontouchstart !== 'undefined' ) {
     canvas.addEventListener( 'touchstart', onTouch );
     canvas.addEventListener( 'touchmove', onTouch );
@@ -172,4 +184,10 @@ function init() {
     canvas.addEventListener( 'mousemove', onMouseMove );
     canvas.addEventListener( 'mouseup', onMouseUp );
   }
+
+  document.addEventListener( 'keydown', onKeyDown );
+
+  window.addEventListener( 'blur', function() {
+    running = false;
+  });
 }) ();

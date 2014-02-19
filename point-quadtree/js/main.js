@@ -1,6 +1,7 @@
 /*globals
 canvas, context,
 points,
+running,
 update, draw, init,
 rect, drawRect,
 Quadtree*/
@@ -92,10 +93,23 @@ Quadtree*/
   }
 
   function tick() {
+    if ( !running ) {
+      return;
+    }
+
     updateQuadtree();
     drawQuadtree( context );
     window.requestAnimationFrame( tick );
   }
+
+  document.addEventListener( 'keydown', function( event ) {
+    // Space.
+    if ( event.which === 32 ) {
+      if ( running ) {
+        tick();
+      }
+    }
+  });
 
   document.getElementById( 'toggleQuadtree' )
     .addEventListener( 'click', function() {
@@ -107,6 +121,9 @@ Quadtree*/
       drawingQuadtree = !drawingQuadtree;
     });
 
-  init();
-  tick();
+  (function() {
+    init();
+    updateQuadtree();
+    drawQuadtree( context );
+  }) ();
 }) ( window, document );

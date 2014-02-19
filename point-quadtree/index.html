@@ -17,6 +17,18 @@
       bottom: 25px;
     }
 
+    .help {
+      position: absolute;
+      bottom: 1em;
+      right: 2em;
+
+      opacity: 0.5;
+
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      text-align: right;
+      color: white;
+    }
+
     #toggleQuadtree {
       left: 30px;
     }
@@ -30,6 +42,11 @@
   <!-- Since we’re only doing a single lookup per frame, the benefits of a Quadtree implementation are lost in this demo. -->
   <button class="toggle-btn" id="toggleQuadtree">Toggle Quadtree</button>
   <button class="toggle-btn" id="toggleQuadtreeVisibility">Toggle Quadtree Visibility</button>
+
+  <div class="help">
+    <p>SPACE - Play/pause.</p>
+  </div>
+
   <canvas id="canvas"></canvas>
 
   <script src="./../spatial-partition/js/main.js"></script>

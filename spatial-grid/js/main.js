@@ -1,6 +1,7 @@
 /*globals
 canvas, context,
 points,
+running,
 update, draw, init,
 rect, drawRect,
 SpatialGrid*/
@@ -111,10 +112,23 @@ SpatialGrid*/
   }
 
   function tick() {
+    if ( !running ) {
+      return;
+    }
+
     updateGrid();
     drawGrid( context );
     window.requestAnimationFrame( tick );
   }
+
+  document.addEventListener( 'keydown', function( event ) {
+    // Space.
+    if ( event.which === 32 ) {
+      if ( running ) {
+        tick();
+      }
+    }
+  });
 
   document.getElementById( 'toggleGrid' )
     .addEventListener( 'click', function() {
@@ -126,6 +140,9 @@ SpatialGrid*/
       drawingGrid = !drawingGrid;
     });
 
-  init();
-  tick();
+  (function() {
+    init();
+    updateGrid();
+    drawGrid( context );
+  }) ();
 }) ( window, document );

@@ -15,6 +15,18 @@
       bottom: 25px;
     }
 
+    .help {
+      position: absolute;
+      bottom: 1em;
+      right: 2em;
+
+      opacity: 0.5;
+
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      text-align: right;
+      color: white;
+    }
+
     #toggleGrid {
       left: 30px;
     }
@@ -27,6 +39,11 @@
 <body>
   <button class="toggle-btn" id="toggleGrid">Toggle Grid</button>
   <button class="toggle-btn" id="toggleGridVisibility">Toggle Grid Visibility</button>
+
+  <div class="help">
+    <p>SPACE - Play/pause.</p>
+  </div>
+
   <canvas id="canvas"></canvas>
 
   <script src="./../spatial-partition/js/main.js"></script>
