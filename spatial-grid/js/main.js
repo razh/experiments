@@ -53,10 +53,7 @@ SpatialGrid*/
       grid.clear();
       grid.insertAll( points );
 
-      potentials = grid.retrieve( rect.x, rect.y, rect.width, rect.height )
-        .reduce(function( array, points ) {
-          return array.concat( points );
-        }, [] );
+      potentials = grid.retrieve( rect.x, rect.y, rect.width, rect.height );
     } else {
       potentials = points;
     }

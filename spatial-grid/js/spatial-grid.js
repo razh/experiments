@@ -72,7 +72,7 @@ SpatialGrid.prototype.contains = function( x, y ) {
 /**
  * Returns an array of cells that intersect the given bounding box.
  */
-SpatialGrid.prototype.retrieve = function( x, y, width, height ) {
+SpatialGrid.prototype.retrieveCells = function( x, y, width, height ) {
   var xminIndex = this.xIndexOf( x ),
       yminIndex = this.yIndexOf( y ),
       xmaxIndex = this.xIndexOf( x + width ),
@@ -90,4 +90,14 @@ SpatialGrid.prototype.retrieve = function( x, y, width, height ) {
   }
 
   return results;
+};
+
+/**
+ * Returns a flat array of potentials in the given bounding box.
+ */
+SpatialGrid.prototype.retrieve = function( x, y, width, height ) {
+  return this.retrieveCells( x, y, width, height )
+    .reduce(function( a, b ) {
+      return a.concat( b );
+    });
 };
