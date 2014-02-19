@@ -1,5 +1,9 @@
 'use strict';
 
+function clamp( value, min, max ) {
+  return Math.min( Math.max( value, min ), max );
+}
+
 function SpatialGrid( x, y, width, height, count ) {
   this.x = x || 0;
   this.y = y || 0;
@@ -49,11 +53,11 @@ SpatialGrid.prototype.insertAll = function( array ) {
 };
 
 SpatialGrid.prototype.xIndexOf = function( x ) {
-  return Math.floor( x / this.cellWidth );
+  return clamp( Math.floor( x / this.cellWidth ), 0, this.count - 1 );
 };
 
 SpatialGrid.prototype.yIndexOf = function( y ) {
-  return Math.floor( y / this.cellHeight );
+  return clamp( Math.floor( y / this.cellHeight ), 0, this.count - 1 );
 };
 
 SpatialGrid.prototype.indexOf = function( x, y ) {
@@ -78,8 +82,8 @@ SpatialGrid.prototype.retrieve = function( x, y, width, height ) {
 
   var index;
   var i, j;
-  for ( i = yminIndex; i < ymaxIndex; i++ ) {
-    for ( j = xminIndex; j < xmaxIndex; j++ ) {
+  for ( i = yminIndex; i <= ymaxIndex; i++ ) {
+    for ( j = xminIndex; j <= xmaxIndex; j++ ) {
       index = i * this.count + j;
       results.push( this.grid[ index ] );
     }
