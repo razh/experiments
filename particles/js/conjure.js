@@ -23,8 +23,8 @@
     x: 0,
     y: 0,
 
-    radius: 1000,
-    strength: 2000
+    radius: 500,
+    strength: 5000
   };
 
   function clamp( value, min, max ) {
@@ -32,7 +32,7 @@
   }
 
   (function init() {
-    var particleCount = 500;
+    var particleCount = 100000;
     while ( particleCount-- ) {
       particles.push({
         x: Math.random() * canvas.width,
@@ -64,20 +64,27 @@
     var strength = mouse.strength;
 
     // Simple Euler integration.
-    particles.forEach(function( particle ) {
-      var dx = mouse.x - particle.x,
-          dy = mouse.y - particle.y;
+    var dx, dy;
+    var distanceSquared;
+    var distanceInverse;
+    // Force.
+    var fx, fy;
+    // Relative distance from mouse.
+    var intensity;
+
+    var particle;
+    var i, il;
+    for ( i = 0, il = particles.length; i < il; i++ ) {
+      particle = particles[i];
+
+      dx = mouse.x - particle.x;
+      dy = mouse.y - particle.y;
 
       if ( !dx && !dy ) {
-        return;
+        continue;
       }
 
-      var distanceSquared = dx * dx + dy * dy;
-      var distanceInverse;
-      // Force.
-      var fx, fy;
-      // Relative distance from mouse.
-      var intensity;
+      distanceSquared = dx * dx + dy * dy;
       if ( distanceSquared < radiusSquared ) {
         intensity = 1 - distanceSquared / radiusSquared;
         distanceInverse = 1 / Math.sqrt( distanceSquared );
@@ -94,9 +101,9 @@
       particle.x += particle.vx * dt;
       particle.y += particle.vy * dt;
 
-      particle.x = clamp( particle.x, 0, width );
-      particle.y = clamp( particle.y, 0, height );
-    });
+      particle.x = clamp( particle.x, 0, width - 1 );
+      particle.y = clamp( particle.y, 0, height - 1 );
+    }
   }
 
   function drawParticles( ctx ) {
@@ -136,18 +143,24 @@
     var imageData = ctx.createImageData( width, height );
     var data = imageData.data;
 
-    particles.forEach(function( particle ) {
-      var x = Math.floor( particle.x ),
-          y = Math.floor( particle.y );
+    var particle;
+    var index;
+    var x, y;
+    var i, il;
+    for ( i = 0, il = particles.length; i < il; i++ ) {
+      particle = particles[i];
 
-      var index = 4 * ( y * width + x );
+      x = Math.floor( particle.x );
+      y = Math.floor( particle.y );
+
+      index = 4 * ( y * width + x );
 
       // Image data is an Uint8ClampedArray, automatically clamped.
       data[ index     ] += red;
       data[ index + 1 ] += green;
       data[ index + 2 ] += blue;
       data[ index + 3 ] += alpha;
-    });
+    }
 
     ctx.putImageData( imageData, 0, 0 );
   }
@@ -155,10 +168,10 @@
   function draw( ctx ) {
     ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
 
-    drawParticles( ctx );
+    // drawParticles( ctx );
 
     // Particle count of about 10000, but should be able to go up to 50k.
-    // drawParticlesImageData( ctx );
+    drawParticlesImageData( ctx );
   }
 
   function tick() {
@@ -181,6 +194,7 @@
     if ( event.which === 32 ) {
       running = !running;
       if ( running ) {
+        prevTime = Date.now();
         tick();
       }
     }
