@@ -1,4 +1,3 @@
-/*jshint bitwise: false*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -26,12 +25,31 @@
 
     // Determine the lowest power of two that can cover the entire width.
     var power = Math.ceil( log2( width ) );
-    var count = 1 << power;
+    var count = Math.pow( 2, power );
 
     // Initialize endpoints.
     points[0]       = randomSignedFloat( displacement );
     points[ count ] = randomSignedFloat( displacement );
 
+
+    /**
+     *  Inner loop, for values of:
+     *   - count: 64
+     *   - i (power of two): 4
+     *   - step: 16
+     *   - delta: 8
+     *
+     *                 step                            step
+     *           |---------------|               |---------------|
+     *     delta   delta                   delta   delta
+     *   |-------o-------|               |-------o-------|
+     *   |.......|.......|.......|.......|.......|.......|.......|.......|
+     *   0       7       15      23      31      39      47      55      63
+     *   |-------|       |-------o-------|               |-------o-------|
+     *     delta           delta   delta                   delta   delta
+     *                           |---------------|
+     *                                 step
+    */
     var step, delta;
     var i, j;
     // For each power of two.
