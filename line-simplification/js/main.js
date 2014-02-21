@@ -4,8 +4,6 @@
   var canvas  = document.getElementById( 'canvas' ),
       context = canvas.getContext( '2d' );
 
-  var points = [];
-
   function log2( n ) {
     return Math.log( n ) / Math.LN2;
   }
@@ -17,9 +15,9 @@
   function midpointDisplacement( options ) {
     options = options || {};
 
-    var width = options.width || 2,
+    var width        = options.width || 2,
         displacement = options.displacement || 1,
-        roughness = options.roughness || 0.5;
+        roughness    = options.roughness || 0.5;
 
     var points = [];
 
@@ -30,7 +28,6 @@
     // Initialize endpoints.
     points[0]       = randomSignedFloat( displacement );
     points[ count ] = randomSignedFloat( displacement );
-
 
     /**
      *  Inner loop, for values of:
@@ -69,6 +66,23 @@
     return points;
   }
 
+  function scaleFn( scale ) {
+    return function( value ) {
+      return scale * value;
+    };
+  }
+
+  /**
+   * Map function for converting an array of height values to two-dimensional
+   * coordinates.
+   */
+  function to2d( height, index ) {
+    return {
+      x: index,
+      y: height
+    };
+  }
+
   function drawPoints( ctx, points ) {
     ctx.beginPath();
 
@@ -78,6 +92,30 @@
   }
 
   function drawLines( ctx, points ) {
+    ctx.beginPath();
 
+    ctx.moveTo( points[0].x, points[0].y );
+    for ( var i = 1, il = points.length; i < il; i++ ) {
+      ctx.lineTo( points[i].x, points[i].y );
+    }
   }
+
+  (function() {
+    canvas.width  = 640;
+    canvas.height = 480;
+
+    var scaleY = scaleFn( 0.25 * canvas.height );
+
+    var points = midpointDisplacement({
+      width: canvas.width,
+      roughness: 0.7
+    }).map( scaleY )
+      .map( to2d );
+
+    var ctx = context;
+    ctx.translate( 0, 0.5 * canvas.height );
+    drawPoints( ctx, points );
+    ctx.fillStyle = 'white';
+    ctx.fill();
+  }) ();
 }) ( window, document );
