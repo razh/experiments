@@ -209,4 +209,13 @@
     canvas.height = window.innerHeight;
   });
 
+  (function() {
+    // Draw once.
+    draw( context );
+
+    // Position mouse at screen center.
+    mouse.x = 0.5 * window.innerWidth;
+    mouse.y = 0.5 * window.innerHeight;
+  }) ();
+
 }) ( window, document );
