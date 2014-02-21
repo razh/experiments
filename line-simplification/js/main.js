@@ -113,9 +113,24 @@
       .map( to2d );
 
     var ctx = context;
-    ctx.translate( 0, 0.5 * canvas.height );
+
+    ctx.save();
+
+    // Points.
+    ctx.translate( 0, 0.55 * canvas.height );
+
     drawPoints( ctx, points );
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = '#fff';
     ctx.fill();
+
+    // Lines.
+    ctx.translate( 0, 0.1 * canvas.height );
+
+    drawLines( ctx, points );
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = '#fff';
+    ctx.stroke();
+
+    ctx.restore();
   }) ();
 }) ( window, document );
