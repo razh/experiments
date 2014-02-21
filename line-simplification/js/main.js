@@ -1,3 +1,4 @@
+/*jshint bitwise: false*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -6,27 +7,45 @@
 
   var points = [];
 
+  function log2( n ) {
+    return Math.log( n ) / Math.LN2;
+  }
+
+  function randomSignedFloat( n ) {
+    return Math.random() * 2 * n - n;
+  }
+
   function midpointDisplacement( options ) {
     options = options || {};
 
     var width = options.width || 2,
-        count = options.count || 2;
+        displacement = options.displacement || 1,
+        roughness = options.roughness || 0.5;
 
     var points = [];
 
-    // Start point.
-    var x0 = 0,
-        y0 = 0;
+    // Determine the lowest power of two that can cover the entire width.
+    var power = Math.ceil( log2( width ) );
+    var count = 1 << power;
 
-    // End point.
-    var x1 = width,
-        y1 = 0;
+    // Initialize endpoints.
+    points[0]       = randomSignedFloat( displacement );
+    points[ count ] = randomSignedFloat( displacement );
 
-    var mx, my;
-    for ( var i = 2; i < count; i++ ) {
-      mx = 0.5 * ( x0 + x1 );
-      my = 0.5 * ( y0 + y1 );
-      break;
+    var step, delta;
+    var i, j;
+    // For each power of two.
+    for ( i = 1; i < count; i *= 2 ) {
+      displacement *= roughness;
+      step = count / i;
+      delta = 0.5 * step;
+
+      for ( j = delta; j < count; j += step ) {
+        // Midpoint.
+        points[j] = 0.5 * ( points[ j - delta ] + points[ j + delta ] );
+        // Displace.
+        points[j] += randomSignedFloat( displacement );
+      }
     }
 
     return points;
