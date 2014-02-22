@@ -17,7 +17,9 @@
 
     var width        = options.width || 2,
         displacement = options.displacement || 1,
-        roughness    = options.roughness || 0.5;
+        roughness    = options.roughness || 0.5,
+        start        = options.start,
+        end          = options.end;
 
     var points = [];
 
@@ -26,8 +28,11 @@
     var count = Math.pow( 2, power );
 
     // Initialize endpoints.
-    points[0]       = randomSignedFloat( displacement );
-    points[ count ] = randomSignedFloat( displacement );
+    start = typeof start !== 'undefined' ? start : randomSignedFloat( displacement );
+    end   = typeof end   !== 'undefined' ? end   : randomSignedFloat( displacement );
+
+    points[0]       = start;
+    points[ count ] = end;
 
     /**
      *  Inner loop, for values of:
