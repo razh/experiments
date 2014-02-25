@@ -151,9 +151,9 @@ $(function() {
       // Exit fullscreen on click.
       $gradientFullscreen.on( 'click', exitFullscreen );
 
-      // Exit on ESC as well.
+      // Exit on Space as well.
       $document.on( 'keydown.fullscreen', function( event ) {
-        if ( event.which === 27 ) {
+        if ( event.which === 32 ) {
           exitFullscreen();
         }
       });
@@ -183,7 +183,8 @@ $(function() {
     var colIndex, rowIndex,
         $gradient;
 
-    if ( event.which === 13 ) {
+    // Space.
+    if ( event.which === 32 ) {
       $gradient = getGradientAt( state.colIndex, state.rowIndex );
       enterFullscreenWithBackgroundImage( $gradient.css( 'background-image' ) );
     } else {
