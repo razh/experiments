@@ -23,6 +23,9 @@
       bottom: 0;
       right: 0;
       opacity: 0;
+
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
     }
 
     .gradient-cursor {
@@ -43,6 +46,8 @@
   </style>
 </head>
 <body>
+  <div class="gradient-cursor"></div>
+
   <div class="gradient-container">
     <div class="gradient" id="gradient-0"></div>
     <div class="gradient" id="gradient-1"></div>
@@ -62,7 +67,6 @@
     <div class="gradient" id="gradient-15"></div>
   </div>
 
-  <div class="gradient-cursor"></div>
   <div class="gradient-fullscreen"></div>
 
   <script src="../app/bower_components/jquery/jquery.js"></script>

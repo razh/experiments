@@ -99,9 +99,13 @@ $(function() {
         width = options.width || 0,
         height = options.height || 0;
 
+    var transform = 'translate3d(' +
+      left + 'px, ' +
+      top  + 'px, 0)';
+
     $gradientCursor.css({
-      top: top,
-      left: left,
+      '-webkit-transform': transform,
+      transform: transform,
 
       width: width,
       height: height
