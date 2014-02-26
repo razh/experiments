@@ -21,6 +21,10 @@
       height: 100%;
     }
 
+    label {
+      font-family: monospace;
+    }
+
     .inputs {
       clear: both;
     }
@@ -28,14 +32,21 @@
 </head>
 <body>
   <div class="inputs">
-    <label for="font-weight">Font weight</label>
+    <label for="font-weight">font-weight</label>
     <input type="number" name="font-weight" min="100" max="900" step="100" value="400">
 
-    <label for="letter-spacing">Letter spacing</label>
+    <label for="letter-spacing">letter-spacing</label>
     <input type="number" name="letter-spacing" min="0" max="10" step="1" value="0">
 
-    <label for="line-height">Line height</label>
+    <label for="line-height">line-height</label>
     <input type="number" name="line-height" min="0" max="10" step="0.01" value="1">
+
+    <label for="text-align">text-align</label>
+    <select name="text-align" id="text-align">
+      <option value="left">left</option>
+      <option value="center" selected>center</option>
+      <option value="right">right</option>
+    </select>
   </div>
   <div id="editor" contenteditable="true">The quick brown<div>fox</div><div>jumps over</div><div>the lazy dog</div></div>
   <div id="preview"></div>

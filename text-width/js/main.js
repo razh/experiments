@@ -8,11 +8,13 @@ $(function() {
   // Inputs.
   var $fontWeightInput    = $( 'input[name="font-weight"]' ),
       $letterSpacingInput = $( 'input[name="letter-spacing"]' ),
-      $lineHeightInput    = $( 'input[name="line-height"]' );
+      $lineHeightInput    = $( 'input[name="line-height"]' ),
+      $textAlignSelect    = $( 'select[name="text-align"]' );
 
   var fontWeight    = $fontWeightInput.val(),
       letterSpacing = $letterSpacingInput.val(),
-      lineHeight    = $lineHeightInput.val();
+      lineHeight    = $lineHeightInput.val(),
+      textAlign     = $textAlignSelect.val();
 
   var textWidth = (function() {
     var div = $( '<div></div>' )
@@ -105,7 +107,8 @@ $(function() {
         'font-size': fontSize + 'px',
         'font-family': 'Helvetica Neue',
         'letter-spacing': letterSpacing + 'px',
-        'line-height': lineHeight
+        'line-height': lineHeight,
+        'text-align': textAlign
       });
 
       $preview.append( $line );
@@ -136,6 +139,11 @@ $(function() {
 
   $lineHeightInput.on( 'change', function() {
     lineHeight = $lineHeightInput.val();
+    update();
+  });
+
+  $textAlignSelect.on( 'change', function() {
+    textAlign = $textAlignSelect.val();
     update();
   });
 });
