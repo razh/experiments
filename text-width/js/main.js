@@ -92,7 +92,7 @@ $(function() {
       if ( currentWidth !== previewWidth ) {
         low = textWidth( text, {
           'font-weight': fontWeight,
-          'font-size': ( fontSize - 1) + 'px',
+          'font-size': ( fontSize - 1 ) + 'px',
           'font-family': 'Helvetica Neue',
           'letter-spacing': letterSpacing + 'px',
           'line-height': lineHeight
@@ -100,13 +100,16 @@ $(function() {
 
         high = textWidth( text, {
           'font-weight': fontWeight,
-          'font-size': ( fontSize + 1) + 'px',
+          'font-size': ( fontSize + 1 ) + 'px',
           'font-family': 'Helvetica Neue',
           'letter-spacing': letterSpacing + 'px',
           'line-height': lineHeight
         });
 
-        console.log(currentWidth + ', ' + previewWidth + ', [' + low + ', ' + high + ']');
+        console.log( 'current: ' + currentWidth + ', ' +
+          'desired: ' + previewWidth +
+          ', lo|hi: [' + low + ', ' + high + ']' +
+          ', text: ' + text );
       }
 
       var $line = $( '<div>' + text + '</div>' );
@@ -127,7 +130,7 @@ $(function() {
     var text = $editor.html();
     editorText = text;
     editorTextArray = toTextArray( editorText );
-    console.log(editorTextArray);
+    console.log( editorTextArray );
 
     updatePreview( editorTextArray );
   }
