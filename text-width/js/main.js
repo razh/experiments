@@ -5,16 +5,18 @@ $(function() {
   var $editor = $( '#editor' ),
       $preview = $( '#preview' );
 
-  // Inputs.
-  var $fontWeightInput    = $( 'input[name="font-weight"]' ),
-      $letterSpacingInput = $( 'input[name="letter-spacing"]' ),
-      $lineHeightInput    = $( 'input[name="line-height"]' ),
-      $textAlignSelect    = $( 'select[name="text-align"]' );
+  var $inputs = {
+    fontWeight: $( 'input[name="font-weight"]' ),
+    letterSpacing: $( 'input[name="letter-spacing"]' ),
+    lineHeight: $( 'input[name="line-height"]' ),
+    textAlign: $( 'select[name="text-align"]' )
+  };
 
-  var fontWeight    = $fontWeightInput.val(),
-      letterSpacing = $letterSpacingInput.val(),
-      lineHeight    = $lineHeightInput.val(),
-      textAlign     = $textAlignSelect.val();
+  // Get default config values from inputs.
+  var config = Object.keys( $inputs ).reduce(function( object, key ) {
+    object[ key ] = $inputs[ key ].val();
+    return object;
+  }, {} );
 
   var textWidth = (function() {
     var div = $( '<div></div>' )
@@ -49,6 +51,12 @@ $(function() {
     $preview.empty();
 
     var previewWidth = $preview.width();
+
+    // Configuration values.
+    var fontWeight = config.fontWeight,
+        letterSpacing = config.letterSpacing,
+        lineHeight = config.lineHeight,
+        textAlign = config.textAlign;
 
     textArray.forEach(function( text ) {
       // Binary search.
@@ -124,26 +132,19 @@ $(function() {
     updatePreview( editorTextArray );
   }
 
-  update();
+  // Update on input change.
+  Object.keys( $inputs ).forEach(function( key ) {
+    var $input = $inputs[ key ];
+
+    $input.on( 'change', function() {
+      config[ key ] = $input.val();
+      update();
+    });
+  });
+
+  // Update when typing.
   $editor.on('input', update );
 
-  $fontWeightInput.on( 'change', function() {
-    fontWeight = $fontWeightInput.val();
-    update();
-  });
-
-  $letterSpacingInput.on( 'change', function() {
-    letterSpacing = $letterSpacingInput.val();
-    update();
-  });
-
-  $lineHeightInput.on( 'change', function() {
-    lineHeight = $lineHeightInput.val();
-    update();
-  });
-
-  $textAlignSelect.on( 'change', function() {
-    textAlign = $textAlignSelect.val();
-    update();
-  });
+  // Initial render.
+  update();
 });
