@@ -137,8 +137,9 @@ $(function() {
     });
   });
 
-  // Update when typing.
-  $editor.on('input', update );
+  // Update when typing/resizing.
+  $editor.on( 'input', update );
+  $( window ).on( 'resize', update );
 
   // Initial render.
   update();

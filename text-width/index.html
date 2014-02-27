@@ -7,6 +7,8 @@
   <style>
     html, body {
       height: 100%;
+      background-color: #222;
+      color: white;
     }
 
     body {
@@ -33,13 +35,13 @@
 <body>
   <div class="inputs">
     <label for="font-weight">font-weight</label>
-    <input type="number" name="font-weight" min="100" max="900" step="100" value="400">
+    <input type="number" name="font-weight" min="100" max="900" step="100" value="900">
 
     <label for="letter-spacing">letter-spacing</label>
-    <input type="number" name="letter-spacing" min="0" max="10" step="1" value="0">
+    <input type="number" name="letter-spacing" min="-10" max="10" step="1" value="0">
 
     <label for="line-height">line-height</label>
-    <input type="number" name="line-height" min="0" max="10" step="0.01" value="1">
+    <input type="number" name="line-height" min="0" max="10" step="0.01" value="0.8">
 
     <label for="text-align">text-align</label>
     <select name="text-align" id="text-align">
@@ -48,7 +50,7 @@
       <option value="right">right</option>
     </select>
   </div>
-  <div id="editor" contenteditable="true">The quick brown<div>fox</div><div>jumps over</div><div>the lazy dog</div></div>
+  <div id="editor" contenteditable="true">THE QUICK BROWN<div>FOX</div><div>JUMPS OVER</div><div>THE LAZY</div><div>DOG</div></div>
   <div id="preview"></div>
 
   <script src="../app/bower_components/jquery/jquery.js"></script>
