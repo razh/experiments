@@ -41,7 +41,11 @@ $(function() {
       .replace( /<div>/gi, '\n' ) // Add new lines where at div start.
       .replace( /<\/div>/gi, '' ) // Remove closing div tag.
       .replace( /&nbsp;/g, '' ) // Remove nbsps.
-      .split( '\n' );
+      .split( '\n' )
+      .filter(function( string ) {
+        // Remove any empty/whitespace-only strings.
+        return string.trim().length > 0;
+      });
   }
 
   var editorText = '';
