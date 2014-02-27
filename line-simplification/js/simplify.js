@@ -7,99 +7,103 @@
 var simplify = (function() {
   'use strict';
 
-  var compare = function() {};
+  function minHeap( compareFn ) {
+    var heap = {},
+        array = [];
 
-  // Binary minheap.
-  function MinHeap() {
-    this.array = [];
+    var compare = function( a, b ) {
+      return compareFn( array[a], array[b] );
+    };
+
+    /**
+     * Swap elements at indices a and b.
+     */
+    function swap( a, b ) {
+      var temp = array[a];
+      array[a] = array[b];
+      array[b] = temp;
+    }
+
+    function up( index ) {
+      var parent;
+      while ( index > 0 ) {
+        parent = Math.floor( ( index + 1 ) / 2 ) - 1;
+
+        if ( compare( parent, index ) >= 0 ) {
+          break;
+        }
+
+        swap( parent, index );
+
+        // Move up the tree.
+        index = parent;
+      }
+    }
+
+    function down( index ) {
+      var length = array.length;
+
+      var min;
+      var left, right;
+
+      while ( true ) {
+        right = 2 * ( index + 1 );
+        left = right - 1;
+        min = index;
+
+        if ( left < length && compare( left, index ) < 0 ) {
+          min = left;
+        }
+
+        if ( right < length && compare( right, min ) < 0 ) {
+          min = right;
+        }
+
+        if ( min === index ) {
+          break;
+        }
+
+        swap( min, index );
+      }
+    }
+
+    heap.push = function() {
+      for ( var i = 0, il = arguments.length; i < il; i++ ) {
+        up( array.push( arguments[i] ) - 1 );
+      }
+
+      return this.array.length;
+    };
+
+    heap.pop = function() {
+      var removed = array[0],
+          last = array.pop();
+
+      if ( array.length ) {
+        array[0] = last;
+        down(0);
+      }
+
+      return removed;
+    };
+
+    heap.remove = function( removed ) {
+      var index = array.indexOf( removed ),
+          object = array.pop();
+
+      if ( index !== -1 && index !== array.length ) {
+        array[ index ] = object;
+
+        if ( compare( object, removed ) < 0 ) {
+          up( index );
+        } else {
+          down( index );
+        }
+      }
+    };
+
+    return heap;
   }
-
-  MinHeap.prototype.push = function() {
-    for ( var i = 0, il = arguments.length; i < il; i++ ) {
-      this.up( this.array.push( arguments[i] ) - 1 );
-    }
-
-    return this.array.length;
-  };
-
-  MinHeap.prototype.pop = function() {
-    var array = this.array;
-
-    var min = array[0];
-    array.pop();
-
-    if ( array.length ) {
-      array[0] = array[ array.length - 1 ];
-      this.down(0);
-    }
-
-    return min;
-  };
-
-  MinHeap.prototype.down = function( index ) {
-    var array = this.array,
-        length = array.length;
-
-    var min;
-    var left, right;
-    var temp;
-
-    while ( true ) {
-      min = index;
-      left = this.left( index );
-      right = this.right( index );
-
-      if ( left < length && compare( array[ left ], array[ index ] ) < 0 ) {
-        min = left;
-      }
-
-      if ( right < length && compare( array[ right ], array[ min ] ) < 0 ) {
-        min = right;
-      }
-
-      if ( min === index ) {
-        break;
-      }
-
-      // Swap min and this.
-      temp = array[ min ];
-      array[ min ] = array[ index ];
-      array[ index ] = temp;
-    }
-  };
-
-  MinHeap.prototype.up = function( index ) {
-    var array = this.array;
-
-    var parent;
-    var temp;
-    while ( index > 0 ) {
-      parent = this.parent( index );
-      if ( compare( array[ parent ], array[index ] ) >= 0 )  {
-        break;
-      }
-
-      // Swap parent and this.
-      temp = array[ index ];
-      array[ index ] = array[ parent ];
-      array[ parent ] = temp;
-
-      // Move up the tree.
-      index = parent;
-    }
-  };
-
-  MinHeap.prototype.parent = function( index ) {
-    return Math.floor( 0.5 * index ) - 1;
-  };
-
-  MinHeap.prototype.left = function( index ) {
-    return 2 * index + 1;
-  };
-
-  MinHeap.prototype.right = function( index ) {
-    return 2 * index + 2;
-  };
 
   return function() {
 
