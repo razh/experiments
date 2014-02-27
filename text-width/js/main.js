@@ -2,8 +2,14 @@
 $(function() {
   'use strict';
 
+  var fontFamily = '"Helvetica Neue", Helvetica, Arial, sans-serf';
+
   var $editor = $( '#editor' ),
       $preview = $( '#preview' );
+
+  $editor.css({
+    'font-family': fontFamily
+  });
 
   var $inputs = {
     fontWeight: $( 'input[name="font-weight"]' ),
@@ -66,7 +72,7 @@ $(function() {
       return textWidth( text, {
         'font-weight': fontWeight,
         'font-size': fontSize + 'px',
-        'font-family': 'Helvetica Neue',
+        'font-family': fontFamily,
         'letter-spacing': letterSpacing + 'px',
         'line-height': lineHeight
       });
@@ -112,7 +118,7 @@ $(function() {
       $line.css({
         'font-weight': fontWeight,
         'font-size': fontSize + 'px',
-        'font-family': 'Helvetica Neue',
+        'font-family': fontFamily,
         'letter-spacing': letterSpacing + 'px',
         'line-height': lineHeight,
         'text-align': textAlign
