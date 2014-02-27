@@ -58,6 +58,16 @@ $(function() {
         lineHeight = config.lineHeight,
         textAlign = config.textAlign;
 
+    function textWidthFontSize( text, fontSize ) {
+      return textWidth( text, {
+        'font-weight': fontWeight,
+        'font-size': fontSize + 'px',
+        'font-family': 'Helvetica Neue',
+        'letter-spacing': letterSpacing + 'px',
+        'line-height': lineHeight
+      });
+    }
+
     textArray.forEach(function( text ) {
       // Binary search.
       var low = 0;
@@ -68,13 +78,7 @@ $(function() {
       while ( low <= high ) {
         fontSize = Math.round( 0.5 * ( low + high ) );
 
-        currentWidth = textWidth( text, {
-          'font-weight': fontWeight,
-          'font-size': fontSize + 'px',
-          'font-family': 'Helvetica Neue',
-          'letter-spacing': letterSpacing + 'px',
-          'line-height': lineHeight
-        });
+        currentWidth = textWidthFontSize( text, fontSize );
 
         if ( currentWidth < previewWidth ) {
           low = fontSize + 1;
@@ -90,23 +94,11 @@ $(function() {
       }
 
       if ( currentWidth !== previewWidth ) {
-        low = textWidth( text, {
-          'font-weight': fontWeight,
-          'font-size': ( fontSize - 1 ) + 'px',
-          'font-family': 'Helvetica Neue',
-          'letter-spacing': letterSpacing + 'px',
-          'line-height': lineHeight
-        });
+        low          = textWidthFontSize( text, fontSize - 1 );
+        currentWidth = textWidthFontSize( text, fontSize );
+        high         = textWidthFontSize( text, fontSize + 1 );
 
-        high = textWidth( text, {
-          'font-weight': fontWeight,
-          'font-size': ( fontSize + 1 ) + 'px',
-          'font-family': 'Helvetica Neue',
-          'letter-spacing': letterSpacing + 'px',
-          'line-height': lineHeight
-        });
-
-        console.log( 'current: ' + currentWidth + ', ' +
+        console.log( 'actual: ' + currentWidth + ', ' +
           'desired: ' + previewWidth +
           ', lo|hi: [' + low + ', ' + high + ']' +
           ', text: ' + text );
