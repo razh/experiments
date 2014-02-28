@@ -105,6 +105,16 @@ var simplify = (function() {
     return heap;
   }
 
+  /**
+   * Returns the area of the quadrilateral (cross-product).
+   */
+  function area( t ) {
+    return Math.abs(
+     ( t[1].x - t[0].x ) * ( t[2].y - t[0].y ) -
+     ( t[2].x - t[0].x ) * ( t[1].y - t[0].y )
+    );
+  }
+
   return function() {
 
   };
