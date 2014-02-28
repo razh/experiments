@@ -43,15 +43,36 @@ $(function() {
   }) ();
 
   function toTextArray( text ) {
-    return text.replace( /<div><br><\/div>/gi, '' ) // Remove all line breaks.
-      .replace( /<div>/gi, '\n' ) // Add new lines where at div start.
-      .replace( /<\/div>/gi, '' ) // Remove closing div tag.
-      .replace( /&nbsp;/g, '' ) // Remove nbsps.
+    // Utility functions.
+    function trim( string ) {
+      return string.trim();
+    }
+
+    function length( object ) {
+      return object.length;
+    }
+
+    function stripTags( string ) {
+      return string.replace( /<div><br><\/div>/gi, '' ) // Remove all line breaks.
+        .replace( /<div>/gi, '\n' ) // Add new lines where at div start.
+        .replace( /<\/div>/gi, '' ); // Remove closing div tag.
+    }
+
+    function unescape( string ) {
+      return string.replace( /&nbsp;/g, ' ' )
+        .replace( /&amp;/g, '&' )
+        .replace( /&lt;/g, '<' )
+        .replace( /&gt;/g, '>' )
+        .replace( /&quot;/g, '"' )
+        .replace( /&#039;/g, '\'');
+    }
+
+    return stripTags( text )
       .split( '\n' )
-      .filter(function( string ) {
-        // Remove any empty/whitespace-only strings.
-        return string.trim().length > 0;
-      });
+      // Remove any empty/whitespace-only strings.
+      .map( unescape )
+      .map( trim )
+      .filter( length );
   }
 
   var editorText = '';
@@ -114,7 +135,8 @@ $(function() {
           ', text: ' + text );
       }
 
-      var $line = $( '<div>' + text + '</div>' );
+      var $line = $( '<div>' ).text( text );
+
       $line.css({
         'font-weight': fontWeight,
         'font-size': fontSize + 'px',
@@ -129,8 +151,7 @@ $(function() {
   }
 
   function update() {
-    var text = $editor.html();
-    editorText = text;
+    editorText = $editor.html();
     editorTextArray = toTextArray( editorText );
     console.log( editorTextArray );
 
