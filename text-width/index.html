@@ -12,8 +12,7 @@
     }
 
     body {
-      margin: 0;
-      padding: 10px;
+      margin: 16px;
     }
 
     #editor,
@@ -28,27 +27,36 @@
     }
 
     .inputs {
-      clear: both;
+      position: absolute;
+      bottom: 0;
     }
   </style>
 </head>
 <body>
   <div class="inputs">
-    <label for="font-weight">font-weight</label>
-    <input type="number" name="font-weight" min="100" max="900" step="100" value="900">
+    <div class="form-group">
+      <label for="font-weight">font-weight</label>
+      <input type="number" name="font-weight" min="100" max="900" step="100" value="900">
+    </div>
 
-    <label for="letter-spacing">letter-spacing</label>
-    <input type="number" name="letter-spacing" min="-10" max="10" step="1" value="0">
+    <div class="form-group">
+      <label for="letter-spacing">letter-spacing</label>
+      <input type="number" name="letter-spacing" min="-10" max="10" step="1" value="0">
+    </div>
 
-    <label for="line-height">line-height</label>
-    <input type="number" name="line-height" min="0" max="10" step="0.01" value="0.8">
+    <div class="form-group">
+      <label for="line-height">line-height</label>
+      <input type="number" name="line-height" min="0" max="10" step="0.01" value="0.8">
+    </div>
 
-    <label for="text-align">text-align</label>
-    <select name="text-align" id="text-align">
-      <option value="left">left</option>
-      <option value="center" selected>center</option>
-      <option value="right">right</option>
-    </select>
+    <div class="form-group">
+      <label for="text-align">text-align</label>
+      <select name="text-align" id="text-align">
+        <option value="left">left</option>
+        <option value="center" selected>center</option>
+        <option value="right">right</option>
+      </select>
+    </div>
   </div>
 
   <div id="editor" contenteditable="true">
