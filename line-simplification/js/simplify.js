@@ -3,11 +3,17 @@
  * Based upon Mike Bostock's Line Simplification:
  *
  *  http://bost.ocks.org/mike/simplify/
+ *
+ * Almost all of this code is copied from the example.
  */
 var simplify = (function() {
   'use strict';
 
   function minHeap( compareFn ) {
+    compareFn = compareFn || function( a, b ) {
+      return a - b;
+    };
+
     var heap = {},
         array = [];
 
@@ -51,7 +57,7 @@ var simplify = (function() {
         left = right - 1;
         min = index;
 
-        if ( left < length && compare( left, index ) < 0 ) {
+        if ( left < length && compare( left, min ) < 0 ) {
           min = left;
         }
 
@@ -64,6 +70,8 @@ var simplify = (function() {
         }
 
         swap( min, index );
+
+        index = min;
       }
     }
 
@@ -72,7 +80,7 @@ var simplify = (function() {
         up( array.push( arguments[i] ) - 1 );
       }
 
-      return this.array.length;
+      return array.length;
     };
 
     heap.pop = function() {
@@ -94,12 +102,15 @@ var simplify = (function() {
       if ( index !== -1 && index !== array.length ) {
         array[ index ] = object;
 
-        if ( compare( object, removed ) < 0 ) {
+        // Use compareFn instead because these are objects, not indices.
+        if ( compareFn( object, removed ) < 0 ) {
           up( index );
         } else {
           down( index );
         }
       }
+
+      return index;
     };
 
     return heap;
@@ -115,7 +126,73 @@ var simplify = (function() {
     );
   }
 
-  return function() {
+  return function( points ) {
+    var heap = minHeap(function( a, b ) {
+      return a[1].area - b[1].area;
+    });
 
+    var triangles = [];
+
+    // Build triangles.
+    var triangle;
+    var i, il;
+    for ( i = 0, il = points.length - 2; i < il; i++ ) {
+      triangle = [
+        points[ i ],
+        points[ i + 1 ],
+        points[ i + 2 ]
+      ];
+
+      triangle[1].area = area( triangle );
+
+      // Add non-degenerate triangles.
+      if ( triangle[1].area ) {
+        triangles.push( triangle );
+        heap.push( triangle );
+      }
+    }
+
+    // Construct linked list.
+    for ( i = 0, il = triangles.length; i < il; i++ ) {
+      triangle = triangles[i];
+      triangle.previous = triangles[ i - 1 ];
+      triangle.next = triangles[ i + 1 ];
+    }
+
+    function update( triangle ) {
+      heap.remove( triangle );
+      triangle[1].area = area( triangle );
+      heap.push( triangle );
+    }
+
+    var maxArea = 0;
+    triangle = heap.pop();
+    while ( triangle ) {
+      if ( triangle[1].area < maxArea ) {
+        triangle[1].area = maxArea;
+      } else {
+        maxArea = triangle[1].area;
+      }
+
+      if ( triangle.previous ) {
+        triangle.previous.next = triangle.next;
+        triangle.previous[2] = triangle[2];
+        update( triangle.previous );
+      } else {
+        triangle[0].area = triangle[1].area;
+      }
+
+      if ( triangle.next ) {
+        triangle.next.previous = triangle.previous;
+        triangle.next[0] = triangle[0];
+        update( triangle.next );
+      } else {
+        triangle[2].area = triangle[1].area;
+      }
+
+      triangle = heap.pop();
+    }
+
+    return points;
   };
 }) ();

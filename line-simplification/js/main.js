@@ -122,7 +122,7 @@
     ctx.save();
 
     // Points.
-    ctx.translate( 0, 0.55 * canvas.height );
+    ctx.translate( 0, 0.4 * canvas.height );
 
     drawPoints( ctx, points );
     ctx.fillStyle = '#fff';
@@ -134,6 +134,15 @@
     drawLines( ctx, points );
     ctx.lineWidth = 0.5;
     ctx.strokeStyle = '#fff';
+    ctx.stroke();
+
+    var simple = simplify( points ).filter(function( point ) {
+      return point.area >= 2000;
+    });
+    console.log(points.length, simple.length)
+
+    ctx.translate( 0, 0.1 * canvas.height );
+    drawLines( ctx, simple );
     ctx.stroke();
 
     ctx.restore();
