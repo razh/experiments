@@ -35,7 +35,7 @@ var simplify = (function() {
       while ( index > 0 ) {
         parent = Math.floor( ( index + 1 ) / 2 ) - 1;
 
-        if ( compare( parent, index ) >= 0 ) {
+        if ( compare( index, parent ) >= 0 ) {
           break;
         }
 
