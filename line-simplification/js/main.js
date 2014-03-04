@@ -1,3 +1,4 @@
+/*globals simplify*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -139,11 +140,24 @@
     var simple = simplify( points ).filter(function( point ) {
       return point.area >= 2000;
     });
-    console.log(points.length, simple.length)
+
+    console.log( points.length, simple.length );
 
     ctx.translate( 0, 0.1 * canvas.height );
     drawLines( ctx, simple );
     ctx.stroke();
+
+    function round( value, precision ) {
+      return parseFloat( value.toFixed( precision ) );
+    }
+
+    var simplePoints = simple.map(function( point ) {
+      return '(' +
+        round( point.x, 2 ) + ', ' +
+        round( point.y, 2 ) + ')';
+    });
+
+    console.log( simplePoints.join( ', ' ) );
 
     ctx.restore();
   }) ();
