@@ -5,12 +5,19 @@
   var canvas  = document.getElementById( 'canvas' ),
       context = canvas.getContext( '2d' );
 
+  var simpleCanvas  = document.getElementById( 'simple-canvas' ),
+      simpleContext = simpleCanvas.getContext( '2d' );
+
   function log2( n ) {
     return Math.log( n ) / Math.LN2;
   }
 
   function randomSignedFloat( n ) {
     return Math.random() * 2 * n - n;
+  }
+
+  function round( value, precision ) {
+    return parseFloat( value.toFixed( precision ) );
   }
 
   function midpointDisplacement( options ) {
@@ -98,6 +105,10 @@
   }
 
   function drawLines( ctx, points ) {
+    if ( !points.length ) {
+      return;
+    }
+
     ctx.beginPath();
 
     ctx.moveTo( points[0].x, points[0].y );
@@ -106,9 +117,26 @@
     }
   }
 
+  function drawSimple( ctx, points ) {
+    ctx.save();
+
+    ctx.translate( 0, 0.6 * canvas.height );
+    drawPoints( ctx, points );
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+
+    ctx.translate( 0, 0.1 * canvas.height );
+    drawLines( ctx, points );
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = '#fff';
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
   (function() {
-    canvas.width  = 640;
-    canvas.height = 480;
+    simpleCanvas.width  = canvas.width  = 640;
+    simpleCanvas.height = canvas.height = 480;
 
     var scaleY = scaleFn( 0.25 * canvas.height );
 
@@ -137,28 +165,55 @@
     ctx.strokeStyle = '#fff';
     ctx.stroke();
 
-    var simple = simplify( points ).filter(function( point ) {
-      return point.area >= 2000;
-    });
-
-    console.log( points.length, simple.length );
-
-    ctx.translate( 0, 0.1 * canvas.height );
-    drawLines( ctx, simple );
-    ctx.stroke();
-
-    function round( value, precision ) {
-      return parseFloat( value.toFixed( precision ) );
-    }
-
-    var simplePoints = simple.map(function( point ) {
-      return '(' +
-        round( point.x, 2 ) + ', ' +
-        round( point.y, 2 ) + ')';
-    });
-
-    console.log( simplePoints.join( ', ' ) );
-
     ctx.restore();
+
+    // Switch contexts.
+    ctx = simpleContext;
+
+    // Calculate areas.
+    simplify( points );
+
+    var min = Number.POSITIVE_INFINITY,
+        max = Number.NEGATIVE_INFINITY;
+
+    points.forEach(function( point ) {
+      min = Math.min( min, point.area );
+      max = Math.max( max, point.area );
+    });
+
+    window.addEventListener( 'mousemove', function( event ) {
+      // Interpolate along a power scale.
+      var x = event.pageX / window.innerWidth;
+      x = Math.pow( x, 7 );
+
+      var area = min + ( max - min ) * x;
+
+      var filteredPoints = points.filter(function( point ) {
+        return point.area >= area;
+      });
+
+      ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
+      drawSimple( ctx, filteredPoints );
+
+      // Draw debug text.
+      ctx.font = '16pt "Helvetica Neue", Helvetica, Arial, sans-serif';
+      ctx.fillStyle = '#888';
+      ctx.fillText( 'min-area: ' + round( area, 2 ), 32, 32 );
+
+      ctx.fillText(
+        'area range: [' +
+          round( min, 2 ) + ', ' +
+          round( max, 2 ) +
+        ']', 32, 64
+      );
+
+      ctx.fillText(
+        'points: ' +
+        filteredPoints.length + '/' +
+        points.length + ': ' +
+        round( filteredPoints.length / points.length * 100, 2 ) + '%',
+        32, 96
+      );
+    });
   }) ();
 }) ( window, document );
