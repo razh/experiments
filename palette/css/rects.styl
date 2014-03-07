@@ -13,28 +13,82 @@ rect(width, height)
   100%
     transform scale(1)
 
+
+html
+body
+  height 100%
+
+body
+  margin 0
+  background-color #eee
+
 .rect
-  animation expand 1s
+  // http://easings.net/#easeOutCirc
+  animation expand 1s cubic-bezier(0.075, 0.82, 0.165, 1)
 
 .palette
+  display flex
+  align-items center
+  justify-content space-around
+
+  width 50%
+  height 100%
+
+  transform translateX(50%)
+
+  .rect-container
+    width 64px
+    height 64px
+    margin-left @width
+    margin-top @height
+
+    .rect:nth-child(1)
+      rect(64px, 64px)
+
+    .rect:nth-child(2)
+      rect(36px, 36px)
+      animation-delay 0.2s
+
+    .rect:nth-child(3)
+      rect(18px, 18px)
+      animation-delay 0.4s
+
   .rect
     position absolute
-
-    left 50%
-    top 50%
-
     border-radius 25%
 
-  .rect:nth-child(1)
-    rect(64px, 64px)
-    background-color #665
+  .rect-container:nth-child(1)
+    .rect:nth-child(1)
+      background-color #665
 
-  .rect:nth-child(2)
-    rect(36px, 36px)
-    background-color #dd6
-    animation-delay 0.2s
+    .rect:nth-child(2)
+      background-color #dd6
 
-  .rect:nth-child(3)
-    rect(18px, 18px)
-    background-color #e64
-    animation-delay 0.4s
+    .rect:nth-child(3)
+      background-color #e64
+
+  .rect-container:nth-child(2)
+    .rect:nth-child(1)
+      background-color #9bb
+      animation-delay 0.1s
+
+    .rect:nth-child(2)
+      background-color #665
+      animation-delay 0.3s
+
+    .rect:nth-child(3)
+      background-color #dd6
+      animation-delay 0.5s
+
+  .rect-container:nth-child(3)
+    .rect:nth-child(1)
+      background-color #e64
+      animation-delay 0.2s
+
+    .rect:nth-child(2)
+      background-color #dd6
+      animation-delay 0.4s
+
+    .rect:nth-child(3)
+      background-color #665
+      animation-delay 0.6s

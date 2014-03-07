@@ -1,47 +1,140 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background-color: #eee;
+}
 .rect {
-  -webkit-animation: expand 1s;
-  -moz-animation: expand 1s;
-  -o-animation: expand 1s;
-  -ms-animation: expand 1s;
-  animation: expand 1s;
+  -webkit-animation: expand 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  -moz-animation: expand 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  -o-animation: expand 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  -ms-animation: expand 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  animation: expand 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-.palette .rect {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-border-radius: 25%;
-  border-radius: 25%;
+.palette {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-box;
+  display: -webkit-flex;
+  display: box;
+  display: flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -o-box-pack: justify;
+  -ms-box-pack: justify;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  width: 50%;
+  height: 100%;
+  -webkit-transform: translateX(50%);
+  -moz-transform: translateX(50%);
+  -o-transform: translateX(50%);
+  -ms-transform: translateX(50%);
+  transform: translateX(50%);
 }
-.palette .rect:nth-child(1) {
+.palette .rect-container {
+  width: 64px;
+  height: 64px;
+  margin-left: 64px;
+  margin-top: 64px;
+}
+.palette .rect-container .rect:nth-child(1) {
   width: 64px;
   height: 64px;
   margin-left: -32px;
   margin-top: -32px;
-  background-color: #665;
 }
-.palette .rect:nth-child(2) {
+.palette .rect-container .rect:nth-child(2) {
   width: 36px;
   height: 36px;
   margin-left: -18px;
   margin-top: -18px;
-  background-color: #dd6;
   -webkit-animation-delay: 0.2s;
   -moz-animation-delay: 0.2s;
   -o-animation-delay: 0.2s;
   -ms-animation-delay: 0.2s;
   animation-delay: 0.2s;
 }
-.palette .rect:nth-child(3) {
+.palette .rect-container .rect:nth-child(3) {
   width: 18px;
   height: 18px;
   margin-left: -9px;
   margin-top: -9px;
-  background-color: #e64;
   -webkit-animation-delay: 0.4s;
   -moz-animation-delay: 0.4s;
   -o-animation-delay: 0.4s;
   -ms-animation-delay: 0.4s;
   animation-delay: 0.4s;
+}
+.palette .rect {
+  position: absolute;
+  -webkit-border-radius: 25%;
+  border-radius: 25%;
+}
+.palette .rect-container:nth-child(1) .rect:nth-child(1) {
+  background-color: #665;
+}
+.palette .rect-container:nth-child(1) .rect:nth-child(2) {
+  background-color: #dd6;
+}
+.palette .rect-container:nth-child(1) .rect:nth-child(3) {
+  background-color: #e64;
+}
+.palette .rect-container:nth-child(2) .rect:nth-child(1) {
+  background-color: #9bb;
+  -webkit-animation-delay: 0.1s;
+  -moz-animation-delay: 0.1s;
+  -o-animation-delay: 0.1s;
+  -ms-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+.palette .rect-container:nth-child(2) .rect:nth-child(2) {
+  background-color: #665;
+  -webkit-animation-delay: 0.3s;
+  -moz-animation-delay: 0.3s;
+  -o-animation-delay: 0.3s;
+  -ms-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+.palette .rect-container:nth-child(2) .rect:nth-child(3) {
+  background-color: #dd6;
+  -webkit-animation-delay: 0.5s;
+  -moz-animation-delay: 0.5s;
+  -o-animation-delay: 0.5s;
+  -ms-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+.palette .rect-container:nth-child(3) .rect:nth-child(1) {
+  background-color: #e64;
+  -webkit-animation-delay: 0.2s;
+  -moz-animation-delay: 0.2s;
+  -o-animation-delay: 0.2s;
+  -ms-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+.palette .rect-container:nth-child(3) .rect:nth-child(2) {
+  background-color: #dd6;
+  -webkit-animation-delay: 0.4s;
+  -moz-animation-delay: 0.4s;
+  -o-animation-delay: 0.4s;
+  -ms-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+.palette .rect-container:nth-child(3) .rect:nth-child(3) {
+  background-color: #665;
+  -webkit-animation-delay: 0.6s;
+  -moz-animation-delay: 0.6s;
+  -o-animation-delay: 0.6s;
+  -ms-animation-delay: 0.6s;
+  animation-delay: 0.6s;
 }
 @-moz-keyframes expand {
   0% {
