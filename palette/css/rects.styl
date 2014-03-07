@@ -1,0 +1,40 @@
+@import 'nib'
+
+rect(width, height)
+  width width
+  height height
+  margin-left (-0.5 * width)
+  margin-top (-0.5 * height)
+
+@keyframes expand
+  0%
+    transform scale(0)
+
+  100%
+    transform scale(1)
+
+.rect
+  animation expand 1s
+
+.palette
+  .rect
+    position absolute
+
+    left 50%
+    top 50%
+
+    border-radius 25%
+
+  .rect:nth-child(1)
+    rect(64px, 64px)
+    background-color #665
+
+  .rect:nth-child(2)
+    rect(36px, 36px)
+    background-color #dd6
+    animation-delay 0.2s
+
+  .rect:nth-child(3)
+    rect(18px, 18px)
+    background-color #e64
+    animation-delay 0.4s
