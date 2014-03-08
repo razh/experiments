@@ -23,7 +23,7 @@ var Picker = (function( document ) {
           x + ', '+
           y + '%, 50%)';
 
-        ctx.fillRect( x, HEIGHT - y, 1, 1 );
+        ctx.fillRect( x, HEIGHT - y - 1, 1, 1 );
       }
     }
 
