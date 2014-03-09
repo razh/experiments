@@ -15,20 +15,6 @@ var Picker = (function( document ) {
 
     var ctx = canvas.getContext( '2d' );
 
-    console.time( 'fill' );
-
-    for ( y = 0; y < HEIGHT; y++ ) {
-      for ( x = 0; x < WIDTH; x++ ) {
-        ctx.fillStyle = 'hsl(' +
-          x + ', '+
-          y + '%, 50%)';
-
-        ctx.fillRect( x, HEIGHT - y - 1, 1, 1 );
-      }
-    }
-
-    console.timeEnd( 'fill' );
-
     function hueToRgb( p, q, t ) {
       if ( t < 0 ) t += 1;
       if ( t > 1 ) t -= 1;
