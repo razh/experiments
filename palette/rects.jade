@@ -1,0 +1,25 @@
+mixin rect-container(n)
+  .rect-container
+    - for ( var i = 0; i < n; i++ )
+      .rect
+
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title Palette
+
+    link(rel='stylesheet', href='./css/rects.css')
+
+  body
+    .colors
+      .color-0
+      .color-1
+      .color-2
+
+    .palette
+      +rect-container(3)
+      +rect-container(3)
+      +rect-container(3)
+
+    script(src='./js/rects.js')
