@@ -6,25 +6,27 @@ rect(width, height)
   margin-left (-0.5 * width)
   margin-top (-0.5 * height)
 
-rect-container-color(a, b, c)
+rect-container-color(a, b = false, c = false)
   .rect:nth-child(1)
     background-color a
 
-  .rect:nth-child(2)
-    background-color b
+  if b
+    .rect:nth-child(2)
+      background-color b
 
-  .rect:nth-child(3)
-    background-color c
+  if c
+    .rect:nth-child(3)
+      background-color c
 
-rect-container-delay(delay = 0)
+rect-container-delay(delay = 0, step = 0.2s)
   .rect:nth-child(1)
     animation-delay delay
 
   .rect:nth-child(2)
-    animation-delay (0.2s + delay)
+    animation-delay (step + delay)
 
   .rect:nth-child(3)
-    animation-delay (0.4s + delay)
+    animation-delay (2 * step + delay)
 
 
 @keyframes expand
