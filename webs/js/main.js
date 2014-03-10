@@ -172,4 +172,12 @@
       running = false;
     }
   });
+
+  window.addEventListener( 'resize', function() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    pointQuadtree.size = Math.max( canvas.width, canvas.height );
+    pointQuadtree.halfSize = 0.5 * pointQuadtree.size;
+  });
 }) ( window, document );
