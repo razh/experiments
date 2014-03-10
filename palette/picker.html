@@ -9,6 +9,23 @@
       margin: 0;
     }
 
+    .palette {
+      position: absolute;
+
+      left: 1em;
+      bottom: 1em;
+    }
+
+    .palette > .rect {
+      float: left;
+      margin-right: 16px;
+
+      width: 64px;
+      height: 64px;
+
+      border-radius: 25%;
+    }
+
     .hsl {
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
@@ -24,6 +41,8 @@
   </style>
 </head>
 <body>
+  <div class="palette"></div>
+  <div class="hsl"></div>
 
   <script src="./js/picker.js"></script>
   <script src="./js/picker-main.js"></script>
