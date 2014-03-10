@@ -3,6 +3,11 @@ mixin rect-container(n)
     - for ( var i = 0; i < n; i++ )
       .rect
 
+mixin row(n)
+  .row
+    - for ( var i = 0; i < 5; i++ )
+      +rect-container(n)
+
 doctype html
 html(lang='en')
   head
@@ -12,23 +17,18 @@ html(lang='en')
     link(rel='stylesheet', href='./css/rects.css')
 
   body
+    // Inspired by Dani Kelley's 'Color Palette'
+    // http://dribbble.com/shots/1309638-Color-Palette
     .colors
       .color-0
       .color-1
       .color-2
 
     .palette
-      .row
-        +rect-container(1)
-        +rect-container(1)
-        +rect-container(1)
-        +rect-container(1)
-        +rect-container(1)
-      .row
-        +rect-container(3)
-        +rect-container(3)
-        +rect-container(3)
-        +rect-container(3)
-        +rect-container(3)
+      +row(1)
+      +row(2)
+      +row(3)
+      +row(2)
+      +row(3)
 
     script(src='./js/rects.js')

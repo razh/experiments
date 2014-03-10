@@ -49,7 +49,6 @@ body
   align-items center
   justify-content center
 
-
 .rect
   // http://easings.net/#easeOutCirc
   animation expand 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards
@@ -62,9 +61,13 @@ $blue = #9bb
 $orange = #ea4
 
 .palette
+  size = 64px
+  margin-left (-0.5 * size)
+  margin-right (size / 5)
+
   .rect-container
-    width 64px
-    height 64px
+    width size
+    height size
     margin-left @width
     margin-top @height
 
@@ -82,6 +85,9 @@ $orange = #ea4
     border-radius 25%
 
   .row
+    max-width 8 * size
+    margin-top (-0.75 * size)
+
     display flex
     align-items center
     justify-content space-around
@@ -93,37 +99,100 @@ $orange = #ea4
 
     .rect-container:nth-child(2)
       rect-container-color($green)
-      rect-container-delay(0.1s)
+      rect-container-delay(0.05s)
 
     .rect-container:nth-child(3)
       rect-container-color($grey)
-      rect-container-delay(0.2s)
+      rect-container-delay(0.10s)
 
     .rect-container:nth-child(4)
       rect-container-color($blue)
-      rect-container-delay(0.3s)
+      rect-container-delay(0.15s)
 
     .rect-container:nth-child(5)
       rect-container-color($orange)
-      rect-container-delay(0.4s)
+      rect-container-delay(0.20s)
 
   .row:nth-child(2)
     .rect-container:nth-child(1)
+      rect-container-color($red, $green)
+      rect-container-delay(0.25s)
+
+    .rect-container:nth-child(2)
+      rect-container-color($green, $red)
+      rect-container-delay(0.30s)
+
+    .rect-container:nth-child(3)
+      rect-container-color($grey, $green)
+      rect-container-delay(0.35s)
+
+    .rect-container:nth-child(4)
+      rect-container-color($blue, $grey)
+      rect-container-delay(0.40s)
+
+    .rect-container:nth-child(5)
+      rect-container-color($orange, $green)
+      rect-container-delay(0.45s)
+
+  .row:nth-child(3)
+    .rect-container:nth-child(1)
       rect-container-color($red, $green, $grey)
-      rect-container-delay(0.5s)
+      rect-container-delay(0.50s)
 
     .rect-container:nth-child(2)
       rect-container-color($green, $red, $orange)
-      rect-container-delay(0.6s)
+      rect-container-delay(0.55s)
 
     .rect-container:nth-child(3)
       rect-container-color($grey, $green, $red)
-      rect-container-delay(0.7s)
+      rect-container-delay(0.60s)
 
     .rect-container:nth-child(4)
       rect-container-color($blue, $green, $red)
-      rect-container-delay(0.8s)
+      rect-container-delay(0.65s)
 
     .rect-container:nth-child(5)
       rect-container-color($orange, $red, $green)
-      rect-container-delay(0.9s)
+      rect-container-delay(0.70s)
+
+  .row:nth-child(4)
+    .rect-container:nth-child(1)
+      rect-container-color($red, $orange)
+      rect-container-delay(0.75s)
+
+    .rect-container:nth-child(2)
+      rect-container-color($green, $grey)
+      rect-container-delay(0.80s)
+
+    .rect-container:nth-child(3)
+      rect-container-color($grey, $red)
+      rect-container-delay(0.85s)
+
+    .rect-container:nth-child(4)
+      rect-container-color($blue, $green)
+      rect-container-delay(0.90s)
+
+    .rect-container:nth-child(5)
+      rect-container-color($orange, $red)
+      rect-container-delay(0.95s)
+
+  .row:nth-child(5)
+    .rect-container:nth-child(1)
+      rect-container-color($red, $green, $orange)
+      rect-container-delay(1.00s)
+
+    .rect-container:nth-child(2)
+      rect-container-color($green, $red, $grey)
+      rect-container-delay(1.05s)
+
+    .rect-container:nth-child(3)
+      rect-container-color($grey, $red, $orange)
+      rect-container-delay(1.10s)
+
+    .rect-container:nth-child(4)
+      rect-container-color($blue, $grey, $green)
+      rect-container-delay(1.15s)
+
+    .rect-container:nth-child(5)
+      rect-container-color($orange, $green, $red)
+      rect-container-delay(1.20s)
