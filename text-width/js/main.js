@@ -54,8 +54,9 @@ $(function() {
 
     function stripTags( string ) {
       return string.replace( /<div><br><\/div>/gi, '' ) // Remove all line breaks.
-        .replace( /<div>/gi, '\n' ) // Add new lines where at div start.
-        .replace( /<\/div>/gi, '' ); // Remove closing div tag.
+        .replace( /<div>/gi, '\n' ) // Add new lines at div start.
+        .replace( /<\/div>/gi, '' ) // Remove closing div tag.
+        .replace( /<br>/gi, '\n' ); // Replace line breaks.
     }
 
     function unescape( string ) {
