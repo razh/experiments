@@ -56,7 +56,7 @@
     }
   }
 
-  window.addEventListener( 'mousedown', function( event ) {
+  window.addEventListener( 'mousedown', function() {
     var rectEl = document.createElement( 'div' );
 
     rectEl.classList.add( 'rect' );
