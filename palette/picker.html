@@ -7,6 +7,7 @@
   <style>
     body {
       margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
     .palette {
@@ -22,7 +23,7 @@
       width: 64px;
       height: 64px;
 
-      box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 
       transition: width 0.1s;
     }
@@ -31,9 +32,25 @@
       width: 96px;
     }
 
-    .hsl {
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    .palette > .rect:hover:after {
+      content: attr(data-background-color);
 
+      position: absolute;
+      bottom: 125%;
+
+      height: 1.5em;
+      line-height: 1.5em;
+
+      white-space: nowrap;
+      padding: 0.5em 1em;
+
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .hsl {
       position: absolute;
       bottom: 1em;
 

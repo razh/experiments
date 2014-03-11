@@ -59,8 +59,10 @@
   window.addEventListener( 'mousedown', function() {
     var rectEl = document.createElement( 'div' );
 
+    var hsl = hslString( h, s, l );
     rectEl.classList.add( 'rect' );
-    rectEl.style.backgroundColor = hslString( h, s, l );
+    rectEl.style.backgroundColor = hsl;
+    rectEl.setAttribute( 'data-background-color', hsl );
     rectEl.addEventListener( 'mousedown', rectMouseDown );
 
     paletteEl.appendChild( rectEl );
