@@ -2,7 +2,7 @@
 $(function() {
   'use strict';
 
-  var fontFamily = '"Helvetica Neue", Helvetica, Arial, sans-serf';
+  var fontFamily = '"Helvetica Neue", Helvetica, Arial, sans-serif';
 
   var $editor = $( '#editor' ),
       $preview = $( '#preview' );
@@ -25,7 +25,7 @@ $(function() {
   }, {} );
 
   var textWidth = (function() {
-    var div = $( '<div></div>' )
+    var div = $( '<div>' )
       .css({
         position: 'absolute',
         float: 'left',
@@ -55,7 +55,7 @@ $(function() {
     function stripTags( string ) {
       return string.replace( /<div><br><\/div>/gi, '' ) // Remove all line breaks.
         .replace( /<div>/gi, '\n' ) // Add new lines at div start.
-        .replace( /<\/div>/gi, '' ) // Remove closing div tag.
+        .replace( /<\/div>/gi, '' ) // Remove closing div tags.
         .replace( /<br>/gi, '\n' ); // Replace line breaks.
     }
 
@@ -65,7 +65,7 @@ $(function() {
         .replace( /&lt;/g, '<' )
         .replace( /&gt;/g, '>' )
         .replace( /&quot;/g, '"' )
-        .replace( /&#039;/g, '\'');
+        .replace( /&#039;/g, '\'' );
     }
 
     return stripTags( text )
@@ -131,9 +131,9 @@ $(function() {
         high         = textWidthFontSize( text, fontSize + 1 );
 
         console.log( 'actual: ' + currentWidth + ', ' +
-          'desired: ' + previewWidth +
-          ', lo|hi: [' + low + ', ' + high + ']' +
-          ', text: ' + text );
+          'desired: ' + previewWidth + ', ' +
+          'lo|hi: [' + low + ', ' + high + ']' + ', ' +
+          'text: ' + text );
       }
 
       var $line = $( '<div>' ).text( text );
