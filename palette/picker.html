@@ -10,14 +10,50 @@
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
-    .palette {
+    /* Micro-clearfix. */
+    .clearfix:before,
+    .clearfix:after {
+      content: "";
+      display: table;
+    }
+
+    .clearfix:after {
+      clear: both;
+    }
+
+    .palettes {
       position: absolute;
 
       left: 1em;
       bottom: 1em;
     }
 
+    .palettes > .add-palette-btn {
+      display: block;
+      width: 32px;
+      height: 32px;
+
+      background-color: #000;
+      color: #fff;
+
+      border: none;
+      margin: 0;
+      padding: 0;
+
+      font-size: 16px;
+    }
+
+    .palettes > .add-palette-btn:active {
+      background-color: #fff;
+      color: #000;
+    }
+
+    .palette {
+      margin-bottom: 1em;
+    }
+
     .palette > .rect {
+      position: relative;
       float: left;
 
       width: 64px;
@@ -36,7 +72,7 @@
       content: attr(data-background-color);
 
       position: absolute;
-      bottom: 125%;
+      top: -4em;
 
       height: 1.5em;
       line-height: 1.5em;
@@ -63,7 +99,9 @@
   </style>
 </head>
 <body>
-  <div class="palette"></div>
+  <div class="palettes">
+    <button class="add-palette-btn">+</button>
+  </div>
   <div class="hsl"></div>
 
   <script src="./js/picker.js"></script>
