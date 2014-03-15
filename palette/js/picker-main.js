@@ -5,10 +5,9 @@
     return Math.min( Math.max( value, min ), max );
   }
 
+  var hslEl = document.querySelector( '.hsl' );
   var palettesEl = document.querySelector( '.palettes' );
   var currentPaletteEl;
-
-  var hslEl = document.querySelector( '.hsl' );
 
   var addPaletteBtn = document.querySelector( '.add-palette-btn' );
 
@@ -32,6 +31,8 @@
     hslEl.textContent = hsl;
   }
 
+  update();
+
   // Update background color.
   window.addEventListener( 'mousemove', function( event ) {
     var x = event.pageX,
@@ -49,12 +50,6 @@
     update();
   });
 
-  update();
-
-  function prependChild( el, child ) {
-    el.insertBefore( child, el.firstChild );
-  }
-
   function nodeIndexOf( el ) {
     if ( el.parentNode ) {
       return [].indexOf.call( el.parentNode.childNodes, el );
@@ -63,28 +58,46 @@
     return -1;
   }
 
+  function logPalettes() {
+    var str = '';
+
+    palettes.forEach(function( palette, index, array ) {
+      // Log a '*' for each palette.
+      str = '[: ' + new Array( palette.length ).join( '*' );
+
+      if ( index < array.length - 1 ) {
+        str += '\n';
+      }
+    });
+
+    console.log( str );
+  }
+
   // Add color to palette.
   function rectMouseDown( event ) {
     event.stopPropagation();
 
     var el = event.currentTarget;
+    var parentEl = el.parentNode;
     var index, parentIndex;
-    if ( el.parentNode ) {
+    if ( parentEl ) {
       index = nodeIndexOf( el );
 
-      if ( el.parentNode.parentNode ) {
-        parentIndex = nodeIndexOf( el.parentNode );
-
-        // Remove entire palette element if empty.
-        if ( !el.parentNode.childNodes.length ) {
-          el.parentNode.parentNode.removeChild( el.parentNode );
-        }
+      if ( parentEl.parentNode ) {
+        parentIndex = nodeIndexOf( parentEl );
       }
 
-      el.parentNode.removeChild( el );
+      parentEl.removeChild( el );
       el.removeEventListener( 'mousedown', rectMouseDown );
 
+      // Remove entire palette element if it's empty.
+      if ( parentEl.parentNode && !parentEl.childNodes.length ) {
+        parentEl.parentNode.removeChild( parentEl );
+      }
+
       if ( index !== -1 && parentIndex !== -1 ) {
+        console.log( '[' + parentIndex + ', ' + index + ']' );
+        logPalettes();
         palettes[ parentIndex ].splice( index, 1 );
 
         if ( !palettes[ parentIndex ].length ) {
@@ -95,18 +108,15 @@
   }
 
   window.addEventListener( 'mousedown', function() {
-    var rectEl = createRectEl( h, s, l );
-    rectEl.addEventListener( 'mousedown', rectMouseDown );
-    if ( !currentPaletteEl ) {
-      currentPaletteEl = createPaletteEl();
-      prependChild( palettesEl, currentPaletteEl );
-    }
-
-    currentPaletteEl.appendChild( rectEl );
-
     if ( !palettes.length ) {
+      currentPaletteEl = createPaletteEl();
+      palettesEl.appendChild( currentPaletteEl );
       palettes.push( [] );
     }
+
+    var rectEl = createRectEl( h, s, l );
+    rectEl.addEventListener( 'mousedown', rectMouseDown );
+    currentPaletteEl.appendChild( rectEl );
 
     palettes[ palettes.length - 1 ].push({
       h: h,
@@ -114,7 +124,6 @@
       l: l
     });
   });
-
 
   // Laod/save.
   /**
@@ -130,15 +139,19 @@
     palettes = getSavedPalettes();
 
     palettes.forEach(function( palette ) {
-      var paletteEl = createPaletteEl();
+      if ( !palette.length ) {
+        return;
+      }
+
+      currentPaletteEl = createPaletteEl();
 
       palette.forEach(function( rect ) {
         var rectEl = createRectEl( rect.h, rect.s, rect.l );
         rectEl.addEventListener( 'mousedown', rectMouseDown );
-        paletteEl.appendChild( rectEl );
+        currentPaletteEl.appendChild( rectEl );
       });
 
-      prependChild( palettesEl, paletteEl );
+      palettesEl.appendChild( currentPaletteEl );
     });
   }
 
@@ -168,12 +181,18 @@
   }
 
   function addPalette( event ) {
+    event.stopPropagation();
+    // Don't add if the last palette is already empty.
+    if ( palettes.length && !palettes[ palettes.length - 1 ].length ) {
+      return;
+    }
+
     currentPaletteEl = createPaletteEl();
-    palettesEl.insertBefore( currentPaletteEl, palettesEl.firstChild );
+    palettesEl.appendChild( currentPaletteEl );
     palettes.push( [] );
   }
 
-  addPaletteBtn.addEventListener( 'click',  addPalette );
+  addPaletteBtn.addEventListener( 'mousedown',  addPalette );
 
   load();
 
