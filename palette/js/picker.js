@@ -63,7 +63,7 @@
 
     palettes.forEach(function( palette, index, array ) {
       // Log a '*' for each palette.
-      str = '[: ' + new Array( palette.length ).join( '*' );
+      str += '[: ' + new Array( palette.length + 1 ).join( '*' );
 
       if ( index < array.length - 1 ) {
         str += '\n';
@@ -97,21 +97,20 @@
 
       if ( index !== -1 && parentIndex !== -1 ) {
         console.log( '[' + parentIndex + ', ' + index + ']' );
-        logPalettes();
         palettes[ parentIndex ].splice( index, 1 );
 
         if ( !palettes[ parentIndex ].length ) {
           palettes.splice( parentIndex, 1 );
         }
+
+        logPalettes();
       }
     }
   }
 
   window.addEventListener( 'mousedown', function() {
     if ( !palettes.length ) {
-      currentPaletteEl = createPaletteEl();
-      palettesEl.appendChild( currentPaletteEl );
-      palettes.push( [] );
+      addPalette();
     }
 
     var rectEl = createRectEl( h, s, l );
@@ -123,6 +122,8 @@
       s: s,
       l: l
     });
+
+    logPalettes();
   });
 
   // Laod/save.
@@ -180,19 +181,21 @@
     return rectEl;
   }
 
-  function addPalette( event ) {
+  function addPalette() {
+    currentPaletteEl = createPaletteEl();
+    palettesEl.appendChild( currentPaletteEl );
+    palettes.push( [] );
+  }
+
+  addPaletteBtn.addEventListener( 'mousedown',  function( event ) {
     event.stopPropagation();
     // Don't add if the last palette is already empty.
     if ( palettes.length && !palettes[ palettes.length - 1 ].length ) {
       return;
     }
 
-    currentPaletteEl = createPaletteEl();
-    palettesEl.appendChild( currentPaletteEl );
-    palettes.push( [] );
-  }
-
-  addPaletteBtn.addEventListener( 'mousedown',  addPalette );
+    addPalette();
+  });
 
   load();
 
