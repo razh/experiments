@@ -3,8 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <title>Tooltip</title>
+
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    .rect-container {
+      float: left;
+      position: relative;
+      width: 50%;
+      height: 50%;
+    }
+
+    .rect-container > .rect {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      width: 64px;
+      height: 64px;
+
+      margin-left: -32px;
+      margin-top: -32px;
+
+      background-color: #fff;
+
+      outline: 8px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .rect-container:nth-child(1) {
+      background-color: #b77;
+    }
+
+    .rect-container:nth-child(2) {
+      background-color: #feb;
+    }
+
+    .rect-container:nth-child(3) {
+      background-color: #ffd;
+    }
+
+    .rect-container:nth-child(4) {
+      background-color: #799;
+    }
+  </style>
 </head>
 <body>
-
+  <div class="rect-container">
+    <div class="rect"></div>
+  </div>
+  <div class="rect-container">
+    <div class="rect"></div>
+  </div>
+  <div class="rect-container">
+    <div class="rect"></div>
+  </div>
+  <div class="rect-container">
+    <div class="rect"></div>
+  </div>
 </body>
 </html>
