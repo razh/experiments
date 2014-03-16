@@ -1,4 +1,5 @@
-var Picker = (function( document ) {
+/*exported Tooltip*/
+var Tooltip = (function( document ) {
   'use strict';
 
   var canvas;
@@ -82,9 +83,9 @@ var Picker = (function( document ) {
     document.body.appendChild( canvas );
   }) ();
 
-  var Picker = {};
+  var Tooltip = {};
 
-  Picker.create = function() {};
+  Tooltip.create = function() {};
 
-  return Picker;
+  return Tooltip;
 }) ( document );
