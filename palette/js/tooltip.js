@@ -79,13 +79,59 @@ var Tooltip = (function( document ) {
     ctx.putImageData( imageData, 0, 0 );
 
     console.timeEnd( 'imageData' );
-
-    document.body.appendChild( canvas );
   }) ();
 
-  var Tooltip = {};
+  function Tooltip() {
+    this.tooltipEl = document.createElement( 'div' );
+    this.tooltipEl.classList.add( 'tooltip' );
+    this.el = null;
 
-  Tooltip.create = function() {};
+    this.width = 0;
+    this.height = 0;
+  }
+
+  Tooltip.create = function( el ) {
+    if ( !el ) {
+      return;
+    }
+
+    var tooltip = new Tooltip();
+    tooltip.setElement( el );
+    tooltip.setContent( 'hello' );
+
+    var rect = el.getBoundingClientRect();
+
+    tooltip.setPosition(
+      rect.left - tooltip.width,
+      rect.top - tooltip.height
+    );
+
+    document.body.appendChild( tooltip.tooltipEl );
+
+    return tooltip;
+  };
+
+  Tooltip.prototype.setElement = function( el ) {
+    if ( !el ) {
+      return;
+    }
+
+    var direction = el.getAttribute( 'data-direction' );
+
+    this.el = el;
+  };
+
+  Tooltip.prototype.setContent = function( content ) {
+    this.tooltipEl.textContent = content || '';
+
+    this.width = this.tooltipEl.offsetWidth;
+    this.height = this.tooltipEl.offsetHeight;
+  };
+
+  Tooltip.prototype.setPosition = function( x, y ) {
+    this.tooltipEl.style.left = Math.round( x || 0 ) + 'px';
+    this.tooltipEl.style.top = Math.round( y || 0   ) + 'px';
+  };
 
   return Tooltip;
 }) ( document );

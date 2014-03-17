@@ -53,20 +53,35 @@
     .rect-container:nth-child(4) {
       background-color: #799;
     }
+
+    .tooltip {
+      position: absolute;
+      display: block;
+      background-color: #000;
+      color: #fff;
+      padding: 0.5em 1.5em;
+    }
   </style>
 </head>
 <body>
   <div class="rect-container">
-    <div class="rect"></div>
+    <div class="rect" data-direction='bottom'></div>
   </div>
   <div class="rect-container">
-    <div class="rect"></div>
+    <div class="rect" data-direction='left'></div>
   </div>
   <div class="rect-container">
-    <div class="rect"></div>
+    <div class="rect" data-direction='right'></div>
   </div>
   <div class="rect-container">
-    <div class="rect"></div>
+    <div class="rect" data-direction='top'></div>
   </div>
+
+  <script src="./js/tooltip.js"></script>
+  <script>
+    [].forEach.call( document.querySelectorAll( '.rect-container' ), function( el ) {
+      Tooltip.create( el.querySelector( '.rect' ) );
+    });
+  </script>
 </body>
 </html>
