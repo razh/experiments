@@ -99,61 +99,49 @@ var Tooltip = (function( document ) {
     tooltip.setElement( el );
     tooltip.setContent( tooltip.direction );
 
-    var rect = el.getBoundingClientRect();
-
-    tooltip.setPosition( rect.left, rect.top );
-
     document.body.appendChild( tooltip.el );
+    tooltip.updatePosition();
 
     return tooltip;
   };
 
   Tooltip.prototype.setElement = function( el ) {
-    if ( !el ) {
-      return;
-    }
-
     this.parentEl = el;
     this.direction = el.getAttribute( 'data-direction' );
   };
 
   Tooltip.prototype.setContent = function( content ) {
     this.el.textContent = content || '';
-
-    var rect = this.el.getBoundingClientRect();
-
-    this.el.style.marginLeft = -0.5 * rect.width;
-    this.el.style.marginTop = -0.5 * rect.height;
   };
 
-  Tooltip.prototype.setPosition = function( x, y ) {
+  Tooltip.prototype.updatePosition = function() {
+    var rect = this.el.getBoundingClientRect();
     var parentRect = this.parentEl.getBoundingClientRect();
 
-    var width = parentRect.width;
-    var height = parentRect.height;
+    var x, y;
+
+    if ( this.direction === 'left' || this.direction === 'right' ) {
+      y = parentRect.top + 0.5 * ( parentRect.height - rect.height );
+    }
 
     if ( this.direction === 'left' ) {
-      x -= width;
+      x = parentRect.left - rect.width;
     }
 
     if ( this.direction === 'right' ) {
-      x += width;
+      x = parentRect.right;
     }
 
     if ( this.direction === 'top' || this.direction === 'bottom' ) {
-      x += 0.5 * width;
-    }
-
-    if ( this.direction === 'left' || this.direction === 'right' ) {
-      y += 0.5 * height;
+      x = parentRect.left + 0.5 * ( parentRect.width - rect.width );
     }
 
     if ( this.direction === 'top' ) {
-      y -= height;
+      y = parentRect.top - rect.height;
     }
 
     if ( this.direction === 'bottom' ) {
-      y += height;
+      y = parentRect.bottom;
     }
 
     this.el.style.left = Math.round( x || 0 ) + 'px';
