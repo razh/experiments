@@ -82,9 +82,9 @@ var Tooltip = (function( document ) {
   }) ();
 
   function Tooltip() {
-    this.tooltipEl = document.createElement( 'div' );
-    this.tooltipEl.classList.add( 'tooltip' );
-    this.el = null;
+    this.el = document.createElement( 'div' );
+    this.el.classList.add( 'tooltip' );
+    this.parentEl = null;
 
     this.width = 0;
     this.height = 0;
@@ -97,16 +97,13 @@ var Tooltip = (function( document ) {
 
     var tooltip = new Tooltip();
     tooltip.setElement( el );
-    tooltip.setContent( 'hello' );
+    tooltip.setContent( tooltip.direction );
 
     var rect = el.getBoundingClientRect();
 
-    tooltip.setPosition(
-      rect.left - tooltip.width,
-      rect.top - tooltip.height
-    );
+    tooltip.setPosition( rect.left, rect.top );
 
-    document.body.appendChild( tooltip.tooltipEl );
+    document.body.appendChild( tooltip.el );
 
     return tooltip;
   };
@@ -116,21 +113,51 @@ var Tooltip = (function( document ) {
       return;
     }
 
-    var direction = el.getAttribute( 'data-direction' );
-
-    this.el = el;
+    this.parentEl = el;
+    this.direction = el.getAttribute( 'data-direction' );
   };
 
   Tooltip.prototype.setContent = function( content ) {
-    this.tooltipEl.textContent = content || '';
+    this.el.textContent = content || '';
 
-    this.width = this.tooltipEl.offsetWidth;
-    this.height = this.tooltipEl.offsetHeight;
+    var rect = this.el.getBoundingClientRect();
+
+    this.el.style.marginLeft = -0.5 * rect.width;
+    this.el.style.marginTop = -0.5 * rect.height;
   };
 
   Tooltip.prototype.setPosition = function( x, y ) {
-    this.tooltipEl.style.left = Math.round( x || 0 ) + 'px';
-    this.tooltipEl.style.top = Math.round( y || 0   ) + 'px';
+    var parentRect = this.parentEl.getBoundingClientRect();
+
+    var width = parentRect.width;
+    var height = parentRect.height;
+
+    if ( this.direction === 'left' ) {
+      x -= width;
+    }
+
+    if ( this.direction === 'right' ) {
+      x += width;
+    }
+
+    if ( this.direction === 'top' || this.direction === 'bottom' ) {
+      x += 0.5 * width;
+    }
+
+    if ( this.direction === 'left' || this.direction === 'right' ) {
+      y += 0.5 * height;
+    }
+
+    if ( this.direction === 'top' ) {
+      y -= height;
+    }
+
+    if ( this.direction === 'bottom' ) {
+      y += height;
+    }
+
+    this.el.style.left = Math.round( x || 0 ) + 'px';
+    this.el.style.top = Math.round( y || 0 ) + 'px';
   };
 
   return Tooltip;
