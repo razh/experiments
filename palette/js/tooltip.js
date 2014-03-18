@@ -85,9 +85,7 @@ var Tooltip = (function( document ) {
     this.el = document.createElement( 'div' );
     this.el.classList.add( 'tooltip' );
     this.parentEl = null;
-
-    this.width = 0;
-    this.height = 0;
+    this.direction = null;
   }
 
   Tooltip.create = function( el ) {
@@ -96,56 +94,67 @@ var Tooltip = (function( document ) {
     }
 
     var tooltip = new Tooltip();
-    tooltip.setElement( el );
-    tooltip.setContent( tooltip.direction );
+    tooltip.attach( el );
+    tooltip.content( tooltip.direction );
 
     document.body.appendChild( tooltip.el );
-    tooltip.updatePosition();
+    tooltip.update();
 
     return tooltip;
   };
 
-  Tooltip.prototype.setElement = function( el ) {
+  Tooltip.prototype.attach = function( el ) {
     this.parentEl = el;
     this.direction = el.getAttribute( 'data-direction' );
+    return this;
   };
 
-  Tooltip.prototype.setContent = function( content ) {
-    this.el.textContent = content || '';
+  Tooltip.prototype.content = function( content ) {
+    if ( typeof content !== 'undefined' ) {
+      this.el.textContent = content;
+    }
+
+    return this.el.textContent;
   };
 
-  Tooltip.prototype.updatePosition = function() {
+  Tooltip.prototype.update = function() {
     var rect = this.el.getBoundingClientRect();
     var parentRect = this.parentEl.getBoundingClientRect();
 
     var x, y;
 
-    if ( this.direction === 'left' || this.direction === 'right' ) {
+    var top    = this.direction === 'top';
+    var right  = this.direction === 'right';
+    var bottom = this.direction === 'bottom';
+    var left   = this.direction === 'left';
+
+    if ( left || right ) {
       y = parentRect.top + 0.5 * ( parentRect.height - rect.height );
+
+      if ( left  ) {
+        x = parentRect.left - rect.width;
+      }
+
+      if ( right ) {
+        x = parentRect.right;
+      }
     }
 
-    if ( this.direction === 'left' ) {
-      x = parentRect.left - rect.width;
-    }
-
-    if ( this.direction === 'right' ) {
-      x = parentRect.right;
-    }
-
-    if ( this.direction === 'top' || this.direction === 'bottom' ) {
+    if ( top || bottom ) {
       x = parentRect.left + 0.5 * ( parentRect.width - rect.width );
-    }
 
-    if ( this.direction === 'top' ) {
-      y = parentRect.top - rect.height;
-    }
+      if ( top ) {
+        y = parentRect.top - rect.height;
+      }
 
-    if ( this.direction === 'bottom' ) {
-      y = parentRect.bottom;
+      if ( bottom ) {
+        y = parentRect.bottom;
+      }
     }
 
     this.el.style.left = Math.round( x || 0 ) + 'px';
-    this.el.style.top = Math.round( y || 0 ) + 'px';
+    this.el.style.top  = Math.round( y || 0 ) + 'px';
+    return this;
   };
 
   return Tooltip;
