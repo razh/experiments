@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Tooltip</title>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
   <style>
     html,
     body {
@@ -16,10 +18,9 @@
     }
 
     .rect-container {
-      float: left;
       position: relative;
-      width: 50%;
-      height: 50%;
+      width: 100%;
+      height: 25%;
     }
 
     .rect-container > .rect {
@@ -56,11 +57,35 @@
     }
 
     .tooltip {
-      position: absolute;
       display: block;
-      background-color: #000;
+      position: absolute;
+
+      padding: 0.5em 1em;
+
+      background-color: rgba(0, 0, 0, 0.8);
       color: #fff;
-      padding: 0.5em 1.5em;
+
+      border-radius: 2px;
+    }
+
+    .spacing {
+      font-size: 0.75em;
+    }
+
+    .tooltip.left.spacing {
+      margin-left: -6em;
+    }
+
+    .tooltip.right.spacing {
+      margin-left: 6em;
+    }
+
+    .tooltip.top.spacing {
+      margin-top: -3em;
+    }
+
+    .tooltip.bottom.spacing {
+      margin-top: 3em;
     }
   </style>
 </head>
@@ -81,7 +106,13 @@
   <script src="./js/tooltip.js"></script>
   <script>
     [].forEach.call( document.querySelectorAll( '.rect-container' ), function( el ) {
-      Tooltip.create( el.querySelector( '.rect' ) );
+      var rectEl = el.querySelector( '.rect' );
+      Tooltip.create( rectEl );
+
+      // With spacing.
+      var tooltip = Tooltip.create( rectEl );
+      tooltip.el.classList.add( 'spacing' );
+      tooltip.update();
     });
   </script>
 </body>
