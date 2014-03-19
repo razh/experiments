@@ -86,6 +86,13 @@ var Tooltip = (function( document ) {
     this.el.classList.add( 'tooltip' );
     this.parentEl = null;
     this.direction = null;
+
+    // Cache event callbacks for removal later on.
+    this.onresize = function() {
+      this.update();
+    }.bind( this );
+
+    window.addEventListener( 'resize', this.onresize );
   }
 
   Tooltip.create = function( el ) {
@@ -168,6 +175,10 @@ var Tooltip = (function( document ) {
     this.el.style.left = Math.round( x || 0 ) + 'px';
     this.el.style.top  = Math.round( y || 0 ) + 'px';
     return this;
+  };
+
+  Tooltip.prototype.destroy = function() {
+    window.removeEventListener( 'resize', this.onresize );
   };
 
   return Tooltip;
