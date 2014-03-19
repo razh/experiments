@@ -103,9 +103,17 @@ var Tooltip = (function( document ) {
     return tooltip;
   };
 
-  Tooltip.prototype.attach = function( el ) {
-    this.parentEl = el;
-    this.direction = el.getAttribute( 'data-direction' );
+  Tooltip.prototype.attach = function( parentEl ) {
+    this.parentEl = parentEl;
+
+    // Update direction.
+    this.el.classList.remove( this.direction );
+    this.direction = parentEl.getAttribute( 'data-direction' );
+    // Prevent adding null class or empty string.
+    if ( this.direction ) {
+      this.el.classList.add( this.direction );
+    }
+
     return this;
   };
 
@@ -128,10 +136,15 @@ var Tooltip = (function( document ) {
     var bottom = this.direction === 'bottom';
     var left   = this.direction === 'left';
 
+    // Default to top.
+    if ( !top && !right && !bottom && !left ) {
+      top = true;
+    }
+
     if ( left || right ) {
       y = parentRect.top + 0.5 * ( parentRect.height - rect.height );
 
-      if ( left  ) {
+      if ( left ) {
         x = parentRect.left - rect.width;
       }
 
