@@ -5,27 +5,29 @@
   <title>Color Picker</title>
 
   <style>
+    html,
+    body {
+      height: 100%;
+    }
+
     body {
       margin: 0;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
-    /* Micro-clearfix. */
-    .clearfix:before,
-    .clearfix:after {
-      content: "";
-      display: table;
-    }
-
-    .clearfix:after {
-      clear: both;
+    .container {
+      display: flex;
+      width: 100%;
+      height: 100%;
     }
 
     .palettes {
-      position: absolute;
+      display: flex;
+      height: 100%;
+    }
 
-      left: 1em;
-      bottom: 3em;
+    .color  {
+      flex: 8 auto;
     }
 
     .add-palette-btn {
@@ -53,17 +55,20 @@
     }
 
     .palette {
-      height: 64px;
-      margin-bottom: 1em;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    @keyframes expand {
+      0% { max-height: 0; }
+      100% { max-height: 100%; }
     }
 
     .palette > .rect {
-      position: relative;
-      float: left;
-
       width: 64px;
-      height: 64px;
-
+      flex: auto;
+      animation: expand 0.2s forwards;
       box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
     }
 
@@ -71,7 +76,6 @@
       content: attr(data-background-color);
 
       position: absolute;
-      top: -4em;
 
       height: 1.5em;
       line-height: 1.5em;
@@ -99,7 +103,12 @@
 </head>
 <body>
   <div class="hsl"></div>
-  <div class="palettes"></div>
+
+  <div class="container">
+    <div class="palettes"></div>
+    <div class="color"></div>
+  </div>
+
   <button class="add-palette-btn">+</button>
 
   <script src="./js/picker.js"></script>
