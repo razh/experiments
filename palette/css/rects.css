@@ -7,20 +7,20 @@ body {
   background-color: #eee;
   display: -webkit-box;
   display: -moz-box;
-  display: -ms-box;
   display: -webkit-flex;
+  display: -ms-flexbox;
   display: box;
   display: flex;
   -webkit-box-align: center;
   -moz-box-align: center;
   -o-box-align: center;
-  -ms-box-align: center;
+  -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
   -webkit-box-pack: center;
   -moz-box-pack: center;
   -o-box-pack: center;
-  -ms-box-pack: center;
+  -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
 }
@@ -74,20 +74,20 @@ body {
   margin-top: -48px;
   display: -webkit-box;
   display: -moz-box;
-  display: -ms-box;
   display: -webkit-flex;
+  display: -ms-flexbox;
   display: box;
   display: flex;
   -webkit-box-align: center;
   -moz-box-align: center;
   -o-box-align: center;
-  -ms-box-align: center;
+  -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
-  -webkit-box-pack: justify;
-  -moz-box-pack: justify;
-  -o-box-pack: justify;
-  -ms-box-pack: justify;
+  -webkit-box-pack: distribute;
+  -moz-box-pack: distribute;
+  -o-box-pack: distribute;
+  -ms-flex-pack: distribute;
   -webkit-justify-content: space-around;
   justify-content: space-around;
 }
@@ -167,18 +167,18 @@ body {
   background-color: #9bb;
 }
 .palette .row:nth-child(1) .rect-container:nth-child(4) .rect:nth-child(1) {
-  -webkit-animation-delay: 0.15s;
-  -moz-animation-delay: 0.15s;
-  -o-animation-delay: 0.15s;
-  -ms-animation-delay: 0.15s;
-  animation-delay: 0.15s;
+  -webkit-animation-delay: 0.15000000000000002s;
+  -moz-animation-delay: 0.15000000000000002s;
+  -o-animation-delay: 0.15000000000000002s;
+  -ms-animation-delay: 0.15000000000000002s;
+  animation-delay: 0.15000000000000002s;
 }
 .palette .row:nth-child(1) .rect-container:nth-child(4) .rect:nth-child(2) {
-  -webkit-animation-delay: 0.35s;
-  -moz-animation-delay: 0.35s;
-  -o-animation-delay: 0.35s;
-  -ms-animation-delay: 0.35s;
-  animation-delay: 0.35s;
+  -webkit-animation-delay: 0.35000000000000003s;
+  -moz-animation-delay: 0.35000000000000003s;
+  -o-animation-delay: 0.35000000000000003s;
+  -ms-animation-delay: 0.35000000000000003s;
+  animation-delay: 0.35000000000000003s;
 }
 .palette .row:nth-child(1) .rect-container:nth-child(4) .rect:nth-child(3) {
   -webkit-animation-delay: 0.55s;
@@ -245,11 +245,11 @@ body {
   background-color: #e64;
 }
 .palette .row:nth-child(2) .rect-container:nth-child(2) .rect:nth-child(1) {
-  -webkit-animation-delay: 0.3s;
-  -moz-animation-delay: 0.3s;
-  -o-animation-delay: 0.3s;
-  -ms-animation-delay: 0.3s;
-  animation-delay: 0.3s;
+  -webkit-animation-delay: 0.30000000000000004s;
+  -moz-animation-delay: 0.30000000000000004s;
+  -o-animation-delay: 0.30000000000000004s;
+  -ms-animation-delay: 0.30000000000000004s;
+  animation-delay: 0.30000000000000004s;
 }
 .palette .row:nth-child(2) .rect-container:nth-child(2) .rect:nth-child(2) {
   -webkit-animation-delay: 0.5s;
@@ -259,11 +259,11 @@ body {
   animation-delay: 0.5s;
 }
 .palette .row:nth-child(2) .rect-container:nth-child(2) .rect:nth-child(3) {
-  -webkit-animation-delay: 0.7s;
-  -moz-animation-delay: 0.7s;
-  -o-animation-delay: 0.7s;
-  -ms-animation-delay: 0.7s;
-  animation-delay: 0.7s;
+  -webkit-animation-delay: 0.7000000000000001s;
+  -moz-animation-delay: 0.7000000000000001s;
+  -o-animation-delay: 0.7000000000000001s;
+  -ms-animation-delay: 0.7000000000000001s;
+  animation-delay: 0.7000000000000001s;
 }
 .palette .row:nth-child(2) .rect-container:nth-child(3) .rect:nth-child(1) {
   background-color: #665;
@@ -272,11 +272,11 @@ body {
   background-color: #dd6;
 }
 .palette .row:nth-child(2) .rect-container:nth-child(3) .rect:nth-child(1) {
-  -webkit-animation-delay: 0.35s;
-  -moz-animation-delay: 0.35s;
-  -o-animation-delay: 0.35s;
-  -ms-animation-delay: 0.35s;
-  animation-delay: 0.35s;
+  -webkit-animation-delay: 0.35000000000000003s;
+  -moz-animation-delay: 0.35000000000000003s;
+  -o-animation-delay: 0.35000000000000003s;
+  -ms-animation-delay: 0.35000000000000003s;
+  animation-delay: 0.35000000000000003s;
 }
 .palette .row:nth-child(2) .rect-container:nth-child(3) .rect:nth-child(2) {
   -webkit-animation-delay: 0.55s;
@@ -416,11 +416,11 @@ body {
   background-color: #e64;
 }
 .palette .row:nth-child(3) .rect-container:nth-child(3) .rect:nth-child(1) {
-  -webkit-animation-delay: 0.6s;
-  -moz-animation-delay: 0.6s;
-  -o-animation-delay: 0.6s;
-  -ms-animation-delay: 0.6s;
-  animation-delay: 0.6s;
+  -webkit-animation-delay: 0.6000000000000001s;
+  -moz-animation-delay: 0.6000000000000001s;
+  -o-animation-delay: 0.6000000000000001s;
+  -ms-animation-delay: 0.6000000000000001s;
+  animation-delay: 0.6000000000000001s;
 }
 .palette .row:nth-child(3) .rect-container:nth-child(3) .rect:nth-child(2) {
   -webkit-animation-delay: 0.8s;
@@ -476,18 +476,18 @@ body {
   background-color: #dd6;
 }
 .palette .row:nth-child(3) .rect-container:nth-child(5) .rect:nth-child(1) {
-  -webkit-animation-delay: 0.7s;
-  -moz-animation-delay: 0.7s;
-  -o-animation-delay: 0.7s;
-  -ms-animation-delay: 0.7s;
-  animation-delay: 0.7s;
+  -webkit-animation-delay: 0.7000000000000001s;
+  -moz-animation-delay: 0.7000000000000001s;
+  -o-animation-delay: 0.7000000000000001s;
+  -ms-animation-delay: 0.7000000000000001s;
+  animation-delay: 0.7000000000000001s;
 }
 .palette .row:nth-child(3) .rect-container:nth-child(5) .rect:nth-child(2) {
-  -webkit-animation-delay: 0.8999999999999999s;
-  -moz-animation-delay: 0.8999999999999999s;
-  -o-animation-delay: 0.8999999999999999s;
-  -ms-animation-delay: 0.8999999999999999s;
-  animation-delay: 0.8999999999999999s;
+  -webkit-animation-delay: 0.9000000000000001s;
+  -moz-animation-delay: 0.9000000000000001s;
+  -o-animation-delay: 0.9000000000000001s;
+  -ms-animation-delay: 0.9000000000000001s;
+  animation-delay: 0.9000000000000001s;
 }
 .palette .row:nth-child(3) .rect-container:nth-child(5) .rect:nth-child(3) {
   -webkit-animation-delay: 1.1s;
@@ -557,11 +557,11 @@ body {
   background-color: #e64;
 }
 .palette .row:nth-child(4) .rect-container:nth-child(3) .rect:nth-child(1) {
-  -webkit-animation-delay: 0.85s;
-  -moz-animation-delay: 0.85s;
-  -o-animation-delay: 0.85s;
-  -ms-animation-delay: 0.85s;
-  animation-delay: 0.85s;
+  -webkit-animation-delay: 0.8500000000000001s;
+  -moz-animation-delay: 0.8500000000000001s;
+  -o-animation-delay: 0.8500000000000001s;
+  -ms-animation-delay: 0.8500000000000001s;
+  animation-delay: 0.8500000000000001s;
 }
 .palette .row:nth-child(4) .rect-container:nth-child(3) .rect:nth-child(2) {
   -webkit-animation-delay: 1.05s;
@@ -611,18 +611,18 @@ body {
   background-color: #e64;
 }
 .palette .row:nth-child(4) .rect-container:nth-child(5) .rect:nth-child(1) {
-  -webkit-animation-delay: 0.95s;
-  -moz-animation-delay: 0.95s;
-  -o-animation-delay: 0.95s;
-  -ms-animation-delay: 0.95s;
-  animation-delay: 0.95s;
+  -webkit-animation-delay: 0.9500000000000001s;
+  -moz-animation-delay: 0.9500000000000001s;
+  -o-animation-delay: 0.9500000000000001s;
+  -ms-animation-delay: 0.9500000000000001s;
+  animation-delay: 0.9500000000000001s;
 }
 .palette .row:nth-child(4) .rect-container:nth-child(5) .rect:nth-child(2) {
-  -webkit-animation-delay: 1.15s;
-  -moz-animation-delay: 1.15s;
-  -o-animation-delay: 1.15s;
-  -ms-animation-delay: 1.15s;
-  animation-delay: 1.15s;
+  -webkit-animation-delay: 1.1500000000000001s;
+  -moz-animation-delay: 1.1500000000000001s;
+  -o-animation-delay: 1.1500000000000001s;
+  -ms-animation-delay: 1.1500000000000001s;
+  animation-delay: 1.1500000000000001s;
 }
 .palette .row:nth-child(4) .rect-container:nth-child(5) .rect:nth-child(3) {
   -webkit-animation-delay: 1.35s;
@@ -731,25 +731,25 @@ body {
   background-color: #dd6;
 }
 .palette .row:nth-child(5) .rect-container:nth-child(4) .rect:nth-child(1) {
-  -webkit-animation-delay: 1.15s;
-  -moz-animation-delay: 1.15s;
-  -o-animation-delay: 1.15s;
-  -ms-animation-delay: 1.15s;
-  animation-delay: 1.15s;
+  -webkit-animation-delay: 1.1500000000000001s;
+  -moz-animation-delay: 1.1500000000000001s;
+  -o-animation-delay: 1.1500000000000001s;
+  -ms-animation-delay: 1.1500000000000001s;
+  animation-delay: 1.1500000000000001s;
 }
 .palette .row:nth-child(5) .rect-container:nth-child(4) .rect:nth-child(2) {
-  -webkit-animation-delay: 1.3499999999999999s;
-  -moz-animation-delay: 1.3499999999999999s;
-  -o-animation-delay: 1.3499999999999999s;
-  -ms-animation-delay: 1.3499999999999999s;
-  animation-delay: 1.3499999999999999s;
+  -webkit-animation-delay: 1.35s;
+  -moz-animation-delay: 1.35s;
+  -o-animation-delay: 1.35s;
+  -ms-animation-delay: 1.35s;
+  animation-delay: 1.35s;
 }
 .palette .row:nth-child(5) .rect-container:nth-child(4) .rect:nth-child(3) {
-  -webkit-animation-delay: 1.5499999999999998s;
-  -moz-animation-delay: 1.5499999999999998s;
-  -o-animation-delay: 1.5499999999999998s;
-  -ms-animation-delay: 1.5499999999999998s;
-  animation-delay: 1.5499999999999998s;
+  -webkit-animation-delay: 1.5500000000000003s;
+  -moz-animation-delay: 1.5500000000000003s;
+  -o-animation-delay: 1.5500000000000003s;
+  -ms-animation-delay: 1.5500000000000003s;
+  animation-delay: 1.5500000000000003s;
 }
 .palette .row:nth-child(5) .rect-container:nth-child(5) .rect:nth-child(1) {
   background-color: #ea4;
@@ -761,18 +761,18 @@ body {
   background-color: #e64;
 }
 .palette .row:nth-child(5) .rect-container:nth-child(5) .rect:nth-child(1) {
-  -webkit-animation-delay: 1.2s;
-  -moz-animation-delay: 1.2s;
-  -o-animation-delay: 1.2s;
-  -ms-animation-delay: 1.2s;
-  animation-delay: 1.2s;
+  -webkit-animation-delay: 1.2000000000000002s;
+  -moz-animation-delay: 1.2000000000000002s;
+  -o-animation-delay: 1.2000000000000002s;
+  -ms-animation-delay: 1.2000000000000002s;
+  animation-delay: 1.2000000000000002s;
 }
 .palette .row:nth-child(5) .rect-container:nth-child(5) .rect:nth-child(2) {
-  -webkit-animation-delay: 1.4s;
-  -moz-animation-delay: 1.4s;
-  -o-animation-delay: 1.4s;
-  -ms-animation-delay: 1.4s;
-  animation-delay: 1.4s;
+  -webkit-animation-delay: 1.4000000000000001s;
+  -moz-animation-delay: 1.4000000000000001s;
+  -o-animation-delay: 1.4000000000000001s;
+  -ms-animation-delay: 1.4000000000000001s;
+  animation-delay: 1.4000000000000001s;
 }
 .palette .row:nth-child(5) .rect-container:nth-child(5) .rect:nth-child(3) {
   -webkit-animation-delay: 1.6s;
