@@ -82,6 +82,7 @@
 
     var el = event.currentTarget;
     var parentEl = el.parentNode;
+    var grandparentEl;
     var index, parentIndex;
     if ( parentEl ) {
       index = nodeIndexOf( el );
@@ -94,8 +95,10 @@
       el.removeEventListener( 'mousedown', rectMouseDown );
 
       // Remove entire palette element if it's empty.
-      if ( parentEl.parentNode && !parentEl.childNodes.length ) {
-        parentEl.parentNode.removeChild( parentEl );
+      grandparentEl = parentEl.parentNode;
+      if ( grandparentEl && !parentEl.childNodes.length ) {
+        grandparentEl.removeChild( parentEl );
+        currentPaletteEl = grandparentEl.lastChild;
       }
 
       if ( index !== -1 && parentIndex !== -1 ) {
