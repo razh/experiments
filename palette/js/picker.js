@@ -7,6 +7,7 @@
 
   var hslEl = document.querySelector( '.hsl' );
   var palettesEl = document.querySelector( '.palettes' );
+  var colorEl = document.querySelector( '.color' );
   var currentPaletteEl;
 
   var addPaletteBtn = document.querySelector( '.add-palette-btn' );
@@ -34,12 +35,12 @@
   update();
 
   // Update background color.
-  window.addEventListener( 'mousemove', function( event ) {
-    var x = event.pageX,
-        y = event.pageY;
+  colorEl.addEventListener( 'mousemove', function( event ) {
+    var x = event.pageX - colorEl.offsetLeft,
+        y = event.pageY - colorEl.offsetTop;
 
-    h = x / window.innerWidth * 360;
-    s = ( window.innerHeight - y ) / window.innerHeight * 100;
+    h = x / colorEl.offsetWidth * 360;
+    s = ( colorEl.offsetHeight - y ) / colorEl.offsetHeight * 100;
 
     update();
   });
@@ -108,7 +109,7 @@
     }
   }
 
-  window.addEventListener( 'mousedown', function() {
+  colorEl.addEventListener( 'mousedown', function() {
     if ( !palettes.length ) {
       addPalette();
     }
