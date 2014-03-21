@@ -18,15 +18,15 @@ rect-container-color(a, b = false, c = false)
     .rect:nth-child(3)
       background-color c
 
-rect-container-delay(delay = 0, step = 0.2s)
+rect-container-delay(delay = 0, step = 200ms)
   .rect:nth-child(1)
     animation-delay delay
 
   .rect:nth-child(2)
-    animation-delay (step + delay)
+    animation-delay (delay + step)
 
   .rect:nth-child(3)
-    animation-delay (2 * step + delay)
+    animation-delay (delay + step * 2)
 
 
 @keyframes expand
@@ -92,133 +92,109 @@ $orange = #ea4
     align-items center
     justify-content space-around
 
-  step = 0.05s
+  step = 50ms
 
   .row:nth-child(1)
     .rect-container:nth-child(1)
       rect-container-color($red)
-      rect-container-delay()
+      rect-container-delay(step * 0)
 
     .rect-container:nth-child(2)
-      delay = step * 1
       rect-container-color($green)
-      rect-container-delay(delay)
+      rect-container-delay(step * 1)
 
     .rect-container:nth-child(3)
-      delay = step * 2
       rect-container-color($grey)
-      rect-container-delay(delay)
+      rect-container-delay(step * 2)
 
     .rect-container:nth-child(4)
-      delay = step * 3
       rect-container-color($blue)
-      rect-container-delay(delay)
+      rect-container-delay(step * 3)
 
     .rect-container:nth-child(5)
-      delay = step * 4
       rect-container-color($orange)
-      rect-container-delay(delay)
+      rect-container-delay(step * 4)
 
   .row:nth-child(2)
     .rect-container:nth-child(1)
-      delay = step * 5
       rect-container-color($red, $green)
-      rect-container-delay(delay)
+      rect-container-delay(step * 5)
 
     .rect-container:nth-child(2)
-      delay = step * 6
       rect-container-color($green, $red)
-      rect-container-delay(delay)
+      rect-container-delay(step * 6)
 
     .rect-container:nth-child(3)
-      delay = step * 7
       rect-container-color($grey, $green)
-      rect-container-delay(delay)
+      rect-container-delay(step * 7)
 
     .rect-container:nth-child(4)
-      delay = step * 8
       rect-container-color($blue, $grey)
-      rect-container-delay(delay)
+      rect-container-delay(step * 8)
 
     .rect-container:nth-child(5)
-      delay = step * 9
       rect-container-color($orange, $green)
-      rect-container-delay(delay)
+      rect-container-delay(step * 9)
 
   .row:nth-child(3)
     .rect-container:nth-child(1)
-      delay = step * 10
       rect-container-color($red, $green, $grey)
-      rect-container-delay(delay)
+      rect-container-delay(step * 10)
 
     .rect-container:nth-child(2)
-      delay = step * 11
       rect-container-color($green, $red, $orange)
-      rect-container-delay(delay)
+      rect-container-delay(step * 11)
 
     .rect-container:nth-child(3)
-      delay = step * 12
       rect-container-color($grey, $green, $red)
-      rect-container-delay(delay)
+      rect-container-delay(step * 12)
 
     .rect-container:nth-child(4)
-      delay = step * 13
       rect-container-color($blue, $green, $red)
-      rect-container-delay(delay)
+      rect-container-delay(step * 13)
 
     .rect-container:nth-child(5)
-      delay = step * 14
       rect-container-color($orange, $red, $green)
-      rect-container-delay(delay)
+      rect-container-delay(step * 14)
 
   .row:nth-child(4)
     .rect-container:nth-child(1)
-      delay = step * 15
       rect-container-color($red, $orange)
-      rect-container-delay(delay)
+      rect-container-delay(step * 15)
 
     .rect-container:nth-child(2)
-      delay = step * 16
       rect-container-color($green, $grey)
-      rect-container-delay(delay)
+      rect-container-delay(step * 16)
 
     .rect-container:nth-child(3)
-      delay = step * 17
       rect-container-color($grey, $red)
-      rect-container-delay(delay)
+      rect-container-delay(step * 17)
 
     .rect-container:nth-child(4)
-      delay = step * 18
       rect-container-color($blue, $green)
-      rect-container-delay(delay)
+      rect-container-delay(step * 18)
 
     .rect-container:nth-child(5)
-      delay = step * 19
       rect-container-color($orange, $red)
-      rect-container-delay(delay)
+      rect-container-delay(step * 19)
 
   .row:nth-child(5)
     .rect-container:nth-child(1)
-      delay = step * 20
       rect-container-color($red, $green, $orange)
-      rect-container-delay(delay)
+      rect-container-delay(step * 20)
 
     .rect-container:nth-child(2)
-      delay = step * 21
       rect-container-color($green, $red, $grey)
-      rect-container-delay(delay)
+      rect-container-delay(step * 21)
 
     .rect-container:nth-child(3)
-      delay = step * 22
       rect-container-color($grey, $red, $orange)
-      rect-container-delay(delay)
+      rect-container-delay(step * 22)
 
     .rect-container:nth-child(4)
-      delay = step * 23
       rect-container-color($blue, $grey, $green)
-      rect-container-delay(delay)
+      rect-container-delay(step * 23)
 
     .rect-container:nth-child(5)
-      delay = step * 24
       rect-container-color($orange, $green, $red)
-      rect-container-delay(delay)
+      rect-container-delay(step * 24)
