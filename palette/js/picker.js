@@ -36,11 +36,13 @@
 
   // Update background color.
   colorEl.addEventListener( 'mousemove', function( event ) {
-    var x = event.pageX - colorEl.offsetLeft,
-        y = event.pageY - colorEl.offsetTop;
+    var rect = colorEl.getBoundingClientRect();
 
-    h = x / colorEl.offsetWidth * 360;
-    s = ( colorEl.offsetHeight - y ) / colorEl.offsetHeight * 100;
+    var x = event.pageX - rect.left,
+        y = event.pageY - rect.top;
+
+    h = x / rect.width * 360;
+    s = ( rect.height - y ) / rect.height * 100;
 
     update();
   });
