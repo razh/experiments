@@ -2,6 +2,10 @@
 var angleGradient = (function() {
   'use strict';
 
+  function lerp( a, b, t ) {
+    return a + t * ( b - a );
+  }
+
   var decimalRegexPrefix = '^((-)?\\d+(\\.\\d+)?)';
 
   var percentRegex = new RegExp( decimalRegexPrefix + '%$' );
@@ -38,7 +42,7 @@ var angleGradient = (function() {
    * Converts a CSS angle measurement (degrees, radians, gradians, turns) to
    * radians.
    */
-  function angle( value ) {
+  function radians( value ) {
     if ( typeof value === 'number' ) {
       return value;
     }
@@ -57,8 +61,26 @@ var angleGradient = (function() {
     return parseFloat( value );
   }
 
+  /**
+   * Returns angle from (x0, y0) to (x1, y1) in the range [0, PI2).
+   */
+  function angleTo( x0, y0, x1, y1 ) {
+    var angle = Math.atan2( y1 - y0, x1 - x0 );
+
+    if ( angle < 0 ) {
+      angle += PI2;
+    }
+
+    return angle;
+  }
+
   return function( el, options ) {
-    var rect = el.getBoundingClientRect ? el.getBoundingClientRect() : {};
+    if ( !el ) {
+      return;
+    }
+
+    options = options || {};
+    var rect = el.getBoundingClientRect();
 
     var width  = options.width  || rect.width;
     var height = options.height || rect.height;
@@ -74,5 +96,26 @@ var angleGradient = (function() {
 
     var imageData = ctx.getImageData( 0, 0, width, height );
     var data = imageData.data;
+
+    var t;
+    var i, j;
+    var index;
+    for ( i = 0; i < height; i++ ) {
+      for ( j = 0; j < width; j++ ) {
+        index = 4 * ( i * width + j );
+
+        // Angle parameter.
+        t = angleTo( x, y, j, i ) / PI2;
+
+        data[ index     ] = Math.round( lerp( 0, 255, t ) );
+        data[ index + 1 ] = Math.round( lerp( 0, 255, t ) );
+        data[ index + 2 ] = Math.round( lerp( 0, 255, t ) );
+        data[ index + 3 ] = 255;
+      }
+    }
+
+    ctx.putImageData( imageData, 0, 0 );
+
+    el.style.background = 'url(' + canvas.toDataURL( 'image/jpeg' ) + ')';
   };
 }) ();
