@@ -1,0 +1,60 @@
+@import 'nib'
+
+gutter-width = 16px
+border-radius = 4px
+
+*, *:before, *:after
+  box-sizing border-box
+
+body
+  margin 0
+  background-color #223
+
+.row
+  clearfix()
+  margin-left -(gutter-width / 2)
+  margin-right -(gutter-width / 2)
+  margin-bottom gutter-width
+
+  &:last-child
+    margin-bottom 0
+
+.col-4
+.col-8
+.col-12
+  position relative
+  float left
+  margin 0
+  padding-left (gutter-width / 2)
+  padding-right (gutter-width / 2)
+
+.col-4
+  width 33.3%
+
+.col-8
+  width 66.7%
+
+.col-12
+  width 100%
+
+.layout
+  padding gutter-width
+  margin 32px auto
+  width 320px
+  background-color #e86
+  border-radius border-radius
+
+.header
+.footer
+.sidebar
+.main
+  background-color #eca
+  border-radius border-radius
+
+.header
+.footer
+  height 32px
+
+.sidebar
+.main
+  height 128px
