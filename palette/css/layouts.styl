@@ -10,6 +10,7 @@ body
   margin 0
   background-color #223
 
+// Grid system.
 .row
   clearfix()
   margin-left -(gutter-width / 2)
@@ -19,24 +20,19 @@ body
   &:last-child
     margin-bottom 0
 
-.col-4
-.col-8
-.col-12
+$col
   position relative
   float left
   margin 0
   padding-left (gutter-width / 2)
   padding-right (gutter-width / 2)
 
-.col-4
-  width 33.3%
+for i in (1..12)
+  .col-{i}
+    @extends $col
+    width (100% * i / 12)
 
-.col-8
-  width 66.7%
-
-.col-12
-  width 100%
-
+// Content.
 .layout
   padding gutter-width
   margin 32px auto

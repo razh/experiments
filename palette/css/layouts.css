@@ -26,8 +26,17 @@ body {
 .row:last-child {
   margin-bottom: 0;
 }
+.col-1,
+.col-2,
+.col-3,
 .col-4,
+.col-5,
+.col-6,
+.col-7,
 .col-8,
+.col-9,
+.col-10,
+.col-11,
 .col-12 {
   position: relative;
   float: left;
@@ -35,11 +44,38 @@ body {
   padding-left: 8px;
   padding-right: 8px;
 }
+.col-1 {
+  width: 8.333333333333334%;
+}
+.col-2 {
+  width: 16.666666666666668%;
+}
+.col-3 {
+  width: 25%;
+}
 .col-4 {
-  width: 33.3%;
+  width: 33.333333333333336%;
+}
+.col-5 {
+  width: 41.666666666666664%;
+}
+.col-6 {
+  width: 50%;
+}
+.col-7 {
+  width: 58.333333333333336%;
 }
 .col-8 {
-  width: 66.7%;
+  width: 66.66666666666667%;
+}
+.col-9 {
+  width: 75%;
+}
+.col-10 {
+  width: 83.33333333333333%;
+}
+.col-11 {
+  width: 91.66666666666667%;
 }
 .col-12 {
   width: 100%;
