@@ -130,6 +130,52 @@ var angleGradient = (function() {
     return angle;
   }
 
+  function colorAtAngleFn( colorStops ) {
+    if ( colorStops.length < 2 ) {
+      return;
+    }
+
+    colorStops = colorStops.map(function( colorStop, index ) {
+      return {
+        angle: radians( colorStop.angle ),
+        color: parseColor( colorStop.color ),
+        index: index
+      };
+    });
+
+    // Hacky stable sorting of angles.
+    colorStops.sort(function( a, b ) {
+      if ( a.angle === b.angle ) {
+        return a.index - b.index;
+      }
+
+      return a.angle - b.angle;
+    });
+
+    return function( angle ) {
+      // Determine start and end colorStops.
+      var i, il;
+      for ( i = 0, il = colorStops.length; i < il - 1; i++ ) {
+        if ( angle < colorStops[ i + 1 ].angle ) {
+          break;
+        }
+      }
+
+      var start = colorStops[i];
+      var end = colorStops[ i + 1 ];
+
+      // Angle parameter.
+      var t = ( angle - start.angle ) / ( end.angle - start.angle );
+
+      return [
+        lerp( start.color[0], end.color[0], t ),
+        lerp( start.color[1], end.color[1], t ),
+        lerp( start.color[2], end.color[2], t ),
+        lerp( start.color[3], end.color[3], t )
+      ];
+    };
+  }
+
   return function( el, options ) {
     if ( !el ) {
       return;
@@ -144,6 +190,12 @@ var angleGradient = (function() {
     var x = position( options.x, width  ) || 0;
     var y = position( options.y, height ) || 0;
 
+    var colorStops = options.colorStops || [];
+    var colorAtAngle = colorAtAngleFn( colorStops );
+    if ( !colorAtAngle ) {
+      return;
+    }
+
     var canvas = document.createElement( 'canvas' );
     var ctx    = canvas.getContext( '2d' );
 
@@ -153,22 +205,24 @@ var angleGradient = (function() {
     var imageData = ctx.getImageData( 0, 0, width, height );
     var data = imageData.data;
 
-    var t;
+    console.time( 'gradient' );
+
+    var color;
     var i, j;
     var index;
     for ( i = 0; i < height; i++ ) {
       for ( j = 0; j < width; j++ ) {
         index = 4 * ( i * width + j );
 
-        // Angle parameter.
-        t = angleTo( x, y, j, i ) / PI2;
+        color = colorAtAngle( angleTo( x, y, j, i ) );
 
-        data[ index     ] = Math.round( lerp( 0, 255, t ) );
-        data[ index + 1 ] = Math.round( lerp( 0, 255, t ) );
-        data[ index + 2 ] = Math.round( lerp( 0, 255, t ) );
-        data[ index + 3 ] = 255;
+        data[ index     ] = color[0];
+        data[ index + 1 ] = color[1];
+        data[ index + 2 ] = color[2];
+        data[ index + 3 ] = color[3];
       }
     }
+    console.timeEnd( 'gradient' );
 
     ctx.putImageData( imageData, 0, 0 );
 
