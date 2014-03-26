@@ -6,7 +6,15 @@ var angleGradient = (function() {
     return a + t * ( b - a );
   }
 
-  var decimalRegexPrefix = '^((-)?\\d+(\\.\\d+)?)';
+  var decimalRegexPrefix = '^' +
+    '(' +
+      // Minus sign (optional).
+      '(-)?' +
+      // Integer.
+      '\\d+' +
+      // Decimal (optional).
+      '(\\.\\d+)?' +
+    ')';
 
   var percentRegex = new RegExp( decimalRegexPrefix + '%$' );
 
