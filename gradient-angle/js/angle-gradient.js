@@ -153,7 +153,7 @@ var angleGradient = (function() {
     });
 
     // Add 0 and PI2 endpoints (copies of existing endpoints) if missing.
-    if ( !colorStops[0].angle ) {
+    if ( colorStops[0].angle > 0 ) {
       colorStops.unshift({
         angle: 0,
         color: colorStops[0].color.slice()
