@@ -152,6 +152,22 @@ var angleGradient = (function() {
       return a.angle - b.angle;
     });
 
+    // Add 0 and PI2 endpoints (copies of existing endpoints) if missing.
+    if ( !colorStops[0].angle ) {
+      colorStops.unshift({
+        angle: 0,
+        color: colorStops[0].color.slice()
+      });
+    }
+
+    var lastIndex = colorStops.length - 1;
+    if ( colorStops[ lastIndex ].angle < PI2 ) {
+      colorStops.push({
+        angle: PI2,
+        color: colorStops[ lastIndex ].color.slice()
+      });
+    }
+
     return function( angle ) {
       // Determine start and end colorStops.
       var i, il;
