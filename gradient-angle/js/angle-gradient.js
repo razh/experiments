@@ -6,6 +6,54 @@ var angleGradient = (function() {
     return a + t * ( b - a );
   }
 
+  var rgbRegex = new RegExp(
+    '^' +
+    'rgb\\(' +
+      '(\\d+),\\s*' +
+      '(\\d+),\\s*' +
+      '(\\d+)' +
+    '\\)' +
+    '$'
+  );
+
+  var rgbaRegex = new RegExp(
+    '^' +
+    'rgba\\(' +
+      '(\\d+),\\s*' +
+      '(\\d+),\\s*' +
+      '(\\d+),\\s*' +
+      '(\\d+(?:\\.\\d+)?)' +
+    '\\)' +
+    '$'
+  );
+
+  function toInt( string ) {
+    return parseInt( string, 10 );
+  }
+
+  /**
+   * Extracts an array of rgba values from a RGB or RGBA color string.
+   * All values are in the range [0, 255].
+   */
+  function parseColor( colorString ) {
+    var rgb = rgbRegex.exec( colorString );
+    if ( rgb ) {
+      rgb = rgb.slice( 1, 4 ).map( toInt );
+      rgb[3] = 255;
+      return rgb;
+    }
+
+    var rgba = rgbaRegex.exec( colorString );
+    // Not a valid rgb(a) color. Return transparent black.
+    if ( !rgba ) {
+      return [ 0, 0, 0, 0 ];
+    }
+
+    rgba = rgba.slice( 1, 5 );
+    rgba[3] *= 255;
+    return rgba.map( toInt );
+  }
+
   var decimalRegexPrefix = '^' +
     '(' +
       // Minus sign (optional).
