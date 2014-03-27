@@ -1,0 +1,43 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title Skyline
+
+    link(rel='stylesheet', href='./stylesheets/skyline.css')
+
+  body
+    //
+      Heavily inspired by Colin Hesterly's World of Motion.
+      http://www.flickr.com/photos/colinhesterly/4968436290/
+      http://vimeo.com/14773535
+    .skyline
+      .background
+        .container
+          - for ( var i = 0; i < 12; i++ )
+            .building
+
+      .midground
+        .container
+          - for ( var i = 0; i < 15; i++ )
+            .building
+
+      .foreground
+        .container
+          - for ( var i = 0; i < 20; i++ )
+            .building
+
+      .clouds
+        .cloud
+          - for ( var i = 0; i < 5; i++ )
+            .cloudlet
+
+        .cloud
+          - for ( var i = 0; i < 5; i++ )
+            .cloudlet
+
+    .ground
+    canvas.noise#noise
+
+    script(src='../app/bower_components/jquery/dist/jquery.js')
+    script(src='./js/skyline.js')
