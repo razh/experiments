@@ -145,7 +145,9 @@ var angleGradient = (function() {
 
     // Hacky stable sorting of angles.
     colorStops.sort(function( a, b ) {
-      if ( a.angle === b.angle ) {
+      if ( isNaN( a.angle ) ||
+           isNaN( b.angle ) ||
+           a.angle === b.angle ) {
         return a.index - b.index;
       }
 
