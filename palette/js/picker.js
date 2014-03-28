@@ -48,6 +48,10 @@
   });
 
   window.addEventListener( 'wheel', function( event ) {
+    if ( !event.deltaY ) {
+      return;
+    }
+
     event.preventDefault();
     l = clamp( l - event.deltaY, 0, 100 );
     update();
