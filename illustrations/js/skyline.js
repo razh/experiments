@@ -1,12 +1,8 @@
-/*globals $*/
-$(function() {
+(function( window, document, undefined ) {
   'use strict';
 
-  var $window = $( window );
-
-  var $noiseCanvas = $( '#noise' ),
-      noiseCanvas  = $noiseCanvas[0],
-      noiseCtx     = noiseCanvas.getContext( '2d' );
+  var noiseCanvas = document.getElementById( 'noise' ),
+      noiseCtx    = noiseCanvas.getContext( '2d' );
 
   function draw( ctx ) {
     var imageData = ctx.getImageData( 0, 0, ctx.canvas.width, ctx.canvas.height ),
@@ -26,12 +22,13 @@ $(function() {
   }
 
   function resize() {
-    noiseCanvas.width = $window.width();
-    noiseCanvas.height = $window.height();
+    noiseCanvas.width  = window.innerWidth;
+    noiseCanvas.height = window.innerHeight;
 
     draw( noiseCtx );
   }
 
   resize();
-  $window.on( 'resize', resize );
-});
+  window.addEventListener( 'resize', resize );
+
+}) ( window, document );
