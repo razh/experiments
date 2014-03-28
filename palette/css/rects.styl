@@ -6,6 +6,9 @@ rect(width, height)
   margin-left (-0.5 * width)
   margin-top (-0.5 * height)
 
+square(size)
+  rect(size, size)
+
 rect-container-color(colors...)
   for color, index in colors
     .rect:nth-child({index + 1})
@@ -59,13 +62,13 @@ $orange = #ea4
     margin-top @height
 
     .rect:nth-child(1)
-      rect(64px, 64px)
+      square(size)
 
     .rect:nth-child(2)
-      rect(36px, 36px)
+      square(round(0.56 * size))
 
     .rect:nth-child(3)
-      rect(18px, 18px)
+      square(round(0.28 * size))
 
   .rect
     position absolute
