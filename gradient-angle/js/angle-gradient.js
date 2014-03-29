@@ -154,6 +154,48 @@ var angleGradient = (function() {
       return a.angle - b.angle;
     });
 
+
+    // Add in undefined angles.
+    (function() {
+      // Handle undefined first and last angles.
+      if ( isNaN( colorStops[0].angle ) ) {
+        colorStops[0].angle = 0;
+      }
+
+      var lastIndex = colorStops.length - 1;
+      if ( isNaN( colorStops[ lastIndex ] ) ) {
+        colorStops[ lastIndex ].angle = PI2;
+      }
+
+      var startIndex = 0;
+      var endIndex;
+      var start, end;
+
+      var i, j;
+      var il;
+      var t;
+
+      // Find next valid angle.
+      for ( i = 1, il = colorStops.length; i < il; i++ ) {
+        // Find next invalid angle or last element.
+        if ( !isNaN( colorStops[i].angle ) || i === il - 1 ) {
+          endIndex = i;
+
+          start = colorStops[ startIndex ].angle;
+          end = colorStops[ endIndex ].angle;
+
+          // Fill in.
+          for ( j = startIndex + 1; j < endIndex; j++ ) {
+            t = ( j - startIndex ) / ( endIndex - startIndex );
+            colorStops[j].angle = lerp( start, end, t );
+          }
+
+          // Jump.
+          i = startIndex = endIndex;
+        }
+      }
+    }) ();
+
     // Add 0 and PI2 endpoints (copies of existing endpoints) if missing.
     if ( colorStops[0].angle > 0 ) {
       colorStops.unshift({
