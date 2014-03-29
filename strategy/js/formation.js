@@ -83,8 +83,12 @@ Formation.prototype.toLocal = function( x, y ) {
 Formation.prototype.contains = function( x, y ) {
   var point = this.toLocal( x, y );
 
+  // Flip vertical range if height is negative.
   return 0 <= point.x && point.x <= this.width &&
-         0 <= point.y && point.y <= this.height;
+    ( this.height < 0 ?
+      this.height <= point.y && point.y <= 0 :
+      0 <= point.y && point.y <= this.height
+    );
 };
 
 Formation.prototype.getPositions = function( count, rankSpacing, fileSpacing ) {
