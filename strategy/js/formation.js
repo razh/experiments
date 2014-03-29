@@ -80,6 +80,13 @@ Formation.prototype.toLocal = function( x, y ) {
   };
 };
 
+Formation.prototype.contains = function( x, y ) {
+  var point = this.toLocal( x, y );
+
+  return 0 <= point.x && point.x <= this.width &&
+         0 <= point.y && point.y <= this.height;
+};
+
 Formation.prototype.getPositions = function( count, rankSpacing, fileSpacing ) {
   var xCount = Math.ceil( this.width / rankSpacing );
 

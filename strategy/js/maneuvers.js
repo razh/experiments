@@ -124,6 +124,17 @@
 
       ctx.globalAlpha = 0.5;
 
+      // Draw highlighted formations.
+      if ( formation.contains( mouse.x, mouse.y ) ) {
+        ctx.globalAlpha = 0.2;
+
+        ctx.beginPath();
+        formation.draw( ctx );
+        ctx.fill();
+
+        ctx.globalAlpha = 0.5;
+      }
+
       // Unit positions.
       formation.getPositions(
         config.count,
