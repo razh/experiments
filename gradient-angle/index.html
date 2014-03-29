@@ -9,10 +9,58 @@
       width: 240px;
       height: 320px;
     }
+
+    .circles {
+      position: relative;
+    }
+
+    .angle-gradient.circle {
+      position: absolute;
+
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+
+      opacity: 0.8;
+    }
+
+    .angle-gradient.circle:nth-child(1) {
+      left: 120px;
+    }
+
+    .angle-gradient.circle:nth-child(2) {
+      top: 120px;
+    }
+
+    .angle-gradient.circle:nth-child(3) {
+      left: 240px;
+      top: 120px;
+    }
+
+    .angle-gradient.circle:nth-child(4) {
+      left: 120px;
+      top: 240px;
+    }
+
+    .top {
+      -webkit-transform: rotate(-90deg);
+      transform: rotate(-90deg);
+    }
+
+    .bottom {
+      -webkit-transform: rotate(90deg);
+      transform: rotate(90deg);
+    }
   </style>
 </head>
 <body>
   <div class="angle-gradient"></div>
+  <div class="circles">
+    <div class="angle-gradient circle top"></div>
+    <div class="angle-gradient circle bottom"></div>
+    <div class="angle-gradient circle top"></div>
+    <div class="angle-gradient circle bottom"></div>
+  </div>
 
   <script src="./js/angle-gradient.js"></script>
 
@@ -31,6 +79,25 @@
           color: 'rgb(255, 255, 255)'
         }
       ]
+    });
+
+    var circleEls = [].slice.call(
+      document.querySelectorAll( '.circles > .angle-gradient.circle' )
+    );
+
+    circleEls.forEach(function( el ) {
+      angleGradient( el, {
+        x: '50%',
+        y: '50%',
+        colorStops: [
+          {
+            color: 'rgb(0, 0, 0)'
+          },
+          {
+            color: 'rgb(255, 255, 255)'
+          }
+        ]
+      })
     });
   </script>
 </body>
