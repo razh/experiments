@@ -286,6 +286,6 @@ var angleGradient = (function() {
 
     ctx.putImageData( imageData, 0, 0 );
 
-    el.style.background = 'url(' + canvas.toDataURL( 'image/jpeg' ) + ')';
+    el.style.background = 'url(' + canvas.toDataURL() + ')';
   };
 }) ();
