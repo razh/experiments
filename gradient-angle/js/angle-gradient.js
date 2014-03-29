@@ -163,7 +163,7 @@ var angleGradient = (function() {
       }
 
       var lastIndex = colorStops.length - 1;
-      if ( isNaN( colorStops[ lastIndex ] ) ) {
+      if ( isNaN( colorStops[ lastIndex ].angle ) ) {
         colorStops[ lastIndex ].angle = PI2;
       }
 
