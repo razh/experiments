@@ -285,48 +285,24 @@
       }
 
       // Unit count.
-      // A.
-      if ( event.which === 65 ) {
-        config.count += delta;
-      }
-
-      // Z.
-      if ( event.which === 90 ) {
-        config.count = Math.max( config.count - delta, 0 );
-      }
+      // A/Z.
+      if ( event.which === 65 ) { config.count += delta; }
+      if ( event.which === 90 ) { config.count = Math.max( config.count - delta, 0 ); }
 
       // Rank spacing.
-      // Left arrow.
-      if ( event.which === 37 ) {
-        config.spacing.rank -= delta;
-      }
-
-      // Right arrow.
-      if ( event.which === 39 ) {
-        config.spacing.rank += delta;
-      }
+      // Left/right arrow.
+      if ( event.which === 37 ) { config.spacing.rank -= delta; }
+      if ( event.which === 39 ) { config.spacing.rank += delta; }
 
       // File spacing.
-      // Up arrow.
-      if ( event.which === 38 ) {
-        config.spacing.file += delta;
-      }
-
-      // Down arrow.
-      if ( event.which === 40 ) {
-        config.spacing.file -= delta;
-      }
+      // Up/down arrow.
+      if ( event.which === 38 ) { config.spacing.file += delta; }
+      if ( event.which === 40 ) { config.spacing.file -= delta; }
 
       // Radius.
-      // , and <.
-      if ( event.which === 188 ) {
-        config.radius = Math.max( config.radius - delta, 1 );
-      }
-
-      // . and >.
-      if ( event.which === 190 ) {
-        config.radius += delta;
-      }
+      // (, and <) / (. and >)
+      if ( event.which === 188 ) { config.radius = Math.max( config.radius - delta, 1 ); }
+      if ( event.which === 190 ) { config.radius += delta; }
 
       // ESC.
       // Reset everything.
