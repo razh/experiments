@@ -132,27 +132,50 @@ var angleGradient = (function() {
   }
 
   // Determine appropriate background canvas method for specific browsers.
-  function backgroundCanvasFn() {
+  function drawBackgroundCanvasFn() {
     var element = document.createElement( 'div' );
     element.style.display = 'none';
     document.body.appendChild( element );
 
-    function webkitBackgroundCanvas( el ) {
-      if ( !el.id ) {
-        throw new Error( 'Element has no id.' );
-      }
+    // Browser specific functions.
+    function webkitBackgroundCanvas( el, width, height, drawGradient ) {
+      var id = el.id + '-canvas';
+      var ctx = document.getCSSCanvasContext( '2d', id, width, height );
 
+      drawGradient( ctx );
 
-      el.style.backgroundImage = '-webkit-canvas(' + el.id + '-canvas)';
+      el.style.backgroundImage = '-webkit-canvas(' + id + ')';
     }
 
-    function mozBackgroundCanvas( el ) {
-      el.style.backgroundImage = '-moz-element(#' + el.id + '-canvas)';
+    function mozBackgroundCanvas( el, width, height, drawGradient ) {
+      var canvas = document.createElement( 'canvas' );
+      var ctx    = canvas.getContext( '2d' );
+
+      canvas.id = el.id + '-canvas';
+      canvas.width  = width;
+      canvas.height = height;
+      canvas.style.display = 'none';
+      canvas.style.position = 'absolute';
+
+      document.body.appendChild( canvas );
+
+      drawGradient( ctx );
+
+      el.style.backgroundImage = '-moz-element(#' + canvas.id + ')';
     }
 
-    function dataURLBackgroundCanvas( el, canvas ) {
+    function dataURLBackgroundCanvas( el, width, height, drawGradient ) {
+      var canvas = document.createElement( 'canvas' );
+      var ctx    = canvas.getContext( '2d' );
+
+      canvas.width  = width;
+      canvas.height = height;
+
+      drawGradient( ctx );
+
       el.style.backgroundImage = 'url(' + canvas.toDataURL() + ')';
     }
+
 
     var webkitValue = '-webkit-canvas(background-canvas)';
     var mozValue = '-moz-element(#_)';
@@ -166,7 +189,7 @@ var angleGradient = (function() {
     element.style.backgroundImage = mozValue;
     if ( getComputedStyle( element ).backgroundImage === mozValue ) {
       document.body.removeChild( element );
-      return mozBackgroundCanvas();
+      return mozBackgroundCanvas;
     }
 
     document.body.removeChild( element );
@@ -299,36 +322,39 @@ var angleGradient = (function() {
       return;
     }
 
-    var canvas = document.createElement( 'canvas' );
-    var ctx    = canvas.getContext( '2d' );
+    var drawGradient = (function( width, height, colorAtAngle ) {
+      return function( ctx ) {
+        var imageData = ctx.getImageData( 0, 0, width, height );
+        var data = imageData.data;
 
-    canvas.width  = width;
-    canvas.height = height;
+        console.time( 'gradient' );
 
-    var imageData = ctx.getImageData( 0, 0, width, height );
-    var data = imageData.data;
+        var color;
+        var i, j;
+        var index;
+        for ( i = 0; i < height; i++ ) {
+          for ( j = 0; j < width; j++ ) {
+            index = 4 * ( i * width + j );
 
-    console.time( 'gradient' );
+            color = colorAtAngle( angleTo( x, y, j, i ) );
 
-    var color;
-    var i, j;
-    var index;
-    for ( i = 0; i < height; i++ ) {
-      for ( j = 0; j < width; j++ ) {
-        index = 4 * ( i * width + j );
+            data[ index     ] = color[0];
+            data[ index + 1 ] = color[1];
+            data[ index + 2 ] = color[2];
+            data[ index + 3 ] = color[3];
+          }
+        }
 
-        color = colorAtAngle( angleTo( x, y, j, i ) );
+        console.timeEnd( 'gradient' );
 
-        data[ index     ] = color[0];
-        data[ index + 1 ] = color[1];
-        data[ index + 2 ] = color[2];
-        data[ index + 3 ] = color[3];
-      }
-    }
-    console.timeEnd( 'gradient' );
+        ctx.putImageData( imageData, 0, 0 );
+      };
+    }) ( width, height, colorAtAngle );
 
-    ctx.putImageData( imageData, 0, 0 );
+    // Get browser specific background canvas function.
+    var drawBackgroundCanvas = drawBackgroundCanvasFn();
 
-    el.style.background = 'url(' + canvas.toDataURL() + ')';
+    // Draw.
+    drawBackgroundCanvas( el, width, height, drawGradient );
   };
 }) ();
