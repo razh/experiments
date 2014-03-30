@@ -1,3 +1,4 @@
+/*globals getComputedStyle*/
 /*exported angleGradient*/
 var angleGradient = (function() {
   'use strict';
@@ -128,6 +129,48 @@ var angleGradient = (function() {
     }
 
     return angle;
+  }
+
+  // Determine appropriate background canvas method for specific browsers.
+  function backgroundCanvasFn() {
+    var element = document.createElement( 'div' );
+    element.style.display = 'none';
+    document.body.appendChild( element );
+
+    function webkitBackgroundCanvas( el ) {
+      if ( !el.id ) {
+        throw new Error( 'Element has no id.' );
+      }
+
+
+      el.style.backgroundImage = '-webkit-canvas(' + el.id + '-canvas)';
+    }
+
+    function mozBackgroundCanvas( el ) {
+      el.style.backgroundImage = '-moz-element(#' + el.id + '-canvas)';
+    }
+
+    function dataURLBackgroundCanvas( el, canvas ) {
+      el.style.backgroundImage = 'url(' + canvas.toDataURL() + ')';
+    }
+
+    var webkitValue = '-webkit-canvas(background-canvas)';
+    var mozValue = '-moz-element(#_)';
+
+    element.style.backgroundImage = webkitValue;
+    if ( getComputedStyle( element ).backgroundImage === webkitValue ) {
+      document.body.removeChild( element );
+      return webkitBackgroundCanvas;
+    }
+
+    element.style.backgroundImage = mozValue;
+    if ( getComputedStyle( element ).backgroundImage === mozValue ) {
+      document.body.removeChild( element );
+      return mozBackgroundCanvas();
+    }
+
+    document.body.removeChild( element );
+    return dataURLBackgroundCanvas;
   }
 
   function colorAtAngleFn( colorStops ) {
