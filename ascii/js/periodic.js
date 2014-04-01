@@ -189,6 +189,7 @@
     var brightnessRow,
         countRow;
 
+    // Initialize brightness to zero.
     for ( i = 0; i < yCount; i++ ) {
       brightnessRow = [];
       countRow = [];
@@ -202,6 +203,7 @@
       countArray.push( countRow );
     }
 
+    // Sum brightnesses.
     var index;
     var xIndex, yIndex;
     var r, g, b;
@@ -222,6 +224,7 @@
       }
     }
 
+    // Normalize brightness by number of cells.
     var il, jl;
     for ( i = 0, il = brightnessArray.length; i < il; i++ ) {
       for ( j = 0, jl = brightnessArray[i].length; j < jl; j++ ) {
@@ -251,9 +254,11 @@
     ctx.fillStyle = 'black';
 
     var chars = '@80GCLft1i;:,. ';
+    var chr;
 
     var index;
 
+    // Determine brightness range of image.
     var min = Number.POSITIVE_INFINITY,
         max = Number.NEGATIVE_INFINITY;
 
@@ -269,20 +274,30 @@
       });
     });
 
+    // Map character to brightness range.
+    var ascii = '';
     var bins = [];
     array.forEach(function( row, rowIndex ) {
       row.forEach(function( col, colIndex ) {
         index = Math.round( chars.length * ( ( col - min ) / ( max - min ) ) );
-        if ( typeof bins[index] === 'undefined' ) {
-          bins[index] = 0;
+        // Initialize to zero.
+        if ( typeof bins[ index ] === 'undefined' ) {
+          bins[ index ] = 0;
         }
-        bins[index]++;
 
-        ctx.fillText( chars.charAt( index ), colIndex * width, rowIndex * height );
+        bins[ index ]++;
+
+        chr = chars.charAt( index );
+        ctx.fillText( chr, colIndex * width, rowIndex * height );
+        ascii += chr || ' ';
       });
+
+      ascii += '\n';
     });
 
     console.log( bins );
+
+    return ascii;
   }
 
   (function() {
@@ -313,7 +328,9 @@
 
       var brightnessArray = partitionBrightness( context, width, height );
       drawBrightnessArray( context, brightnessArray, width, height );
-      drawBrightnessASCII( asciiContext, brightnessArray, 8, 8 );
+
+      var ascii = drawBrightnessASCII( asciiContext, brightnessArray, 8, 8 );
+      document.querySelector( '.ascii-text' ).textContent = ascii;
     };
   }) ();
 

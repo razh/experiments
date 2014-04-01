@@ -9,6 +9,18 @@
       margin: 0;
       background-color: black;
     }
+
+    #ascii-canvas {
+      float: left;
+    }
+
+    .ascii-text {
+      float: left;
+      color: white;
+      font-family: monospace;
+      white-space: pre;
+      line-height: 0.65;
+    }
   </style>
 </head>
 <body>
@@ -17,6 +29,7 @@
   <canvas id="diff-canvas"></canvas>
   <canvas id="brightness-canvas"></canvas>
   <canvas id="ascii-canvas"></canvas>
+  <div class="ascii-text"></div>
 
   <script src="./js/periodic.js"></script>
 </body>
