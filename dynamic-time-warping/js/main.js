@@ -56,29 +56,37 @@
   }) ();
 
   // Draw data.
+  function drawLines( ctx, data, scale ) {
+    if ( !data.length ) {
+      return;
+    }
+
+    scale = scale || 1;
+
+    ctx.beginPath();
+    ctx.moveTo( 0, data[0] * scale );
+    for ( var i = 1, il = data.length; i < il; i++ ) {
+      ctx.lineTo( i, data[i] * scale );
+    }
+  }
+
   (function() {
     nContext.translate( 0.5 * nCanvas.width, nCanvas.height );
     nContext.rotate( -90 * DEG_TO_RAD );
 
-    nContext.beginPath();
-    for ( i = 0, il = data.n.length; i < il; i++ ) {
-      nContext.rect( i, data.n[i] * drawScale, 1, 1 );
-    }
-
-    nContext.fillStyle = '#fff';
-    nContext.fill();
+    drawLines( nContext, data.n, drawScale );
+    nContext.lineWidth = 1;
+    nContext.strokeStyle = '#fff';
+    nContext.stroke();
   }) ();
 
   (function() {
     mContext.translate( 0, 0.5 * mCanvas.height );
 
-    mContext.beginPath();
-    for ( i = 0, il = data.m.length; i < il; i++ ) {
-      mContext.rect( i, data.m[i] * drawScale, 1, 1 );
-    }
-
-    mContext.fillStyle = '#fff';
-    mContext.fill();
+    drawLines( mContext, data.m, drawScale );
+    mContext.lineWidth = 1;
+    mContext.strokeStyle = '#fff';
+    mContext.stroke();
   }) ();
 
 }) ( window, document );
