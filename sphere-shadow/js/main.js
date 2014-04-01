@@ -1,5 +1,5 @@
-/*globals $, requestAnimationFrame, cancelAnimationFrame*/
-$(function() {
+/*globals requestAnimationFrame, cancelAnimationFrame*/
+(function( window, document, undefined ) {
   'use strict';
 
   var selection = [];
@@ -311,7 +311,8 @@ $(function() {
   }
 
   function onKeyDown( event ) {
-    if ( event.which === ' '.charCodeAt(0) ) {
+    // Space.
+    if ( event.which === 32 ) {
       console.log(stage[3].toString({
         x: 100,
         y: 100,
@@ -327,14 +328,14 @@ $(function() {
      * (x - xc)^2 + (y - yc)^2 = r^2
      *
      * We substitute the coords of the three points, and get three equations
-     * for three unknowns:
+     * with three unknowns:
      *
      * (x0 - xc)^2 + (y0 - yc)^2 = r^2
      * (x1 - xc)^2 + (y1 - yc)^2 = r^2
      * (x2 - xc)^2 + (y2 - yc)^2 = r^2
      *
-     * By subtracting the first from the second and third equations and
-     * constructing a system of linear equations. With  some algebraic
+     * Subtract the first equation from the second and third equations and
+     * construct a system of linear equations. With some algebraic
      * manipulation, we eventually get:
      *
      * xc = [(x1^2 - y0^2) + (y1^2 - y0^2)] - (y1 - y0) /(y2 - y0) * [(x2^2 - x0^2) + (y2^2 - y0^2)]
@@ -485,27 +486,21 @@ $(function() {
     return ( ( x - x0 ) * ( y1 - y0 ) - ( y - y0 ) * ( x1 - x0 ) ) > 0;
   }
 
-  var $canvas = $( '#canvas' );
-  var canvas = $canvas[0];
+  var canvas  = document.getElementById( 'canvas' );
   var context = canvas.getContext( '2d' );
 
-  $canvas.on({
-    mousedown: onMouseDown,
-    mousemove: onMouseMove,
-    mouseup: onMouseUp
-  });
+  canvas.addEventListener( 'mousedown', onMouseDown );
+  canvas.addEventListener( 'mousemove', onMouseMove );
+  canvas.addEventListener( 'mouseup', onMouseUp );
 
-  $( document ).on({
-    keydown: onKeyDown
-  });
+  document.addEventListener( 'keydown', onKeyDown );
 
-  // $canvas.css( 'position', 'absolute' );
   canvas.width = 1920; // window.innerWidth;
   canvas.height = window.innerHeight;
 
   stage.push(
-    new Sphere( 300, 0.5 * canvas.height, 100 ),
-    new Sphere( 700, 0.5 * canvas.height, 100 ),
+    new Sphere(  300, 0.5 * canvas.height, 100 ),
+    new Sphere(  700, 0.5 * canvas.height, 100 ),
     new Sphere( 1100, 0.5 * canvas.height, 100 ),
     new Sphere( 1500, 0.5 * canvas.height, 100 )
   );
@@ -537,4 +532,4 @@ $(function() {
   });
 
   draw( context );
-});
+}) ( window, document );
