@@ -20,8 +20,13 @@
   var mCanvas  = document.getElementById( 'm-canvas' ),
       mContext = mCanvas.getContext( '2d' );
 
+  // Diff/cost matrix.
   var matrixCanvas  = document.getElementById( 'matrix-canvas' ),
       matrixContext = matrixCanvas.getContext( '2d' );
+
+  // Accumulated cost matrix.
+  var costCanvas  = document.getElementById( 'cost-canvas' ),
+      costContext = costCanvas.getContext( '2d' );
 
   // Scale of sin function.
   var drawScale = 10;
@@ -35,6 +40,9 @@
 
   matrixCanvas.width  = mCanvas.width;
   matrixCanvas.height = nCanvas.height;
+
+  costCanvas.width  = mCanvas.width;
+  costCanvas.height = nCanvas.height;
 
   // Generate data.
   var nData = [];
@@ -66,6 +74,7 @@
     }
   }
 
+  // Draw n data set.
   (function() {
     nContext.translate( 0.5 * nCanvas.width, nCanvas.height );
     nContext.rotate( -90 * DEG_TO_RAD );
@@ -76,6 +85,7 @@
     nContext.stroke();
   }) ();
 
+  // Draw m data set.
   (function() {
     mContext.translate( 0, 0.5 * mCanvas.height );
 
@@ -85,6 +95,8 @@
     mContext.stroke();
   }) ();
 
+  // Draw matrix data.
+  // NOTE: x and y var names are not accurate to the theory.
   (function() {
     var width  = matrixCanvas.width;
     var height = matrixCanvas.height;
@@ -134,6 +146,81 @@
     }
 
     matrixContext.putImageData( imageData, 0, 0 );
+  }) ();
+
+  // Draw warping path.
+  (function() {
+    var width  = matrixCanvas.width;
+    var height = matrixCanvas.height;
+
+    // Accumulated cost matrix.
+    var array = [];
+    for ( var i = 0; i < height; i++ ) {
+      array.push( [] );
+    }
+
+    // Initial cost values.
+    array[0][0] = 0;
+
+    var x, y;
+    for ( y = 1; y < height; y++ ) {
+      array[y][0] = Number.POSITIVE_INFINITY;
+    }
+
+    for ( x = 1; x < width; x++ ) {
+      array[0][x] = Number.POSITIVE_INFINITY;
+    }
+
+    // Calculate cost matrix.
+    var max = Number.NEGATIVE_INFINITY;
+    var min = Number.POSITIVE_INFINITY;
+    var cost;
+    var sum;
+    for ( y = 1; y < height; y++ ) {
+      for ( x = 1; x < width; x++ ) {
+        cost = Math.abs( nData[y] - mData[x] );
+        sum = cost + Math.min(
+          // Insertion.
+          array[ y - 1 ][x],
+          // Deletion.
+          array[y] [ x - 1],
+          // Match.
+          array[ y - 1 ][ x - 1 ]
+        );
+
+        if ( sum < min ) {
+          min = sum;
+        }
+
+        if ( sum > max ) {
+          max = sum;
+        }
+
+        array[y][x] = sum;
+      }
+    }
+
+    var imageData = costContext.getImageData( 0, 0, width, height ),
+        data = imageData.data;
+
+    // Normalize and draw data.
+    var index;
+    var d;
+    for ( y = 0; y < height; y++ ) {
+      for ( x = 0; x < width; x++ ) {
+        d = ( array[y][x] - min ) / ( max - min );
+        array[y][x] = d;
+
+        index = 4 * ( y * width + x );
+        d = Math.round( d * 255 );
+        data[ index     ] = d;
+        data[ index + 1 ] = d;
+        data[ index + 2 ] = d;
+        data[ index + 3 ] = 255;
+      }
+    }
+
+    costContext.putImageData( imageData, 0, 0 );
   }) ();
 
 }) ( window, document );
