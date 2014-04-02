@@ -32,11 +32,11 @@
   var drawScale = 10;
 
   // Set canvas dimensions.
-  nCanvas.width  = 2 * drawScale;
+  nCanvas.width  = 3 * drawScale;
   nCanvas.height = 200;
 
   mCanvas.width  = 300;
-  mCanvas.height = 2 * drawScale;
+  mCanvas.height = 3 * drawScale;
 
   matrixCanvas.width  = mCanvas.width;
   matrixCanvas.height = nCanvas.height;
@@ -83,8 +83,8 @@
     var t;
     for ( y = 0; y < height; y++ ) {
       for ( x = 0; x < width; x++ ) {
-        t = ( array[y][x] - min ) / ( max - min );
-        t = Math.round( t * 255 );
+        // Normalize.
+        t = ( array[y][x] - min ) / ( max - min ) * 255;
 
         index = 4 * ( y * width + x );
         data[ index     ] = t;
@@ -153,7 +153,7 @@
     drawNormalizedArray2D( matrixContext, diffArray, width, height, min, max );
   }) ();
 
-  // Draw warping path.
+  // Draw accumulated cost matrix.
   (function() {
     var width  = matrixCanvas.width;
     var height = matrixCanvas.height;
@@ -188,7 +188,7 @@
           // Insertion.
           array[ y - 1 ][x],
           // Deletion.
-          array[y] [ x - 1],
+          array[y][ x - 1],
           // Match.
           array[ y - 1 ][ x - 1 ]
         );

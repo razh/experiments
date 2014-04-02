@@ -8,6 +8,12 @@
     body {
       background-color: #222;
     }
+
+    /* Flip canvases vertically for a bottom-left origin. */
+    canvas {
+      -webkit-transform: scale(1, -1);
+      transform: scale(1, -1);
+    }
   </style>
 </head>
 <body>
