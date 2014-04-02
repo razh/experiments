@@ -74,6 +74,29 @@
     }
   }
 
+  function drawNormalizedArray2D( ctx, array, width, height, min, max ) {
+    var imageData = ctx.getImageData( 0, 0, width, height ),
+        data = imageData.data;
+
+    var index;
+    var x, y;
+    var t;
+    for ( y = 0; y < height; y++ ) {
+      for ( x = 0; x < width; x++ ) {
+        t = ( array[y][x] - min ) / ( max - min );
+        t = Math.round( t * 255 );
+
+        index = 4 * ( y * width + x );
+        data[ index     ] = t;
+        data[ index + 1 ] = t;
+        data[ index + 2 ] = t;
+        data[ index + 3 ] = 255;
+      }
+    }
+
+    ctx.putImageData( imageData, 0, 0 );
+  }
+
   // Draw n data set.
   (function() {
     nContext.translate( 0.5 * nCanvas.width, nCanvas.height );
@@ -106,9 +129,6 @@
       diffArray.push( [] );
     }
 
-    var imageData = matrixContext.getImageData( 0, 0, width, height ),
-        data = imageData.data;
-
     // Calculate difference/cost.
     var max = Number.NEGATIVE_INFINITY;
     var min = Number.POSITIVE_INFINITY;
@@ -130,22 +150,7 @@
     }
 
     // Normalize data and draw.
-    var index;
-    for ( y = 0; y < height; y++ ) {
-      for ( x = 0; x < width; x++ ) {
-        d = ( diffArray[y][x] - min ) / ( max - min );
-        diffArray[y][x] = d;
-
-        index = 4 * ( y * width + x );
-        d = Math.round( d * 255 );
-        data[ index     ] = d;
-        data[ index + 1 ] = d;
-        data[ index + 2 ] = d;
-        data[ index + 3 ] = 255;
-      }
-    }
-
-    matrixContext.putImageData( imageData, 0, 0 );
+    drawNormalizedArray2D( matrixContext, diffArray, width, height, min, max );
   }) ();
 
   // Draw warping path.
@@ -200,27 +205,8 @@
       }
     }
 
-    var imageData = costContext.getImageData( 0, 0, width, height ),
-        data = imageData.data;
-
     // Normalize and draw data.
-    var index;
-    var d;
-    for ( y = 0; y < height; y++ ) {
-      for ( x = 0; x < width; x++ ) {
-        d = ( array[y][x] - min ) / ( max - min );
-        array[y][x] = d;
-
-        index = 4 * ( y * width + x );
-        d = Math.round( d * 255 );
-        data[ index     ] = d;
-        data[ index + 1 ] = d;
-        data[ index + 2 ] = d;
-        data[ index + 3 ] = 255;
-      }
-    }
-
-    costContext.putImageData( imageData, 0, 0 );
+    drawNormalizedArray2D( costContext, array, width, height, min, max );
   }) ();
 
 }) ( window, document );
