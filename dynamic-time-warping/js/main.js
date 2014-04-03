@@ -21,15 +21,26 @@
       mContext = mCanvas.getContext( '2d' );
 
   // Diff/cost matrix.
-  var matrixCanvas  = document.getElementById( 'matrix-canvas' ),
-      matrixContext = matrixCanvas.getContext( '2d' );
+  var matrixCanvas  = document.getElementById( 'matrix-canvas' );
 
   // Accumulated cost matrix.
-  var costCanvas  = document.getElementById( 'cost-canvas' ),
-      costContext = costCanvas.getContext( '2d' );
+  var costCanvas  = document.getElementById( 'cost-canvas' );
 
   // Scale of sin function.
   var drawScale = 10;
+
+
+  /**
+   *  Two time-dependent sequences: n and m.
+   *
+   *   ---
+   *    |
+   *  n |
+   *    |
+   *   ---
+   *        |---------|
+   *             m
+   */
 
   // Set canvas dimensions.
   nCanvas.width  = 3 * drawScale;
@@ -74,7 +85,21 @@
     }
   }
 
-  function drawNormalizedArray2D( ctx, array, width, height, min, max ) {
+  function drawNormalizedArray2D( options ) {
+    options = options || {};
+
+    var canvas = options.canvas;
+    var array = options.array;
+    var width = options.width;
+    var height = options.height;
+    var min = options.min;
+    var max = options.max;
+
+    canvas.width  = width;
+    canvas.height = height;
+
+    var ctx = canvas.getContext( '2d' );
+
     var imageData = ctx.getImageData( 0, 0, width, height ),
         data = imageData.data;
 
@@ -150,24 +175,35 @@
     }
 
     // Normalize data and draw.
-    drawNormalizedArray2D( matrixContext, diffArray, width, height, min, max );
+    drawNormalizedArray2D({
+      canvas: matrixCanvas,
+      array: diffArray,
+      width: width,
+      height: height,
+      min: min,
+      max: max
+    });
   }) ();
 
-  // Draw accumulated cost matrix.
-  (function() {
-    var width  = matrixCanvas.width;
-    var height = matrixCanvas.height;
+  /**
+   * Calculate accumulated cost matrix.
+   *
+   * Returns an object containing the cost matrix array as well as the
+   * min and max accumulated cost values.
+   */
+  function accumulatedCostMatrix( n, m ) {
+    var height = n.length;
+    var width = m.length;
 
-    // Accumulated cost matrix.
+    var x, y;
     var array = [];
-    for ( var i = 0; i < height; i++ ) {
+    for ( y = 0; y < height; y++ ) {
       array.push( [] );
     }
 
     // Initial cost values.
     array[0][0] = 0;
 
-    var x, y;
     for ( y = 1; y < height; y++ ) {
       array[y][0] = Number.POSITIVE_INFINITY;
     }
@@ -183,7 +219,7 @@
     var sum;
     for ( y = 1; y < height; y++ ) {
       for ( x = 1; x < width; x++ ) {
-        cost = Math.abs( nData[y] - mData[x] );
+        cost = Math.abs( n[y] - m[x] );
         sum = cost + Math.min(
           // Insertion.
           array[ y - 1 ][x],
@@ -193,20 +229,28 @@
           array[ y - 1 ][ x - 1 ]
         );
 
-        if ( sum < min ) {
-          min = sum;
-        }
-
-        if ( sum > max ) {
-          max = sum;
-        }
+        if ( sum < min ) { min = sum; }
+        if ( sum > max ) { max = sum; }
 
         array[y][x] = sum;
       }
     }
 
+    return {
+      array: array,
+      min: min,
+      max: max
+    };
+  }
+
+  (function() {
+    var results = accumulatedCostMatrix( nData, mData );
+    results.canvas = costCanvas;
+    results.height = nData.length;
+    results.width = mData.length;
+
     // Normalize and draw data.
-    drawNormalizedArray2D( costContext, array, width, height, min, max );
+    drawNormalizedArray2D( results );
   }) ();
 
 }) ( window, document );
