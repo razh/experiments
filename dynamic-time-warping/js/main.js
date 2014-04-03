@@ -143,46 +143,53 @@
     mContext.stroke();
   }) ();
 
-  // Draw matrix data.
-  // NOTE: x and y var names are not accurate to the theory.
-  (function() {
-    var width  = matrixCanvas.width;
-    var height = matrixCanvas.height;
 
-    var diffArray = [];
-    for ( var i = 0; i < height; i++ ) {
-      diffArray.push( [] );
+  /**
+   * Calculate cost/difference matrix.
+   *
+   * Returns an object containing the cost matrix array as well as the
+   * min and max cost values.
+   */
+  function costMatrix( n, m ) {
+    var height = n.length;
+    var width = m.length;
+
+    var x, y;
+    var array = [];
+    for ( y = 0; y < height; y++ ) {
+      array.push( [] );
     }
 
-    // Calculate difference/cost.
     var max = Number.NEGATIVE_INFINITY;
     var min = Number.POSITIVE_INFINITY;
-    var x, y;
     var d;
     for ( y = 0; y < height; y++ ) {
       for ( x = 0; x < width; x++ ) {
-        d = Math.abs( nData[y] - mData[x] );
-        if ( d < min ) {
-          min = d;
-        }
+        d = Math.abs( n[y] - m[x] );
 
-        if ( d > max ) {
-          max = d;
-        }
+        if ( d < min ) { min = d; }
+        if ( d > max ) { max = d; }
 
-        diffArray[y][x] = d;
+        array[y][x] = d;
       }
     }
 
-    // Normalize data and draw.
-    drawNormalizedArray2D({
-      canvas: matrixCanvas,
-      array: diffArray,
-      width: width,
-      height: height,
+    return {
+      array: array,
       min: min,
       max: max
-    });
+    };
+  }
+
+  // Draw cost matrix.
+  (function() {
+    var results = costMatrix( nData, mData );
+    results.canvas = matrixCanvas;
+    results.height = nData.length;
+    results.width = mData.length;
+
+    // Normalize data and draw.
+    drawNormalizedArray2D( results );
   }) ();
 
   /**
@@ -243,6 +250,7 @@
     };
   }
 
+  // Draw accumulated cost matrix.
   (function() {
     var results = accumulatedCostMatrix( nData, mData );
     results.canvas = costCanvas;
