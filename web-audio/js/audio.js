@@ -5,9 +5,13 @@
   var canvas  = document.getElementById( 'canvas' ),
       context = canvas.getContext( '2d' );
 
-  canvas.width  = window.innerWidth;
-  canvas.height = window.innerHeight;
-  canvas.style.backgroundColor = 'black';
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  resize();
+  window.addEventListener( 'resize', resize );
 
   // DOM information display elements.
   var nameElement  = document.getElementById( 'name' ),
@@ -69,13 +73,12 @@
    * http://www.airtightinteractive.com/2013/10/making-audio-reactive-visuals/
    */
   function initAudio() {
-    if ( window.webkitAudioContext ) {
-      audioContext = new window.webkitAudioContext();
-    } else if ( window.AudioContext ) {
-      audioContext = new window.AudioContext();
-    } else {
+    var AudioContext = window.AudioContext || window.webkitAudioContext;
+    if ( !AudioContext ) {
       return;
     }
+
+    audioContext = new AudioContext();
 
     analyser = audioContext.createAnalyser();
 
