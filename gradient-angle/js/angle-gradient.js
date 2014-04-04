@@ -132,26 +132,26 @@ var angleGradient = (function() {
   }
 
   // Determine appropriate background canvas method for specific browsers.
-  function drawBackgroundCanvasFn( id ) {
+  function drawBackgroundCanvasFn() {
     var element = document.createElement( 'div' );
     element.style.display = 'none';
     document.body.appendChild( element );
 
     // Browser specific functions.
     function webkitBackgroundCanvas( el, width, height, drawGradient ) {
-      var canvasId = ( id || el.id ) + '-canvas';
-      var ctx = document.getCSSCanvasContext( '2d', canvasId, width, height );
+      var id = el.id + '-canvas';
+      var ctx = document.getCSSCanvasContext( '2d', id, width, height );
 
       drawGradient( ctx );
 
-      el.style.backgroundImage = '-webkit-canvas(' + canvasId + ')';
+      el.style.backgroundImage = '-webkit-canvas(' + id + ')';
     }
 
     function mozBackgroundCanvas( el, width, height, drawGradient ) {
       var canvas = document.createElement( 'canvas' );
       var ctx    = canvas.getContext( '2d' );
 
-      canvas.id = ( id || el.id ) + '-canvas';
+      canvas.id = el.id + '-canvas';
       canvas.width  = width;
       canvas.height = height;
       canvas.style.display = 'none';
@@ -310,9 +310,6 @@ var angleGradient = (function() {
     options = options || {};
     var rect = el.getBoundingClientRect();
 
-    // Set custom canvas id, otherwise just use element id.
-    var id = options.id || null;
-
     var width  = options.width  || rect.width;
     var height = options.height || rect.height;
 
@@ -355,7 +352,7 @@ var angleGradient = (function() {
     }) ( width, height, colorAtAngle );
 
     // Get browser specific background canvas function.
-    var drawBackgroundCanvas = drawBackgroundCanvasFn( id );
+    var drawBackgroundCanvas = drawBackgroundCanvasFn();
 
     // Draw.
     drawBackgroundCanvas( el, width, height, drawGradient );
@@ -363,18 +360,12 @@ var angleGradient = (function() {
 
   /**
    * Draws angle-gradient on all elements given by selector.
-   *
-   * Each element will have the same canvas id (defined in options or by
-   * the id of the first element).
    */
   angleGradient.all = function( selector, options ) {
     selector = selector || null;
     options = options || {};
 
     var elements = [].slice.call( document.querySelectorAll( selector ) );
-    // Set group id.
-    options.id = options.id || elements[0].id;
-
     elements.forEach(function( el ) {
       angleGradient( el, options );
     });
