@@ -79,23 +79,13 @@
       ]
     });
 
-    var circleEls = [].slice.call(
-      document.querySelectorAll( '.circles > .angle-gradient.circle' )
-    );
-
-    circleEls.forEach(function( el ) {
-      angleGradient( el, {
-        x: '50%',
-        y: '50%',
-        colorStops: [
-          {
-            color: 'rgb(0, 0, 0)'
-          },
-          {
-            color: 'rgb(255, 255, 255, 0)'
-          }
-        ]
-      })
+    angleGradient.all( '.circles > .angle-gradient.circle', {
+      x: '50%',
+      y: '50%',
+      colorStops: [
+        { color: 'rgb(0, 0, 0)' },
+        { color: 'rgb(255, 255, 255, 0)' }
+      ]
     });
   </script>
 </body>
