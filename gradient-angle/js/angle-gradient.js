@@ -131,49 +131,79 @@ var angleGradient = (function() {
     return angle;
   }
 
-  // Determine appropriate background canvas method for specific browsers.
-  function drawBackgroundCanvasFn() {
+  /**
+   * Determine appropriate background canvas method for specific browsers.
+   *
+   * In webkit and moz browsers that support canvas element backgrounds,
+   * we pass in a canvas element id.
+   */
+  function backgroundCanvasFn( id ) {
     var element = document.createElement( 'div' );
     element.style.display = 'none';
     document.body.appendChild( element );
 
-    // Browser specific functions.
-    function webkitBackgroundCanvas( el, width, height, drawGradient ) {
-      var id = el.id + '-canvas';
-      var ctx = document.getCSSCanvasContext( '2d', id, width, height );
+    // Browser specific canvas element creation functions.
+    function webkitBackgroundCanvasFn() {
+      function draw( width, height, drawGradient ) {
+        var ctx = document.getCSSCanvasContext( '2d', id, width, height );
+        drawGradient( ctx );
+      }
 
-      drawGradient( ctx );
+      function set( el ) {
+        el.style.backgroundImage = '-webkit-canvas(' + id + ')';
+      }
 
-      el.style.backgroundImage = '-webkit-canvas(' + id + ')';
+      return {
+        draw: draw,
+        set: set
+      };
     }
 
-    function mozBackgroundCanvas( el, width, height, drawGradient ) {
+    function mozBackgroundCanvasFn() {
       var canvas = document.createElement( 'canvas' );
       var ctx    = canvas.getContext( '2d' );
 
-      canvas.id = el.id + '-canvas';
-      canvas.width  = width;
-      canvas.height = height;
+      canvas.id = id;
       canvas.style.display = 'none';
       canvas.style.position = 'absolute';
-
       document.body.appendChild( canvas );
 
-      drawGradient( ctx );
+      function draw( width, height, drawGradient ) {
+        canvas.width  = width;
+        canvas.height = height;
 
-      el.style.backgroundImage = '-moz-element(#' + canvas.id + ')';
+        drawGradient( ctx );
+      }
+
+      function set( el ) {
+        el.style.backgroundImage = '-moz-element(#' + canvas.id + ')';
+      }
+
+      return {
+        draw: draw,
+        set: set
+      };
     }
 
-    function dataURLBackgroundCanvas( el, width, height, drawGradient ) {
+    function dataURLBackgroundCanvasFn() {
       var canvas = document.createElement( 'canvas' );
       var ctx    = canvas.getContext( '2d' );
 
-      canvas.width  = width;
-      canvas.height = height;
+      function draw( width, height, drawGradient ) {
+        canvas.width  = width;
+        canvas.height = height;
 
-      drawGradient( ctx );
+        drawGradient( ctx );
+      }
 
-      el.style.backgroundImage = 'url(' + canvas.toDataURL() + ')';
+      function set( el ) {
+        el.style.backgroundImage = 'url(' + canvas.toDataURL() + ')';
+      }
+
+      return {
+        draw: draw,
+        set: set
+      };
     }
 
 
@@ -183,17 +213,17 @@ var angleGradient = (function() {
     element.style.backgroundImage = webkitValue;
     if ( getComputedStyle( element ).backgroundImage === webkitValue ) {
       document.body.removeChild( element );
-      return webkitBackgroundCanvas;
+      return webkitBackgroundCanvasFn();
     }
 
     element.style.backgroundImage = mozValue;
     if ( getComputedStyle( element ).backgroundImage === mozValue ) {
       document.body.removeChild( element );
-      return mozBackgroundCanvas;
+      return mozBackgroundCanvasFn();
     }
 
     document.body.removeChild( element );
-    return dataURLBackgroundCanvas;
+    return dataURLBackgroundCanvasFn();
   }
 
   function colorAtAngleFn( colorStops ) {
@@ -302,14 +332,23 @@ var angleGradient = (function() {
     };
   }
 
-  function angleGradient( el, options ) {
-    if ( !el ) {
+  function angleGradient( selector, options ) {
+    if ( !selector ) {
       return;
     }
 
-    options = options || {};
-    var rect = el.getBoundingClientRect();
+    var elements = [].slice.call( document.querySelectorAll( selector ) );
+    if ( !elements.length ) {
+      return;
+    }
 
+    var element = elements[0];
+
+    options = options || {};
+    var id = options.id || element.id + '-canvas';
+
+    // Get element dimensions.
+    var rect = element.getBoundingClientRect();
     var width  = options.width  || rect.width;
     var height = options.height || rect.height;
 
@@ -352,24 +391,16 @@ var angleGradient = (function() {
     }) ( width, height, colorAtAngle );
 
     // Get browser specific background canvas function.
-    var drawBackgroundCanvas = drawBackgroundCanvasFn();
+    var backgroundCanvas = backgroundCanvasFn( id );
 
     // Draw.
-    drawBackgroundCanvas( el, width, height, drawGradient );
-  }
+    backgroundCanvas.draw( width, height, drawGradient );
 
-  /**
-   * Draws angle-gradient on all elements given by selector.
-   */
-  angleGradient.all = function( selector, options ) {
-    selector = selector || null;
-    options = options || {};
-
-    var elements = [].slice.call( document.querySelectorAll( selector ) );
-    elements.forEach(function( el ) {
-      angleGradient( el, options );
+    // Attach background canvas to each element.
+    elements.forEach(function( element ) {
+      backgroundCanvas.set( element );
     });
-  };
+  }
 
   return angleGradient;
 }) ();
