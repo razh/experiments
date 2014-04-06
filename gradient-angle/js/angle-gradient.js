@@ -352,9 +352,22 @@ var angleGradient = (function() {
     var width  = options.width  || rect.width;
     var height = options.height || rect.height;
 
+    // Get gradient origin.
     var x = position( options.x, width  ) || 0;
     var y = position( options.y, height ) || 0;
 
+    // Get start and end angles.
+    var startAngle = radians( options.startAngle ) || 0;
+    var endAngle   = radians( options.endAngle   ) || PI2;
+
+    // Swap start and end angles if order is wrong.
+    if ( startAngle > endAngle ) {
+      var temp = startAngle;
+      startAngle = endAngle;
+      endAngle = temp;
+    }
+
+    // Prepare color stops.
     var colorStops = options.colorStops || [];
     var colorAtAngle = colorAtAngleFn( colorStops );
     if ( !colorAtAngle ) {
@@ -368,14 +381,20 @@ var angleGradient = (function() {
 
         console.time( 'gradient' );
 
-        var color;
+        var angle, color;
         var i, j;
         var index;
         for ( i = 0; i < height; i++ ) {
           for ( j = 0; j < width; j++ ) {
             index = 4 * ( i * width + j );
 
-            color = colorAtAngle( angleTo( x, y, j, i ) );
+            angle = angleTo( x, y, j, i );
+            // Limit angle.
+            if ( startAngle > angle || angle > endAngle ) {
+              continue;
+            }
+
+            color = colorAtAngle( angle );
 
             data[ index     ] = color[0];
             data[ index + 1 ] = color[1];
