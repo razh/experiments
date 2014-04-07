@@ -140,14 +140,59 @@
 
   <script src="./js/angle-gradient.js"></script>
   <script>
-    angleGradient( '.circle', {
-      x: '50%',
-      y: '50%',
-      colorStops: [
-        { angle: '45deg', color: 'rgb(0, 0, 0)' },
-        { color: 'rgba(0, 0, 0, 0)' }
-      ]
-    });
+    /*globals angleGradient, requestAnimationFrame*/
+    (function() {
+      'use strict';
+
+      var startAngle = 0,
+          endAngle = 360;
+
+      // Milliseconds.
+      var duration = 1000;
+
+      function lerp( a, b, t ) {
+        return a + t * ( b - a );
+      }
+
+
+      function easeInOutCirc( t ) {
+        function easeInCirc( t ) {
+          return 1 - Math.sqrt( 1 - t * t );
+        }
+
+        return t < 0.5 ?
+          easeInCirc( t * 2 ) / 2 :
+          1 - easeInCirc( t * -2 + 2 ) / 2;
+      }
+
+      function drawGradients( angle ) {
+        angleGradient( '.circle', {
+          x: '50%',
+          y: '50%',
+          startAngle: angle + 'deg',
+          colorStops: [
+            { angle: '45deg', color: 'rgb(0, 0, 0)' },
+            { color: 'rgba(0, 0, 0, 0)' }
+          ]
+        });
+      }
+
+      function draw( time ) {
+        if ( time > duration ) {
+          drawGradients(0);
+          return;
+        }
+
+        var t = time / duration;
+        var angle = lerp( endAngle, startAngle, easeInOutCirc( t ) );
+        drawGradients( angle );
+
+        requestAnimationFrame( draw );
+      }
+
+      draw(0);
+    }) ();
+
   </script>
 </body>
 </html>
