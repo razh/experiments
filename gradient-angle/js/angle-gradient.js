@@ -376,6 +376,8 @@ var angleGradient = (function() {
 
     var drawGradient = (function( width, height, colorAtAngle ) {
       return function( ctx ) {
+        ctx.clearRect( 0, 0, width, height );
+
         var imageData = ctx.getImageData( 0, 0, width, height );
         var data = imageData.data;
 
