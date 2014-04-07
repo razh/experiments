@@ -1,0 +1,72 @@
+@import 'nib'
+
+radius = 96px
+
+body
+  margin 0
+  background-color #FAF8EB
+
+.circles
+  margin radius * 0.5
+
+.circle
+  position absolute
+
+  width radius
+  height radius
+
+  border-radius 50%
+
+  transform rotate(-90deg)
+
+  &:nth-child(2)
+    left radius
+
+  &:nth-child(3)
+    left radius * 2
+
+.bottom
+  transform rotate(90deg)
+
+// Rows.
+.row
+  position relative
+  height radius * 0.5
+
+  &:nth-child(1)
+  &:nth-child(9)
+    left radius * 2
+
+  &:nth-child(2)
+  &:nth-child(4)
+  &:nth-child(5)
+  &:nth-child(7)
+    left radius * 0.5
+
+  &:nth-child(6)
+  &:nth-child(8)
+    left radius
+
+  // Specific rows.
+  &:nth-child(4)
+    .circle:nth-child(2)
+      left radius * 0.5
+
+    .circle:nth-child(3)
+      left radius * 1.5
+
+  // Doubled circle in fifth row.
+  &:nth-child(5)
+    .circle:nth-child(4)
+      left radius
+
+  &:nth-child(7)
+    .circle:nth-child(3)
+      left radius * 1.5
+
+  &:nth-child(8)
+    .circle:nth-child(2)
+      left radius * 0.5
+
+    .circle:nth-child(3)
+      left radius * 1.5
