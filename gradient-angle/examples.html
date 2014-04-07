@@ -148,12 +148,12 @@
           endAngle = 360;
 
       // Milliseconds.
+      var startTime;
       var duration = 1000;
 
       function lerp( a, b, t ) {
         return a + t * ( b - a );
       }
-
 
       function easeInOutCirc( t ) {
         function easeInCirc( t ) {
@@ -177,20 +177,26 @@
         });
       }
 
-      function draw( time ) {
-        if ( time > duration ) {
+      function draw() {
+        var dt = Date.now() - startTime;
+        if ( dt > duration ) {
           drawGradients(0);
           return;
         }
 
-        var t = time / duration;
+        var t = dt / duration;
         var angle = lerp( endAngle, startAngle, easeInOutCirc( t ) );
         drawGradients( angle );
 
         requestAnimationFrame( draw );
       }
 
-      draw(0);
+      window.addEventListener( 'mousedown', function() {
+        startTime = Date.now();
+        draw(0);
+      });
+
+      drawGradients(0);
     }) ();
 
   </script>
