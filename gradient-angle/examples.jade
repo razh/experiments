@@ -1,0 +1,35 @@
+//- count - Number of circles.
+//- flipped - Array of flipped circle indices (have a .bottom class).
+mixin circles-row(count, flipped)
+  .row
+    - for ( var i = 0; i < count; i++ )
+      - if ( flipped && flipped.indexOf(i) !== -1 )
+        .circle.bottom
+      - else
+        .circle
+
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title di-t's Angle Gradients
+
+    link(rel='stylesheet' href='./css/examples.css')
+
+  body
+    //
+      A code implementation of Dimo Trifonov's (di-t) Angle Gradients experiment.
+      https://www.behance.net/gallery/Various-Experiments-Typography/245608
+    .circles
+      +circles-row(1)
+      +circles-row(3, [2])
+      +circles-row(3, [0, 2])
+      +circles-row(3, [0])
+      +circles-row(4, [2, 3])
+      +circles-row(2, [0, 1])
+      +circles-row(3)
+      +circles-row(3, [2])
+      +circles-row(1, [0])
+
+    script(src='./js/angle-gradient.js')
+    script(src='./js/examples.js')
