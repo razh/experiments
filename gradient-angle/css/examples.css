@@ -1,0 +1,82 @@
+body {
+  margin: 0;
+  background-color: #FAF8EB;
+}
+
+.circles {
+  margin: 48px;
+}
+
+.circle {
+  position: absolute;
+
+  width: 96px;
+  height: 96px;
+
+  border-radius: 50%;
+
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+.bottom {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.circle:nth-child(2) {
+  left: 96px;
+}
+
+.circle:nth-child(3) {
+  left: 192px;
+}
+
+/* Rows. */
+.row {
+  position: relative;
+  height: 48px;
+}
+
+.row:nth-child(1),
+.row:nth-child(9) {
+  left: 192px;
+}
+
+.row:nth-child(2),
+.row:nth-child(4),
+.row:nth-child(5),
+.row:nth-child(7) {
+  left: 48px;
+}
+
+.row:nth-child(6),
+.row:nth-child(8) {
+  left: 96px;
+}
+
+/* Specific rows. */
+.row:nth-child(4) > .circle:nth-child(2) {
+  left: 48px;
+}
+
+.row:nth-child(4) > .circle:nth-child(3) {
+  left: 144px;
+}
+
+/* Doubled circle in fifth row. */
+.row:nth-child(5) > .circle:nth-child(4) {
+  left: 96px;
+}
+
+.row:nth-child(7) > .circle:nth-child(3) {
+  left: 144px;
+}
+
+.row:nth-child(8) > .circle:nth-child(2) {
+  left: 48px;
+}
+
+.row:nth-child(8) > .circle:nth-child(3) {
+  left: 144px;
+}
