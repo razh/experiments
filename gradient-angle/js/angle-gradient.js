@@ -7,6 +7,10 @@ var angleGradient = (function() {
     return a + t * ( b - a );
   }
 
+  function inverseLerp( a, b, value ) {
+    return ( value - a ) / ( b - a );
+  }
+
   var rgbRegex = new RegExp(
     '^' +
     'rgb\\(' +
@@ -265,7 +269,7 @@ var angleGradient = (function() {
 
       var startIndex = 0;
       var endIndex;
-      var start, end;
+      var startAngle, endAngle;
 
       var i, j;
       var il;
@@ -277,13 +281,14 @@ var angleGradient = (function() {
         if ( !isNaN( colorStops[i].angle ) || i === il - 1 ) {
           endIndex = i;
 
-          start = colorStops[ startIndex ].angle;
-          end = colorStops[ endIndex ].angle;
+          startAngle = colorStops[ startIndex ].angle;
+          endAngle = colorStops[ endIndex ].angle;
 
           // Fill in.
           for ( j = startIndex + 1; j < endIndex; j++ ) {
-            t = ( j - startIndex ) / ( endIndex - startIndex );
-            colorStops[j].angle = lerp( start, end, t );
+            // Lerp angle by relative index parameter (in [0, 1]).
+            t = inverseLerp( startIndex, endIndex, j );
+            colorStops[j].angle = lerp( startAngle, endAngle, t );
           }
 
           // Jump.
@@ -321,7 +326,7 @@ var angleGradient = (function() {
       var end = colorStops[ i + 1 ];
 
       // Angle parameter.
-      var t = ( angle - start.angle ) / ( end.angle - start.angle );
+      var t = inverseLerp( start.angle, end.angle, angle );
 
       return [
         lerp( start.color[0], end.color[0], t ),
