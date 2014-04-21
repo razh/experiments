@@ -20,7 +20,7 @@ mixin edged-roof-extension
 
 mixin building-missing-corner
   +building
-  div(class='face top short')
+  .face.top.short
 
 mixin building-edged-roof-missing-corner
   +building-missing-corner
@@ -32,7 +32,7 @@ html(lang='en')
     meta(charset='UTF-8')
     title City 3D 02
 
-    link(rel='stylesheet', href='./stylesheets/city-3d_02.css')
+    link(rel='stylesheet' href='./stylesheets/city-3d_02.css')
   body(ontouchstart='')
     .container
       .scene.rotatable
