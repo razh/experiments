@@ -14,27 +14,19 @@
 
     .toggle-btn {
       position: absolute;
-      bottom: 25px;
-    }
-
-    .help {
-      position: absolute;
-      bottom: 1em;
-      right: 2em;
-
-      opacity: 0.5;
-
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      text-align: right;
-      color: white;
+      left: 2em;
     }
 
     #toggleQuadtree {
-      left: 30px;
+      bottom: 8em;
     }
 
     #toggleQuadtreeVisibility {
-      left: 160px;
+      bottom: 5em;
+    }
+
+    #togglePlaying {
+      bottom: 2em;
     }
   </style>
 </head>
@@ -42,10 +34,7 @@
   <!-- Since we’re only doing a single lookup per frame, the benefits of a Quadtree implementation are lost in this demo. -->
   <button class="toggle-btn" id="toggleQuadtree">Toggle Quadtree</button>
   <button class="toggle-btn" id="toggleQuadtreeVisibility">Toggle Quadtree Visibility</button>
-
-  <div class="help">
-    <p>SPACE - Play/pause.</p>
-  </div>
+  <button class="toggle-btn" id="togglePlaying">Play/Pause (Space)</button>
 
   <canvas id="canvas"></canvas>
 
