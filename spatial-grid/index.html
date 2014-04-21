@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Spatial Grid</title>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
   <style>
     body {
       margin: 0;
@@ -12,37 +14,26 @@
 
     .toggle-btn {
       position: absolute;
-      bottom: 25px;
-    }
-
-    .help {
-      position: absolute;
-      bottom: 1em;
-      right: 2em;
-
-      opacity: 0.5;
-
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      text-align: right;
-      color: white;
+      left: 2em;
     }
 
     #toggleGrid {
-      left: 30px;
+      bottom: 8em;
     }
 
     #toggleGridVisibility {
-      left: 130px;
+      bottom: 5em;
+    }
+
+    #togglePlaying {
+      bottom: 2em;
     }
   </style>
 </head>
 <body>
   <button class="toggle-btn" id="toggleGrid">Toggle Grid</button>
   <button class="toggle-btn" id="toggleGridVisibility">Toggle Grid Visibility</button>
-
-  <div class="help">
-    <p>SPACE - Play/pause.</p>
-  </div>
+  <button class="toggle-btn" id="togglePlaying">Play/Pause (Space)</button>
 
   <canvas id="canvas"></canvas>
 

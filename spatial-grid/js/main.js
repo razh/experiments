@@ -2,7 +2,7 @@
 canvas, context,
 points,
 running,
-update, draw, init,
+update, draw, init, toggle,
 rect, drawRect,
 SpatialGrid*/
 (function( window, document, undefined ) {
@@ -121,9 +121,7 @@ SpatialGrid*/
   document.addEventListener( 'keydown', function( event ) {
     // Space.
     if ( event.which === 32 ) {
-      if ( running ) {
-        tick();
-      }
+      tick();
     }
   });
 
@@ -135,6 +133,12 @@ SpatialGrid*/
   document.getElementById( 'toggleGridVisibility' )
     .addEventListener( 'click', function() {
       drawingGrid = !drawingGrid;
+    });
+
+  document.getElementById( 'togglePlaying' )
+    .addEventListener( 'click', function() {
+      toggle();
+      tick();
     });
 
   (function() {
