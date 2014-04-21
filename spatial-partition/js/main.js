@@ -9,7 +9,7 @@
  *   canvas, context,
  *   points,
  *   running,
- *   update, draw, init,
+ *   update, draw, init, toggle,
  *   rect, drawRect
  */
 
@@ -140,6 +140,11 @@ function init() {
   }
 }
 
+function toggle() {
+  running = !running;
+  prevTime = Date.now();
+}
+
 (function() {
   var mouseDown = false;
 
@@ -171,8 +176,7 @@ function init() {
     // Space.
     if ( event.which === 32 ) {
       event.preventDefault();
-      running = !running;
-      prevTime = Date.now();
+      toggle();
     }
   }
 
