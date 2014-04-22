@@ -3,9 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <title>Text Shadow Editor</title>
+
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background-color: #ddd;
+    }
+
+    .text {
+      outline: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+
+      background-color: #ddd;
+
+      display: block;
+      width: 90%;
+      min-height: 50%;
+
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 8em;
+      font-weight: bolder;
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
-
+  <div class="text" contenteditable></div>
   <script src="./js/shadow-editor.js"></script>
 </body>
 </html>
