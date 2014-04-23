@@ -3,32 +3,63 @@
 
   var textElement = document.querySelector( '.text' );
 
-  textElement.style.textShadow = (function() {
+  var inputs = {
+    x: document.querySelector( 'input#x' ),
+    y: document.querySelector( 'input#y' ),
+    step: document.querySelector( 'input#step' ),
+  };
+
+  function textShadow() {
+    var x = parseFloat( inputs.x.value ),
+        y = parseFloat( inputs.y.value ),
+        step = parseFloat( inputs.step.value );
+
     var shadows = [];
 
-    var count = 8;
+    // Step is the maximum number of pixels between shadows.
+    var count = Math.max( Math.abs( x ), Math.abs( y ) ) / step;
 
-    var x = 0,
-        y = 0;
+    var dx = x / count,
+        dy = y / count;
 
-    var dx = 0.5,
-        dy = 1;
+    var tx = 0,
+        ty = 0;
 
     var i;
     for ( i = 0; i < count; i++ ) {
-      x += dx;
-      y += dy;
-      shadows.push( x + 'px ' + y + 'px 0 #999' );
+      tx += dx;
+      ty += dy;
+      shadows.push( tx + 'px ' + ty + 'px 0 #999' );
     }
 
-    dx = -1.5;
-    dy = 0.5;
-    for ( i = 0; i < count; i++ ) {
-      x += dx;
-      y += dy;
-      shadows.push( x + 'px ' + y + 'px 0 #555' );
+    dx = -0.75;
+    dy = 0.25;
+    for ( i = 0; i < 2 * count; i++ ) {
+      tx += dx;
+      ty += dy;
+      shadows.push( tx + 'px ' + ty + 'px 0 #555' );
     }
 
     return shadows.join( ', ' );
-  }) ();
+  }
+
+  // Add listeners.
+  textElement.addEventListener( 'keydown', function() {
+    textElement.style.textShadow = textShadow();
+  });
+
+  Object.keys( inputs ).forEach(function( key ) {
+    var element = inputs[ key ];
+    element.addEventListener( 'change', function() {
+      textElement.style.textShadow = textShadow();
+    });
+
+    element.addEventListener( 'wheel', function() {
+      textElement.style.textShadow = textShadow();
+    });
+  });
+
+  // Add initial text shadow.
+  textElement.style.textShadow = textShadow();
+
 }) ( window, document );
