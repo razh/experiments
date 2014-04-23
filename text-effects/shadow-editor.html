@@ -11,11 +11,13 @@
     }
 
     body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
       background-color: #ddd;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    label,
+    input {
+      font-family: Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
     .text {
@@ -27,16 +29,56 @@
       display: block;
       width: 90%;
       min-height: 50%;
+      margin: 0 auto;
 
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 8em;
       font-weight: bolder;
       color: #fff;
+    }
+
+    .text::selection {
+      background: #abc;
+    }
+
+    form {
+      margin-top: 2em;
+    }
+
+    label {
+      margin: 0 1em;
+    }
+
+    input {
+      -webkit-appearance: none;
+      outline: none;
+      border: none;
+      border-radius: 0.5em;
+
+      padding: 0.5em;
+      width: 4em;
+
+      background-color: #333;
+      color: #fff;
+
+      font-size: 1em;
+      text-align: right;
     }
   </style>
 </head>
 <body>
   <div class="text" contenteditable></div>
+
+  <form class="controls">
+    <label for="x">x</label>
+    <input type="number" id="x" pattern="\d*" value="16">
+
+    <label for="y">y</label>
+    <input type="number" id="y" pattern="\d*" value="16">
+
+    <label for="step">step</label>
+    <input type="number" id="step" pattern="\d*" value="1" min="0.1" step="0.1">
+  </form>
+
   <script src="./js/shadow-editor.js"></script>
 </body>
 </html>
