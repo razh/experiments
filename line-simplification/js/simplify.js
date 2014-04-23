@@ -49,29 +49,28 @@ var simplify = (function() {
     function down( index ) {
       var length = array.length;
 
-      var min;
+      var child;
       var left, right;
 
       while ( true ) {
         right = 2 * ( index + 1 );
         left = right - 1;
-        min = index;
+        child = index;
 
-        if ( left < length && compare( left, min ) < 0 ) {
-          min = left;
+        if ( left < length && compare( left, child ) < 0 ) {
+          child = left;
         }
 
-        if ( right < length && compare( right, min ) < 0 ) {
-          min = right;
+        if ( right < length && compare( right, child ) < 0 ) {
+          child = right;
         }
 
-        if ( min === index ) {
+        if ( child === index ) {
           break;
         }
 
-        swap( min, index );
-
-        index = min;
+        swap( child, index );
+        index = child;
       }
     }
 
