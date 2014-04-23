@@ -6,8 +6,14 @@
   var inputs = {
     x: document.querySelector( 'input#x' ),
     y: document.querySelector( 'input#y' ),
-    step: document.querySelector( 'input#step' ),
+    step: document.querySelector( 'input#step' )
   };
+
+  var output = document.querySelector( '.output' );
+
+  function round( value, precision ) {
+    return parseFloat( value.toFixed( precision ) );
+  }
 
   function textShadow() {
     var x = parseFloat( inputs.x.value ),
@@ -29,7 +35,10 @@
     for ( i = 0; i < count; i++ ) {
       tx += dx;
       ty += dy;
-      shadows.push( tx + 'px ' + ty + 'px 0 #999' );
+      shadows.push(
+        round( tx, 2 ) + 'px ' +
+        round( ty, 2 ) + 'px 0 #999'
+      );
     }
 
     dx = -0.75;
@@ -37,10 +46,15 @@
     for ( i = 0; i < 2 * count; i++ ) {
       tx += dx;
       ty += dy;
-      shadows.push( tx + 'px ' + ty + 'px 0 #555' );
+      shadows.push(
+        round( tx, 2 ) + 'px ' +
+        round( ty, 2 ) + 'px 0 #555'
+      );
     }
 
-    return shadows.join( ', ' );
+    var css = shadows.join( ', ' );
+    output.textContent = css;
+    return css;
   }
 
   // Add listeners.
