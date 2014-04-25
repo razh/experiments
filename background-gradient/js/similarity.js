@@ -233,19 +233,9 @@
   (function() {
     var pullLeftInput = document.getElementById( 'pull-left-input' );
 
-    function onChange() {
-      var gradientElements = [].slice.call( document.querySelectorAll( '.gradient' ) );
-
-      gradientElements.forEach(function( element ) {
-        if ( pullLeftInput.checked ) {
-          element.classList.add( 'pull-left' );
-        } else {
-          element.classList.remove( 'pull-left' );
-        }
-      });
-    }
-
-    pullLeftInput.addEventListener( 'change', onChange );
+    pullLeftInput.addEventListener( 'change', function() {
+      document.body.classList.toggle( 'pull-left', pullLeftInput.checked );
+    });
   }) ();
 
   // Syntax explorations.
@@ -348,7 +338,8 @@
 
     updateBackground();
 
-    function onChange() {
+    // Update gradient angle based on input.
+    function update() {
       var angle = parseInt( inputAngle.value, 10 );
       angle %= 360;
       if ( angle < 0 ) {
@@ -361,13 +352,13 @@
       updateBackground();
     }
 
-    inputAngle.addEventListener( 'change', onChange );
+    inputAngle.addEventListener( 'input', update );
 
     // Prevent form submission.
     inputAngle.addEventListener( 'keydown', function( event ) {
       if ( event.which === 13 ) {
         event.preventDefault();
-        onChange();
+        update();
       }
     });
   }) ();
