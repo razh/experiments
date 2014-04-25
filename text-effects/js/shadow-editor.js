@@ -63,12 +63,7 @@
   });
 
   Object.keys( inputs ).forEach(function( key ) {
-    var element = inputs[ key ];
-    element.addEventListener( 'change', function() {
-      textElement.style.textShadow = textShadow();
-    });
-
-    element.addEventListener( 'wheel', function() {
+    inputs[ key ].addEventListener( 'input', function() {
       textElement.style.textShadow = textShadow();
     });
   });
