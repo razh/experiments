@@ -583,7 +583,6 @@
       }
 
       input.addEventListener( 'input', update );
-      input.addEventListener( 'change', update );
       update();
     });
   }) ();
