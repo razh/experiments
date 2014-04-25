@@ -554,7 +554,7 @@
       // Set initial values.
       input.value = h3dTransform[ input.id ];
 
-      function onChange() {
+      function update() {
         h3dTransform[ input.id ] = parseInt( input.value, 10 );
         setTransform( h3dDiv, h3dTransform );
         setPerspective( h3dContainer, h3dTransform );
@@ -582,8 +582,9 @@
         draw3d( h3dCtx );
       }
 
-      input.addEventListener( 'change', onChange );
-      onChange();
+      input.addEventListener( 'input', update );
+      input.addEventListener( 'change', update );
+      update();
     });
   }) ();
 
