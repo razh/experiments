@@ -5,6 +5,10 @@
 var Spring = (function() {
   'use strict';
 
+  function lerp( a, b, t ) {
+    return a + t * ( b - a );
+  }
+
   function PhysicsState() {
     this.position = 0;
     this.velocity = 0;
@@ -28,6 +32,11 @@ var Spring = (function() {
 
     this.allowOvershoot = false;
   }
+
+  Spring.prototype.lerp = function( alpha ) {
+    this.state.position = lerp( this.state.position, this.previousState.position, alpha );
+    this.state.velocity = lerp( this.state.velocity, this.previousState.velocity, alpha );
+  };
 
   Spring.prototype.tick = function( dt ) {
     if ( dt > 1e3 ) {
