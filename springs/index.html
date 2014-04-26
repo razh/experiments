@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Springs</title>
+
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      background-color: #def;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    .spring {
+      position: absolute;
+
+      width: 50px;
+      height: 50px;
+
+      margin-left: -25px;
+      margin-top: -25px;
+
+      border-radius: 50%;
+      background-color: #f65;
+    }
+
+    form {
+      position: absolute;
+
+      left: 0;
+      bottom: 0;
+      right: 0;
+
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="spring"></div>
+
+  <form>
+    <label for="tension">Tension</label>
+    <input type="number" name="tension" id="tension" value="8">
+
+    <label for="friction">Friction</label>
+    <input type="number" name="friction" id="friction" value="30">
+  </form>
+
+  <script src="./js/spring.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+</html>
