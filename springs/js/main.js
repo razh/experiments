@@ -3,19 +3,31 @@
   'use strict';
 
   var inputs = {
-    tension: document.querySelector( '#tension' ),
-    friction: document.querySelector( '#friction' )
+    friction: document.querySelector( '#friction' ),
+    tension: document.querySelector( '#tension' )
   };
+
+  // Create springs for both axes.
+  var springs = {
+    x: new Spring( 40, 8 ),
+    y: new Spring( 40, 8 )
+  };
+
+  inputs.friction.addEventListener( 'input', function() {
+    var friction = inputs.friction.value;
+    springs.x.quartzFriction( friction );
+    springs.y.quartzFriction( friction );
+  });
+
+  inputs.tension.addEventListener( 'input', function() {
+    var tension = inputs.tension.value;
+    springs.x.quartzTension( tension );
+    springs.y.quartzTension( tension );
+  });
 
   // Create element with spring behavior.
   var element = document.createElement( 'div' );
   element.classList.add( 'spring' );
-
-  // Create springs for both axes.
-  var springs = {
-    x: new Spring( 30, 3 ),
-    y: new Spring( 30, 3 )
-  };
 
   function setTransform( el, x, y ) {
     var transform = 'translate3d(' +

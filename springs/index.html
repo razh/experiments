@@ -41,12 +41,16 @@
   </style>
 </head>
 <body>
-  <form>
-    <label for="tension">Tension</label>
-    <input type="number" name="tension" id="tension" value="8">
+  <form onmousedown="event.stopPropagation()">
+    <div class="form-group">
+      <label for="friction">Friction</label>
+      <input type="number" name="friction" id="friction" value="8">
+    </div>
 
-    <label for="friction">Friction</label>
-    <input type="number" name="friction" id="friction" value="30">
+    <div class="form-group">
+      <label for="tension">Tension</label>
+      <input type="number" name="tension" id="tension" value="30">
+    </div>
   </form>
 
   <script src="./js/spring.js"></script>
