@@ -20,17 +20,19 @@ var Spring = (function() {
     this.tempState = new PhysicsState();
 
     this.start = 0;
-    this.end = 1;
+    this.end = 0;
 
     this.tension = tension || 0;
     this.friction = friction || 0;
 
-    this.time = 0;
-    this.timeStep = 16;
-
+    // One milisecond timestep.
+    this.timeStep = 1e-3;
     this.accumulator = 0;
 
-    this.allowOvershoot = false;
+    // High epsilon to avoid unnecessary renders.
+    this.epsilon = 0.1;
+
+    this.wasAtRest = true;
   }
 
   Spring.prototype.lerp = function( alpha ) {
@@ -38,10 +40,40 @@ var Spring = (function() {
     this.state.velocity = lerp( this.state.velocity, this.previousState.velocity, alpha );
   };
 
-  Spring.prototype.tick = function( dt ) {
-    if ( dt > 1e3 ) {
-      dt = 1e3;
+  Spring.prototype.setEnd = function( end ) {
+    if ( this.end === end && this.isAtRest() ) {
+      return;
     }
+
+    this.start = this.state.position;
+    this.end = end;
+  };
+
+  Spring.prototype.isAtRest = function() {
+    // Absolute value of dx and dv < epsilon.
+    return Math.abs( this.state.velocity ) < this.epsilon &&
+      Math.abs( this.end - this.state.position ) <= this.epsilon;
+  };
+
+  Spring.prototype.setAtRest = function() {
+    this.end = this.state.position;
+    this.tempState.position = this.state.position;
+    this.state.velocity = 0;
+  };
+
+  Spring.prototype.update = function( dt ) {
+    var isAtRest = this.isAtRest();
+
+    if ( isAtRest && this.wasAtRest ) {
+      return;
+    }
+
+    if ( dt > 1e2 ) {
+      dt = 1e2;
+    }
+
+    // Convert to seconds.
+    dt *= 1e-3;
 
     this.accumulator += dt;
 
@@ -73,22 +105,22 @@ var Spring = (function() {
       }
 
       va = velocity;
-      aa = (tension * (this.end - tempPosition)) - friction * va;
+      aa = tension * ( this.end - tempPosition ) - friction * va;
 
-      tempPosition = position + va * 0.5 * dt;
-      tempVelocity = velocity + aa * 0.5 * dt;
+      tempPosition = position + va * dt * 0.5;
+      tempVelocity = velocity + aa * dt * 0.5;
       vb = tempVelocity;
-      ab = (tension * (this.end - tempPosition)) - friction * vb;
+      ab = tension * ( this.end - tempPosition ) - friction * vb;
 
-      tempPosition = position + vb * 0.5 * dt;
-      tempVelocity = position + vb * 0.5 * dt;
+      tempPosition = position + vb * dt * 0.5;
+      tempVelocity = velocity + ab * dt * 0.5;
       vc = tempVelocity;
-      ac = (tension * (this.end - tempPosition)) - friction * vc;
+      ac = tension * ( this.end - tempPosition ) - friction * vc;
 
-      tempPosition = position + vc * 0.5 * dt;
-      tempVelocity = position + vc * 0.5 * dt;
+      tempPosition = position + vc * dt * 0.5;
+      tempVelocity = velocity + ac * dt * 0.5;
       vd = tempVelocity;
-      ad = (tension * (this.end - tempPosition)) - friction * vd;
+      ad = tension * ( this.end - tempPosition ) - friction * vd;
 
       dxdt = ( va + 2 * ( vb + vc ) + vd ) / 6;
       dvdt = ( aa + 2 * ( ab + ac ) + ad ) / 6;
@@ -103,8 +135,25 @@ var Spring = (function() {
     this.state.position = position;
     this.state.velocity = velocity;
 
-    if ( this.accumulator ) {
+    if ( this.accumulator > 0 ) {
       this.lerp( this.accumulator / this.timeStep );
+    }
+
+    // Are we at rest now?
+    if ( this.isAtRest() ) {
+      this.start = this.end;
+      this.state.positon = this.end;
+      this.state.velocity = 0;
+      isAtRest = true;
+    }
+
+    // Here we would notify activate and at-rest listeners.
+    if ( this.wasAtRest ) {
+      this.wasAtRest = false;
+    }
+
+    if ( isAtRest ) {
+      this.wasAtRest = true;
     }
   };
 
