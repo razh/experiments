@@ -14,6 +14,29 @@ var Spring = (function() {
     this.velocity = 0;
   }
 
+  // Quartz Composer conversion.
+  var quartz = {
+    tension: {
+      from: function( qcTension ) {
+        return ( qcTension - 30 ) * 3.62 + 194;
+      },
+
+      to: function( tension ) {
+        return ( tension - 194 ) / 3.62 + 30;
+      }
+    },
+
+    friction: {
+      from: function( qcFriction ) {
+        return ( qcFriction - 8 ) * 3 + 25;
+      },
+
+      to: function( friction ) {
+        return ( friction - 25 ) / 3 + 8;
+      }
+    }
+  };
+
   function Spring( tension, friction ) {
     this.state = new PhysicsState();
     this.previousState = new PhysicsState();
@@ -22,8 +45,8 @@ var Spring = (function() {
     this.start = 0;
     this.end = 0;
 
-    this.tension = tension || 0;
-    this.friction = friction || 0;
+    this.tension = quartz.tension.from( tension || 0 );
+    this.friction = quartz.friction.from( friction || 0 );
 
     // One milisecond timestep.
     this.timeStep = 1e-3;
