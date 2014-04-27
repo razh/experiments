@@ -7,8 +7,11 @@
     friction: document.querySelector( '#friction' )
   };
 
-  var element = document.querySelector( '.spring' );
+  // Create element with spring behavior.
+  var element = document.createElement( 'div' );
+  element.classList.add( 'spring' );
 
+  // Create springs for both axes.
   var springs = {
     x: new Spring( 30, 3 ),
     y: new Spring( 30, 3 )
@@ -36,6 +39,7 @@
     var halfWidth  = 0.5 * window.innerWidth,
         halfHeight = 0.5 * window.innerHeight;
 
+    // Set initial spring state.
     springs.x.start = halfWidth;
     springs.x.end = halfWidth;
     springs.x.state.position = halfWidth;
@@ -43,6 +47,10 @@
     springs.y.start = halfHeight;
     springs.y.end = halfHeight;
     springs.y.state.position = halfHeight;
+
+    // Style element and add to DOM.
+    setTransform( element, halfWidth, halfHeight );
+    document.body.insertBefore( element, document.body.firstChild );
 
     function animate() {
       currTime = Date.now();
