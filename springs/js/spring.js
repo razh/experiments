@@ -56,6 +56,18 @@ var Spring = (function() {
     this.epsilon = 0.1;
 
     this.wasAtRest = true;
+
+    // Event listeners.
+    this.callbacks = {
+      activate: [],
+      update: [],
+      rest: []
+    };
+
+    // Helper function for invoking callbacks.
+    this.callbackFn = function( callback ) {
+      callback( this );
+    }.bind( this );
   }
 
   Spring.prototype.lerp = function( alpha ) {
@@ -170,13 +182,17 @@ var Spring = (function() {
       isAtRest = true;
     }
 
-    // Here we would notify activate and at-rest listeners.
+    // Set rest state and notify any callbacks.
     if ( this.wasAtRest ) {
       this.wasAtRest = false;
+      this.callbacks.activate.map( this.callbackFn );
     }
+
+    this.callbacks.update.map( this.callbackFn );
 
     if ( isAtRest ) {
       this.wasAtRest = true;
+      this.callbacks.rest.map( this.callbackFn );
     }
   };
 
@@ -194,6 +210,24 @@ var Spring = (function() {
     }
 
     return convert.friction.toQuartz( this.friction );
+  };
+
+  Spring.prototype.on = function( event, callback ) {
+    var callbacks = this.callbacks[ event ] || [];
+    callbacks.push( callback );
+    this.callbacks[ event ] = callbacks;
+  };
+
+  Spring.prototype.off = function( event, callback ) {
+    var callbacks = this.callbacks[ event ];
+    if ( !callbacks ) {
+      return;
+    }
+
+    var index = callbacks.indexOf( callback );
+    if ( index !== -1 ) {
+      callbacks.splice( index, 1 );
+    }
   };
 
   return Spring;
