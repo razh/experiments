@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Springs</title>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
   <style>
     html,
     body {
@@ -33,7 +35,7 @@
       position: absolute;
 
       left: 0;
-      bottom: 0;
+      bottom: 1em;
       right: 0;
 
       text-align: center;
@@ -44,12 +46,12 @@
   <form onmousedown="event.stopPropagation()">
     <div class="form-group">
       <label for="friction">Friction</label>
-      <input type="number" name="friction" id="friction" value="8">
+      <input type="number" name="friction" id="friction" pattern="\d*" value="8">
     </div>
 
     <div class="form-group">
       <label for="tension">Tension</label>
-      <input type="number" name="tension" id="tension" value="30">
+      <input type="number" name="tension" id="tension" pattern="\d*" value="30">
     </div>
   </form>
 

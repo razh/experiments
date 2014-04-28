@@ -38,10 +38,27 @@
     el.style.transform = transform;
   }
 
-  window.addEventListener( 'mousedown', function( event ) {
-    springs.x.setEnd( event.pageX );
-    springs.y.setEnd( event.pageY );
-  });
+  function moveTo( x, y ) {
+    springs.x.setEnd( x );
+    springs.y.setEnd( y );
+  }
+
+  function onTouch( event ) {
+    moveTo( event.touches[0].pageX, event.touches[0].pageY );
+  }
+
+  if ( 'ontouchstart' in window ) {
+    window.addEventListener( 'touchstart', onTouch );
+
+    window.addEventListener( 'touchmove', function( event ) {
+      event.preventDefault();
+      onTouch( event );
+    });
+  } else {
+    window.addEventListener( 'mousedown', function( event ) {
+      moveTo( event.pageX, event.pageY );
+    });
+  }
 
 
   (function() {
