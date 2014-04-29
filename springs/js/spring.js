@@ -48,6 +48,7 @@ var Spring = (function() {
     this.tension = convert.tension.fromQuartz( tension || 0 );
     this.friction = convert.friction.fromQuartz( friction || 0 );
 
+    this.time = 0;
     // One milisecond timestep.
     this.timeStep = 1e-3;
     this.accumulator = 0;
@@ -110,6 +111,7 @@ var Spring = (function() {
     // Convert to seconds.
     dt *= 1e-3;
 
+    this.time += dt;
     this.accumulator += dt;
 
     dt = this.timeStep;

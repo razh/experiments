@@ -81,6 +81,66 @@
     setTransform( element, halfWidth, halfHeight );
     document.body.insertBefore( element, document.body.firstChild );
 
+    // Canvas.
+    var canvas  = document.createElement( 'canvas' ),
+        context = canvas.getContext( '2d' );
+
+    document.body.appendChild( canvas );
+
+    canvas.width = 240;
+    canvas.height = 128;
+
+    var draw = (function() {
+      var px = 0,
+          py = 0;
+
+      var quotient = 1;
+
+      return function( ctx, scale, x, y ) {
+        var width  = ctx.canvas.width,
+            height = ctx.canvas.height;
+
+        if ( ( x / width ) > quotient ) {
+          ctx.clearRect( 0, 0, width, height );
+          px -= width;
+          quotient++;
+        }
+
+        x %= width;
+
+        ctx.save();
+        ctx.translate( 0, 0.5 * height );
+        ctx.scale( 1, -1 );
+
+        // Draw scale lines.
+        ctx.beginPath();
+        ctx.moveTo( 0, scale );
+        ctx.lineTo( width, scale );
+        ctx.moveTo( 0, 0 );
+        ctx.lineTo( width, 0 );
+        ctx.moveTo( 0, -scale );
+        ctx.lineTo( width, -scale );
+        ctx.lineWidth = 0.5;
+        ctx.strokeStyle = 'rgba(255, 0, 0, 0.2)';
+        ctx.stroke();
+
+        // Draw path.
+        ctx.beginPath();
+        ctx.moveTo( px, py * scale );
+        ctx.lineTo( x, y * scale );
+
+
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = '#000';
+        ctx.stroke();
+
+        ctx.restore();
+
+        px = x;
+        py = y;
+      };
+    }) ();
+
     function animate() {
       currTime = Date.now();
       var dt = currTime - prevTime;
@@ -93,6 +153,16 @@
 
       requestAnimationFrame( animate );
     }
+
+    springs.x.on( 'update', function( spring ) {
+      var state = spring.state;
+      var parameter = ( state.position - spring.start ) / ( spring.end - spring.start );
+      if ( !( spring.end - spring.start ) ) {
+        parameter = 1;
+      }
+
+      draw( context, 30, spring.time * 100, parameter );
+    });
 
     animate();
   }) ();
