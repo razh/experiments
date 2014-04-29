@@ -81,73 +81,6 @@
     setTransform( element, halfWidth, halfHeight );
     document.body.insertBefore( element, document.body.firstChild );
 
-    // Canvas.
-    var canvas  = document.createElement( 'canvas' ),
-        context = canvas.getContext( '2d' );
-
-    document.body.appendChild( canvas );
-
-    canvas.width = 240;
-    canvas.height = 128;
-
-    var draw = (function() {
-      var points = [];
-
-      var quotient = 1;
-
-      return function( ctx, scale, x, y ) {
-        var width  = ctx.canvas.width,
-            height = ctx.canvas.height;
-
-        ctx.clearRect( 0, 0, width, height );
-
-        if ( ( x / width ) > quotient ) {
-          var length = points.length;
-          var px = points[ length - 2 ] - width,
-              py = points[ length - 1 ];
-          points = [ px, py ];
-          quotient++;
-        }
-
-        x %= width;
-
-        ctx.save();
-        ctx.translate( 0, 0.5 * height );
-        ctx.scale( 1, -1 );
-
-        // Draw scale lines.
-        ctx.beginPath();
-
-        ctx.moveTo( 0, scale );
-        ctx.lineTo( width, scale );
-
-        ctx.moveTo( 0, 0 );
-        ctx.lineTo( width, 0 );
-
-        ctx.moveTo( 0, -scale );
-        ctx.lineTo( width, -scale );
-
-        ctx.lineWidth = 0.5;
-        ctx.strokeStyle = 'rgba(255, 0, 0, 0.2)';
-        ctx.stroke();
-
-        // Draw path.
-        ctx.beginPath();
-        ctx.moveTo( points[0], points[1] * scale );
-        for ( var i = 0, il = 0.5 * points.length; i < il; i++ ) {
-          ctx.lineTo( points[ 2 * i ], points[ 2 * i + 1 ] * scale );
-        }
-
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = '#000';
-        ctx.stroke();
-
-        ctx.restore();
-
-        points.push( x, y );
-      };
-    }) ();
-
     function animate() {
       currTime = Date.now();
       var dt = currTime - prevTime;
@@ -161,17 +94,137 @@
       requestAnimationFrame( animate );
     }
 
+    animate();
+
+
+    // Canvas.
+    var canvas  = document.createElement( 'canvas' ),
+        context = canvas.getContext( '2d' );
+
+    document.body.appendChild( canvas );
+
+    canvas.width = 256;
+    canvas.height = 128;
+
+    function drawGridLines( ctx, spacing ) {
+      var width  = ctx.canvas.width,
+          height = ctx.canvas.height;
+
+      var xCount = Math.ceil( width / spacing ),
+          yCount = Math.ceil( height / spacing );
+
+      var i;
+      for ( i = 0; i <= xCount; i++ ) {
+        ctx.moveTo( i * spacing, 0 );
+        ctx.lineTo( i * spacing, height );
+      }
+
+      for ( i = 0; i <= yCount; i++ ) {
+        ctx.moveTo( 0, i * spacing );
+        ctx.lineTo( width, i * spacing );
+      }
+    }
+
+    function drawScaleLines( ctx, scale ) {
+      var width = ctx.canvas.width;
+
+      ctx.moveTo( 0, scale );
+      ctx.lineTo( width, scale );
+
+      ctx.moveTo( 0, 0 );
+      ctx.lineTo( width, 0 );
+
+      ctx.moveTo( 0, -scale );
+      ctx.lineTo( width, -scale );
+    }
+
+    var draw = (function() {
+      var points = [];
+      var quotient = 1;
+
+      return function( ctx, scale, x, y ) {
+        var width  = ctx.canvas.width,
+            height = ctx.canvas.height;
+
+        ctx.clearRect( 0, 0, width, height );
+
+        // Wrap around.
+        if ( ( x / width ) > quotient ) {
+          var length = points.length;
+          var px = points[ length - 2 ] - width,
+              py = points[ length - 1 ];
+
+          points = [ px, py ];
+          quotient++;
+        }
+
+        x %= width;
+        points.push( x, y );
+
+        // Draw grid lines.
+        ctx.beginPath();
+        drawGridLines( ctx, height / 16 );
+        ctx.lineWidth = 0.25;
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.stroke();
+
+        // Transform into position.
+        ctx.save();
+        ctx.translate( 0, 0.5 * height );
+        ctx.scale( 1, -1 );
+
+        // Draw scale lines.
+        ctx.beginPath();
+        drawScaleLines( ctx, scale );
+        ctx.lineWidth = 0.5;
+        ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
+        ctx.stroke();
+
+        // Draw text.
+        ctx.save();
+        ctx.scale( 1, -1 );
+
+        ctx.font = '1em monospace';
+        ctx.fillStyle = '#000';
+        ctx.textBaseline = 'middle';
+
+        ctx.shadowColor = '#fff';
+        ctx.shadowBlur = 2;
+
+        ctx.fillText( 1, 8, -scale );
+        ctx.fillText( 0, 8, 0 );
+        ctx.fillText( -1, 0, scale );
+
+        ctx.shadowBlur = 0;
+        ctx.restore();
+
+        // Draw path.
+        ctx.beginPath();
+        ctx.moveTo( points[0], points[1] * scale );
+        for ( var i = 0, il = 0.5 * points.length; i < il; i++ ) {
+          ctx.lineTo( points[ 2 * i ], points[ 2 * i + 1 ] * scale );
+        }
+
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = '#000';
+        ctx.stroke();
+
+        ctx.restore();
+      };
+    }) ();
+
+    var timeScale = 0.5 * canvas.width;
+
     springs.x.on( 'update', function( spring ) {
       var state = spring.state;
       var parameter = ( state.position - spring.start ) / ( spring.end - spring.start );
-      if ( !( spring.end - spring.start ) ) {
+      if ( Math.abs( spring.end - spring.start ) < spring.epsilon ) {
         parameter = 1;
       }
 
-      draw( context, 30, spring.time * 100, parameter );
+      draw( context, 32, spring.time * timeScale, parameter );
     });
 
-    animate();
   }) ();
 
 }) ( window, document );
