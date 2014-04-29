@@ -43,6 +43,9 @@
     springs.y.setEnd( y );
   }
 
+  // Input handlers.
+  var mouseDown = false;
+
   function onTouch( event ) {
     moveTo( event.touches[0].pageX, event.touches[0].pageY );
   }
@@ -55,8 +58,20 @@
       onTouch( event );
     });
   } else {
+    // Handle mouse events.
     window.addEventListener( 'mousedown', function( event ) {
+      mouseDown = true;
       moveTo( event.pageX, event.pageY );
+    });
+
+    window.addEventListener( 'mousemove', function( event ) {
+      if ( mouseDown ) {
+        moveTo( event.pageX, event.pageY );
+      }
+    });
+
+    window.addEventListener( 'mouseup', function() {
+      mouseDown = false;
     });
   }
 
