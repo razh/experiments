@@ -40,7 +40,6 @@ var Spring = (function() {
   function Spring( tension, friction ) {
     this.state = new PhysicsState();
     this.previousState = new PhysicsState();
-    this.tempState = new PhysicsState();
 
     this.start = 0;
     this.end = 0;
@@ -122,8 +121,8 @@ var Spring = (function() {
     var position = this.state.position;
     var velocity = this.state.velocity;
 
-    var tempPosition = this.tempState.position;
-    var tempVelocity = this.tempState.velocity;
+    var pt = position;
+    var vt = velocity;
 
     // Velocities.
     var va, vb, vc, vd;
@@ -142,38 +141,38 @@ var Spring = (function() {
       }
 
       va = velocity;
-      aa = tension * ( this.end - tempPosition ) - friction * va;
+      aa = tension * ( this.end - pt ) - friction * va;
 
-      tempPosition = position + va * dt * 0.5;
-      tempVelocity = velocity + aa * dt * 0.5;
-      vb = tempVelocity;
-      ab = tension * ( this.end - tempPosition ) - friction * vb;
+      pt = position + va * dt * 0.5;
+      vt = velocity + aa * dt * 0.5;
+      vb = vt;
+      ab = tension * ( this.end - pt ) - friction * vb;
 
-      tempPosition = position + vb * dt * 0.5;
-      tempVelocity = velocity + ab * dt * 0.5;
-      vc = tempVelocity;
-      ac = tension * ( this.end - tempPosition ) - friction * vc;
+      pt = position + vb * dt * 0.5;
+      vt = velocity + ab * dt * 0.5;
+      vc = vt;
+      ac = tension * ( this.end - pt ) - friction * vc;
 
-      tempPosition = position + vc * dt * 0.5;
-      tempVelocity = velocity + ac * dt * 0.5;
-      vd = tempVelocity;
-      ad = tension * ( this.end - tempPosition ) - friction * vd;
+      pt = position + vc * dt;
+      vt = velocity + ac * dt;
+      vd = vt;
+      ad = tension * ( this.end - pt ) - friction * vd;
 
       dxdt = ( va + 2 * ( vb + vc ) + vd ) / 6;
       dvdt = ( aa + 2 * ( ab + ac ) + ad ) / 6;
 
       position += dxdt * dt;
       velocity += dvdt * dt;
-    }
 
-    this.tempState.position = tempPosition;
-    this.tempState.velocity = tempVelocity;
+      pt = position;
+      vt = velocity;
+    }
 
     this.state.position = position;
     this.state.velocity = velocity;
 
     if ( this.accumulator > 0 ) {
-      this.lerp( this.accumulator / this.timeStep );
+      this.lerp( this.accumulator / dt );
     }
 
     // Are we at rest now?
