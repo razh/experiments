@@ -91,8 +91,7 @@
     canvas.height = 128;
 
     var draw = (function() {
-      var px = 0,
-          py = 0;
+      var points = [];
 
       var quotient = 1;
 
@@ -100,9 +99,13 @@
         var width  = ctx.canvas.width,
             height = ctx.canvas.height;
 
+        ctx.clearRect( 0, 0, width, height );
+
         if ( ( x / width ) > quotient ) {
-          ctx.clearRect( 0, 0, width, height );
-          px -= width;
+          var length = points.length;
+          var px = points[ length - 2 ] - width,
+              py = points[ length - 1 ];
+          points = [ px, py ];
           quotient++;
         }
 
@@ -114,21 +117,26 @@
 
         // Draw scale lines.
         ctx.beginPath();
+
         ctx.moveTo( 0, scale );
         ctx.lineTo( width, scale );
+
         ctx.moveTo( 0, 0 );
         ctx.lineTo( width, 0 );
+
         ctx.moveTo( 0, -scale );
         ctx.lineTo( width, -scale );
+
         ctx.lineWidth = 0.5;
         ctx.strokeStyle = 'rgba(255, 0, 0, 0.2)';
         ctx.stroke();
 
         // Draw path.
         ctx.beginPath();
-        ctx.moveTo( px, py * scale );
-        ctx.lineTo( x, y * scale );
-
+        ctx.moveTo( points[0], points[1] * scale );
+        for ( var i = 0, il = 0.5 * points.length; i < il; i++ ) {
+          ctx.lineTo( points[ 2 * i ], points[ 2 * i + 1 ] * scale );
+        }
 
         ctx.lineWidth = 1;
         ctx.strokeStyle = '#000';
@@ -136,8 +144,7 @@
 
         ctx.restore();
 
-        px = x;
-        py = y;
+        points.push( x, y );
       };
     }) ();
 
