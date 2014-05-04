@@ -240,6 +240,7 @@
       draw( context, 32, spring.time * timeScale, parameter );
     });
 
+    draw( context, 32, 0, 0 );
   }) ();
 
 }) ( window, document );
