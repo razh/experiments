@@ -3,6 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <title>Depth</title>
+
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+
+      display: -webkit-flex;
+      display: flex;
+
+      -webkit-align-items: center;
+      align-items: center;
+
+      -webkit-justify-content: center;
+      justify-content: center;
+    }
+
+    .text-container {
+      width: 75%;
+      max-width: 640px;
+
+      font-family: Georgia;
+      font-size: 2em;
+
+      -webkit-perspective: 1000px;
+      perspective: 1000px;
+    }
+
+    span {
+      display: inline-block;
+    }
+
+    span:nth-child(1) {
+      -webkit-transform: translateZ(-100px);
+      transform: translateZ(-100px);
+
+      -webkit-filter: blur(2px);
+    }
+
+    span:nth-child(2) {
+      -webkit-transform: translateZ(-50px);
+      transform: translateZ(-50px);
+    }
+
+    span:nth-child(3) {
+      -webkit-transform: translateZ(-250px);
+      transform: translateZ(-250px);
+
+      -webkit-filter: blur(3px);
+    }
+  </style>
 </head>
 <body>
   <div class="text-container">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, in, voluptatem, impedit facere deserunt sint adipisci dignissimos laborum illum cupiditate fugiat tempore eos aliquid ratione similique magni error? Obcaecati, deserunt?</div>
