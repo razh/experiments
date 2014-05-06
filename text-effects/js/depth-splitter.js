@@ -11,16 +11,12 @@ var Splitter = (function( window, document, undefined ) {
     options = options || {};
 
     this.el = options.el;
-    if ( !this.el ) {
-      return;
+    if ( this.el && typeof this.el === 'string' ) {
+      this.el = document.querySelector( this.el );
     }
 
-    if ( typeof this.el === 'string' ) {
-      this.el = document.querySelector( this.el );
-
-      if ( !this.el ) {
-        return;
-      }
+    if ( !this.el ) {
+      return;
     }
 
     // WARNING: Separator should be a capturing RegExp if you want to reattach
@@ -62,6 +58,7 @@ var Splitter = (function( window, document, undefined ) {
       // Convert to spans.
       .map(function( string, index ) {
         return '<span class=' +
+          this.className + ' ' +
           this.className + '-' + ( this.index + index ) + '>' +
           string +
         '</span>';
