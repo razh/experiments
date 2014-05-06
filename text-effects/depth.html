@@ -26,8 +26,9 @@
       justify-content: center;
     }
 
-    .text-container {
-      width: 75%;
+    .text-container,
+    .depth-container {
+      width: 50%;
       max-width: 640px;
 
       font-family: Georgia;
@@ -41,19 +42,19 @@
       display: inline-block;
     }
 
-    span:nth-child(1) {
+    .text-container span:nth-child(1) {
       -webkit-transform: translateZ(-100px);
       transform: translateZ(-100px);
 
       -webkit-filter: blur(2px);
     }
 
-    span:nth-child(2) {
+    .text-container span:nth-child(2) {
       -webkit-transform: translateZ(-50px);
       transform: translateZ(-50px);
     }
 
-    span:nth-child(3) {
+    .text-container span:nth-child(3) {
       -webkit-transform: translateZ(-250px);
       transform: translateZ(-250px);
 
@@ -64,11 +65,20 @@
 <body>
   <div class="text-container">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, in, voluptatem, impedit facere deserunt sint adipisci dignissimos laborum illum cupiditate fugiat tempore eos aliquid ratione similique magni error? Obcaecati, deserunt?</div>
 
+  <div class="depth-container">
+    <span class="depth" data-z="-100">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span><span class="depth" data-z="-200">Vitae, in, voluptatem, impedit facere deserunt sint adipisci dignissimos laborum illum cupiditate fugiat tempore eos aliquid ratione similique magni error?</span><span class="depth" data-z="-50">Eaque, commodi libero aperiam fugit hic deleniti in sunt incidunt sint?</span>
+  </div>
+
   <script src="./js/depth-splitter.js"></script>
+  <script src="./js/depth.js"></script>
   <script>
     new Splitter({
       el: '.text-container',
       capture: true
+    });
+
+    new Depth({
+      el: '.depth-container'
     });
   </script>
 </body>
