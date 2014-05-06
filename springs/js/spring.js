@@ -67,7 +67,7 @@ var Spring = (function() {
     // Helper function for invoking callbacks.
     this.callbackFn = function( callback ) {
       callback( this );
-    }.bind( this );
+    };
   }
 
   Spring.prototype.lerp = function( alpha ) {
@@ -186,14 +186,14 @@ var Spring = (function() {
     // Set rest state and notify any callbacks.
     if ( this.wasAtRest ) {
       this.wasAtRest = false;
-      this.callbacks.activate.map( this.callbackFn );
+      this.callbacks.activate.map( this.callbackFn, this );
     }
 
-    this.callbacks.update.map( this.callbackFn );
+    this.callbacks.update.map( this.callbackFn, this );
 
     if ( isAtRest ) {
       this.wasAtRest = true;
-      this.callbacks.rest.map( this.callbackFn );
+      this.callbacks.rest.map( this.callbackFn, this );
     }
   };
 
