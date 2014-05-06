@@ -1,3 +1,4 @@
+/*globals DepthElement, DepthControls*/
 /*exported Depth*/
 var Depth = (function() {
   'use strict';
@@ -21,15 +22,16 @@ var Depth = (function() {
   }
 
   Depth.prototype.initialize = function() {
-    this.elements = [].slice.call( this.el.querySelectorAll( this.selector ) );
+    this.elements = [].slice.call( this.el.querySelectorAll( this.selector ) )
+      .map(function( element ) {
+        return new DepthElement({
+          el: element,
+          z: parseFloat( element.getAttribute( 'data-z' ) )
+        });
+      });
 
-    this.elements.forEach(function( element ) {
-      var z = element.getAttribute( 'data-z' );
-      var transform = 'translateZ(' + z + 'px)';
-
-      element.style.webkitTransform = transform;
-      element.style.transform = transform;
-    });
+    DepthControls.add.apply( null, this.elements );
+    DepthControls.on();
   };
 
   return Depth;
