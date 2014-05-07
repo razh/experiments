@@ -18,6 +18,9 @@ var Depth = (function() {
     this.selector = options.selector || '.depth';
     this.elements = [];
 
+    this.aperture = options.aperture || ( 1 / 200 );
+    this.z = options.z || -100;
+
     this.initialize();
   }
 
@@ -31,7 +34,19 @@ var Depth = (function() {
       });
 
     DepthControls.add.apply( null, this.elements );
-    DepthControls.on();
+    DepthControls.on( 'update', this.update.bind( this ) );
+    this.update();
+  };
+
+  Depth.prototype.update = function() {
+    this.elements.forEach(function( element ) {
+      var blurRadius = this.calculateBlurRadius( element.z );
+      element.setBlurRadius( blurRadius );
+    }, this );
+  };
+
+  Depth.prototype.calculateBlurRadius = function( z ) {
+    return this.aperture * Math.abs( z - this.z );
   };
 
   return Depth;

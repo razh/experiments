@@ -15,6 +15,8 @@ var DepthElement = (function() {
     }
 
     this.z = options.z;
+
+    this.setTransform();
   }
 
   DepthElement.prototype.setTransform = function() {
@@ -22,6 +24,13 @@ var DepthElement = (function() {
 
     this.el.style.webkitTransform = transform;
     this.el.style.transform = transform;
+  };
+
+  DepthElement.prototype.setBlurRadius = function( blurRadius ) {
+    var blur = 'blur(' + blurRadius + 'px)';
+
+    this.el.style.webkitFilter = blur;
+    this.el.style.filter = blur;
   };
 
   return DepthElement;
