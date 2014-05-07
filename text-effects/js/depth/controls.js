@@ -3,6 +3,9 @@ var DepthControls = (function() {
   'use strict';
 
   var elements = [];
+  var callbacks = {
+    update: []
+  };
 
   function onWheel( event ) {
     if ( !event.deltaY ) {
@@ -16,6 +19,9 @@ var DepthControls = (function() {
       element.z -= dy;
       element.setTransform();
     });
+
+    // Update all listeners.
+    callbacks.update.map(function( callback ) { callback(); });
   }
 
   function add() {
@@ -32,13 +38,25 @@ var DepthControls = (function() {
     }
   }
 
-  function on() {
-    window.addEventListener( 'wheel', onWheel );
+  function on( event, callback ) {
+    var callbackFns = callbacks[ event ] || [];
+    callbackFns.push( callback );
+    callbacks[ event ] = callbackFns;
   }
 
-  function off() {
-    window.removeEventListener( 'wheel', onWheel );
+  function off( event, callback ) {
+    var callbackFns = callbacks[ event ];
+    if ( !callbackFns ) {
+      return;
+    }
+
+    var index = callbackFns.indexOf( callback );
+    if ( index !== -1 ) {
+      callbackFns.splice( index, 1 );
+    }
   }
+
+  window.addEventListener( 'wheel', onWheel );
 
   return {
     add: add,
