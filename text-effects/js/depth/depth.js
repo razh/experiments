@@ -18,7 +18,7 @@ var Depth = (function() {
     this.selector = options.selector || '.depth';
     this.elements = [];
 
-    this.aperture = options.aperture || ( 1 / 200 );
+    this.aperture = options.aperture || ( 1 / 50 );
     this.z = options.z || -100;
 
     this.initialize();
@@ -42,6 +42,7 @@ var Depth = (function() {
     this.elements.forEach(function( element ) {
       var blurRadius = this.calculateBlurRadius( element.z );
       element.setBlurRadius( blurRadius );
+      element.el.setAttribute( 'data-blur', blurRadius.toFixed(2) );
     }, this );
   };
 

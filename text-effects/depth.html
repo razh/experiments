@@ -60,13 +60,27 @@
 
       -webkit-filter: blur(3px);
     }
+
+    span:after {
+      content: attr(data-blur);
+      position: absolute;
+
+      bottom: 50%;
+      right: 100%;
+
+      margin-right: 1em;
+
+      font-family: monospace;
+      font-size: 1em;
+      color: #555;
+    }
   </style>
 </head>
 <body>
   <div class="text-container">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, in, voluptatem, impedit facere deserunt sint adipisci dignissimos laborum illum cupiditate fugiat tempore eos aliquid ratione similique magni error? Obcaecati, deserunt?</div>
 
   <div class="depth-container">
-    <span class="depth" data-z="-100">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span><span class="depth" data-z="-200">Vitae, in, voluptatem, impedit facere deserunt sint adipisci dignissimos laborum illum cupiditate fugiat tempore eos aliquid ratione similique magni error?</span><span class="depth" data-z="-50">Eaque, commodi libero aperiam fugit hic deleniti in sunt incidunt sint?</span>
+    <span class="depth" data-z="-150">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span><span class="depth" data-z="-300">Vitae, in, voluptatem, impedit facere deserunt sint adipisci dignissimos laborum illum cupiditate fugiat tempore eos aliquid ratione similique magni error?</span><span class="depth" data-z="-20">Eaque, commodi libero aperiam fugit hic deleniti in sunt incidunt sint?</span>
   </div>
 
   <script src="./js/depth/splitter.js"></script>
