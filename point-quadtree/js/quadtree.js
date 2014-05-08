@@ -61,7 +61,7 @@ Quadtree.prototype.insert = function( object ) {
 Quadtree.prototype.insertAll = function( array ) {
   array.forEach(function( element ) {
     this.insert( element );
-  }.bind( this ));
+  }, this );
 };
 
 Quadtree.prototype.contains = function( x, y ) {
