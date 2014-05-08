@@ -82,11 +82,11 @@ define([
       this.segment( x - size, y + size, x + size, y + size );
       this.segment( x + size, y + size, x + size, y - size );
       this.segment( x + size, y - size, x - size, y - size );
-    }.bind( this ));
+    }, this );
 
     walls.forEach(function( wall ) {
       this.segment( wall[0], wall[1], wall[2], wall[3] );
-    }.bind( this ));
+    }, this );
   };
 
   Level.prototype.bounds = function( size, margin ) {
