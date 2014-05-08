@@ -27,7 +27,7 @@ var DepthElement = (function() {
   };
 
   DepthElement.prototype.setBlurRadius = function( blurRadius ) {
-    var blur = 'blur(' + blurRadius + 'px)';
+    var blur = blurRadius ? 'blur(' + blurRadius + 'px)' : '';
 
     this.el.style.webkitFilter = blur;
     this.el.style.filter = blur;
