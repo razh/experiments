@@ -3,16 +3,22 @@
 var Equation = (function() {
 
   function evaluate( string ) {
-    return function( x ) {
-      with ( Math ) {
-        try {
-          return eval( string );
-        } catch ( error ) {
-          console.log( error );
-          return x;
-        }
-      }
-    };
+    var fn;
+
+    try {
+      fn = new Function( [ 'x' ],
+        'with (Math) {' +
+          'return ' + string + ';' +
+        '}'
+      );
+
+      // Test execution.
+      fn(0);
+    } catch ( error ) {
+      return error;
+    }
+
+    return fn;
   }
 
   return {
