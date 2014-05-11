@@ -10,14 +10,65 @@
     };
   };
 
+  // Example functions.
   var nSinFn = sinFn( 1, 0.1, 0.5 );
   var mSinFn = sinFn( 1, 0.4, 0 );
+
+  var config = {
+    // Scale of drawn function.
+    scale: 10
+  };
+
+  // Generated data.
+  var data = {
+    n: [],
+    m: []
+  };
+
+  // Functions.
+  var functions = {
+    n: nSinFn,
+    m: mSinFn
+  };
+
+  function generateData( fn, length ) {
+    var array = [];
+
+    for ( var i = 0; i < length; i++ ) {
+      array.push( fn(i) );
+    }
+
+    return array;
+  }
 
   var inputs = {
     nFn: document.querySelector( '#n-function' ),
     mFn: document.querySelector( '#m-function' ),
     scale: document.querySelector( '#scale' )
   };
+
+  inputs.nFn.addEventListener( 'input', function() {
+    var fn = Equation.evaluate( inputs.nFn.value );
+    if ( typeof fn === 'function' ) {
+      functions.n = fn;
+      data.n = generateData( fn, nCanvas.height );
+      draw();
+    }
+  });
+
+  inputs.mFn.addEventListener( 'input', function() {
+    var fn = Equation.evaluate( inputs.mFn.value );
+    if ( typeof fn === 'function' ) {
+      functions.m = fn;
+      data.m = generateData( fn, mCanvas.width );
+      draw();
+    }
+  });
+
+  inputs.scale.addEventListener( 'input', function() {
+    config.scale = parseFloat( inputs.scale.value );
+    draw();
+  });
 
   // Vertically-drawn canvas.
   var nCanvas  = document.getElementById( 'n-canvas' ),
@@ -28,14 +79,10 @@
       mContext = mCanvas.getContext( '2d' );
 
   // Diff/cost matrix.
-  var matrixCanvas  = document.getElementById( 'matrix-canvas' );
+  var matrixCanvas = document.getElementById( 'matrix-canvas' );
 
   // Accumulated cost matrix.
-  var costCanvas  = document.getElementById( 'cost-canvas' );
-
-  // Scale of sin function.
-  var drawScale = 10;
-
+  var costCanvas = document.getElementById( 'cost-canvas' );
 
   /**
    *  Two time-dependent sequences: n and m.
@@ -50,11 +97,11 @@
    */
 
   // Set canvas dimensions.
-  nCanvas.width  = 3 * drawScale;
+  nCanvas.width  = 3 * config.scale;
   nCanvas.height = 200;
 
   mCanvas.width  = 300;
-  mCanvas.height = 3 * drawScale;
+  mCanvas.height = 3 * config.scale;
 
   matrixCanvas.width  = mCanvas.width;
   matrixCanvas.height = nCanvas.height;
@@ -62,20 +109,10 @@
   costCanvas.width  = mCanvas.width;
   costCanvas.height = nCanvas.height;
 
-  // Generate data.
-  var nData = [];
-  var mData = [];
-
-  (function() {
-    var i, il;
-    for ( i = 0, il = nCanvas.height; i < il; i++ ) {
-      nData.push( nSinFn(i) );
-    }
-
-    for ( i = 0, il = mCanvas.width; i < il; i++ ) {
-      mData.push( mSinFn(i) );
-    }
-  }) ();
+  (function generateInitialData( nFn, mFn ) {
+    data.n = generateData( nFn, nCanvas.height );
+    data.m = generateData( mFn, mCanvas.width );
+  }) ( nSinFn, mSinFn );
 
   // Draw data.
   function drawLines( ctx, data, scale ) {
@@ -129,28 +166,6 @@
     ctx.putImageData( imageData, 0, 0 );
   }
 
-  // Draw n data set.
-  (function() {
-    nContext.translate( 0.5 * nCanvas.width, nCanvas.height );
-    nContext.rotate( -90 * DEG_TO_RAD );
-
-    drawLines( nContext, nData, drawScale );
-    nContext.lineWidth = 1;
-    nContext.strokeStyle = '#fff';
-    nContext.stroke();
-  }) ();
-
-  // Draw m data set.
-  (function() {
-    mContext.translate( 0, 0.5 * mCanvas.height );
-
-    drawLines( mContext, mData, drawScale );
-    mContext.lineWidth = 1;
-    mContext.strokeStyle = '#fff';
-    mContext.stroke();
-  }) ();
-
-
   /**
    * Calculate cost/difference matrix.
    *
@@ -187,17 +202,6 @@
       max: max
     };
   }
-
-  // Draw cost matrix.
-  (function() {
-    var results = costMatrix( nData, mData );
-    results.canvas = matrixCanvas;
-    results.height = nData.length;
-    results.width = mData.length;
-
-    // Normalize data and draw.
-    drawNormalizedArray2D( results );
-  }) ();
 
   /**
    * Calculate accumulated cost matrix.
@@ -257,15 +261,55 @@
     };
   }
 
-  // Draw accumulated cost matrix.
-  (function() {
-    var results = accumulatedCostMatrix( nData, mData );
-    results.canvas = costCanvas;
-    results.height = nData.length;
-    results.width = mData.length;
+  function clear( canvas ) {
+    var ctx = canvas.getContext( '2d' );
+    ctx.clearRect( 0, 0, canvas.width, canvas.height );
+  }
 
+  function draw() {
+    clear( nCanvas );
+    clear( mCanvas );
+    clear( matrixCanvas );
+    clear( costCanvas );
+
+    // Draw n data set.
+    nContext.save();
+    nContext.translate( 0.5 * nCanvas.width, nCanvas.height );
+    nContext.rotate( -90 * DEG_TO_RAD );
+
+    drawLines( nContext, data.n, config.scale );
+    nContext.lineWidth = 1;
+    nContext.strokeStyle = '#fff';
+    nContext.stroke();
+    nContext.restore();
+
+    // Draw m data set.
+    mContext.save();
+    mContext.translate( 0, 0.5 * mCanvas.height );
+
+    drawLines( mContext, data.m, config.scale );
+    mContext.lineWidth = 1;
+    mContext.strokeStyle = '#fff';
+    mContext.stroke();
+    mContext.restore();
+
+    // Draw cost matrix.
+    var results = costMatrix( data.n, data.m );
+    results.canvas = matrixCanvas;
+    results.height = data.n.length;
+    results.width = data.m.length;
+    // Normalize data and draw.
+    drawNormalizedArray2D( results );
+
+    // Draw accumulated cost matrix.
+    results = accumulatedCostMatrix( data.n, data.m );
+    results.canvas = costCanvas;
+    results.height = data.n.length;
+    results.width = data.m.length;
     // Normalize and draw data.
     drawNormalizedArray2D( results );
-  }) ();
+  }
+
+  draw();
 
 }) ( window, document );
