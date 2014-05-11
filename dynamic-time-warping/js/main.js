@@ -42,27 +42,38 @@
   }
 
   var inputs = {
-    nFn: document.querySelector( '#n-function' ),
-    mFn: document.querySelector( '#m-function' ),
+    n: document.querySelector( '#n-function' ),
+    m: document.querySelector( '#m-function' ),
     scale: document.querySelector( '#scale' )
   };
 
-  inputs.nFn.addEventListener( 'input', function() {
-    var fn = Equation.evaluate( inputs.nFn.value );
-    if ( typeof fn === 'function' ) {
-      functions.n = fn;
-      data.n = generateData( fn, nCanvas.height );
-      draw();
-    }
-  });
+  var errors = {
+    n: document.querySelector( '#n-error' ),
+    m: document.querySelector( '#m-error' )
+  };
 
-  inputs.mFn.addEventListener( 'input', function() {
-    var fn = Equation.evaluate( inputs.mFn.value );
-    if ( typeof fn === 'function' ) {
-      functions.m = fn;
-      data.m = generateData( fn, mCanvas.width );
-      draw();
-    }
+  var lengths = {
+    n: function() { return nCanvas.height; },
+    m: function() { return mCanvas.width; }
+  };
+
+  // Function inputs.
+  [ 'n', 'm' ].forEach(function( key ) {
+    var input = inputs[ key ];
+
+    input.addEventListener( 'input', function() {
+      var fn = Equation.evaluate( input.value );
+      if ( typeof fn === 'function' ) {
+        errors[ key ].textContent = '';
+        // Save function and generate data.
+        functions[ key ] = fn;
+        data[ key ] = generateData( fn, lengths[ key ]() );
+        draw();
+      } else {
+        // Otherwise, set error message.
+        errors[ key ].textContent = fn.message;
+      }
+    });
   });
 
   inputs.scale.addEventListener( 'input', function() {
