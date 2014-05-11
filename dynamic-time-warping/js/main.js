@@ -274,8 +274,8 @@
 
     // Draw n data set.
     nContext.save();
-    nContext.translate( 0.5 * nCanvas.width, nCanvas.height );
-    nContext.rotate( -90 * DEG_TO_RAD );
+    nContext.translate( 0.5 * nCanvas.width, 0 );
+    nContext.rotate( 90 * DEG_TO_RAD );
 
     drawLines( nContext, data.n, config.scale );
     nContext.lineWidth = 1;
