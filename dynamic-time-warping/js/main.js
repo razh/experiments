@@ -1,3 +1,4 @@
+/*globals Equation*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -11,6 +12,12 @@
 
   var nSinFn = sinFn( 1, 0.1, 0.5 );
   var mSinFn = sinFn( 1, 0.4, 0 );
+
+  var inputs = {
+    nFn: document.querySelector( '#n-function' ),
+    mFn: document.querySelector( '#m-function' ),
+    scale: document.querySelector( '#scale' )
+  };
 
   // Vertically-drawn canvas.
   var nCanvas  = document.getElementById( 'n-canvas' ),
