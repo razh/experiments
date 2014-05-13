@@ -49,7 +49,7 @@ SpatialGrid.prototype.insert = function( object ) {
 SpatialGrid.prototype.insertAll = function( array ) {
   array.forEach(function( element ) {
     this.insert( element );
-  }.bind( this ));
+  }, this );
 };
 
 SpatialGrid.prototype.xIndexOf = function( x ) {
