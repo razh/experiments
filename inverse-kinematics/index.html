@@ -7,11 +7,28 @@
   <style>
     body {
       background-color: #222;
+      color: #fff;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    canvas {
+      position: absolute;
+    }
+
+    .help {
+      position: absolute;
+      right: 1em;
+      bottom: 1em;
     }
   </style>
 </head>
 <body>
   <canvas></canvas>
+
+  <div class="help">
+    Click to toggle between directions.
+  </div>
 
   <script src="./js/main.js"></script>
 </body>

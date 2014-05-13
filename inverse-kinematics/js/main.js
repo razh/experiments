@@ -32,6 +32,8 @@
     y: 0
   };
 
+  var left = false;
+
   /**
    * Calculate the angle of the second joint.
    *
@@ -66,6 +68,36 @@
         dx = x * ( b * cos + a ) + y * ( b * sin );
 
     return Math.atan2( dy, dx );
+  }
+
+  function update() {
+    var dx = mouse.x - origin.x,
+        dy = mouse.y - origin.y;
+
+    // Normalize and clamp (taking into account rounding error).
+    var rmin = Math.abs( lengths.b - lengths.a ) + EPSILON,
+        rmax = lengths.a + lengths.b - EPSILON;
+
+    var radius = Math.sqrt( dx * dx + dy * dy );
+    var scale;
+    if ( radius < rmin )  {
+      scale = rmin / radius;
+      dx *= scale;
+      dy *= scale;
+    }
+
+    if ( radius > rmax ) {
+      scale = rmax / radius;
+      dx *= scale;
+      dy *= scale;
+    }
+
+    angles.b = angleB( dx, dy, lengths.a, lengths.b );
+    if ( left ) {
+      angles.b = -angles.b;
+    }
+
+    angles.a = angleA( dx, dy, lengths.a, lengths.b, angles.b );
   }
 
   function draw( ctx ) {
@@ -111,34 +143,22 @@
 
   draw( context );
 
-  window.addEventListener( 'mousemove', function() {
+  function mousePosition( event ) {
     mouse.x = event.pageX - canvas.offsetLeft;
     mouse.y = event.pageY - canvas.offsetTop;
+  }
 
-    var dx = mouse.x - origin.x,
-        dy = mouse.y - origin.y;
+  window.addEventListener( 'mousemove', function( event ) {
+    mousePosition( event );
+    update();
+    draw( context );
+  });
 
-    // Normalize and clamp (taking into account rounding error).
-    var rmin = Math.abs( lengths.b - lengths.a ) + EPSILON,
-        rmax = lengths.a + lengths.b - EPSILON;
-
-    var radius = Math.sqrt( dx * dx + dy * dy );
-    var scale;
-    if ( radius < rmin )  {
-      scale = rmin / radius;
-      dx *= scale;
-      dy *= scale;
-    }
-
-    if ( radius > rmax ) {
-      scale = rmax / radius;
-      dx *= scale;
-      dy *= scale;
-    }
-
-    angles.b = angleB( dx, dy, lengths.a, lengths.b );
-    angles.a = angleA( dx, dy, lengths.a, lengths.b, angles.b );
-
+  // Flip joint bend.
+  window.addEventListener( 'mousedown', function( event ) {
+    mousePosition( event );
+    left = !left;
+    update();
     draw( context );
   });
 
