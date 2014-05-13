@@ -2,6 +2,7 @@
   'use strict';
 
   var PI2 = 2 * Math.PI;
+  var EPSILON = 1e-5;
 
   var DEG_TO_RAD = Math.PI / 180;
 
@@ -17,8 +18,8 @@
   };
 
   var lengths = {
-    a: 100,
-    b: 150
+    a: 96,
+    b: 128
   };
 
   var angles = {
@@ -55,13 +56,15 @@
     ctx.fill();
 
     // Draw radii.
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = '#fff';
     // Inner radius.
     ctx.beginPath();
     ctx.arc( origin.x, origin.y, Math.abs( lengths.b - lengths.a ), 0, PI2 );
+    ctx.stroke();
     // Outer radius.
+    ctx.beginPath();
     ctx.arc( origin.x, origin.y, lengths.a + lengths.b, 0, PI2 );
-    ctx.lineWidth = 0.5;
-    ctx.strokeStyle = '#fff';
     ctx.stroke();
 
     // Draw bones.
@@ -92,6 +95,24 @@
 
     var dx = mouse.x - origin.x,
         dy = mouse.y - origin.y;
+
+    // Normalize and clamp (taking into account rounding error).
+    var rmin = Math.abs( lengths.b - lengths.a ) + EPSILON,
+        rmax = lengths.a + lengths.b - EPSILON;
+
+    var radius = Math.sqrt( dx * dx + dy * dy );
+    var scale;
+    if ( radius < rmin )  {
+      scale = rmin / radius;
+      dx *= scale;
+      dy *= scale;
+    }
+
+    if ( radius > rmax ) {
+      scale = rmax / radius;
+      dx *= scale;
+      dy *= scale;
+    }
 
     angles.b = angleB( dx, dy, lengths.a, lengths.b );
     angles.a = angleA( dx, dy, lengths.a, lengths.b, angles.b );
