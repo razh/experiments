@@ -32,18 +32,40 @@
     y: 0
   };
 
-  function angleB( x, y, l0, l1 ) {
-    return Math.acos( ( x * x + y * y - l0 * l0 - l1 * l1 ) / ( 2 * l0 * l1 ) );
+  /**
+   * Calculate the angle of the second joint.
+   *
+   * Where the point (x, y) is the endpoint and a and b are the respective arm
+   * lengths.
+   */
+  function angleB( x, y, a, b ) {
+    /**
+     *  By the law of cosines:
+     *
+     *   x^2 + y^2 = a^2 + b^2 - 2ab * cos(angle)
+     *
+     *  We get:
+     *
+     *  cos(angle) = x^2 + y^2 - a^2 - b^2
+     *               ---------------------
+     *                        2ab
+     */
+    return Math.acos( ( x * x + y * y - a * a - b * b ) / ( 2 * a * b ) );
   }
 
-  function angleA( x, y, l0, l1, angle ) {
+  /**
+   * Calculate the angle of the first joint.
+   *
+   * Where angle is that of the second joint.
+   */
+  function angleA( x, y, a, b, angle ) {
     var cos = Math.cos( angle ),
         sin = Math.sin( angle );
 
-    var num = y * ( l1 * cos + l0 ) - x * ( l1 * sin );
-    var den = x * ( l1 * cos + l0 ) + y * ( l1 * sin );
+    var dy = y * ( b * cos + a ) - x * ( b * sin ),
+        dx = x * ( b * cos + a ) + y * ( b * sin );
 
-    return Math.atan2( num, den );
+    return Math.atan2( dy, dx );
   }
 
   function draw( ctx ) {
