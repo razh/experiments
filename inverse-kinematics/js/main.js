@@ -125,12 +125,13 @@
     ctx.save();
 
     ctx.beginPath();
-    ctx.moveTo( origin.x, origin.y );
+
     ctx.translate( origin.x, origin.y );
+    ctx.moveTo( 0, 0 );
 
     ctx.rotate( angles.a );
-    ctx.lineTo( lengths.a, 0 );
     ctx.translate( lengths.a, 0 );
+    ctx.lineTo( 0, 0 );
 
     ctx.rotate( angles.b );
     ctx.lineTo( lengths.b, 0 );
