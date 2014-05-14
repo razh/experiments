@@ -16,7 +16,10 @@ var CCD = (function() {
   /**
    * Cyclic coordinate descent in two dimensions.
    */
-  function CCD() {
+  function CCD( x, y ) {
+    this.x = x || 0;
+    this.y = y || 0;
+
     this.effectors = [];
 
     this.EPSILON = 1e-5;
@@ -42,6 +45,24 @@ var CCD = (function() {
         effector.angle = Math.atan2( dy, dx );
       }
     }
+  };
+
+  CCD.prototype.draw = function( ctx ) {
+    ctx.save();
+
+    ctx.translate( this.x, this.y );
+    ctx.moveTo( 0, 0 );
+
+    var effector;
+    for ( var i = 0, il = this.effectors.length; i < il; i++ ) {
+      effector = this.effectors[i];
+
+      ctx.rotate( effector.angle );
+      ctx.translate( effector.length, 0 );
+      ctx.lineTo( 0, 0 );
+    }
+
+    ctx.restore();
   };
 
   CCD.prototype.add = function( effector ) {
