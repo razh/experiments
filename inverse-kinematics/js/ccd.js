@@ -65,10 +65,6 @@ var CCD = (function() {
     ctx.restore();
   };
 
-  CCD.prototype.add = function( effector ) {
-    this.effectors.add( effector );
-  };
-
   CCD.prototype.remove = function( effector ) {
     var index = this.effectors.indexOf( effector );
 
@@ -78,8 +74,18 @@ var CCD = (function() {
   };
 
   CCD.prototype.fromArray = function( array ) {
-    this.effectors = array.reduce(function( length ) {
-      array.push( new Effector( length ) );
+    this.effectors = array.reduce(function( effectors, length, index ) {
+      var effector = new Effector( length );
+
+      // Set initial position.
+      var prev;
+      if ( effectors.length ) {
+        prev = effectors[ index - 1 ];
+        effector.x = prev.x + prev.length;
+      }
+
+      effectors.push( new Effector( length ) );
+      return effectors;
     }, [] );
   };
 
