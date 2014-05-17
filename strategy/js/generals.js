@@ -176,7 +176,7 @@
       this.entities.forEach(function( entity ) {
         behavior.applyBehavior( dt, entity );
       });
-    }.bind( this ));
+    }, this );
 
     var width  = this.canvas.width,
         height = this.canvas.height;
@@ -189,12 +189,12 @@
       entity.update( dt );
       entity.x = clamp( entity.x, 0, width );
       entity.y = clamp( entity.y, 0, height );
-    }.bind( this ));
+    }, this );
 
     // Clean-up entities removed during this update cycle.
     this.removed.forEach(function( removed ) {
       this.remove( removed );
-    }.bind( this ));
+    }, this );
 
     this.removed = [];
   };
