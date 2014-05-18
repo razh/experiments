@@ -19,10 +19,30 @@
   function draw( ctx ) {
     ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
 
+    // Draw debug points (with index labels).
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'bottom';
+
+    ccd.debug.forEach(function( point, index ) {
+      ctx.beginPath();
+      ctx.arc( point[0], point[1], 2, 0, 2 * Math.PI );
+      ctx.fill();
+      ctx.fillText( index, point[0], point[1] );
+    });
+
+    // Draw mouse point.
+    ctx.beginPath();
+    ctx.arc( mouse.x, mouse.y, 4, 0, 2 * Math.PI );
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.fill();
+
+    // Draw links.
     ctx.beginPath();
     ccd.draw( ctx );
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
     ctx.stroke();
   }
 
