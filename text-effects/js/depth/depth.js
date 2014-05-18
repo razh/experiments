@@ -3,14 +3,19 @@
 var Depth = (function() {
   'use strict';
 
+  function elementOption( el ) {
+    if ( el && typeof el === 'string' ) {
+      return document.querySelector( el );
+    }
+
+    return el;
+  }
+
   function Depth( options ) {
     options = options || {};
 
-    this.el = options.el;
-    if ( this.el && typeof this.el === 'string' ) {
-      this.el = document.querySelector( this.el );
-    }
-
+    this.container = elementOption( options.container );
+    this.el = elementOption( options.el );
     if ( !this.el ) {
       return;
     }

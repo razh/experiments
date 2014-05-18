@@ -38,6 +38,18 @@
       perspective: 1000px;
     }
 
+    .depth-scene {
+      -webkit-perspective: 1000px;
+      perspective: 1000px;
+
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+
+      -webkit-transform: rotateY(-45deg);
+      transform: rotateY(-45deg);
+
+    }
+
     span {
       display: inline-block;
     }
@@ -80,7 +92,9 @@
   <div class="text-container">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, in, voluptatem, impedit facere deserunt sint adipisci dignissimos laborum illum cupiditate fugiat tempore eos aliquid ratione similique magni error? Obcaecati, deserunt?</div>
 
   <div class="depth-container">
-    <span class="depth" data-z="-150">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span><span class="depth" data-z="-300">Vitae, in, voluptatem, impedit facere deserunt sint adipisci dignissimos laborum illum cupiditate fugiat tempore eos aliquid ratione similique magni error?</span><span class="depth" data-z="-20">Eaque, commodi libero aperiam fugit hic deleniti in sunt incidunt sint?</span>
+    <div class="depth-scene">
+      <span class="depth" data-z="-150">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span><span class="depth" data-z="-300">Vitae, in, voluptatem, impedit facere deserunt sint adipisci dignissimos laborum illum cupiditate fugiat tempore eos aliquid ratione similique magni error?</span><span class="depth" data-z="-20">Eaque, commodi libero aperiam fugit hic deleniti in sunt incidunt sint?</span>
+    </div>
   </div>
 
   <script src="./js/depth/splitter.js"></script>
@@ -94,7 +108,8 @@
     });
 
     new Depth({
-      el: '.depth-container'
+      container: '.depth-container',
+      el: '.depth-scene'
     });
   </script>
 </body>
