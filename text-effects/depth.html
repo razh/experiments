@@ -38,7 +38,7 @@
       perspective: 1000px;
     }
 
-    .depth-scene {
+    .perspective-input:checked + .depth-container .depth-scene {
       -webkit-perspective: 1000px;
       perspective: 1000px;
 
@@ -47,7 +47,19 @@
 
       -webkit-transform: rotateY(-45deg);
       transform: rotateY(-45deg);
+    }
 
+    .perspective-label {
+      position: absolute;
+      right: 2em;
+      bottom: 1em;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    .perspective-input {
+      position: absolute;
+      right: 1em;
+      bottom: 1.5em;
     }
 
     span {
@@ -90,6 +102,9 @@
 </head>
 <body>
   <div class="text-container">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, in, voluptatem, impedit facere deserunt sint adipisci dignissimos laborum illum cupiditate fugiat tempore eos aliquid ratione similique magni error? Obcaecati, deserunt?</div>
+
+  <label for="perspective" class='perspective-label'>Perspective</label>
+  <input type="checkbox" id='perspective' class='perspective-input'>
 
   <div class="depth-container">
     <div class="depth-scene">
