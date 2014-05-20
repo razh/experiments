@@ -10,6 +10,7 @@
 
   var ccd = new CCD( 256, 256 );
   ccd.fromArray( [ 50, 60, 80, 30 ] );
+  ccd.fromArray( [ 50, 50, 50, 50, 50, 50,50, 50 ] );
 
   var mouse = {
     x: 0,
@@ -28,6 +29,15 @@
       ctx.arc( point[0], point[1], 2, 0, 2 * Math.PI );
       ctx.fill();
       ctx.fillText( index, point[0], point[1] );
+    });
+
+    ctx.fillStyle = ctx.strokeStyle = 'rgba(255, 128, 128, 0.5)';
+    ccd.debugLines.forEach(function( line, index ) {
+      ctx.beginPath();
+      ctx.moveTo( line[0], line[1] );
+      ctx.lineTo( line[2], line[3] );
+      ctx.stroke();
+      ctx.fillText( index, (line[0] + line[2]) / 2, (line[1] + line[3]) / 2);
     });
 
     // Draw mouse point.

@@ -78,6 +78,16 @@ var CCD = (function() {
         dxf = xf - xi;
         dyf = yf - yi;
 
+        this.debugLines.push([
+          xi + this.x, yi + this.x,
+          xi + dxi + this.x, yi + dyi + this.y
+        ]);
+
+        this.debugLines.push([
+          xi + this.x, yi + this.x,
+          xi + dxf + this.x, yi + dyf + this.y
+        ]);
+
         var ai = Math.atan2( dyi, dxi );
         var af = Math.atan2( dyf, dxf );
         da = ai - af;
