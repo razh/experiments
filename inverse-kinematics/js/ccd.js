@@ -34,7 +34,7 @@ var CCD = (function() {
      */
     this.links = [];
 
-    this.EPSILON = 1e-5;
+    this.EPSILON = 1e-2;
     this.MAX_ITERATIONS = 1;
 
     this.debug = [];
@@ -44,6 +44,7 @@ var CCD = (function() {
   CCD.prototype.set = function( x, y ) {
     x -= this.x;
     y -= this.y;
+
     this.debug = [];
     this.debugLines = [];
 
@@ -59,12 +60,22 @@ var CCD = (function() {
     var link;
     var xi, yi;
     var cos, sin;
+    var ai, af;
     var da;
     var dxi, dyi;
     var dxf, dyf;
     var rxf, ryf;
-    while ( iterations < this.MAX_ITERATIONS && distance > this.EPSILON ) {
+    while ( iterations < this.MAX_ITERATIONS ) {
       for ( i = this.links.length - 1; i >= 0; i-- ) {
+        // Distance from point to end effector.
+        dxf = x - xf;
+        dyf = y - yf;
+
+        distance = Math.sqrt( dxf * dxf + dyf * dyf );
+        if ( distance < this.EPSILON ) {
+          return;
+        }
+
         link = this.links[i];
 
         xi = link.x;
@@ -79,41 +90,39 @@ var CCD = (function() {
         dyf = yf - yi;
 
         this.debugLines.push([
-          xi + this.x, yi + this.x,
-          xi + dxi + this.x, yi + dyi + this.y
+          xi + this.x,       yi + this.y,
+          xi + this.x + dxi, yi + this.y + dyi
         ]);
 
         this.debugLines.push([
-          xi + this.x, yi + this.x,
-          xi + dxf + this.x, yi + dyf + this.y
+          xi + this.x,       yi + this.y,
+          xi + this.x + dxf, yi + this.y + dyf
         ]);
 
-        var ai = Math.atan2( dyi, dxi );
-        var af = Math.atan2( dyf, dxf );
+        // Rotation angle.
+        ai = Math.atan2( dyi, dxi );
+        af = Math.atan2( dyf, dxf );
         da = ai - af;
 
-        // Rotate end effector about origin of current link.
-        if ( da ) {
-          cos = Math.cos( da );
-          sin = Math.sin( da );
-
-          rxf = cos * dxf - sin * dyf;
-          ryf = sin * dxf + cos * dyf;
-
-          dxf = rxf;
-          dyf = ryf;
+        if ( !da ) {
+          continue;
         }
+
+        // Rotate end effector about origin of current link.
+        cos = Math.cos( da );
+        sin = Math.sin( da );
+
+        rxf = cos * dxf - sin * dyf;
+        ryf = sin * dxf + cos * dyf;
+
+        dxf = rxf;
+        dyf = ryf;
 
         link.angle += da;
 
         xf = xi + dxf;
         yf = yi + dyf;
         this.debug.push( [ xf + this.x, yf + this.y ] );
-
-        dxf = x - xf;
-        dyf = y - yf;
-
-        distance = Math.sqrt( dxf * dxf + dyf * dyf );
       }
 
       iterations++;
