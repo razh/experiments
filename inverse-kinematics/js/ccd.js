@@ -132,24 +132,13 @@ var CCD = (function() {
   CCD.prototype.calculate = function() {
     var link;
     var next;
-    var angle;
     var dx, dy;
     for ( var i = 0, il = this.links.length; i < il; i++ ) {
       link = this.links[i];
       next = this.links[ i + 1 ];
 
-      angle = link.angle;
-
-      dx = link.length;
-      dy = 0;
-
-      if ( angle ) {
-        dx = Math.cos( angle ) * link.length;
-        dy = Math.sin( angle ) * link.length;
-      }
-
-      dx += link.x;
-      dy += link.y;
+      dx = link.x + Math.cos( link.angle ) * link.length;
+      dy = link.y + Math.sin( link.angle ) * link.length;
 
       if ( next ) {
         next.x = dx;
@@ -163,24 +152,20 @@ var CCD = (function() {
   };
 
   CCD.prototype.draw = function( ctx ) {
-    ctx.save();
+    var x = this.x,
+        y = this.y;
 
-    ctx.translate( this.x, this.y );
-    ctx.moveTo( 0, 0 );
+    ctx.moveTo( x, y );
 
     var link;
-    var cos, sin;
     for ( var i = 0, il = this.links.length; i < il; i++ ) {
       link = this.links[i];
 
-      cos = Math.cos( link.angle );
-      sin = Math.sin( link.angle );
+      x += Math.cos( link.angle ) * link.length;
+      y += Math.sin( link.angle ) * link.length;
 
-      ctx.translate( cos * link.length, sin * link.length );
-      ctx.lineTo( 0, 0 );
+      ctx.lineTo( x, y );
     }
-
-    ctx.restore();
   };
 
   CCD.prototype.remove = function( link ) {
