@@ -10,6 +10,11 @@ var IK = (function() {
     this.y = 0;
   }
 
+  function length( ik ) {
+    return ik.links.reduce(function( length, link ) {
+      return length + link.length;
+    });
+  }
 
   function calculate( ik ) {
     var link;
@@ -85,6 +90,7 @@ var IK = (function() {
 
   return {
     Link: Link,
+    length: length,
     calculate: calculate,
     draw: draw,
     remove: remove,
