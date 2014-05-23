@@ -70,7 +70,7 @@
       child.src.y = this.dst.y;
 
       child.update( dt );
-    }.bind( this ));
+    }, this );
   };
 
   Bone.prototype.draw = function( ctx ) {
