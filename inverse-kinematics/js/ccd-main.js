@@ -1,4 +1,4 @@
-/*globals CCD*/
+/*globals IK, CCD*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -9,8 +9,8 @@
   canvas.height = 768;
 
   var ccd = new CCD( 256, 256 );
-  ccd.fromArray( [ 50, 50, 50, 50, 50, 50, 50, 50 ] );
-  ccd.fromArray( [ 70, 50, 80, 50 ] );
+  IK.fromArray( ccd, [ 50, 50, 50, 50, 50, 50, 50, 50 ] );
+  IK.fromArray( ccd, [ 70, 50, 80, 50 ] );
 
   var config = {
     debug: false
@@ -54,7 +54,7 @@
 
     // Draw links.
     ctx.beginPath();
-    ccd.draw( ctx );
+    IK.draw( ctx, ccd );
     ctx.lineWidth = 3;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
@@ -71,6 +71,7 @@
 
   window.addEventListener( 'mousemove', function( event ) {
     mousePosition( event );
+    IK.calculate( ccd );
     ccd.set( mouse.x, mouse.y );
     draw( context );
   });
