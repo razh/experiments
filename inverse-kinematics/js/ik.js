@@ -13,7 +13,7 @@ var IK = (function() {
   function length( ik ) {
     return ik.links.reduce(function( length, link ) {
       return length + link.length;
-    });
+    }, 0 );
   }
 
   function calculate( ik ) {
@@ -55,6 +55,23 @@ var IK = (function() {
     }
   }
 
+  function drawPath( ctx, ik ) {
+    ctx.save();
+
+    ctx.translate( ik.x, ik.y );
+    ctx.moveTo( 0, 0 );
+
+    var link;
+    for ( var i = 0, il = ik.links.length; i < il; i++ ) {
+      link = ik.links[i];
+      ctx.lineTo( link.x, link.y );
+    }
+
+    ctx.lineTo( ik.xf, ik.yf );
+
+    ctx.restore();
+  }
+
   function remove( ik, link ) {
     var index = ik.links.indexOf( link );
 
@@ -93,6 +110,7 @@ var IK = (function() {
     length: length,
     calculate: calculate,
     draw: draw,
+    drawPath: drawPath,
     remove: remove,
     fromArray: fromArray
   };
