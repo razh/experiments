@@ -90,12 +90,12 @@ var IK = (function() {
 
       // Set initial position of link.
       var prev;
-      if ( links.length > 1 ) {
+      if ( links.length ) {
         prev = links[ index - 1 ];
         link.x = prev.x + prev.length;
       }
 
-      links.push( new Link( length ) );
+      links.push( link );
       return links;
     }, [] );
 
