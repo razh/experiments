@@ -42,10 +42,25 @@
     mouse.y = event.pageY - canvas.offsetTop;
   }
 
-  window.addEventListener( 'mousemove', function( event ) {
+  function onMouseMove( event ) {
     mousePosition( event );
     fabrik.set( mouse.x, mouse.y );
     draw( context );
-  });
+  }
+
+  function onTouch( event ) {
+    onMouseMove( event.touches[0] );
+  }
+
+  if ( 'ontouchstart' in window ) {
+    window.addEventListener( 'touchstart', onTouch );
+
+    window.addEventListener( 'touchmove', function() {
+      event.preventDefault();
+      onTouch( event );
+    });
+  } else {
+    window.addEventListener( 'mousemove', onMouseMove );
+  }
 
 }) ( window, document );
