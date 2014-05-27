@@ -22,6 +22,42 @@
     ];
   }
 
+  function costMatrix( n, m ) {
+    var height = 0.5 * n.length;
+    var width = 0.5 * m.length;
+
+    var array = [];
+    for ( var y = 0; y < height; y++ ) {
+      array.push( [] );
+    }
+
+    var max = Number.NEGATIVE_INFINITY;
+    var min = Number.POSITIVE_INFINITY;
+    var dx, dy;
+    var d;
+    var i, j;
+    var xi, yi, xj, yj;
+    for ( j = 0; j < height; j++ ) {
+      for ( i = 0; i < width; i++ ) {
+        xi = m[ 2 * i ];
+        yi = m[ 2 * i + 1 ];
+        xj = n[ 2 * j ];
+        yj = n[ 2 * j + 1 ];
+
+        dx = xj - xi;
+        dy = yj - yi;
+
+        d = Math.sqrt( dx * dx + dy * dy );
+
+        if ( d < min ) { min = d; }
+        if ( d > max ) { max = d; }
+
+        array[j][i] = d;
+      }
+    }
+
+    return array;
+  }
 
   function drawPoints( ctx, points ) {
     for ( var i = 0, il = 0.5 * points.length; i < il; i++ ) {
@@ -52,6 +88,8 @@
       pointsA = pointsA.concat( randomPointInCircle( x, y, 100 ) );
       pointsB = pointsB.concat( randomPointInCircle( x, y, 200 ) );
     }
+
+    costMatrix( pointsA, pointsB );
   }
 
   init();
