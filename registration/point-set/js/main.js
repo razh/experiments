@@ -127,9 +127,29 @@
     return array;
   }
 
-  function drawPoints( ctx, points ) {
+  function drawPoints( ctx, points, size ) {
+    size = size || 3;
+    var halfSize = 0.5 * size;
+
     for ( var i = 0, il = 0.5 * points.length; i < il; i++ ) {
-      ctx.rect( points[ 2 * i ], points[ 2 * i + 1 ], 3, 3 );
+      ctx.rect(
+        points[ 2 * i     ] - halfSize,
+        points[ 2 * i + 1 ] - halfSize,
+        size, size
+      );
+    }
+  }
+
+  /**
+   * Draw line segments between corresponding vertex pairs (by index) in
+   * the two arrays: n, m.
+   */
+  function drawSegments( ctx, n, m ) {
+    var length = Math.min( n.length, m.length );
+
+    for ( var i = 0, il = 0.5 * length; i < il; i++ ) {
+      ctx.moveTo( n[ 2 * i ], n[ 2 * i + 1 ] );
+      ctx.lineTo( m[ 2 * i ], m[ 2 * i + 1 ] );
     }
   }
 
@@ -141,6 +161,13 @@
     drawPoints( ctx, pointsLerp );
     ctx.fillStyle = '#fff';
     ctx.fill();
+
+    // Draw connecting segments.
+    ctx.beginPath();
+    drawSegments( ctx, pointsA, pointsB );
+    ctx.lineWidth = 0.2;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+    ctx.stroke();
 
     // Draw point sets.
     ctx.beginPath();
