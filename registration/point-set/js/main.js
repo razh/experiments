@@ -22,6 +22,21 @@
     ];
   }
 
+  function lerp( a, b, t ) {
+    return a + t * ( b - a );
+  }
+
+  function lerpArray( n, m, t ) {
+    var length = Math.min( n.length, m.length );
+
+    var array = [];
+    for ( var i = 0; i < length; i++) {
+      array.push( lerp( n[i], m[i], t ) );
+    }
+
+    return array;
+  }
+
   function minIndex( array ) {
     var min = Number.POSITIVE_INFINITY,
         index = 0;
