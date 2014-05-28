@@ -10,7 +10,8 @@
   canvas.height = window.innerHeight;
 
   var pointsA = [],
-      pointsB = [];
+      pointsB = [],
+      pointsLerp = [];
 
   function randomPointInCircle( x, y, radius ) {
     var r = radius * Math.sqrt( Math.random() ),
@@ -135,6 +136,13 @@
   function draw( ctx ) {
     ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
 
+    // Draw lerped points.
+    ctx.beginPath();
+    drawPoints( ctx, pointsLerp );
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+
+    // Draw point sets.
     ctx.beginPath();
     drawPoints( ctx, pointsA );
     ctx.fillStyle = '#f00';
@@ -161,5 +169,13 @@
 
   init();
   draw( context );
+
+  window.addEventListener( 'mousemove', function( event ) {
+    var xt = event.pageX / window.innerWidth;
+    // Smoother step: 6t^5 - 15t^4 + 10t^3.
+    xt = 6 * Math.pow( xt, 5 ) - 15 * Math.pow( xt, 4 ) + 10 * Math.pow( xt, 3 );
+    pointsLerp = lerpArray( pointsA, pointsB, xt );
+    draw( context );
+  });
 
 }) ( window, document );
