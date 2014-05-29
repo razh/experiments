@@ -8,6 +8,17 @@ define(function() {
     return a + t * ( b - a );
   }
 
+  function inverseLerp( value, a, b ) {
+    return ( value - a ) / ( b - a );
+  }
+
+  /**
+   * Maps value from [a, b ] to [c, d].
+   */
+  function mapInterval( a, b, c, d, value ) {
+    return lerp( c, d, inverseLerp( value, a, b ) );
+  }
+
   function limit( value, min, max ) {
     return Math.min( Math.max( value, min ), max );
   }
@@ -48,14 +59,56 @@ define(function() {
     return Math.sqrt( distanceSquared( x0, y0, x1, y1 ) );
   }
 
+  /**
+   * Finds the enclosing bounding box for an array of walls, where
+   * each wall is a line segment (x0, y0) - (x1, y1) represented as the
+   * flat array: [x0, y0, x1, y1].
+   */
+  function wallsAABB( walls ) {
+    var xmin = Number.POSITIVE_INFINITY,
+        ymin = Number.POSITIVE_INFINITY,
+        xmax = Number.NEGATIVE_INFINITY,
+        ymax = Number.NEGATIVE_INFINITY;
+
+    var wall;
+    for ( var i = 0, il = walls.length; i < il; i++ ) {
+      wall = walls[i];
+
+      if ( wall[0] < xmin ) { xmin = wall[0]; }
+      if ( wall[0] > xmax ) { xmax = wall[0]; }
+
+      if ( wall[1] < ymin ) { ymin = wall[1]; }
+      if ( wall[1] > ymax ) { ymax = wall[1]; }
+
+      if ( wall[2] < xmin ) { xmin = wall[2]; }
+      if ( wall[2] > xmax ) { xmax = wall[2]; }
+
+      if ( wall[3] < ymin ) { ymin = wall[3]; }
+      if ( wall[3] > ymax ) { ymax = wall[3]; }
+    }
+
+    return {
+      xmin: xmin,
+      ymin: ymin,
+      xmax: xmax,
+      ymax: ymax
+    };
+  }
+
   return {
     PI2: PI2,
+
     lerp: lerp,
+    inverseLerp: inverseLerp,
+    mapInterval: mapInterval,
     limit: limit,
+
     lineIntersectionParameter: lineIntersectionParameter,
     lineIntersection: lineIntersection,
 
     distanceSquared: distanceSquared,
-    distance: distance
+    distance: distance,
+
+    wallsAABB: wallsAABB
   };
 });
