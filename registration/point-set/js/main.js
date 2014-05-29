@@ -99,10 +99,7 @@
       array.push( [] );
     }
 
-    var max = Number.NEGATIVE_INFINITY;
-    var min = Number.POSITIVE_INFINITY;
     var dx, dy;
-    var d;
     var i, j;
     var xi, yi, xj, yj;
     for ( j = 0; j < height; j++ ) {
@@ -115,12 +112,7 @@
         dx = xj - xi;
         dy = yj - yi;
 
-        d = Math.sqrt( dx * dx + dy * dy );
-
-        if ( d < min ) { min = d; }
-        if ( d > max ) { max = d; }
-
-        array[j][i] = d;
+        array[j][i] = Math.sqrt( dx * dx + dy * dy );
       }
     }
 
