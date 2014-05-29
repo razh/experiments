@@ -88,43 +88,28 @@ define([
     tick();
   }
 
-  function setMouse( x, y ) {
+  function onMouse( event ) {
+    var x = event.pageX - canvas.offsetLeft,
+        y = event.pageY - canvas.offsetTop;
+
     mouse.x = Geometry.limit( x, margin + 1e-2, size - margin - 1e-2 );
     mouse.y = Geometry.limit( y, margin + 1e-2, size - margin - 1e-2 );
   }
 
-  canvas.addEventListener( 'mousemove', function( event ) {
-    setMouse(
-      event.pageX - canvas.offsetLeft,
-      event.pageY - canvas.offsetTop
-    );
-  });
+  function onTouch( event ) {
+    onMouse( event.touches[0] );
+  }
 
-  // Touch handlers.
-  canvas.addEventListener( 'touchstart', function( event ) {
-    setMouse(
-      event.touches[0].pageX - canvas.offsetLeft,
-      event.touches[0].pageY - canvas.offsetTop
-    );
-  });
+  if ( 'ontouchstart' in window ) {
+    canvas.addEventListener( 'touchstart', onTouch );
 
-  canvas.addEventListener( 'touchmove', function( event ) {
-    event.preventDefault();
-    setMouse(
-      event.touches[0].pageX - canvas.offsetLeft,
-      event.touches[0].pageY - canvas.offsetTop
-    );
-  });
-
-  canvas.addEventListener( 'touchend', function( event ) {
-    if ( !event.touches.length ) {
-      return;
-    }
-    setMouse(
-      event.touches[0].pageX - canvas.offsetLeft,
-      event.touches[0].pageY - canvas.offsetTop
-    );
-  });
+    canvas.addEventListener( 'touchmove', function( event ) {
+      event.preventDefault();
+      onTouch( event );
+    });
+  } else {
+    canvas.addEventListener( 'mousemove', onMouse );
+  }
 
   document.addEventListener( 'keydown', function( event ) {
     // ESC.
