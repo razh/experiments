@@ -12,10 +12,6 @@ define([
   var canvas  = document.getElementById( 'canvas' ),
       context = canvas.getContext( '2d' );
 
-  var prevTime = Date.now(),
-      currTime,
-      running = true;
-
   var level = new Level();
 
   var mouse = {
@@ -29,29 +25,24 @@ define([
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  // Resize to everything into window.
+  // Resize to fit in window.
   size = Math.min( 400, canvas.width, canvas.height );
-
-  function tick() {
-    if ( !running ) {
-      return;
-    }
-
-    update();
-    draw( context );
-    window.requestAnimationFrame( tick );
-  }
 
   function draw( ctx ) {
     ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
 
+    // Update and draw level.
+    level.lightPosition( mouse.x, mouse.y );
+    level.sweep( Math.PI );
     level.draw( ctx );
 
+    // Draw light.
     ctx.beginPath();
     ctx.fillStyle = 'yellow';
     ctx.arc( level.light.x, level.light.y, 5, 0, Geometry.PI2 );
     ctx.fill();
 
+    // Draw light triangles.
     ctx.beginPath();
     var x0, y0, x1, y1;
     for ( var i = 0, il = level.output.length; i < il; i += 2 ) {
@@ -70,25 +61,10 @@ define([
     ctx.fill();
   }
 
-  function update() {
-    currTime = Date.now();
-    var dt = currTime - prevTime;
-    prevTime = currTime;
-
-    if ( dt > 1e2 ) {
-      dt = 1e2;
-    }
-
-    dt *= 1e-3;
-
-    level.lightPosition( mouse.x, mouse.y );
-    level.sweep( Math.PI );
-  }
-
   /**
    * Remaps level coordinates to fit within the given viewport dimensions.
    */
-  function resizeLevel( walls, xmin, ymin, xmax, ymax ) {
+  function remapLevel( walls, xmin, ymin, xmax, ymax ) {
     var aabb = Geometry.wallsAABB( walls );
 
     // Determine major axis.
@@ -123,9 +99,9 @@ define([
     var min = margin,
         max = size - margin;
 
-    var walls = resizeLevel( Data.mazeWalls, min, min, max, max );
+    var walls = remapLevel( Data.mazeWalls, min, min, max, max );
     level.load( size, margin, [], walls );
-    tick();
+    draw( context );
   }
 
   function onMouse( event ) {
@@ -134,6 +110,8 @@ define([
 
     mouse.x = Geometry.limit( x, margin + 1e-2, size - margin - 1e-2 );
     mouse.y = Geometry.limit( y, margin + 1e-2, size - margin - 1e-2 );
+
+    draw( context );
   }
 
   function onTouch( event ) {
@@ -150,23 +128,6 @@ define([
   } else {
     canvas.addEventListener( 'mousemove', onMouse );
   }
-
-  document.addEventListener( 'keydown', function( event ) {
-    // ESC.
-    if ( event.which === 27 ) {
-      running = false;
-    }
-
-    // Space.
-    if ( event.which === 32 ) {
-      running = true;
-      tick();
-    }
-  });
-
-  window.addEventListener( 'blur', function() {
-    running = false;
-  });
 
   init();
 });
