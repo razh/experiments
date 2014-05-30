@@ -34,6 +34,15 @@ define(function() {
     mouse.down = false;
   }
 
+  function onTouchStart( event ) {
+    onMouseDown( event.touches[0] );
+  }
+
+  function onTouchMove( event ) {
+    event.preventDefault();
+    onMouseMove( event.touches[0] );
+  }
+
   var keys = [];
 
   function onKeyDown( event ) {
@@ -49,6 +58,9 @@ define(function() {
     onMouseDown: onMouseDown,
     onMouseMove: onMouseMove,
     onMouseUp: onMouseUp,
+
+    onTouchStart: onTouchStart,
+    onTouchMove: onTouchMove,
 
     keys: keys,
     onKeyDown: onKeyDown,

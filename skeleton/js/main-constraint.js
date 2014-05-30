@@ -127,9 +127,15 @@ define([
 
     document.addEventListener( 'keyup', Input.onKeyUp );
 
-    canvas.addEventListener( 'mousedown', Input.onMouseDown );
-    canvas.addEventListener( 'mousemove', Input.onMouseMove );
-    canvas.addEventListener( 'mouseup', Input.onMouseUp );
+    if ( 'ontouchstart' in window ) {
+      canvas.addEventListener( 'touchstart', Input.onTouchStart );
+      canvas.addEventListener( 'touchmove', Input.onTouchMove );
+      canvas.addEventListener( 'touchend', Input.onMouseUp );
+    } else {
+      canvas.addEventListener( 'mousedown', Input.onMouseDown );
+      canvas.addEventListener( 'mousemove', Input.onMouseMove );
+      canvas.addEventListener( 'mouseup', Input.onMouseUp );
+    }
 
     var xCount = 25,
         yCount = 25;
