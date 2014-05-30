@@ -6,12 +6,11 @@
   var canvas  = document.querySelector( 'canvas' ),
       context = canvas.getContext( '2d' );
 
-  canvas.width  = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  var pointsA = [],
-      pointsB = [],
-      pointsLerp = [];
+  var points = {
+    a: [],
+    b: [],
+    lerp: []
+  };
 
   function randomPointInCircle( x, y, radius ) {
     var r = radius * Math.sqrt( Math.random() ),
@@ -115,55 +114,64 @@
 
     // Draw lerped points.
     ctx.beginPath();
-    drawPoints( ctx, pointsLerp );
+    drawPoints( ctx, points.lerp );
     ctx.fillStyle = '#fff';
     ctx.fill();
 
     // Draw connecting segments.
     ctx.beginPath();
-    drawSegments( ctx, pointsA, pointsB );
+    drawSegments( ctx, points.a, points.b );
     ctx.lineWidth = 0.2;
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
     ctx.stroke();
 
     // Draw point sets.
     ctx.beginPath();
-    drawPoints( ctx, pointsA );
+    drawPoints( ctx, points.a );
     ctx.fillStyle = '#f00';
     ctx.fill();
 
     ctx.beginPath();
-    drawPoints( ctx, pointsB );
+    drawPoints( ctx, points.b );
     ctx.fillStyle = '#0f0';
     ctx.fill();
   }
 
-  function init() {
+  function resize() {
     var width  = window.innerWidth,
         height = window.innerHeight;
+
+    canvas.width  = width;
+    canvas.height = height;
 
     var x = 0.5 * width,
         y = 0.5 * height;
 
     var radius = 0.5 * Math.min( width, height );
 
+    // Reset points.
+    points.a = [];
+    points.b = [];
+    points.lerp = [];
+
     var pointCount = 100;
     while ( pointCount-- ) {
-      pointsA = pointsA.concat( randomPointInCircle( x, y, 0.4 * radius ) );
-      pointsB = pointsB.concat( randomPointInCircle( x, y, 0.8 * radius ) );
+      points.a = points.a.concat( randomPointInCircle( x, y, 0.4 * radius ) );
+      points.b = points.b.concat( randomPointInCircle( x, y, 0.8 * radius ) );
     }
 
-    costMatrix( pointsA, pointsB );
+    costMatrix( points.a, points.b );
+
+    draw( context );
   }
 
-  init();
-  draw( context );
+  resize();
 
   function onMouse( event ) {
     var xt = event.pageX / window.innerWidth;
     // Smoother step: 6t^5 - 15t^4 + 10t^3.
     xt = 6 * Math.pow( xt, 5 ) - 15 * Math.pow( xt, 4 ) + 10 * Math.pow( xt, 3 );
-    pointsLerp = lerpArray( pointsA, pointsB, xt );
+    points.lerp = lerpArray( points.a, points.b, xt );
     draw( context );
   }
 
@@ -181,5 +189,8 @@
   } else {
     window.addEventListener( 'mousemove', onMouse );
   }
+
+  window.addEventListener( 'resize', resize );
+  window.addEventListener( 'orientationchange', resize );
 
 }) ( window, document );
