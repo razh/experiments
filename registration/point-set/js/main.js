@@ -139,13 +139,18 @@
   }
 
   function init() {
-    var x = 0.5 * window.innerWidth,
-        y = 0.5 * window.innerHeight;
+    var width  = window.innerWidth,
+        height = window.innerHeight;
+
+    var x = 0.5 * width,
+        y = 0.5 * height;
+
+    var radius = 0.5 * Math.min( width, height );
 
     var pointCount = 100;
     while ( pointCount-- ) {
-      pointsA = pointsA.concat( randomPointInCircle( x, y, 100 ) );
-      pointsB = pointsB.concat( randomPointInCircle( x, y, 200 ) );
+      pointsA = pointsA.concat( randomPointInCircle( x, y, 0.4 * radius ) );
+      pointsB = pointsB.concat( randomPointInCircle( x, y, 0.8 * radius ) );
     }
 
     costMatrix( pointsA, pointsB );
@@ -154,12 +159,27 @@
   init();
   draw( context );
 
-  window.addEventListener( 'mousemove', function( event ) {
+  function onMouse( event ) {
     var xt = event.pageX / window.innerWidth;
     // Smoother step: 6t^5 - 15t^4 + 10t^3.
     xt = 6 * Math.pow( xt, 5 ) - 15 * Math.pow( xt, 4 ) + 10 * Math.pow( xt, 3 );
     pointsLerp = lerpArray( pointsA, pointsB, xt );
     draw( context );
-  });
+  }
+
+  function onTouch( event ) {
+    onMouse( event.touches[0] );
+  }
+
+  if ( 'ontouchstart' in window ) {
+    window.addEventListener( 'touchstart', onTouch );
+
+    window.addEventListener( 'touchmove', function( event ) {
+      event.preventDefault();
+      onTouch( event );
+    });
+  } else {
+    window.addEventListener( 'mousemove', onMouse );
+  }
 
 }) ( window, document );
