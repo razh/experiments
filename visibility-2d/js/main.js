@@ -29,6 +29,9 @@ define([
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
+  // Resize to everything into window.
+  size = Math.min( 400, canvas.width, canvas.height );
+
   function tick() {
     if ( !running ) {
       return;
@@ -40,8 +43,7 @@ define([
   }
 
   function draw( ctx ) {
-    ctx.fillStyle = 'black';
-    ctx.fillRect( 0, 0, canvas.width, canvas.height );
+    ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
 
     level.draw( ctx );
 
@@ -64,7 +66,7 @@ define([
       ctx.lineTo( level.light.x, level.light.y );
     }
 
-    ctx.fillStyle = 'rgba(255, 255, 0, 0.25)';
+    ctx.fillStyle = 'rgba(255, 255, 224, 0.4)';
     ctx.fill();
   }
 
@@ -83,8 +85,46 @@ define([
     level.sweep( Math.PI );
   }
 
+  /**
+   * Remaps level coordinates to fit within the given viewport dimensions.
+   */
+  function resizeLevel( walls, xmin, ymin, xmax, ymax ) {
+    var aabb = Geometry.wallsAABB( walls );
+
+    // Determine major axis.
+    var horz = ( aabb.xmax - aabb.xmin ) > ( aabb.ymax - aabb.ymin );
+
+    var amin, amax, bmin, bmax;
+    if ( horz ) {
+      amin = aabb.xmin;
+      amax = aabb.xmax;
+      bmin = xmin;
+      bmax = xmax;
+    } else {
+      amin = aabb.ymin;
+      amax = aabb.ymax;
+      bmin = ymin;
+      bmax = ymax;
+    }
+
+    // Remap coordinates.
+    var mapViewport = Geometry.mapInterval.bind(
+      Geometry,
+      amin, amax,
+      bmin, bmax
+    );
+
+    return walls.map(function( wall ) {
+      return wall.map( mapViewport );
+    });
+  }
+
   function init() {
-    level.load( size, margin, [], Data.mazeWalls );
+    var min = margin,
+        max = size - margin;
+
+    var walls = resizeLevel( Data.mazeWalls, min, min, max, max );
+    level.load( size, margin, [], walls );
     tick();
   }
 
