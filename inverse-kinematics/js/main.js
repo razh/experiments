@@ -9,17 +9,22 @@
   var canvas  = document.querySelector( 'canvas' ),
       context = canvas.getContext( '2d' );
 
-  canvas.width = 512;
-  canvas.height = 512;
+  var width = window.innerWidth,
+      height = window.innerHeight;
+
+  canvas.width = width;
+  canvas.height = height;
 
   var origin = {
-    x: 256,
-    y: 256
+    x: 0.5 * width,
+    y: 0.5 * height
   };
 
+  var radius = 0.5 * Math.min( width, height );
+
   var lengths = {
-    a: 96,
-    b: 128
+    a: 0.3 * radius,
+    b: 0.5 * radius
   };
 
   var angles = {
