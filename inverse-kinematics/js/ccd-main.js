@@ -1,4 +1,4 @@
-/*globals IK, CCD*/
+/*globals Input, IK, CCD*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -69,7 +69,7 @@
     mouse.y = event.pageY - canvas.offsetTop;
   }
 
-  window.addEventListener( 'mousemove', function( event ) {
+  Input.on(function( event ) {
     mousePosition( event );
     IK.calculate( ccd );
     ccd.set( mouse.x, mouse.y );
