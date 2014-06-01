@@ -5,11 +5,7 @@
   var canvas  = document.querySelector( 'canvas' ),
       context = canvas.getContext( '2d' );
 
-  canvas.width  = 768;
-  canvas.height = 768;
-
-  var fabrik = new Fabrik( 256, 256 );
-  IK.fromArray( fabrik, [ 70, 50, 80, 50 ] );
+  var fabrik = new Fabrik();
 
   var mouse = {
     x: 0,
@@ -35,7 +31,27 @@
     ctx.stroke();
   }
 
-  draw( context );
+
+  function resize() {
+    var width  = window.innerWidth,
+        height = window.innerHeight;
+
+    var radius = 0.5 * Math.min( width, height );
+
+    canvas.width  = width;
+    canvas.height = height;
+
+    fabrik.x = 0.5 * width;
+    fabrik.y = 0.5 * height;
+
+    IK.fromArray( fabrik, [ 0.2, 0.15, 0.3, 0.2 ].map(function( value ) {
+      return value * radius;
+    }));
+
+    draw( context );
+  }
+
+  resize();
 
   function mousePosition( event ) {
     mouse.x = event.pageX - canvas.offsetLeft;
@@ -47,5 +63,8 @@
     fabrik.set( mouse.x, mouse.y );
     draw( context );
   });
+
+  window.addEventListener( 'resize', resize );
+  window.addEventListener( 'orientationchange', resize );
 
 }) ( window, document );
