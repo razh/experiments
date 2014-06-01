@@ -5,12 +5,7 @@
   var canvas  = document.querySelector( 'canvas' ),
       context = canvas.getContext( '2d' );
 
-  canvas.width  = 768;
-  canvas.height = 768;
-
-  var ccd = new CCD( 256, 256 );
-  IK.fromArray( ccd, [ 50, 50, 50, 50, 50, 50, 50, 50 ] );
-  IK.fromArray( ccd, [ 70, 50, 80, 50 ] );
+  var ccd = new CCD();
 
   var config = {
     debug: false
@@ -62,7 +57,27 @@
     ctx.stroke();
   }
 
-  draw( context );
+
+  function resize() {
+    var width  = window.innerWidth,
+        height = window.innerHeight;
+
+    var radius = 0.5 * Math.min( width, height );
+
+    canvas.width  = width;
+    canvas.height = height;
+
+    ccd.x = 0.5 * width;
+    ccd.y = 0.5 * height;
+
+    IK.fromArray( ccd, [ 0.2, 0.15, 0.3, 0.2 ].map(function( value ) {
+      return value * radius;
+    }));
+
+    draw( context );
+  }
+
+  resize();
 
   function mousePosition( event ) {
     mouse.x = event.pageX - canvas.offsetLeft;
@@ -75,5 +90,8 @@
     ccd.set( mouse.x, mouse.y );
     draw( context );
   });
+
+  window.addEventListener( 'resize', resize );
+  window.addEventListener( 'orientationchange', resize );
 
 }) ( window, document );
