@@ -1,4 +1,4 @@
-/*globals IK, Fabrik*/
+/*globals Input, IK, Fabrik*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -42,25 +42,10 @@
     mouse.y = event.pageY - canvas.offsetTop;
   }
 
-  function onMouseMove( event ) {
+  Input.on(function( event ) {
     mousePosition( event );
     fabrik.set( mouse.x, mouse.y );
     draw( context );
-  }
-
-  function onTouch( event ) {
-    onMouseMove( event.touches[0] );
-  }
-
-  if ( 'ontouchstart' in window ) {
-    window.addEventListener( 'touchstart', onTouch );
-
-    window.addEventListener( 'touchmove', function() {
-      event.preventDefault();
-      onTouch( event );
-    });
-  } else {
-    window.addEventListener( 'mousemove', onMouseMove );
-  }
+  });
 
 }) ( window, document );
