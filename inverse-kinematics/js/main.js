@@ -149,23 +149,37 @@
 
   draw( context );
 
-  function mousePosition( event ) {
+
+  function onMouse( event ) {
     mouse.x = event.pageX - canvas.offsetLeft;
     mouse.y = event.pageY - canvas.offsetTop;
+
+    update();
+    draw( context );
   }
 
-  window.addEventListener( 'mousemove', function( event ) {
-    mousePosition( event );
-    update();
-    draw( context );
-  });
+  function onTouch( event ) {
+    onMouse( event.touches[0] );
+  }
 
-  // Flip joint bend.
-  window.addEventListener( 'mousedown', function( event ) {
-    mousePosition( event );
-    left = !left;
-    update();
-    draw( context );
-  });
+  if ( 'ontouchstart' in window ) {
+    window.addEventListener( 'touchmove', function( event ) {
+      event.preventDefault();
+      onTouch( event );
+    });
+
+    window.addEventListener( 'touchstart', function( event ) {
+      left = !left;
+      onTouch( event );
+    });
+  } else {
+    window.addEventListener( 'mousemove', onMouse );
+
+    // Flip joint bend.
+    window.addEventListener( 'mousedown', function( event ) {
+      left = !left;
+      onMouse( event );
+    });
+  }
 
 }) ( window, document );
