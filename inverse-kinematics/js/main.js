@@ -1,3 +1,4 @@
+/*globals Input*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -9,23 +10,7 @@
   var canvas  = document.querySelector( 'canvas' ),
       context = canvas.getContext( '2d' );
 
-  var width = window.innerWidth,
-      height = window.innerHeight;
-
-  canvas.width = width;
-  canvas.height = height;
-
-  var origin = {
-    x: 0.5 * width,
-    y: 0.5 * height
-  };
-
-  var radius = 0.5 * Math.min( width, height );
-
-  var lengths = {
-    a: 0.3 * radius,
-    b: 0.5 * radius
-  };
+  var origin, lengths;
 
   var angles = {
     a: 30 * DEG_TO_RAD,
@@ -147,39 +132,51 @@
     ctx.stroke();
   }
 
-  draw( context );
 
+  function resize() {
+    var width  = window.innerWidth,
+        height = window.innerHeight;
 
-  function onMouse( event ) {
+    var radius = 0.5 * Math.min( width, height );
+
+    canvas.width  = width;
+    canvas.height = height;
+
+    origin = {
+      x: 0.5 * width,
+      y: 0.5 * height
+    };
+
+    lengths = {
+      a: 0.3 * radius,
+      b: 0.5 * radius
+    };
+
+    draw( context );
+  }
+
+  resize();
+
+  // Flip joint direction.
+  function toggle() {
+    left = !left;
+  }
+
+  if ( 'ontouchstart' in window ) {
+    window.addEventListener( 'touchstart', toggle );
+  } else {
+    window.addEventListener( 'mousedown', toggle );
+  }
+
+  Input.on(function( event ) {
     mouse.x = event.pageX - canvas.offsetLeft;
     mouse.y = event.pageY - canvas.offsetTop;
 
     update();
     draw( context );
-  }
+  });
 
-  function onTouch( event ) {
-    onMouse( event.touches[0] );
-  }
-
-  if ( 'ontouchstart' in window ) {
-    window.addEventListener( 'touchmove', function( event ) {
-      event.preventDefault();
-      onTouch( event );
-    });
-
-    window.addEventListener( 'touchstart', function( event ) {
-      left = !left;
-      onTouch( event );
-    });
-  } else {
-    window.addEventListener( 'mousemove', onMouse );
-
-    // Flip joint bend.
-    window.addEventListener( 'mousedown', function( event ) {
-      left = !left;
-      onMouse( event );
-    });
-  }
+  window.addEventListener( 'resize', resize );
+  window.addEventListener( 'orientationchange', resize );
 
 }) ( window, document );
