@@ -15,8 +15,15 @@ var Hungarian = (function() {
     return row;
   }
 
+  function subtractRowsMinima( array ) {
+    var i, il;
+    for ( i = 0, il = array.length; i < il; i++ ) {
+      subtractRowMinima( array[i] );
+    }
+  }
+
   /**
-   * Takes a two-dimensional array.
+   * Takes a two-dimensional n by m matrix.
    */
   function subtractColumnMinima( array, columnIndex ) {
     var min = Number.POSITIVE_INFINITY;
@@ -36,5 +43,21 @@ var Hungarian = (function() {
 
     return array;
   }
+
+  function subtractColumnsMinima( array ) {
+    var i, il;
+    for ( i = 0, il = array[0].length; i < il; i++ ) {
+      subtractColumnMinima( array, i );
+    }
+  }
+
+  function calculate( costMatrix ) {
+    subtractRowsMinima( costMatrix );
+    subtractColumnsMinima( costMatrix );
+  }
+
+  return {
+    calculate: calculate
+  };
 
 }) ();
