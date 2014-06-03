@@ -2,6 +2,8 @@
 (function( window, document, undefined ) {
   'use strict';
 
+  var PI2 = 2 * Math.PI;
+
   var canvas  = document.querySelector( 'canvas' ),
       context = canvas.getContext( '2d' );
 
@@ -15,9 +17,16 @@
   function draw( ctx ) {
     ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
 
+    // Draw radius.
+    ctx.beginPath();
+    ctx.arc( fabrik.x, fabrik.y, IK.length( fabrik ), 0, PI2 );
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.stroke();
+
     // Draw mouse point.
     ctx.beginPath();
-    ctx.arc( mouse.x, mouse.y, 4, 0, 2 * Math.PI );
+    ctx.arc( mouse.x, mouse.y, 4, 0, PI2 );
     ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
     ctx.fill();
 
