@@ -2,6 +2,8 @@
 (function( window, document, undefined ) {
   'use strict';
 
+  var PI2 = 2 * Math.PI;
+
   var canvas  = document.querySelector( 'canvas' ),
       context = canvas.getContext( '2d' );
 
@@ -26,7 +28,7 @@
 
       ccd.debug.forEach(function( point, index ) {
         ctx.beginPath();
-        ctx.arc( point[0], point[1], 2, 0, 2 * Math.PI );
+        ctx.arc( point[0], point[1], 2, 0, PI2 );
         ctx.fill();
         ctx.fillText( index, point[0], point[1] );
       });
@@ -37,13 +39,20 @@
         ctx.moveTo( line[0], line[1] );
         ctx.lineTo( line[2], line[3] );
         ctx.stroke();
-        ctx.fillText( index, (line[0] + line[2]) / 2, (line[1] + line[3]) / 2);
+        ctx.fillText( index, ( line[0] + line[2] ) / 2, ( line[1] + line[3] ) / 2 );
       });
     }
 
+    // Draw radius.
+    ctx.beginPath();
+    ctx.arc( ccd.x, ccd.y, IK.length( ccd ), 0, PI2 );
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.stroke();
+
     // Draw mouse point.
     ctx.beginPath();
-    ctx.arc( mouse.x, mouse.y, 4, 0, 2 * Math.PI );
+    ctx.arc( mouse.x, mouse.y, 4, 0, PI2 );
     ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
     ctx.fill();
 
