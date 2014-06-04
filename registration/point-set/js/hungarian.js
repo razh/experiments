@@ -57,6 +57,28 @@ var Hungarian = (function() {
 
     subtractRowsMinima( costMatrix );
     subtractColsMinima( costMatrix );
+
+    var marked = [];
+    var i, il;
+    for ( i = 0, il = costMatrix[0].length; i < il; i++ ) {
+      marked.push( [] );
+    }
+
+    var j, jl;
+    var row;
+    for ( i = 0, il = costMatrix.length; i < il; i++ ) {
+      row = costMatrix[i];
+      for ( j = 0, jl = row.length; j < jl; j++ ) {
+        // Mark uncovered zeros.
+        if ( !costMatrix && !coveredRows[i] && !coveredCols[j] ) {
+          marked[i][j] = 1;
+          coveredRows[i] = true;
+          coveredCols[j] = true;
+        }
+      }
+    }
+
+
   }
 
   return {
