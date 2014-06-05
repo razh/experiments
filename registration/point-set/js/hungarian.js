@@ -71,14 +71,38 @@ var Hungarian = (function() {
       for ( j = 0, jl = row.length; j < jl; j++ ) {
         // Mark uncovered zeros.
         if ( !costMatrix && !coveredRows[i] && !coveredCols[j] ) {
-          marked[i][j] = 1;
+          marked[i][j] = true;
           coveredRows[i] = true;
           coveredCols[j] = true;
         }
       }
     }
 
+    // Empty covers.
+    coveredRows = [];
+    coveredCols = [];
 
+    // Cover each column containing a starred zero.
+    for ( i = 0, il = costMatrix.length; i < il; i++ ) {
+      for ( j = 0, jl = costMatrix[i].length; j < jl; j++ ) {
+        if ( marked[i][j] ) {
+          coveredCols[j] = true;
+        }
+      }
+    }
+
+    // Count covered columns.
+    var count = 0;
+    for ( i = 0, il = coveredCols.length; i < il; i++ ) {
+      if ( coveredCols[i] ) {
+        count++;
+      }
+    }
+
+    // Finished.
+    if ( count >= costMatrix[0].length ) {
+      return;
+    }
   }
 
   return {
