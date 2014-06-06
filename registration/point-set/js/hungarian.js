@@ -106,7 +106,9 @@ var Hungarian = (function() {
 
     // Step 4 helper functions.
     function findUncoveredZero( costMatrix, coveredRows, coveredCols ) {
-      var row, col;
+      var row = -1,
+          col = -1;
+
       var i, il;
       var j, jl;
       for ( i = 0, il = costMatrix.length; i < il; i++ ) {
@@ -136,7 +138,7 @@ var Hungarian = (function() {
       return false;
     }
 
-    function starIndex( row ) {
+    function indexOfStar( row ) {
       for ( var i = 0, il = row.length; i < il; i++ ) {
         if ( row[i] ) {
           return i;
@@ -144,6 +146,38 @@ var Hungarian = (function() {
       }
 
       return -1;
+    }
+
+    function step4() {
+      var index;
+      var starIndex;
+      var done = false;
+      while ( !done ) {
+        index = findUncoveredZero( costMatrix, coveredRows, coveredCols );
+        if ( index.row === -1 ) {
+          done = true;
+          step6();
+        } else {
+          costMatrix[ index.row ][ index.col ] == 2;
+
+          starIndex = indexOfStar( costMatrix, index.row );
+          if ( starIndex !== -1 ) {
+            coveredRows[ index.row ] = true;
+            coveredCols[ index.col ] = false;
+          } else {
+            done = true;
+            step5();
+          }
+        }
+      }
+    }
+
+    function step5() {
+
+    }
+
+    function step6() {
+
     }
   }
 
