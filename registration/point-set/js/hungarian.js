@@ -103,6 +103,48 @@ var Hungarian = (function() {
     if ( count >= costMatrix[0].length ) {
       return;
     }
+
+    // Step 4 helper functions.
+    function findUncoveredZero( costMatrix, coveredRows, coveredCols ) {
+      var row, col;
+      var i, il;
+      var j, jl;
+      for ( i = 0, il = costMatrix.length; i < il; i++ ) {
+        for ( j = 0, jl = costMatrix[i].length; j < jl; j++ ) {
+          if ( !costMatrix[i][j] && !coveredRows[i] && !coveredCols[j] ) {
+            // TODO: Out variable these.
+            row = i;
+            col = j;
+            break;
+          }
+        }
+      }
+
+      return {
+        row: row,
+        col: col
+      };
+    }
+
+    function isRowStarred( row ) {
+      for ( var i = 0, il = row.length; i < il; i++ ) {
+        if ( row[i] ) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    function starIndex( row ) {
+      for ( var i = 0, il = row.length; i < il; i++ ) {
+        if ( row[i] ) {
+          return i;
+        }
+      }
+
+      return -1;
+    }
   }
 
   return {
