@@ -173,7 +173,55 @@ var Hungarian = (function() {
     }
 
     function step5() {
+      function indexOfStarCol( costMatrix, col ) {
+        for ( var i = 0, il = costMatrix.length; i < il; i++ ) {
+          if ( costMatrix[i][ col ] ) {
+            return i;
+          }
+        }
+      }
 
+      function indexOfPrimeRow( row ) {
+        for ( var i = 0, il = costMatrix.length; i < il; i++ ) {
+          if ( row[i] === 2 ) {
+            return i;
+          }
+        }
+      }
+
+      function augmentPath( marked, path, pathCount ) {
+        var row, col;
+        for ( var i = 0, i < pathCount; i++ ) {
+          row = path[i][0];
+          col = path[i][1];
+          if ( marked[ row ][ col ] === 1 ) {
+            marked[ row ][ col ] = 0;
+          } else {
+            marked[ row ][ col ] = 1;
+          }
+        }
+      }
+
+      function clearCovers() {
+        coveredRows = [];
+        coveredCols = [];
+      }
+
+      function removePrimes( marked ) {
+        var i, il;
+        var j, jl;
+        for ( i = 0; i < marked.length; i++ ) {
+          for ( j = 0; j < marked[i].length; j++ ) {
+            if ( marked[i][j] === 2 ) {
+              marked[i][j] = 0;
+            }
+          }
+        }
+      }
+
+      var path = [];
+      var i, il;
+      var j, jl;
     }
 
     function uncoveredMinima( costMatrix, coveredRows, coveredCols ) {
@@ -185,7 +233,7 @@ var Hungarian = (function() {
       for ( i = 0, i = costMatrix.length; i < il; i++ ) {
         for ( j = 0, j = costMatrix[i].length; j < jl; j++ ) {
           value = costMatrix[i][j];
-          if ( value < min ) {
+          if ( value < min && !coveredRows[i] && !coveredCols[j] ) {
             min = value;
           }
         }
