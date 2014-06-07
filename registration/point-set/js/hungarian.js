@@ -110,6 +110,10 @@ var Hungarian = (function() {
       return;
     }
 
+    function step3() {
+
+    }
+
     // Step 4 helper functions.
     function findUncoveredZero( costMatrix, coveredRows, coveredCols ) {
       var row = -1,
@@ -157,12 +161,10 @@ var Hungarian = (function() {
     function step4() {
       var index;
       var starIndex;
-      var done = false;
-      while ( !done ) {
+      while ( true ) {
         index = findUncoveredZero( costMatrix, coveredRows, coveredCols );
         if ( index.row === -1 ) {
-          done = true;
-          step6();
+          return step6();
         } else {
           marked[ index.row ][ index.col ] = 2;
 
@@ -171,20 +173,21 @@ var Hungarian = (function() {
             coveredRows[ index.row ] = true;
             coveredCols[ index.col ] = false;
           } else {
-            done = true;
-            step5();
+            return step5( index.row, index.col );
           }
         }
       }
     }
 
-    function step5() {
+    function step5( row, col ) {
       function indexOfStarCol( costMatrix, col ) {
         for ( var i = 0, il = costMatrix.length; i < il; i++ ) {
           if ( costMatrix[i][ col ] === Type.STAR ) {
             return i;
           }
         }
+
+        return -1;
       }
 
       function indexOfPrimeRow( row ) {
@@ -193,11 +196,13 @@ var Hungarian = (function() {
             return i;
           }
         }
+
+        return -1;
       }
 
-      function augmentPath( marked, path, pathCount ) {
+      function augmentPath( marked, path, lastIndex ) {
         var row, col;
-        for ( var i = 0; i < pathCount; i++ ) {
+        for ( var i = 0; i < lastIndex; i++ ) {
           row = path[i][0];
           col = path[i][1];
           if ( marked[ row ][ col ] === 1 ) {
@@ -224,9 +229,35 @@ var Hungarian = (function() {
         }
       }
 
-      var path = [];
-      var i, il;
-      var j, jl;
+      var pathIndex = 0;
+      var path = [
+        [ row, col ]
+      ];
+      var index;
+      while ( true ) {
+        index = indexOfStarCol( path[ pathIndex ][1] );
+        if ( index > -1 ) {
+          pathIndex++;
+          path[ pathIndex ] = [
+            index,
+            path[ pathIndex - 1 ][1]
+          ];
+
+          index = indexOfPrimeRow( path[ pathIndex ][0] );
+          pathIndex++;
+          path[ pathIndex ] = [
+            path[ pathIndex - 1 ][0],
+            index
+          ];
+        } else {
+          break;
+        }
+      }
+
+      augmentPath( marked, path, pathIndex );
+      clearCovers();
+      removePrimes( marked );
+      step3();
     }
 
     function uncoveredMinima( costMatrix, coveredRows, coveredCols ) {
