@@ -158,9 +158,9 @@ var Hungarian = (function() {
           done = true;
           step6();
         } else {
-          costMatrix[ index.row ][ index.col ] == 2;
+          marked[ index.row ][ index.col ] = 2;
 
-          starIndex = indexOfStar( costMatrix, index.row );
+          starIndex = indexOfStar( marked, index.row );
           if ( starIndex !== -1 ) {
             coveredRows[ index.row ] = true;
             coveredCols[ index.col ] = false;
@@ -176,8 +176,41 @@ var Hungarian = (function() {
 
     }
 
-    function step6() {
+    function uncoveredMinima( costMatrix, coveredRows, coveredCols ) {
+      var min = Number.POSITIVE_INFINITY;
 
+      var value;
+      var i, il;
+      var j, jl;
+      for ( i = 0, i = costMatrix.length; i < il; i++ ) {
+        for ( j = 0, j = costMatrix[i].length; j < jl; j++ ) {
+          value = costMatrix[i][j];
+          if ( value < min ) {
+            min = value;
+          }
+        }
+      }
+
+      return value;
+    }
+
+    function step6() {
+      var min = uncoveredMinima( costMatrix, coveredRows, coveredCols );
+      var i, il;
+      var j, jl;
+      for ( i = 0, il = costMatrix.length; i < il; i++ ) {
+        for ( j = 0, jl = costMatrix[i].length; j < jl; j++ ) {
+          if ( coveredRows[i] ) {
+            costMatrix[i][j] += min;
+          }
+
+          if ( coveredCols[j] ) {
+            costMatrix[i][j] -= min;
+          }
+        }
+      }
+
+      step4();
     }
   }
 
