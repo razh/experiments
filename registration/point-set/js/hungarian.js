@@ -2,6 +2,12 @@
 var Hungarian = (function() {
   'use strict';
 
+  var Type = {
+    NONE:  0,
+    STAR:  1,
+    PRIME: 2
+  };
+
   /**
    * Array minima mutation functions.
    */
@@ -85,7 +91,7 @@ var Hungarian = (function() {
     // Cover each column containing a starred zero.
     for ( i = 0, il = costMatrix.length; i < il; i++ ) {
       for ( j = 0, jl = costMatrix[i].length; j < jl; j++ ) {
-        if ( marked[i][j] ) {
+        if ( marked[i][j] === Type.STAR ) {
           coveredCols[j] = true;
         }
       }
@@ -130,7 +136,7 @@ var Hungarian = (function() {
 
     function isRowStarred( row ) {
       for ( var i = 0, il = row.length; i < il; i++ ) {
-        if ( row[i] ) {
+        if ( row[i] === Type.STAR ) {
           return true;
         }
       }
@@ -140,7 +146,7 @@ var Hungarian = (function() {
 
     function indexOfStar( row ) {
       for ( var i = 0, il = row.length; i < il; i++ ) {
-        if ( row[i] ) {
+        if ( row[i] === Type.STAR ) {
           return i;
         }
       }
@@ -175,7 +181,7 @@ var Hungarian = (function() {
     function step5() {
       function indexOfStarCol( costMatrix, col ) {
         for ( var i = 0, il = costMatrix.length; i < il; i++ ) {
-          if ( costMatrix[i][ col ] ) {
+          if ( costMatrix[i][ col ] === Type.STAR ) {
             return i;
           }
         }
@@ -183,7 +189,7 @@ var Hungarian = (function() {
 
       function indexOfPrimeRow( row ) {
         for ( var i = 0, il = costMatrix.length; i < il; i++ ) {
-          if ( row[i] === 2 ) {
+          if ( row[i] === Type.PRIME ) {
             return i;
           }
         }
@@ -191,7 +197,7 @@ var Hungarian = (function() {
 
       function augmentPath( marked, path, pathCount ) {
         var row, col;
-        for ( var i = 0, i < pathCount; i++ ) {
+        for ( var i = 0; i < pathCount; i++ ) {
           row = path[i][0];
           col = path[i][1];
           if ( marked[ row ][ col ] === 1 ) {
@@ -208,11 +214,10 @@ var Hungarian = (function() {
       }
 
       function removePrimes( marked ) {
-        var i, il;
-        var j, jl;
+        var i, j;
         for ( i = 0; i < marked.length; i++ ) {
           for ( j = 0; j < marked[i].length; j++ ) {
-            if ( marked[i][j] === 2 ) {
+            if ( marked[i][j] === Type.PRIME ) {
               marked[i][j] = 0;
             }
           }
@@ -248,11 +253,13 @@ var Hungarian = (function() {
       var j, jl;
       for ( i = 0, il = costMatrix.length; i < il; i++ ) {
         for ( j = 0, jl = costMatrix[i].length; j < jl; j++ ) {
+          // Add min to every element of each covered row.
           if ( coveredRows[i] ) {
             costMatrix[i][j] += min;
           }
 
-          if ( coveredCols[j] ) {
+          // Subtract min from every element of each uncoverd column.
+          if ( !coveredCols[j] ) {
             costMatrix[i][j] -= min;
           }
         }
