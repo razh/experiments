@@ -61,57 +61,71 @@ var Hungarian = (function() {
     var coveredRows = [],
         coveredCols = [];
 
-    subtractRowsMinima( costMatrix );
-    subtractColsMinima( costMatrix );
-
     var marked = [];
-    var i, il;
-    for ( i = 0, il = costMatrix[0].length; i < il; i++ ) {
-      marked.push( [] );
+
+    function init() {
+      var i, il;
+      for ( i = 0, il = costMatrix[0].length; i < il; i++ ) {
+        marked.push( [] );
+      }
+
+      step1();
     }
 
-    var j, jl;
-    var row;
-    for ( i = 0, il = costMatrix.length; i < il; i++ ) {
-      row = costMatrix[i];
-      for ( j = 0, jl = row.length; j < jl; j++ ) {
-        // Mark uncovered zeros.
-        if ( !costMatrix && !coveredRows[i] && !coveredCols[j] ) {
-          marked[i][j] = true;
-          coveredRows[i] = true;
-          coveredCols[j] = true;
+    init();
+
+    function step1() {
+      subtractRowsMinima( costMatrix );
+      step2();
+    }
+
+    function step2() {
+      var i, il;
+      var j, jl;
+      var row;
+      for ( i = 0, il = costMatrix.length; i < il; i++ ) {
+        row = costMatrix[i];
+        for ( j = 0, jl = row.length; j < jl; j++ ) {
+          // Mark uncovered zeros.
+          if ( !costMatrix && !coveredRows[i] && !coveredCols[j] ) {
+            marked[i][j] = true;
+            coveredRows[i] = true;
+            coveredCols[j] = true;
+          }
         }
       }
-    }
 
-    // Empty covers.
-    coveredRows = [];
-    coveredCols = [];
-
-    // Cover each column containing a starred zero.
-    for ( i = 0, il = costMatrix.length; i < il; i++ ) {
-      for ( j = 0, jl = costMatrix[i].length; j < jl; j++ ) {
-        if ( marked[i][j] === Type.STAR ) {
-          coveredCols[j] = true;
-        }
-      }
-    }
-
-    // Count covered columns.
-    var count = 0;
-    for ( i = 0, il = coveredCols.length; i < il; i++ ) {
-      if ( coveredCols[i] ) {
-        count++;
-      }
-    }
-
-    // Finished.
-    if ( count >= costMatrix[0].length ) {
-      return;
+      // Empty covers.
+      coveredRows = [];
+      coveredCols = [];
     }
 
     function step3() {
+      var i, il;
+      var j, jl;
+      // Cover each column containing a starred zero.
+      for ( i = 0, il = costMatrix.length; i < il; i++ ) {
+        for ( j = 0, jl = costMatrix[i].length; j < jl; j++ ) {
+          if ( marked[i][j] === Type.STAR ) {
+            coveredCols[j] = true;
+          }
+        }
+      }
 
+      // Count covered columns.
+      var count = 0;
+      for ( i = 0, il = coveredCols.length; i < il; i++ ) {
+        if ( coveredCols[i] ) {
+          count++;
+        }
+      }
+
+      if ( count >= costMatrix[0].length ) {
+        // Finished.
+        return;
+      } else {
+        step4();
+      }
     }
 
     // Step 4 helper functions.
@@ -298,6 +312,8 @@ var Hungarian = (function() {
 
       step4();
     }
+
+    return;
   }
 
   return {
