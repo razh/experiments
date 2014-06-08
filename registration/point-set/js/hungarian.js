@@ -102,7 +102,9 @@ var Hungarian = (function() {
         }
       }
 
-      string += '\n';
+      if ( i < il - 1 ) {
+        string += '\n';
+      }
     }
 
     return string;
@@ -367,7 +369,11 @@ var Hungarian = (function() {
   }
 
   return {
-    calculate: calculate
+    calculate: calculate,
+
+    Matrix: {
+      log: logMatrix
+    }
   };
 
 }) ();
