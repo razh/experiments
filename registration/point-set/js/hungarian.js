@@ -57,6 +57,57 @@ var Hungarian = (function() {
     }
   }
 
+  function logMatrix( matrix, precision ) {
+    var string = '';
+
+    // Get number of integer digits.
+    var maxDigits = 0;
+    var digits;
+    var i, il;
+    var j, jl;
+    for ( i = 0, il = matrix.length; i < il; i++ ) {
+      for ( j = 0, jl = matrix[i].length; j < jl; j++ ) {
+        digits = Math.floor( matrix[i][j] ).toString().length;
+        if ( digits > maxDigits ) {
+          maxDigits = digits;
+        }
+      }
+    }
+
+    /**
+     * Pads an number with leading spaces.
+     *
+     * For example: pad( 3.24, 3 ) => '  3.24'.
+     */
+    function pad( number, digits ) {
+      var count = digits - Math.floor( number ).toString().length;
+      var padding = '';
+
+      while ( count > 0 ) {
+        padding += ' ';
+        count--;
+      }
+
+      return padding + number;
+    }
+
+    // Construct string representation of matrix.
+    for ( i = 0, il = matrix.length; i < il; i++ ) {
+      for ( j = 0, jl = matrix[i].length; j < jl; j++ ) {
+        string += pad( matrix[i][j].toFixed( precision ), maxDigits );
+
+        // Append a comma if not at end.
+        if ( j < jl - 1) {
+          string += ', ';
+        }
+      }
+
+      string += '\n';
+    }
+
+    return string;
+  }
+
   function calculate( costMatrix ) {
     var coveredRows = [],
         coveredCols = [];
@@ -64,8 +115,7 @@ var Hungarian = (function() {
     var marked = [];
 
     function init() {
-      var i, il;
-      for ( i = 0, il = costMatrix[0].length; i < il; i++ ) {
+      for ( var i = 0, il = costMatrix[0].length; i < il; i++ ) {
         marked.push( [] );
       }
 
