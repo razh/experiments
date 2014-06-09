@@ -3,11 +3,12 @@
   'use strict';
 
   var matrix = [
-    [ 4000, 2, 8 ],
-    [ 4, 3, 7 ],
-    [ 3, 1, 6 ]
+    [ 1, 2, 3 ],
+    [ 2, 4, 6 ],
+    [ 3, 6, 9 ]
   ];
 
-  console.log( Hungarian.Matrix.log( matrix, 1 ) );
+  console.log( Hungarian.Matrix.log( matrix ) );
+  Hungarian.calculate( matrix );
 
 }) ( window, document );

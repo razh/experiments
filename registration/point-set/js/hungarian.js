@@ -50,15 +50,8 @@ var Hungarian = (function() {
     return array;
   }
 
-  function subtractColsMinima( array ) {
-    var i, il;
-    for ( i = 0, il = array[0].length; i < il; i++ ) {
-      subtractColMinima( array, i );
-    }
-  }
-
   function logMatrix( matrix, precision ) {
-    var string = '';
+    precision = precision || 0;
 
     // Get number of integer digits.
     var maxDigits = 0;
@@ -92,6 +85,7 @@ var Hungarian = (function() {
     }
 
     // Construct string representation of matrix.
+    var string = '';
     for ( i = 0, il = matrix.length; i < il; i++ ) {
       for ( j = 0, jl = matrix[i].length; j < jl; j++ ) {
         string += pad( matrix[i][j].toFixed( precision ), maxDigits );
@@ -110,15 +104,56 @@ var Hungarian = (function() {
     return string;
   }
 
+  function logMarks( marks ) {
+    var string = '';
+    var i, il;
+    var j, jl;
+    for ( i = 0, il = marks.length; i < il; i++ ) {
+      for ( j = 0, jl = marks[i].length; j < jl; j++ ) {
+        switch ( marks[i][j] ) {
+          case Type.STAR:
+            string += '*';
+            break;
+
+          case Type.PRIME:
+            string += 'P';
+            break;
+
+          default:
+            string += ' ';
+        }
+
+        if ( j < jl - 1 ) {
+          string += ', ';
+        }
+      }
+
+      if ( i < il - 1 ) {
+        string += '\n';
+      }
+    }
+
+    return string;
+  }
+
   function calculate( costMatrix ) {
     var coveredRows = [],
         coveredCols = [];
 
-    var marked = [];
+    var marks = [];
 
     function init() {
-      for ( var i = 0, il = costMatrix[0].length; i < il; i++ ) {
-        marked.push( [] );
+      var i, il;
+      var j, jl;
+      var array;
+      for ( i = 0, il = costMatrix.length; i < il; i++ ) {
+        array = [];
+
+        for ( j = 0, jl = costMatrix[i].length; j < jl; j++ ) {
+          array.push( 0 );
+        }
+
+        marks.push( array );
       }
 
       step1();
@@ -128,19 +163,18 @@ var Hungarian = (function() {
 
     function step1() {
       subtractRowsMinima( costMatrix );
+      console.log( logMatrix( costMatrix ) );
       step2();
     }
 
     function step2() {
       var i, il;
       var j, jl;
-      var row;
       for ( i = 0, il = costMatrix.length; i < il; i++ ) {
-        row = costMatrix[i];
-        for ( j = 0, jl = row.length; j < jl; j++ ) {
+        for ( j = 0, jl = costMatrix[i].length; j < jl; j++ ) {
           // Mark uncovered zeros.
-          if ( !costMatrix && !coveredRows[i] && !coveredCols[j] ) {
-            marked[i][j] = true;
+          if ( !costMatrix[i][j] && !coveredRows[i] && !coveredCols[j] ) {
+            marks[i][j] = Type.STAR;
             coveredRows[i] = true;
             coveredCols[j] = true;
           }
@@ -150,19 +184,24 @@ var Hungarian = (function() {
       // Empty covers.
       coveredRows = [];
       coveredCols = [];
+
+      step3();
     }
 
     function step3() {
+      console.log('%c' + 'step3-----', 'color: brown;');
+      console.log('%c' + JSON.stringify(coveredCols), 'color: brown;');
       var i, il;
       var j, jl;
       // Cover each column containing a starred zero.
       for ( i = 0, il = costMatrix.length; i < il; i++ ) {
         for ( j = 0, jl = costMatrix[i].length; j < jl; j++ ) {
-          if ( marked[i][j] === Type.STAR ) {
+          if ( marks[i][j] === Type.STAR ) {
             coveredCols[j] = true;
           }
         }
       }
+      console.log('%c' + JSON.stringify(coveredCols), 'color: brown;');
 
       // Count covered columns.
       var count = 0;
@@ -171,6 +210,8 @@ var Hungarian = (function() {
           count++;
         }
       }
+
+      console.log('%c' + 'step3End-----', 'color: brown;');
 
       if ( count >= costMatrix[0].length ) {
         // Finished.
@@ -181,37 +222,24 @@ var Hungarian = (function() {
     }
 
     // Step 4 helper functions.
-    function findUncoveredZero( costMatrix, coveredRows, coveredCols ) {
-      var row = -1,
-          col = -1;
-
+    function findUncoveredZero() {
       var i, il;
       var j, jl;
       for ( i = 0, il = costMatrix.length; i < il; i++ ) {
         for ( j = 0, jl = costMatrix[i].length; j < jl; j++ ) {
           if ( !costMatrix[i][j] && !coveredRows[i] && !coveredCols[j] ) {
-            // TODO: Out variable these.
-            row = i;
-            col = j;
-            break;
+            return {
+              row: i,
+              col: j
+            };
           }
         }
       }
 
       return {
-        row: row,
-        col: col
+        row: -1,
+        col: -1
       };
-    }
-
-    function isRowStarred( row ) {
-      for ( var i = 0, il = row.length; i < il; i++ ) {
-        if ( row[i] === Type.STAR ) {
-          return true;
-        }
-      }
-
-      return false;
     }
 
     function indexOfStar( row ) {
@@ -225,30 +253,43 @@ var Hungarian = (function() {
     }
 
     function step4() {
+      var row;
+      var col;
       var index;
       var starIndex;
+      console.log('%c' + 'step4----', 'color: red;');
+      console.log('%c' + logMatrix(costMatrix), 'color: red;');
+      console.log('%c' + logMarks(marks), 'color: red;');
+      console.log('%c' + 'startloop--', 'color: red;');
       while ( true ) {
-        index = findUncoveredZero( costMatrix, coveredRows, coveredCols );
-        if ( index.row === -1 ) {
+        index = findUncoveredZero();
+        row = index.row;
+        col = index.col;
+        if ( row === -1 ) {
+          console.log('%c' + 'step4End->6----', 'color: red;');
           return step6();
         } else {
-          marked[ index.row ][ index.col ] = 2;
+          marks[ row ][ col ] = Type.PRIME;
 
-          starIndex = indexOfStar( marked, index.row );
+          starIndex = indexOfStar( marks[ row ] );
           if ( starIndex !== -1 ) {
-            coveredRows[ index.row ] = true;
-            coveredCols[ index.col ] = false;
+            col = starIndex;
+            coveredRows[ row ] = true;
+            coveredCols[ col ] = false;
+            console.log('%c' + logMarks(marks), 'color: red;');
+            console.log('%c' + JSON.stringify(coveredRows) + ' ' + JSON.stringify(coveredCols), 'color: red;');
           } else {
-            return step5( index.row, index.col );
+            console.log('%c' + 'step4End->5----', 'color: red;');
+            return step5( row, col );
           }
         }
       }
     }
 
     function step5( row, col ) {
-      function indexOfStarCol( costMatrix, col ) {
-        for ( var i = 0, il = costMatrix.length; i < il; i++ ) {
-          if ( costMatrix[i][ col ] === Type.STAR ) {
+      function indexOfStarCol( col ) {
+        for ( var i = 0, il = marks.length; i < il; i++ ) {
+          if ( marks[i][ col ] === Type.STAR ) {
             return i;
           }
         }
@@ -256,8 +297,9 @@ var Hungarian = (function() {
         return -1;
       }
 
-      function indexOfPrimeRow( row ) {
-        for ( var i = 0, il = costMatrix.length; i < il; i++ ) {
+      function indexOfPrimeRow( rowIndex ) {
+        var row = marks[ rowIndex ];
+        for ( var i = 0, il = row.length; i < il; i++ ) {
           if ( row[i] === Type.PRIME ) {
             return i;
           }
@@ -266,15 +308,15 @@ var Hungarian = (function() {
         return -1;
       }
 
-      function augmentPath( marked, path, lastIndex ) {
+      function augmentPath( path, pathCount ) {
         var row, col;
-        for ( var i = 0; i < lastIndex; i++ ) {
+        for ( var i = 0; i < pathCount; i++ ) {
           row = path[i][0];
           col = path[i][1];
-          if ( marked[ row ][ col ] === 1 ) {
-            marked[ row ][ col ] = 0;
+          if ( marks[ row ][ col ] === 1 ) {
+            marks[ row ][ col ] = 0;
           } else {
-            marked[ row ][ col ] = 1;
+            marks[ row ][ col ] = 1;
           }
         }
       }
@@ -284,16 +326,19 @@ var Hungarian = (function() {
         coveredCols = [];
       }
 
-      function removePrimes( marked ) {
-        var i, j;
-        for ( i = 0; i < marked.length; i++ ) {
-          for ( j = 0; j < marked[i].length; j++ ) {
-            if ( marked[i][j] === Type.PRIME ) {
-              marked[i][j] = 0;
+      function removePrimes() {
+        var i, il;
+        var j, jl;
+        for ( i = 0, il = marks.length; i < il; i++ ) {
+          for ( j = 0, jl = marks[i].length; j < jl; j++ ) {
+            if ( marks[i][j] === Type.PRIME ) {
+              marks[i][j] = 0;
             }
           }
         }
       }
+      console.log('%c' + 'step5----', 'color: blue;');
+      console.log('%c' + logMarks(marks), 'color: blue;');
 
       var pathIndex = 0;
       var path = [
@@ -302,6 +347,7 @@ var Hungarian = (function() {
       var index;
       while ( true ) {
         index = indexOfStarCol( path[ pathIndex ][1] );
+        console.log('%c' +  'star: ' + index , 'color: blue;');
         if ( index > -1 ) {
           pathIndex++;
           path[ pathIndex ] = [
@@ -310,6 +356,7 @@ var Hungarian = (function() {
           ];
 
           index = indexOfPrimeRow( path[ pathIndex ][0] );
+          console.log('%c' +  'prime: ' + index , 'color: blue;');
           pathIndex++;
           path[ pathIndex ] = [
             path[ pathIndex - 1 ][0],
@@ -320,20 +367,23 @@ var Hungarian = (function() {
         }
       }
 
-      augmentPath( marked, path, pathIndex );
+      augmentPath( path, pathIndex + 1 );
+      console.log('%c' + JSON.stringify(coveredRows) + ' ' + JSON.stringify(coveredCols), 'color: blue;');
       clearCovers();
-      removePrimes( marked );
+      removePrimes();
+      console.log('%c' + logMarks( marks ), 'color: blue;');
+      console.log('%c' + 'step5End----', 'color: blue;');
       step3();
     }
 
-    function uncoveredMinima( costMatrix, coveredRows, coveredCols ) {
+    function uncoveredMinima() {
       var min = Number.POSITIVE_INFINITY;
 
       var value;
       var i, il;
       var j, jl;
-      for ( i = 0, i = costMatrix.length; i < il; i++ ) {
-        for ( j = 0, j = costMatrix[i].length; j < jl; j++ ) {
+      for ( i = 0, il = costMatrix.length; i < il; i++ ) {
+        for ( j = 0, jl = costMatrix[i].length; j < jl; j++ ) {
           value = costMatrix[i][j];
           if ( value < min && !coveredRows[i] && !coveredCols[j] ) {
             min = value;
@@ -341,11 +391,18 @@ var Hungarian = (function() {
         }
       }
 
-      return value;
+      return min;
     }
 
     function step6() {
-      var min = uncoveredMinima( costMatrix, coveredRows, coveredCols );
+      var min = uncoveredMinima();
+      if ( !isFinite( min ) ) {
+        console.log('%c' + min + 'STEP6 RETURN––––––––––––', 'color: purple;');
+        return;
+      }
+
+      console.log('%c' + 'step6-------', 'color: purple;');
+      console.log('%c' + logMatrix(costMatrix), 'color: purple;');
       var i, il;
       var j, jl;
       for ( i = 0, il = costMatrix.length; i < il; i++ ) {
@@ -361,6 +418,9 @@ var Hungarian = (function() {
           }
         }
       }
+
+      console.log('%c' + logMatrix(costMatrix), 'color: purple;');
+      console.log('%c' + 'step6End-------', 'color: purple;');
 
       step4();
     }
