@@ -136,6 +136,16 @@ var Hungarian = (function() {
     return string;
   }
 
+  function cloneMatrix( matrix ) {
+    var clone = [];
+
+    for ( var i = 0, il = matrix.length; i < il; i++ ) {
+      clone.push( matrix[i].slice() );
+    }
+
+    return clone;
+  }
+
   function calculate( costMatrix ) {
     var coveredRows = [],
         coveredCols = [];
@@ -407,6 +417,7 @@ var Hungarian = (function() {
     calculate: calculate,
 
     Matrix: {
+      clone: cloneMatrix,
       log: logMatrix
     }
   };
