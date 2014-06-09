@@ -9,6 +9,8 @@
   ];
 
   console.log( Hungarian.Matrix.log( matrix ) );
-  console.log( Hungarian.calculate( matrix ) );
+  var solution = Hungarian.calculate( Hungarian.Matrix.clone( matrix ) );
+  console.log( solution );
+  console.log( Hungarian.cost( matrix, solution ) );
 
 }) ( window, document );
