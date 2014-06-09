@@ -9,6 +9,6 @@
   ];
 
   console.log( Hungarian.Matrix.log( matrix ) );
-  Hungarian.calculate( matrix );
+  console.log( Hungarian.calculate( matrix ) );
 
 }) ( window, document );

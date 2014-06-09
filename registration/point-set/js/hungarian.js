@@ -398,7 +398,9 @@ var Hungarian = (function() {
       step4();
     }
 
-    return;
+    return marks.map(function( row ) {
+      return row.indexOf( Type.STAR );
+    });
   }
 
   return {
