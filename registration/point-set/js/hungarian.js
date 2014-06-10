@@ -161,6 +161,11 @@ var Hungarian = (function() {
       step2();
     }
 
+    function clearCovers() {
+      coveredRows = [];
+      coveredCols = [];
+    }
+
     function step2() {
       var i, il;
       var j, jl;
@@ -175,10 +180,7 @@ var Hungarian = (function() {
         }
       }
 
-      // Empty covers.
-      coveredRows = [];
-      coveredCols = [];
-
+      clearCovers();
       step3();
     }
 
@@ -210,8 +212,10 @@ var Hungarian = (function() {
       }
     }
 
-    // Step 4 helper functions.
-    function findUncoveredZero() {
+    /**
+     * Step 4 helper functions.
+     */
+    function uncoveredZero() {
       var i, il;
       var j, jl;
       for ( i = 0, il = costMatrix.length; i < il; i++ ) {
@@ -231,7 +235,7 @@ var Hungarian = (function() {
       };
     }
 
-    function indexOfStar( row ) {
+    function indexOfStarRow( row ) {
       for ( var i = 0, il = row.length; i < il; i++ ) {
         if ( row[i] === Type.STAR ) {
           return i;
@@ -247,15 +251,16 @@ var Hungarian = (function() {
       var index;
       var starIndex;
       while ( true ) {
-        index = findUncoveredZero();
+        index = uncoveredZero();
         row = index.row;
         col = index.col;
+
         if ( row === -1 ) {
           return step6();
         } else {
           marks[ row ][ col ] = Type.PRIME;
 
-          starIndex = indexOfStar( marks[ row ] );
+          starIndex = indexOfStarRow( marks[ row ] );
           if ( starIndex !== -1 ) {
             col = starIndex;
             coveredRows[ row ] = true;
@@ -267,58 +272,56 @@ var Hungarian = (function() {
       }
     }
 
+    /**
+     * Step 5 helper functions.
+     */
+    function indexOfStarCol( col ) {
+      for ( var i = 0, il = marks.length; i < il; i++ ) {
+        if ( marks[i][ col ] === Type.STAR ) {
+          return i;
+        }
+      }
+
+      return -1;
+    }
+
+    function indexOfPrimeRow( rowIndex ) {
+      var row = marks[ rowIndex ];
+      for ( var i = 0, il = row.length; i < il; i++ ) {
+        if ( row[i] === Type.PRIME ) {
+          return i;
+        }
+      }
+
+      return -1;
+    }
+
+    function augmentPath( path, pathCount ) {
+      var row, col;
+      for ( var i = 0; i < pathCount; i++ ) {
+        row = path[i][0];
+        col = path[i][1];
+        if ( marks[ row ][ col ] === 1 ) {
+          marks[ row ][ col ] = 0;
+        } else {
+          marks[ row ][ col ] = 1;
+        }
+      }
+    }
+
+    function removePrimes() {
+      var i, il;
+      var j, jl;
+      for ( i = 0, il = marks.length; i < il; i++ ) {
+        for ( j = 0, jl = marks[i].length; j < jl; j++ ) {
+          if ( marks[i][j] === Type.PRIME ) {
+            marks[i][j] = 0;
+          }
+        }
+      }
+    }
+
     function step5( row, col ) {
-      function indexOfStarCol( col ) {
-        for ( var i = 0, il = marks.length; i < il; i++ ) {
-          if ( marks[i][ col ] === Type.STAR ) {
-            return i;
-          }
-        }
-
-        return -1;
-      }
-
-      function indexOfPrimeRow( rowIndex ) {
-        var row = marks[ rowIndex ];
-        for ( var i = 0, il = row.length; i < il; i++ ) {
-          if ( row[i] === Type.PRIME ) {
-            return i;
-          }
-        }
-
-        return -1;
-      }
-
-      function augmentPath( path, pathCount ) {
-        var row, col;
-        for ( var i = 0; i < pathCount; i++ ) {
-          row = path[i][0];
-          col = path[i][1];
-          if ( marks[ row ][ col ] === 1 ) {
-            marks[ row ][ col ] = 0;
-          } else {
-            marks[ row ][ col ] = 1;
-          }
-        }
-      }
-
-      function clearCovers() {
-        coveredRows = [];
-        coveredCols = [];
-      }
-
-      function removePrimes() {
-        var i, il;
-        var j, jl;
-        for ( i = 0, il = marks.length; i < il; i++ ) {
-          for ( j = 0, jl = marks[i].length; j < jl; j++ ) {
-            if ( marks[i][j] === Type.PRIME ) {
-              marks[i][j] = 0;
-            }
-          }
-        }
-      }
-
       var pathIndex = 0;
       var path = [
         [ row, col ]
@@ -350,6 +353,9 @@ var Hungarian = (function() {
       step3();
     }
 
+    /**
+     * Step 6 helper function.
+     */
     function uncoveredMinima() {
       var min = Number.POSITIVE_INFINITY;
 
