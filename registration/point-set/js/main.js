@@ -1,3 +1,4 @@
+/*globals Hungarian*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -137,13 +138,28 @@
     points.b = [];
     points.lerp = [];
 
-    var pointCount = 100;
+    var pointCount = 60;
     while ( pointCount-- ) {
-      points.a = points.a.concat( randomPointInCircle( x, y, 0.4 * radius ) );
+      points.a = points.a.concat( randomPointInCircle( x, y, 0.2 * radius ) );
       points.b = points.b.concat( randomPointInCircle( x, y, 0.8 * radius ) );
     }
 
-    costMatrix( points.a, points.b );
+    // Compute cost matrix and Hungarian assignments.
+    var matrix = costMatrix( points.a, points.b );
+    var clone = Hungarian.Matrix.clone( matrix );
+
+    console.time( 'hungarian' );
+    var solution = Hungarian.calculate( clone );
+    console.timeEnd( 'hungarian' );
+    console.log( 'cost: ' + Hungarian.cost( matrix, solution ) );
+
+    var array = [];
+    for ( var i = 0, il = 0.5 * points.b.length; i < il; i++ ) {
+      array[ 2 * i ] = points.b[ 2 * solution[i] ];
+      array[ 2 * i + 1 ] = points.b[ 2 * solution[i] + 1 ];
+    }
+
+    points.b = array;
 
     draw( context );
   }
