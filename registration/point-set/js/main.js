@@ -37,23 +37,6 @@
     return array;
   }
 
-  function minIndex( array ) {
-    var min = Number.POSITIVE_INFINITY,
-        index = 0;
-
-    for ( var i = 0, il = array.length; i < il; i++ ) {
-      if ( array[i] < min ) {
-        min = array[i];
-        index = i;
-      }
-    }
-
-    return {
-      min: min,
-      index: index
-    };
-  }
-
   function costMatrix( n, m ) {
     var height = 0.5 * n.length;
     var width = 0.5 * m.length;
