@@ -2,6 +2,29 @@
 var Hungarian = (function() {
   'use strict';
 
+  /**
+   * An implementation of the Hungarian (Kuhn-Munkres) algorithm for solving
+   * the assignment problem (modified for rectangular matrices).
+   *
+   * Translation to JavaScript from the C# implementation found at:
+   *
+   *   csclab.murraystate.edu/bob.pilgrim/445/munkres.html
+   *
+   * Comments are sourced from the referenced implementation.
+   *
+   * Referenced papers:
+   *   - Algorithms for Assignment and Transportation Problems.
+   *       James Munkres.
+   *       Journal of the Society for Industrial and Applied Mathematics.
+   *       Volume 5, Number 1, March, 1957.
+   *
+   *   - An extension of the Munkres algorithm for the assignment problem to
+   *     rectangular matrices.
+   *       F. Burgeois and J.-C. Lasalle.
+   *       Communications of the ACM.
+   *       142302-806, 1971.
+   */
+
   var Type = {
     NONE:  0,
     STAR:  1,
@@ -156,16 +179,27 @@ var Hungarian = (function() {
 
     init();
 
+
+    /**
+     * For each row of the cost matrix, find the smallest element and subtract
+     * it from every element in its row. When finished, Go to Step 2.
+     */
     function step1() {
       subtractRowsMinima( costMatrix );
       step2();
     }
+
 
     function clearCovers() {
       coveredRows = [];
       coveredCols = [];
     }
 
+    /**
+     * Find a zero (Z) in the resulting matrix. If there is no starred
+     * zero in its row or column, star Z. Repeat for each element in the
+     * matrix. Go to Step 3.
+     */
     function step2() {
       var i, il;
       var j, jl;
@@ -184,10 +218,14 @@ var Hungarian = (function() {
       step3();
     }
 
+    /**
+     * Cover each column containing a starred zero. If K columns are covered,
+     * the starred zeros describe a complete set of unique assignments. In this
+     * case, Go to DONE, otherwise, Go to Step 4.
+     */
     function step3() {
       var i, il;
       var j, jl;
-      // Cover each column containing a starred zero.
       for ( i = 0, il = costMatrix.length; i < il; i++ ) {
         for ( j = 0, jl = costMatrix[i].length; j < jl; j++ ) {
           if ( marks[i][j] === Type.STAR ) {
@@ -245,6 +283,13 @@ var Hungarian = (function() {
       return -1;
     }
 
+    /**
+     * Find a noncovered zero and prime it. If there is no starred zero
+     * in the row containing this primed zero, Go to Step 5. Otherwise,
+     * cover this row and uncover the column containing the starred zero.
+     * Continue in this manner until there are no uncovered zeros left.
+     * Save the smallest uncovered value and Go to Step 6.
+     */
     function step4() {
       var row;
       var col;
@@ -261,7 +306,7 @@ var Hungarian = (function() {
           marks[ row ][ col ] = Type.PRIME;
 
           starIndex = indexOfStarRow( marks[ row ] );
-          if ( starIndex !== -1 ) {
+          if ( starIndex > -1 ) {
             col = starIndex;
             coveredRows[ row ] = true;
             coveredCols[ col ] = false;
@@ -275,9 +320,9 @@ var Hungarian = (function() {
     /**
      * Step 5 helper functions.
      */
-    function indexOfStarCol( col ) {
+    function indexOfStarCol( colIndex ) {
       for ( var i = 0, il = marks.length; i < il; i++ ) {
-        if ( marks[i][ col ] === Type.STAR ) {
+        if ( marks[i][ colIndex ] === Type.STAR ) {
           return i;
         }
       }
@@ -301,10 +346,10 @@ var Hungarian = (function() {
       for ( var i = 0; i < pathCount; i++ ) {
         row = path[i][0];
         col = path[i][1];
-        if ( marks[ row ][ col ] === 1 ) {
+        if ( marks[ row ][ col ] === Type.STAR ) {
           marks[ row ][ col ] = 0;
         } else {
-          marks[ row ][ col ] = 1;
+          marks[ row ][ col ] = Type.STAR;
         }
       }
     }
@@ -321,11 +366,22 @@ var Hungarian = (function() {
       }
     }
 
+
+    /**
+     * Construct a series of alternating primed and starred zeros as follows.
+     * Let Z0 represent the uncovered primed zero found in Step 4. Let Z1 denote
+     * the starred zero in the column of Z0 (if any). Let Z2 denote the primed zero
+     * in the row of Z1 (there will always be one). Continue until the series
+     * terminates at a primed zero that has no starred zero in its column.
+     * Unstar each starred zero of the series, star each primed zero of the series,
+     * erase all primes and uncover every line in the matrix. Return to Step 3.
+     */
     function step5( row, col ) {
       var pathIndex = 0;
       var path = [
         [ row, col ]
       ];
+
       var index;
       while ( true ) {
         index = indexOfStarCol( path[ pathIndex ][1] );
@@ -374,6 +430,11 @@ var Hungarian = (function() {
       return min;
     }
 
+    /**
+     * Add the value found in Step 4 to every element of each covered row, and subtract
+     * it from every element of each uncovered column. Return to Step 4 without
+     * altering any stars, primes, or covered lines.
+     */
     function step6() {
       var min = uncoveredMinima();
       if ( !isFinite( min ) ) {
