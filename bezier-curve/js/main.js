@@ -50,12 +50,35 @@
     return curve;
   }
 
+  function BezierPath() {
+    this.curves = [];
+  }
+
+  BezierPath.prototype.draw = function( ctx ) {
+    if ( !this.curves.length ) {
+      return;
+    }
+
+    var curve = this.curves[0];
+    ctx.moveTo( curve.x0, curve.y0 );
+    for ( var i = 0, il = this.curves.length; i < il; i++ ) {
+      curve = this.curves[i];
+      ctx.bezierCurveTo(
+        curve.cpx0, curve.cpy0,
+        curve.cpx1, curve.cpy1,
+        curve.x1, curve.y1
+      );
+    }
+  };
+
 
   var canvas  = document.querySelector( 'canvas' ),
       context = canvas.getContext( '2d' );
 
   var curve;
   var cp0, cp1;
+
+  var path;
 
   function init() {
     var width  = window.innerWidth,
@@ -72,6 +95,10 @@
     cubicBezier( curve, 0.25, 0.1, 0.25, 1 );
     cp0 = new ControlPoint( curve, 0 );
     cp1 = new ControlPoint( curve, 1 );
+
+    path = new BezierPath();
+    path.curves.push( new BezierCurve( 10, 20, 80, 90, 30, 50, 70, 80 ) );
+    path.curves.push( new BezierCurve( 80, 90, 80, 300, 90, 120, 110, 80 ) );
   }
 
   function draw( ctx ) {
@@ -84,6 +111,10 @@
     curve.draw( ctx );
     ctx.lineCap = 'round';
     ctx.lineWidth = 5;
+    ctx.stroke();
+
+    ctx.beginPath();
+    path.draw( ctx );
     ctx.stroke();
 
     // Draw control points.
