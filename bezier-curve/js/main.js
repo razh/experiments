@@ -1,3 +1,4 @@
+/*jshint bitwise:false*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -39,6 +40,51 @@
 
     ctx.rect( cpx - 4, cpy - 4, 8, 8 );
   };
+
+  Object.defineProperty( ControlPoint.prototype, 'x', {
+    get: function() {
+      return this.curve[ 'cpx' + this.index ];
+    },
+
+    set: function( x ) {
+      this.curve[ 'cpx' + this.index ] = x;
+      return x;
+    }
+  });
+
+  Object.defineProperty( ControlPoint.prototype, 'y', {
+    get: function() {
+      return this.curve[ 'cpy' + this.index ];
+    },
+
+    set: function( y ) {
+      this.curve[ 'cpy' + this.index ] = y;
+      return y;
+    }
+  });
+
+  // Set the coordinates of the other control point.
+  Object.defineProperty( ControlPoint.prototype, 'nx', {
+    get: function() {
+      return this.curve[ 'cpx' + this.index ^ 1 ];
+    },
+
+    set: function( x ) {
+      this.curve[ 'cpx' + this.index ^ 1 ] = x;
+      return x;
+    }
+  });
+
+  Object.defineProperty( ControlPoint.prototype, 'ny', {
+    get: function() {
+      return this.curve[ 'cpy' + this.index ^ 1 ];
+    },
+
+    set: function( y ) {
+      this.curve[ 'cpy' + this.index ^ 1 ] = y;
+      return y;
+    }
+  });
 
   function cubicBezier( curve, x1, y1, x2, y2 ) {
     curve.cpx0 = lerp( curve.x0, curve.x1, x1 );
