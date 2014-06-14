@@ -1,4 +1,5 @@
 /*jshint bitwise:false*/
+/*globals requestAnimationFrame*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -73,6 +74,13 @@
       },
 
       set: function( number ) {
+        var prop = this.prefix + axis + this.index;
+        Object.getNotifier( this ).notify({
+          type: 'update',
+          name: axis,
+          oldValue: this.curve[ prop ]
+        });
+
         this.curve[ this.prefix + axis + this.index ] = number;
         return number;
       }
@@ -106,6 +114,22 @@
   function ControlPoint( curve, index ) {
     CurvePoint.call( this, curve, index );
     this.prefix = 'cp';
+
+    Object.observe( curve, function( changes ) {
+      changes.forEach(function( change ) {
+        var value;
+        if ( change.name === 'x' + this.index ) {
+          value = change.object[ change.name ];
+          this.x += value - change.oldValue;
+        }
+
+        if ( change.name === 'y' + this.index ) {
+          value = change.object[ change.name ];
+          this.y += value - change.oldValue;
+        }
+
+      }, this );
+    }.bind( this ));
   }
 
   ControlPoint.prototype = Object.create( CurvePoint.prototype );
@@ -279,7 +303,8 @@
       element.y = mouse.y + offset.y;
     });
 
-    draw( context );
+    // Wait for Object.observe changes to propagate.
+    requestAnimationFrame( draw );
   }
 
   function onMouseUp() {
@@ -287,7 +312,8 @@
   }
 
   init();
-  draw( context );
+  draw = draw.bind( this, context );
+  draw();
 
   document.addEventListener( 'mousedown', onMouseDown );
   document.addEventListener( 'mousemove', onMouseMove );
