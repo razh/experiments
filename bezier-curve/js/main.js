@@ -29,6 +29,13 @@
     );
   };
 
+  BezierCurve.prototype.createControlPoints = function() {
+    return [
+      new ControlPoint( this, 0 ),
+      new ControlPoint( this, 1 ),
+    ];
+  };
+
   function ControlPoint( curve, index ) {
     this.curve = curve || null;
     this.index = index || 0;
@@ -39,6 +46,22 @@
         cpy = this.curve[ 'cpy' + this.index ];
 
     ctx.rect( cpx - 4, cpy - 4, 8, 8 );
+  };
+
+  ControlPoint.prototype.contains = function( x, y ) {
+    var dx = x - this.x,
+        dy = y - this.y;
+
+    var distanceSquared = dx * dx + dy * dy;
+
+    var radius = 6;
+    var radiusSquared = radius * radius;
+
+    if ( distanceSquared < radiusSquared ) {
+      return true;
+    }
+
+    return false;
   };
 
   Object.defineProperty( ControlPoint.prototype, 'x', {
@@ -117,6 +140,12 @@
     }
   };
 
+  BezierPath.prototype.createControlPoints = function() {
+    return this.curves.reduce(function( array, curve ) {
+      return array.concat( curve.createControlPoints() );
+    }, [] );
+  };
+
 
   var canvas  = document.querySelector( 'canvas' ),
       context = canvas.getContext( '2d' );
@@ -125,6 +154,17 @@
   var cp0, cp1;
 
   var path;
+  var controlPoints;
+
+  var mouse = {
+    x: 0,
+    y: 0,
+
+    down: false
+  };
+
+  var selection = [];
+  var offsets = [];
 
   function init() {
     var width  = window.innerWidth,
@@ -145,6 +185,8 @@
     path = new BezierPath();
     path.curves.push( new BezierCurve( 10, 20, 80, 90, 30, 50, 70, 80 ) );
     path.curves.push( new BezierCurve( 80, 90, 80, 300, 90, 120, 110, 80 ) );
+
+    controlPoints = path.createControlPoints();
   }
 
   function draw( ctx ) {
@@ -159,6 +201,7 @@
     ctx.lineWidth = 5;
     ctx.stroke();
 
+    // Draw path.
     ctx.beginPath();
     path.draw( ctx );
     ctx.stroke();
@@ -170,6 +213,22 @@
     ctx.lineWidth = 1;
     ctx.stroke();
 
+    // Draw path control points.
+    controlPoints.forEach(function( controlPoint ) {
+      ctx.beginPath();
+      controlPoint.draw( ctx );
+
+      // Connect to bezier curve endpoints.
+      var index = controlPoint.index;
+      ctx.moveTo( controlPoint.x, controlPoint.y );
+      ctx.lineTo(
+        controlPoint.curve[ 'x' + index ],
+        controlPoint.curve[ 'y' + index ]
+      );
+
+      ctx.stroke();
+    });
+
     // Draw line segments from endpoints to control points.
     ctx.beginPath();
     ctx.moveTo( curve.x0, curve.y0 );
@@ -179,7 +238,51 @@
     ctx.stroke();
   }
 
+  function mousePosition( event ) {
+    mouse.x = event.pageX - canvas.offsetLeft;
+    mouse.y = event.pageY - canvas.offsetTop;
+  }
+
+  function onMouseDown( event ) {
+    mousePosition( event );
+    mouse.down = true;
+
+    selection = controlPoints.filter(function( controlPoint ) {
+      return controlPoint.contains( mouse.x, mouse.y );
+    });
+
+    offsets = selection.map(function( controlPoint ) {
+      return {
+        x: controlPoint.x - mouse.x,
+        y: controlPoint.y - mouse.y
+      };
+    });
+  }
+
+  function onMouseMove( event ) {
+    mousePosition( event );
+    if ( !mouse.down ) {
+      return;
+    }
+
+    selection.forEach(function( element, index ) {
+      var offset = offsets[ index ];
+      element.x = mouse.x + offset.x;
+      element.y = mouse.y + offset.y;
+    });
+
+    draw( context );
+  }
+
+  function onMouseUp() {
+    mouse.down = false;
+  }
+
   init();
   draw( context );
+
+  document.addEventListener( 'mousedown', onMouseDown );
+  document.addEventListener( 'mousemove', onMouseMove );
+  document.addEventListener( 'mouseup', onMouseUp );
 
 }) ( window, document );
