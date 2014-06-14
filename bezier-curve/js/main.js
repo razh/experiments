@@ -2,6 +2,8 @@
 (function( window, document, undefined ) {
   'use strict';
 
+  var PI2 = 2 * Math.PI;
+
   function lerp( a, b, t ) {
     return a + t * ( b - a );
   }
@@ -31,30 +33,26 @@
 
   BezierCurve.prototype.createControlPoints = function() {
     return [
+      new Endpoint( this, 0 ),
       new ControlPoint( this, 0 ),
       new ControlPoint( this, 1 ),
+      new Endpoint( this, 1 )
     ];
   };
 
-  function ControlPoint( curve, index ) {
+  function CurvePoint( curve, index ) {
     this.curve = curve || null;
     this.index = index || 0;
+    this.prefix = '';
   }
 
-  ControlPoint.prototype.draw = function( ctx ) {
-    var cpx = this.curve[ 'cpx' + this.index ],
-        cpy = this.curve[ 'cpy' + this.index ];
-
-    ctx.rect( cpx - 4, cpy - 4, 8, 8 );
-  };
-
-  ControlPoint.prototype.contains = function( x, y ) {
+  CurvePoint.prototype.contains = function( x, y ) {
     var dx = x - this.x,
         dy = y - this.y;
 
     var distanceSquared = dx * dx + dy * dy;
 
-    var radius = 6;
+    var radius = 8;
     var radiusSquared = radius * radius;
 
     if ( distanceSquared < radiusSquared ) {
@@ -64,50 +62,59 @@
     return false;
   };
 
-  Object.defineProperty( ControlPoint.prototype, 'x', {
-    get: function() {
-      return this.curve[ 'cpx' + this.index ];
-    },
+  /**
+   * Define getters/setters for the point properties (x, y, nx, ny).
+   * (nx, ny) are the coordinates of the other curve point.
+   */
+  [ 'x', 'y' ].forEach(function( axis ) {
+    Object.defineProperty( CurvePoint.prototype, axis, {
+      get: function() {
+        return this.curve[ this.prefix + axis + this.index ];
+      },
 
-    set: function( x ) {
-      this.curve[ 'cpx' + this.index ] = x;
-      return x;
-    }
+      set: function( number ) {
+        this.curve[ this.prefix + axis + this.index ] = number;
+        return number;
+      }
+    });
+
+    // Get/set the coordinates of the other curve point.
+    Object.defineProperty( CurvePoint.prototype, 'n' + axis, {
+      get: function() {
+        return this.curve[ this.prefix + axis + this.index ^ 1 ];
+      },
+
+      set: function( number ) {
+        this.curve[ this.prefix + axis + this.index ^ 1 ] = number;
+        return number;
+      }
+    });
   });
 
-  Object.defineProperty( ControlPoint.prototype, 'y', {
-    get: function() {
-      return this.curve[ 'cpy' + this.index ];
-    },
+  function Endpoint( curve, index ) {
+    CurvePoint.call( this, curve, index );
+  }
 
-    set: function( y ) {
-      this.curve[ 'cpy' + this.index ] = y;
-      return y;
-    }
-  });
+  Endpoint.prototype = Object.create( CurvePoint.prototype );
+  Endpoint.prototype.constructor = Endpoint;
 
-  // Set the coordinates of the other control point.
-  Object.defineProperty( ControlPoint.prototype, 'nx', {
-    get: function() {
-      return this.curve[ 'cpx' + this.index ^ 1 ];
-    },
+  Endpoint.prototype.draw = function( ctx ) {
+    ctx.arc( this.x, this.y, 8, 0, PI2 );
+  };
 
-    set: function( x ) {
-      this.curve[ 'cpx' + this.index ^ 1 ] = x;
-      return x;
-    }
-  });
 
-  Object.defineProperty( ControlPoint.prototype, 'ny', {
-    get: function() {
-      return this.curve[ 'cpy' + this.index ^ 1 ];
-    },
+  function ControlPoint( curve, index ) {
+    CurvePoint.call( this, curve, index );
+    this.prefix = 'cp';
+  }
 
-    set: function( y ) {
-      this.curve[ 'cpy' + this.index ^ 1 ] = y;
-      return y;
-    }
-  });
+  ControlPoint.prototype = Object.create( CurvePoint.prototype );
+  ControlPoint.prototype.constructor = ControlPoint;
+
+  ControlPoint.prototype.draw = function( ctx ) {
+    ctx.rect( this.x - 4, this.y - 4, 8, 8 );
+  };
+
 
   function cubicBezier( curve, x1, y1, x2, y2 ) {
     curve.cpx0 = lerp( curve.x0, curve.x1, x1 );
@@ -210,10 +217,11 @@
     ctx.beginPath();
     cp0.draw( ctx );
     cp1.draw( ctx );
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 3;
     ctx.stroke();
 
     // Draw path control points.
+    ctx.lineWidth = 2;
     controlPoints.forEach(function( controlPoint ) {
       ctx.beginPath();
       controlPoint.draw( ctx );
