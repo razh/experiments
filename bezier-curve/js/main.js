@@ -47,20 +47,11 @@
     this.prefix = '';
   }
 
-  CurvePoint.prototype.contains = function( x, y ) {
+  CurvePoint.prototype.contains = function( x, y, radius ) {
     var dx = x - this.x,
         dy = y - this.y;
 
-    var distanceSquared = dx * dx + dy * dy;
-
-    var radius = 8;
-    var radiusSquared = radius * radius;
-
-    if ( distanceSquared < radiusSquared ) {
-      return true;
-    }
-
-    return false;
+    return ( dx * dx + dy * dy ) <= ( radius * radius );
   };
 
   /**
@@ -280,7 +271,7 @@
     mouse.down = true;
 
     selection = controlPoints.filter(function( controlPoint ) {
-      return controlPoint.contains( mouse.x, mouse.y );
+      return controlPoint.contains( mouse.x, mouse.y, 8 );
     });
 
     offsets = selection.map(function( controlPoint ) {
