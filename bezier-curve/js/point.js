@@ -3,8 +3,8 @@ var Point = (function() {
   'use strict';
 
   function Point( x, y ) {
-    this.x = x;
-    this.y = y;
+    this.x = x || 0;
+    this.y = y || 0;
   }
 
   Point.prototype.add = function( x, y ) {
@@ -22,6 +22,12 @@ var Point = (function() {
   Point.prototype.set = function( x, y ) {
     this.x = x;
     this.y = y;
+    return this;
+  };
+
+  Point.prototype.copy = function( v ) {
+    this.x = v.x;
+    this.y = v.y;
     return this;
   };
 
