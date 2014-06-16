@@ -41,6 +41,20 @@ var BezierCurve = (function() {
     );
   };
 
+  BezierCurve.prototype.controlPoints = function() {
+    return [ this.p0, this.p1, this.p2, this.p3 ];
+  };
+
+  BezierCurve.prototype.linkTo = function( curve ) {
+    this.p0 = curve.p3;
+    return this;
+  };
+
+  BezierCurve.prototype.unlink = function() {
+    this.p0 = new Endpoint().copy( this.p0 );
+    return this;
+  };
+
   return BezierCurve;
 
 }) ();
