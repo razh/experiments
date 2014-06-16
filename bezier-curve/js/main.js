@@ -86,14 +86,19 @@
 
     // Draw path control points.
     ctx.lineWidth = 2;
-    controlPoints.forEach(function( controlPoint ) {
-      ctx.beginPath();
-      controlPoint.draw( ctx );
+    path.curves.forEach(function( curve ) {
+      curve.controlPoints().forEach(function( controlPoint ) {
+        ctx.beginPath();
+        controlPoint.draw( ctx );
+        ctx.stroke();
+      });
 
       // Connect to bezier curve endpoints.
-      ctx.moveTo( controlPoint.x, controlPoint.y );
-      ctx.lineTo( controlPoint.x, controlPoint.y );
-
+      ctx.beginPath();
+      ctx.moveTo( curve.p0.x, curve.p0.y );
+      ctx.lineTo( curve.p1.x, curve.p1.y );
+      ctx.moveTo( curve.p2.x, curve.p2.y );
+      ctx.lineTo( curve.p3.x, curve.p3.y );
       ctx.stroke();
     });
 
@@ -120,10 +125,8 @@
     });
 
     offsets = selection.map(function( controlPoint ) {
-      return {
-        x: controlPoint.x - mouse.x,
-        y: controlPoint.y - mouse.y
-      };
+      return new Point()
+      .subVectors( controlPoint, mouse );
     });
   }
 
@@ -134,9 +137,7 @@
     }
 
     selection.forEach(function( element, index ) {
-      var offset = offsets[ index ];
-      element.x = mouse.x + offset.x;
-      element.y = mouse.y + offset.y;
+      element.addVectors( mouse, offsets[ index ] );
     });
 
     // Wait for Object.observe changes to propagate.

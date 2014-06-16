@@ -13,9 +13,21 @@ var Point = (function() {
     return this;
   };
 
+  Point.prototype.addVectors = function( a, b ) {
+    this.x = a.x + b.x;
+    this.y = a.y + b.y;
+    return this;
+  };
+
   Point.prototype.sub = function( x, y ) {
     this.x -= x;
     this.y -= y;
+    return this;
+  };
+
+  Point.prototype.subVectors = function( a, b ) {
+    this.x = a.x - b.x;
+    this.y = a.y - b.y;
     return this;
   };
 

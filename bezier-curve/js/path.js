@@ -13,14 +13,13 @@ var BezierPath = (function() {
 
     var curve = this.curves[0];
     ctx.moveTo( curve.p0.x, curve.p0.y );
-    for ( var i = 0, il = this.curves.length; i < il; i++ ) {
-      curve = this.curves[i];
+    this.curves.forEach(function( curve ) {
       ctx.bezierCurveTo(
         curve.p1.x, curve.p1.y,
         curve.p2.x, curve.p2.y,
         curve.p3.x, curve.p3.y
       );
-    }
+    });
   };
 
   BezierPath.prototype.controlPoints = function() {
