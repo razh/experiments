@@ -46,6 +46,26 @@ var ControlPoint = (function() {
   ControlPoint.prototype = Object.create( Point.prototype );
   ControlPoint.prototype.constructor = ControlPoint;
 
+  ControlPoint.prototype.relativeTo = function( point ) {
+    Object.observe( point, function( changes ) {
+      changes.forEach(function( change ) {
+        var name = change.name;
+        this[ name ] += change.object[ name ] - change.oldValue;
+      }, this );
+    }.bind( this ));
+  };
+
+  ControlPoint.prototype.contains = function( x, y, radius ) {
+    var dx = x - this.x,
+        dy = y - this.y;
+
+    return ( dx * dx + dy * dy ) <= ( radius * radius );
+  };
+
+  ControlPoint.prototype.draw = function( ctx ) {
+    ctx.rect( this.x - 4, this.y - 4, 8, 8 );
+  };
+
   return ControlPoint;
 
 }) ();
@@ -60,6 +80,10 @@ var Endpoint = (function() {
 
   Endpoint.prototype = Object.create( ControlPoint.prototype );
   Endpoint.prototype.constructor = Endpoint;
+
+  Endpoint.prototype.draw = function( ctx ) {
+    ctx.arc( this.x, this.y, 8, 0, 2 * Math.PI );
+  };
 
   return Endpoint;
 

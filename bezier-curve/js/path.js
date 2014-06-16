@@ -34,7 +34,11 @@ var BezierPath = (function() {
   };
 
   BezierPath.prototype.push = function( curve ) {
-    this.curves.push( curve.linkTo( this.last() ) );
+    if ( this.curves.length ) {
+      curve.linkTo( this.last() );
+    }
+
+    this.curves.push( curve );
   };
 
 
