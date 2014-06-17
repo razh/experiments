@@ -61,6 +61,10 @@ var BezierCurve = (function() {
     this.observer = function( changes ) {
       changes.forEach(function( change ) {
         var name = change.name;
+        if ( name !== 'x' && name !== 'y' ) {
+          return;
+        }
+
         this.p0[ name ] += change.object[ name ] - change.oldValue;
       }, this );
     }.bind( this );

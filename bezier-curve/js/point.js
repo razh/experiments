@@ -62,6 +62,10 @@ var ControlPoint = (function() {
     Object.observe( point, function( changes ) {
       changes.forEach(function( change ) {
         var name = change.name;
+        if ( name !== 'x' && name !== 'y' ) {
+          return;
+        }
+
         this[ name ] += change.object[ name ] - change.oldValue;
       }, this );
     }.bind( this ));
