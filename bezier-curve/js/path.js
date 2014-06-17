@@ -23,9 +23,14 @@ var BezierPath = (function() {
   };
 
   BezierPath.prototype.controlPoints = function() {
+    if ( !this.curves.length ) {
+      return [];
+    }
+
+    // Except for the first curve, we only want the last three control points.
     return this.curves.reduce(function( array, curve ) {
-      return array.concat( curve.controlPoints() );
-    }, [] );
+      return array.concat( curve.controlPoints().slice(1) );
+    }, [ this.curves[0].p0 ] );
   };
 
   BezierPath.prototype.last = function() {
@@ -61,16 +66,16 @@ var BezierPath = (function() {
         curr = this.curves[ index ],
         next = this.curves[ index + 1 ];
 
+    if ( next ) {
+      next.unlink();
+    }
+
     if ( prev ) {
       curr.unlink();
 
       if ( next ) {
         next.linkTo( prev );
       }
-    }
-
-    if ( next ) {
-      next.unlink();
     }
   };
 

@@ -30,6 +30,13 @@ var BezierCurve = (function() {
       this.p2.set( arguments[4], arguments[5] );
       this.p3.set( arguments[6], arguments[7] );
     }
+
+    this.p1.relativeTo( this.p0 );
+    this.p2.relativeTo( this.p3 );
+
+    // Object.observe() state.
+    this.prev = null;
+    this.observer = null;
   }
 
   BezierCurve.prototype.draw = function( ctx ) {
@@ -46,12 +53,24 @@ var BezierCurve = (function() {
   };
 
   BezierCurve.prototype.linkTo = function( curve ) {
-    this.p0 = curve.p3;
+    if ( this.prev && this.observer ) {
+      this.unlink();
+    }
+
+    this.prev = curve.p3;
+    this.observer = function( changes ) {
+      changes.forEach(function( change ) {
+        var name = change.name;
+        this.p0[ name ] += change.object[ name ] - change.oldValue;
+      }, this );
+    }.bind( this );
+
+    Object.observe( this.prev, this.observer );
     return this;
   };
 
   BezierCurve.prototype.unlink = function() {
-    this.p0 = new Endpoint().copy( this.p0 );
+    Object.unobserve( this.prev, this.observer );
     return this;
   };
 
