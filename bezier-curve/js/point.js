@@ -2,6 +2,10 @@
 var Point = (function() {
   'use strict';
 
+  /**
+   * This Point class attempts to emulate three.js's Vector2 methods on an
+   * as-needed basis.
+   */
   function Point( x, y ) {
     this.x = x || 0;
     this.y = y || 0;
@@ -31,6 +35,12 @@ var Point = (function() {
     return this;
   };
 
+  Point.prototype.multiplyScalar = function( s ) {
+    this.x *= s;
+    this.y *= s;
+    return this;
+  };
+
   Point.prototype.set = function( x, y ) {
     this.x = x;
     this.y = y;
@@ -41,6 +51,31 @@ var Point = (function() {
     this.x = v.x;
     this.y = v.y;
     return this;
+  };
+
+  Point.prototype.clone = function() {
+    return new Point().copy( this );
+  };
+
+  Point.prototype.length = function() {
+    return Math.sqrt( this.x * this.x + this.y * this.y );
+  };
+
+  Point.prototype.angleFrom = function( point ) {
+    var temp = this.clone().sub( point );
+    return Math.atan2( temp.y, temp.x );
+  };
+
+  Point.prototype.setAngleFrom = function( origin, angle ) {
+    // Relative distance from origin.
+    var length = this.subVectors( this, origin ).length();
+
+    return this.set(
+        Math.cos( angle ),
+        Math.sin( angle )
+      )
+      .multiplyScalar( length )
+      .addVectors( this, origin );
   };
 
   return Point;
