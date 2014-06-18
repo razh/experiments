@@ -88,10 +88,46 @@ var ControlPoint = (function() {
 
   function ControlPoint( x, y ) {
     Point.call( this, x, y );
+
+    this.observers = [];
   }
 
   ControlPoint.prototype = Object.create( Point.prototype );
   ControlPoint.prototype.constructor = ControlPoint;
+
+  ControlPoint.prototype.observe = function( object, callback ) {
+    this.observers.push({
+      object: object,
+      callback: callback
+    });
+
+    Object.observe( object, callback );
+    return this;
+  };
+
+  ControlPoint.prototype.unobserve = function( object, callback ) {
+    // Remove all observers.
+    var observer;
+    var i, il;
+    if ( !arguments.length ) {
+      for ( i = 0, il = this.observers.length; i < il; i++ ) {
+        observer = this.observers[i];
+        Object.unobserve( observer.object, observer.callback );
+      }
+
+      this.observers = [];
+      return this;
+    }
+
+    for ( i = 0, il = this.observers.length; i < il; i++ ) {
+      observer = this.observers[i];
+      if ( object === observer.object && callback === observer.callback ) {
+        Object.unobserve( object, callback );
+        this.observers.splice( i, 1 );
+        return this;
+      }
+    }
+  };
 
   ControlPoint.prototype.relativeTo = function( point ) {
     Object.observe( point, function( changes ) {
