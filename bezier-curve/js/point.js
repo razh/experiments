@@ -62,7 +62,7 @@ var Point = (function() {
   };
 
   Point.prototype.angleFrom = function( point ) {
-    var temp = this.clone().sub( point );
+    var temp = new Point().subVectors( this, point );
     return Math.atan2( temp.y, temp.x );
   };
 
@@ -140,6 +140,14 @@ var ControlPoint = (function() {
         this[ name ] += change.object[ name ] - change.oldValue;
       }, this );
     }.bind( this ));
+  ControlPoint.prototype.asymmetric = function( origin, point ) {
+    var angleFrom = Point.prototype.angleFrom.call( point, origin );
+    return this.setAngleFrom( origin, angleFrom + Math.PI );
+  };
+
+  ControlPoint.prototype.mirror = function( origin, point ) {
+    return this.subVectors( origin, point )
+      .addVectors( this, origin );
   };
 
   ControlPoint.prototype.contains = function( x, y, radius ) {
