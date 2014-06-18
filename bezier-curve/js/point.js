@@ -125,9 +125,18 @@ var ControlPoint = (function() {
 var Endpoint = (function() {
   'use strict';
 
+  var Type = {
+    DISCONNECTED: 0,
+    MIRRORED:     1,
+    ASYMMETRIC:   2
+  };
+
   function Endpoint( x, y ) {
     ControlPoint.call( this, x, y );
+    this.type = Type.DISCONNECTED;
   }
+
+  Endpoint.Type = Type;
 
   Endpoint.prototype = Object.create( ControlPoint.prototype );
   Endpoint.prototype.constructor = Endpoint;
