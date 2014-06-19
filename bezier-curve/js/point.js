@@ -130,7 +130,7 @@ var ControlPoint = (function() {
   };
 
   ControlPoint.prototype.relativeTo = function( point ) {
-    Object.observe( point, function( changes ) {
+    this.observe( point, function( changes ) {
       changes.forEach(function( change ) {
         var name = change.name;
         if ( name !== 'x' && name !== 'y' ) {
@@ -140,6 +140,9 @@ var ControlPoint = (function() {
         this[ name ] += change.object[ name ] - change.oldValue;
       }, this );
     }.bind( this ));
+    return this;
+  };
+
   ControlPoint.prototype.asymmetric = function( origin, point ) {
     var angleFrom = Point.prototype.angleFrom.call( point, origin );
     return this.setAngleFrom( origin, angleFrom + Math.PI );
