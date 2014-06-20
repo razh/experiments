@@ -166,10 +166,13 @@
 
   resize();
 
+  function smootherstep( t ) {
+    // 6t^5 - 15t^4 + 10t^3.
+    return t * t * t * ( t * ( t * 6 - 15 ) + 10 );
+  }
+
   function onMouse( event ) {
-    var xt = event.pageX / window.innerWidth;
-    // Smoother step: 6t^5 - 15t^4 + 10t^3.
-    xt = 6 * Math.pow( xt, 5 ) - 15 * Math.pow( xt, 4 ) + 10 * Math.pow( xt, 3 );
+    var xt = smootherstep( event.pageX / window.innerWidth );
     points.lerp = lerpArray( points.a, points.b, xt );
     draw( context );
   }
