@@ -1,5 +1,5 @@
 /*jshint bitwise:false*/
-/*globals requestAnimationFrame, ControlPoint, Point, BezierCurve, BezierPath*/
+/*globals requestAnimationFrame, ControlPoint, Endpoint, Point, BezierCurve, BezierPath*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -121,7 +121,7 @@
     mouse.down = true;
 
     selection = controlPoints.filter(function( controlPoint ) {
-      return controlPoint.contains( mouse.x, mouse.y, 8 );
+      return controlPoint.contains( mouse.x, mouse.y, 16 );
     });
 
     offsets = selection.map(function( controlPoint ) {
@@ -130,6 +130,7 @@
     });
   }
 
+  var iteration = 0;
   function onMouseMove( event ) {
     mousePosition( event );
     if ( !mouse.down ) {
@@ -137,7 +138,21 @@
     }
 
     selection.forEach(function( element, index ) {
-      element.addVectors( mouse, offsets[ index ] );
+      if ( element instanceof ControlPoint &&
+          !( element instanceof Endpoint ) ) {
+        var notifier = Object.getNotifier( element );
+        notifier.performChange( 'control', function() {
+          element.addVectors( mouse, offsets[ index ] );
+          var i = iteration;
+          iteration++;
+          console.log(i);
+          // return {
+          //   iteration: i
+          // };
+        }.bind( element ));
+      } else {
+        element.addVectors( mouse, offsets[ index ] );
+      }
     });
 
     // Wait for Object.observe changes to propagate.

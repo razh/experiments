@@ -95,13 +95,13 @@ var ControlPoint = (function() {
   ControlPoint.prototype = Object.create( Point.prototype );
   ControlPoint.prototype.constructor = ControlPoint;
 
-  ControlPoint.prototype.observe = function( object, callback ) {
+  ControlPoint.prototype.observe = function( object, callback, accept ) {
     this.observers.push({
       object: object,
       callback: callback
     });
 
-    Object.observe( object, callback );
+    Object.observe( object, callback, accept );
     return this;
   };
 
@@ -131,7 +131,20 @@ var ControlPoint = (function() {
 
   ControlPoint.prototype.relativeTo = function( point ) {
     this.observe( point, function( changes ) {
+      // Get position changes.
       changes.forEach(function( change ) {
+        console.log(
+          change.type,
+          change.object.name,
+          this.name,
+          change.iteration
+        );
+
+        if ( change.type === 'control' ) {
+          console.log( 'success' );
+          return;
+        }
+
         var name = change.name;
         if ( name !== 'x' && name !== 'y' ) {
           return;
@@ -139,7 +152,7 @@ var ControlPoint = (function() {
 
         this[ name ] += change.object[ name ] - change.oldValue;
       }, this );
-    }.bind( this ));
+    }.bind( this ), [ 'update', 'control' ]);
     return this;
   };
 
@@ -190,6 +203,14 @@ var Endpoint = (function() {
 
   Endpoint.prototype.draw = function( ctx ) {
     ctx.arc( this.x, this.y, 8, 0, 2 * Math.PI );
+  };
+
+  Endpoint.prototype.observeControlPoint = function( point ) {
+    this.observe( point, function( changes ) {
+      changes.forEach(function( change ) {
+        Object.getNotifier( this ).notify( change );
+      }, this );
+    }.bind( this ), [ 'control' ] );
   };
 
   return Endpoint;
