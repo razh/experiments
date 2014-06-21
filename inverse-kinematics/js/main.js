@@ -96,12 +96,12 @@
     // Draw origin.
     ctx.beginPath();
     ctx.arc( origin.x, origin.y, 3, 0, PI2 );
-    ctx.fillStyle = '#fff';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
     ctx.fill();
 
     // Draw radii.
-    ctx.lineWidth = 0.5;
-    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
     // Inner radius.
     ctx.beginPath();
     ctx.arc( origin.x, origin.y, Math.abs( lengths.b - lengths.a ), 0, PI2 );
@@ -128,7 +128,10 @@
 
     ctx.restore();
 
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
     ctx.stroke();
   }
 
