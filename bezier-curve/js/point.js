@@ -133,18 +133,6 @@ var ControlPoint = (function() {
     this.observe( point, function( changes ) {
       // Get position changes.
       changes.forEach(function( change ) {
-        console.log(
-          change.type,
-          change.object.name,
-          this.name,
-          change.iteration
-        );
-
-        if ( change.type === 'control' ) {
-          console.log( 'success' );
-          return;
-        }
-
         var name = change.name;
         if ( name !== 'x' && name !== 'y' ) {
           return;
@@ -152,7 +140,7 @@ var ControlPoint = (function() {
 
         this[ name ] += change.object[ name ] - change.oldValue;
       }, this );
-    }.bind( this ), [ 'update', 'control' ]);
+    }.bind( this ));
     return this;
   };
 
@@ -194,6 +182,38 @@ var Endpoint = (function() {
   function Endpoint( x, y ) {
     ControlPoint.call( this, x, y );
     this.type = Type.DISCONNECTED;
+
+    var prev, next;
+    this.prev = prev = new ControlPoint().relativeTo( this );
+    this.next = next = new ControlPoint().relativeTo( this );
+
+    var endpoint = this;
+    /**
+     * Update self based on observed changes to other.
+     * Changes are performed under the 'translate' namespace.
+     *
+     * @param  {ControlPoint} self
+     * @param  {ControlPoint} other
+     */
+    function observeControlFn( self, other ) {
+      var notifier = Object.getNotifier( self );
+      self.observe( other, function() {
+        if ( !endpoint.type ) {
+          return;
+        }
+
+        notifier.performChange( 'translate', function() {
+          if ( endpoint.type === Type.MIRROR ) {
+            self.mirror( other );
+          } else if ( endpoint.type === Type.ASYMMETRIC ) {
+            self.asymmetric( other );
+          }
+        });
+      });
+    }
+
+    observeControlFn( prev, next );
+    observeControlFn( next, prev );
   }
 
   Endpoint.Type = Type;
@@ -203,14 +223,6 @@ var Endpoint = (function() {
 
   Endpoint.prototype.draw = function( ctx ) {
     ctx.arc( this.x, this.y, 8, 0, 2 * Math.PI );
-  };
-
-  Endpoint.prototype.observeControlPoint = function( point ) {
-    this.observe( point, function( changes ) {
-      changes.forEach(function( change ) {
-        Object.getNotifier( this ).notify( change );
-      }, this );
-    }.bind( this ), [ 'control' ] );
   };
 
   return Endpoint;
