@@ -2,6 +2,30 @@
 var BezierPath = (function() {
   'use strict';
 
+  /**
+   *  BezierPath
+   *  ===
+   *
+   *    ---   Endpoint
+   *     |    |       \
+   *     |    |        Control
+   *   Curve  |
+   *     |    |        Control
+   *     |    |       /      |
+   *    ---   Endpoint       |
+   *     |    |       \      |
+   *     |    |        Control
+   *   Curve  |
+   *     |    |        Control
+   *     |    |       /      |
+   *    ---   Endpoint       |
+   *     |    |       \      |
+   *     |    |        Control
+   *   Curve  |
+   *     |    |        Control
+   *     |    |       /
+   *    ---   Endpoint
+   */
   function BezierPath() {
     this.curves = [];
   }
@@ -59,6 +83,8 @@ var BezierPath = (function() {
     if ( next ) {
       next.linkTo( curve );
     }
+
+    this.curves.splice( index, 0, curve );
   };
 
   BezierPath.prototype.removeAt = function( index ) {
@@ -77,6 +103,8 @@ var BezierPath = (function() {
         next.linkTo( prev );
       }
     }
+
+    this.curves.splice( index, 1 );
   };
 
   BezierPath.prototype.remove = function( curve ) {
