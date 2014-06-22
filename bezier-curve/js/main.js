@@ -69,6 +69,7 @@
     ctx.beginPath();
     curve.draw( ctx );
     ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
     ctx.lineWidth = 5;
     ctx.stroke();
 
@@ -130,7 +131,6 @@
     });
   }
 
-  var iteration = 0;
   function onMouseMove( event ) {
     mousePosition( event );
     if ( !mouse.down ) {
@@ -138,21 +138,7 @@
     }
 
     selection.forEach(function( element, index ) {
-      if ( element instanceof ControlPoint &&
-          !( element instanceof Endpoint ) ) {
-        var notifier = Object.getNotifier( element );
-        notifier.performChange( 'control', function() {
-          element.addVectors( mouse, offsets[ index ] );
-          var i = iteration;
-          iteration++;
-          console.log(i);
-          // return {
-          //   iteration: i
-          // };
-        }.bind( element ));
-      } else {
-        element.addVectors( mouse, offsets[ index ] );
-      }
+      element.addVectors( mouse, offsets[ index ] );
     });
 
     // Wait for Object.observe changes to propagate.
