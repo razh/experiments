@@ -4,35 +4,59 @@ var BezierCurve = (function() {
   'use strict';
 
   function BezierCurve() {
-    this.p0 = new Endpoint();
-    this.p1 = new ControlPoint();
-    this.p2 = new ControlPoint();
-    this.p3 = new Endpoint();
+    var x0 = 0,
+        y0 = 0,
+        x1 = 0,
+        y1 = 0,
+        x2 = 0,
+        y2 = 0,
+        x3 = 0,
+        y3 = 0;
+
+    // Set from existing endpoints.
+    if ( arguments.length === 2 ) {
+      this.p0 = arguments[0];
+      this.p1 = this.p0.next;
+      this.p3 = arguments[2];
+      this.p2 = this.p3.prev;
+      return this;
+    }
 
     // Set endpoints.
     if ( arguments.length === 4 ) {
-      this.p0.set( arguments[0], arguments[1] );
-      this.p3.set( arguments[2], arguments[3] );
+      x0 = arguments[0];
+      y0 = arguments[1];
+      x3 = arguments[2];
+      y3 = arguments[3];
     }
 
     // Set endpoint and control points.
     // For path continuation.
     if ( arguments.length === 6 ) {
-      this.p1.set( arguments[0], arguments[1] );
-      this.p2.set( arguments[2], arguments[3] );
-      this.p3.set( arguments[4], arguments[5] );
+      x1 = arguments[0];
+      y1 = arguments[1];
+      x2 = arguments[2];
+      y2 = arguments[3];
+      x3 = arguments[4];
+      y3 = arguments[5];
     }
 
     // Set endpoints and control points.
     if ( arguments.length === 8 ) {
-      this.p0.set( arguments[0], arguments[1] );
-      this.p1.set( arguments[2], arguments[3] );
-      this.p2.set( arguments[4], arguments[5] );
-      this.p3.set( arguments[6], arguments[7] );
+      x0 = arguments[0];
+      y0 = arguments[1];
+      x1 = arguments[2];
+      y1 = arguments[3];
+      x2 = arguments[4];
+      y2 = arguments[5];
+      x3 = arguments[6];
+      y3 = arguments[7];
     }
 
-    // Object.observe() state.
-    this.link = null;
+    this.p0 = new Endpoint( x0, y0 );
+    this.p1 = this.p0.next = new ControlPoint( x1, y1 );
+    this.p3 = new Endpoint( x3, y3 );
+    this.p2 = this.p3.prev = new ControlPoint( x2, y2 );
   }
 
   BezierCurve.prototype.draw = function( ctx ) {
@@ -49,34 +73,12 @@ var BezierCurve = (function() {
   };
 
   BezierCurve.prototype.linkTo = function( curve ) {
-    if ( this.link ) {
-      this.unlink();
-    }
-
-    this.link = {
-      object: curve.p3,
-      callback: function( changes ) {
-        changes.forEach(function( change ) {
-          var name = change.name;
-          if ( name !== 'x' && name !== 'y' ) {
-            return;
-          }
-
-          this.p0[ name ] += change.object[ name ] - change.oldValue;
-        }, this );
-      }.bind( this )
-    };
-
-    Object.observe( this.link.object, this.link.callback );
+    this.p0 = curve.p3;
     return this;
   };
 
   BezierCurve.prototype.unlink = function() {
-    if ( this.link ) {
-      Object.unobserve( this.link.object, this.link.callback );
-      this.link = null;
-    }
-
+    this.p0 = this.p0.clone();
     return this;
   };
 
