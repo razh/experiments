@@ -61,6 +61,17 @@ var Point = (function() {
     return Math.sqrt( this.x * this.x + this.y * this.y );
   };
 
+  Point.prototype.distanceToSquared = function( v ) {
+    var dx = this.x - v.x,
+        dy = this.y - v.y;
+
+    return dx * dx + dy * dy;
+  };
+
+  Point.prototype.distanceTo = function( v ) {
+    return Math.sqrt( this.distanceTo( v ) );
+  };
+
   Point.prototype.angleFrom = function( point ) {
     var temp = new Point().subVectors( this, point );
     return Math.atan2( temp.y, temp.x );
