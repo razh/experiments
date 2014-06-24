@@ -1,4 +1,4 @@
-/*exported Point, Endpoint, ControlPoint*/
+/*exported Point, BezierPoint, Endpoint, ControlPoint*/
 var Point = (function() {
   'use strict';
 
@@ -83,19 +83,19 @@ var Point = (function() {
 }) ();
 
 
-var ControlPoint = (function() {
+var BezierPoint = (function() {
   'use strict';
 
-  function ControlPoint( x, y ) {
+  function BezierPoint( x, y ) {
     Point.call( this, x, y );
 
     this.observers = [];
   }
 
-  ControlPoint.prototype = Object.create( Point.prototype );
-  ControlPoint.prototype.constructor = ControlPoint;
+  BezierPoint.prototype = Object.create( Point.prototype );
+  BezierPoint.prototype.constructor = BezierPoint;
 
-  ControlPoint.prototype.observe = function( object, callback, accept ) {
+  BezierPoint.prototype.observe = function( object, callback, accept ) {
     this.observers.push({
       object: object,
       callback: callback
@@ -105,7 +105,7 @@ var ControlPoint = (function() {
     return this;
   };
 
-  ControlPoint.prototype.unobserve = function( object, callback ) {
+  BezierPoint.prototype.unobserve = function( object, callback ) {
     // Remove all observers.
     var observer;
     var i, il;
@@ -129,7 +129,43 @@ var ControlPoint = (function() {
     }
   };
 
+  BezierPoint.prototype.asymmetric = function( origin, point ) {
+    var angleFrom = Point.prototype.angleFrom.call( point, origin );
+    return this.setAngleFrom( origin, angleFrom + Math.PI );
+  };
+
+  BezierPoint.prototype.mirror = function( origin, point ) {
+    return this.subVectors( origin, point )
+      .addVectors( this, origin );
+  };
+
+  BezierPoint.prototype.contains = function( x, y, radius ) {
+    var dx = x - this.x,
+        dy = y - this.y;
+
+    return ( dx * dx + dy * dy ) <= ( radius * radius );
+  };
+
+  return BezierPoint;
+
+}) ();
+
+
+var ControlPoint = (function() {
+  'use strict';
+
+  function ControlPoint( x, y ) {
+    BezierPoint.call( this, x, y );
+
+    this.endpoint = null;
+  }
+
+  ControlPoint.prototype = Object.create( BezierPoint.prototype );
+  ControlPoint.prototype.constructor = ControlPoint;
+
   ControlPoint.prototype.relativeTo = function( point ) {
+    this.endpoint = point;
+
     var notifier = Object.getNotifier( this );
     this.observe( point, function( changes ) {
       // Get position changes.
@@ -140,24 +176,8 @@ var ControlPoint = (function() {
         }.bind( this ));
       }, this );
     }.bind( this ), [ 'input' ] );
+
     return this;
-  };
-
-  ControlPoint.prototype.asymmetric = function( origin, point ) {
-    var angleFrom = Point.prototype.angleFrom.call( point, origin );
-    return this.setAngleFrom( origin, angleFrom + Math.PI );
-  };
-
-  ControlPoint.prototype.mirror = function( origin, point ) {
-    return this.subVectors( origin, point )
-      .addVectors( this, origin );
-  };
-
-  ControlPoint.prototype.contains = function( x, y, radius ) {
-    var dx = x - this.x,
-        dy = y - this.y;
-
-    return ( dx * dx + dy * dy ) <= ( radius * radius );
   };
 
   ControlPoint.prototype.draw = function( ctx ) {
@@ -204,7 +224,7 @@ var Endpoint = (function() {
   }
 
   function Endpoint( x, y ) {
-    ControlPoint.call( this, x, y );
+    BezierPoint.call( this, x, y );
     this.type = Type.ASYMMETRIC;
 
     this.controls = {
@@ -215,7 +235,7 @@ var Endpoint = (function() {
 
   Endpoint.Type = Type;
 
-  Endpoint.prototype = Object.create( ControlPoint.prototype );
+  Endpoint.prototype = Object.create( BezierPoint.prototype );
   Endpoint.prototype.constructor = Endpoint;
 
   Endpoint.prototype.draw = function( ctx ) {
@@ -223,7 +243,7 @@ var Endpoint = (function() {
   };
 
   Endpoint.prototype.clone = function() {
-    var point = ControlPoint.prototype.clone.call( this );
+    var point = BezierPoint.prototype.clone.call( this );
 
     if ( this.prev ) {
       point.prev = this.prev.clone();
