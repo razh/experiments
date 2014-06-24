@@ -84,6 +84,34 @@ var BezierCurve = (function() {
     return this;
   };
 
+  BezierCurve.prototype.toArray = function() {
+    return [
+      this.p0.x, this.p0.y,
+      this.p1.x, this.p1.y,
+      this.p2.x, this.p2.y,
+      this.p3.x, this.p3.y
+    ];
+  };
+
+  // Define public getters and setters for individual coordinates.
+  // Favors convenience over speed.
+  [ 'p0', 'p1', 'p2', 'p3' ].forEach(function( point, index ) {
+    [ 'x', 'y' ].forEach(function( axis ) {
+      var prop = axis + index;
+
+      Object.defineProperty( BezierCurve.prototype, prop, {
+        get: function() {
+          return this[ point ][ prop ];
+        },
+
+        set: function( value ) {
+          this[ point ][ prop ] = value;
+          return value;
+        }
+      });
+    });
+  });
+
   return BezierCurve;
 
 }) ();
