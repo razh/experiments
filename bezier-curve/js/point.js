@@ -54,7 +54,7 @@ var Point = (function() {
   };
 
   Point.prototype.clone = function() {
-    return new Point().copy( this );
+    return new this.constructor().copy( this );
   };
 
   Point.prototype.length = function() {
@@ -175,45 +175,43 @@ var Endpoint = (function() {
 
   var Type = {
     DISCONNECTED: 0,
-    MIRRORED:     1,
+    MIRROR:       1,
     ASYMMETRIC:   2
   };
 
-  function Endpoint( x, y ) {
-    ControlPoint.call( this, x, y );
-    this.type = Type.DISCONNECTED;
+  /**
+   * Update self based on observed changes to other.
+   * Changes are performed under the 'translate' namespace.
+   *
+   * @param  {Endpoint} endpoint.
+   * @param  {ControlPoint} self
+   * @param  {ControlPoint} other
+   */
+  function observeControlFn( endpoint, self, other ) {
+    var notifier = Object.getNotifier( self );
+    self.observe( other, function() {
+      if ( !endpoint.type ) {
+        return;
+      }
 
-    var prev, next;
-    this.prev = prev = new ControlPoint().relativeTo( this );
-    this.next = next = new ControlPoint().relativeTo( this );
-
-    var endpoint = this;
-    /**
-     * Update self based on observed changes to other.
-     * Changes are performed under the 'translate' namespace.
-     *
-     * @param  {ControlPoint} self
-     * @param  {ControlPoint} other
-     */
-    function observeControlFn( self, other ) {
-      var notifier = Object.getNotifier( self );
-      self.observe( other, function() {
-        if ( !endpoint.type ) {
-          return;
+      notifier.performChange( 'translate', function() {
+        if ( endpoint.type === Type.MIRROR ) {
+          self.mirror( endpoint, other );
+        } else if ( endpoint.type === Type.ASYMMETRIC ) {
+          self.asymmetric( endpoint, other );
         }
-
-        notifier.performChange( 'translate', function() {
-          if ( endpoint.type === Type.MIRROR ) {
-            self.mirror( other );
-          } else if ( endpoint.type === Type.ASYMMETRIC ) {
-            self.asymmetric( other );
-          }
-        });
       });
     }
+  }
 
-    observeControlFn( prev, next );
-    observeControlFn( next, prev );
+  function Endpoint( x, y ) {
+    ControlPoint.call( this, x, y );
+    this.type = Type.ASYMMETRIC;
+
+    this.controls = {
+      prev: null,
+      next: null
+    };
   }
 
   Endpoint.Type = Type;
@@ -224,6 +222,66 @@ var Endpoint = (function() {
   Endpoint.prototype.draw = function( ctx ) {
     ctx.arc( this.x, this.y, 8, 0, 2 * Math.PI );
   };
+
+  Endpoint.prototype.clone = function() {
+    var point = ControlPoint.prototype.clone.call( this );
+
+    if ( this.prev ) {
+      point.prev = this.prev.clone();
+    }
+
+    if ( this.next ) {
+      point.next = this.next.clone();
+    }
+
+    return point;
+  };
+
+  Object.defineProperty( Endpoint.prototype, 'prev', {
+    get: function() {
+      return this.controls.prev;
+    },
+
+    set: function( prev ) {
+      if ( this.controls.prev ) {
+        this.controls.prev.unobserve();
+      }
+
+      this.controls.prev = prev.relativeTo( this );
+
+      var next = this.next;
+      if ( next ) {
+        // Reattach observers.
+        next.unobserve().relativeTo( this );
+
+        observeControlFn( this, prev, next );
+        observeControlFn( this, next, prev );
+      }
+    }
+  });
+
+  Object.defineProperty( Endpoint.prototype, 'next', {
+    get: function() {
+      return this.controls.next;
+    },
+
+    set: function( next ) {
+      if ( this.controls.next ) {
+        this.controls.next.unobserve();
+      }
+
+      this.controls.next = next.relativeTo( this );
+
+      var prev = this.prev;
+      if ( prev ) {
+        // Reattach observers.
+        prev.unobserve().relativeTo( this );
+
+        observeControlFn( this, prev, next );
+        observeControlFn( this, next, prev );
+      }
+    }
+  });
 
   return Endpoint;
 
