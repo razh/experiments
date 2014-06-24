@@ -34,6 +34,8 @@
     down: false
   };
 
+  var hitRadius = 16;
+
   var selection = [];
   var offsets = [];
 
@@ -122,7 +124,7 @@
     mouse.down = true;
 
     selection = controlPoints.filter(function( controlPoint ) {
-      return controlPoint.contains( mouse.x, mouse.y, 16 );
+      return controlPoint.contains( mouse.x, mouse.y, hitRadius );
     });
 
     offsets = selection.map(function( controlPoint ) {
@@ -156,12 +158,39 @@
     mouse.down = false;
   }
 
+  function onDblClick( event ) {
+    mousePosition( event );
+
+    controlPoints.filter(function( controlPoint ) {
+      return controlPoint instanceof Endpoint &&
+        controlPoint.contains( mouse.x, mouse.y, hitRadius );
+    }).forEach(function( endpoint ) {
+      switch ( endpoint.type ) {
+        case Endpoint.Type.DISCONNECTED:
+          endpoint.type = Endpoint.Type.MIRROR;
+          break;
+
+        case Endpoint.Type.MIRROR:
+          endpoint.type = Endpoint.Type.ASYMMETRIC;
+          break;
+
+        case Endpoint.Type.ASYMMETRIC:
+          endpoint.type = Endpoint.Type.DISCONNECTED;
+          break;
+
+        default:
+          endpoint.type = Endpoint.Type.DISCONNECTED;
+      }
+    });
+  }
+
   init();
   draw = draw.bind( this, context );
   draw();
 
-  document.addEventListener( 'mousedown', onMouseDown );
-  document.addEventListener( 'mousemove', onMouseMove );
-  document.addEventListener( 'mouseup', onMouseUp );
+  canvas.addEventListener( 'mousedown', onMouseDown );
+  canvas.addEventListener( 'mousemove', onMouseMove );
+  canvas.addEventListener( 'mouseup', onMouseUp );
+  canvas.addEventListener( 'dblclick', onDblClick );
 
 }) ( window, document );
