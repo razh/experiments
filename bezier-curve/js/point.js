@@ -157,6 +157,19 @@ var BezierPoint = (function() {
     return ( dx * dx + dy * dy ) <= ( radius * radius );
   };
 
+  BezierPoint.prototype.orthogonalTo = function( point ) {
+    var horz = new Point( this.x, point.y ),
+        vert = new Point( point.x, this.y );
+
+    if ( this.distanceToSquared( horz ) < this.distanceToSquared( vert ) ) {
+      this.copy( horz );
+    } else {
+      this.copy( vert );
+    }
+
+    return this;
+  };
+
   return BezierPoint;
 
 }) ();

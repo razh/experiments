@@ -144,6 +144,13 @@
         .performChange( 'input', function() {
           var oldValue = new Point().copy( element );
           element.addVectors( mouse, offsets[ index ] );
+
+          if ( event.shiftKey &&
+               element instanceof ControlPoint &&
+               element.endpoint ) {
+            element.orthogonalTo( element.endpoint );
+          }
+
           return {
             oldValue: oldValue
           };
