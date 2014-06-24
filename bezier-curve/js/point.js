@@ -130,17 +130,16 @@ var ControlPoint = (function() {
   };
 
   ControlPoint.prototype.relativeTo = function( point ) {
+    var notifier = Object.getNotifier( this );
     this.observe( point, function( changes ) {
       // Get position changes.
       changes.forEach(function( change ) {
-        var name = change.name;
-        if ( name !== 'x' && name !== 'y' ) {
-          return;
-        }
-
-        this[ name ] += change.object[ name ] - change.oldValue;
+        notifier.performChange( 'relative', function() {
+          this.x += change.object.x - change.oldValue.x;
+          this.y += change.object.y - change.oldValue.y;
+        }.bind( this ));
       }, this );
-    }.bind( this ));
+    }.bind( this ), [ 'input' ] );
     return this;
   };
 
@@ -201,7 +200,7 @@ var Endpoint = (function() {
           self.asymmetric( endpoint, other );
         }
       });
-    }
+    }, [ 'input' ] );
   }
 
   function Endpoint( x, y ) {

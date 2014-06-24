@@ -54,8 +54,8 @@
     cp1 = curve.p2;
 
     path = new BezierPath();
-    path.push( new BezierCurve( 10, 20, 30, 50, 70, 80, 80, 90 ) );
-    path.push( new BezierCurve( 80, 90, 90, 120, 110, 80, 80, 300 ) );
+    path.push( new BezierCurve( 10, 20, 30, 50, 120, 30, 200, 90 ) );
+    path.push( new BezierCurve( 80, 90, 180, 160, 110, 80, 80, 300 ) );
 
     controlPoints = path.controlPoints();
   }
@@ -138,7 +138,14 @@
     }
 
     selection.forEach(function( element, index ) {
-      element.addVectors( mouse, offsets[ index ] );
+      Object.getNotifier( element )
+        .performChange( 'input', function() {
+          var oldValue = new Point().copy( element );
+          element.addVectors( mouse, offsets[ index ] );
+          return {
+            oldValue: oldValue
+          };
+        });
     });
 
     // Wait for Object.observe changes to propagate.

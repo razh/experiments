@@ -73,7 +73,9 @@ var BezierCurve = (function() {
   };
 
   BezierCurve.prototype.linkTo = function( curve ) {
+    var next = this.p0.next.unobserve();
     this.p0 = curve.p3;
+    this.p0.next = next;
     return this;
   };
 
