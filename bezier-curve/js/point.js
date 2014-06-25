@@ -53,6 +53,10 @@ var Point = (function() {
     return this;
   };
 
+  Point.prototype.dot = function( v ) {
+    return this.x * v.x + this.y * v.y;
+  };
+
   Point.prototype.clone = function() {
     return new this.constructor().copy( this );
   };
