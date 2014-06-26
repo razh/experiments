@@ -33,6 +33,10 @@ NearestPoint*/
 
   var path;
   var controlPoints;
+  var pathNearest = {
+    x: 0,
+    y: 0
+  };
 
   var mouse = {
     x: 0,
@@ -54,7 +58,7 @@ NearestPoint*/
     canvas.height = height;
 
     curve = new BezierCurve(
-      0.2 * width, 0.2 * height,
+      0.2 * width, 0.3 * height,
       0.8 * width, 0.8 * height
     );
 
@@ -63,8 +67,8 @@ NearestPoint*/
     cp1 = curve.p2;
 
     path = new BezierPath();
-    path.push( new BezierCurve( 10, 20, 30, 50, 120, 30, 200, 90 ) );
-    path.push( new BezierCurve( 80, 90, 180, 160, 110, 80, 80, 300 ) );
+    path.push( new BezierCurve( 30, 20, 30, 80, 120, 30, 200, 100 ) );
+    path.push( new BezierCurve( 80, 90, 150, 190, 50, 120, 70, 300 ) );
 
     controlPoints = path.controlPoints();
   }
@@ -95,20 +99,30 @@ NearestPoint*/
     ctx.lineWidth = 3;
     ctx.stroke();
 
-    // Draw nearest point to mouse.
-    ctx.beginPath();
-    ctx.arc( nearest.x, nearest.y, 8, 0, 2 * Math.PI );
+    // Draw nearest points to mouse.
     ctx.shadowColor = '#000';
     ctx.shadowBlur = 8;
+
+    ctx.beginPath();
+    ctx.arc( nearest.x, nearest.y, 8, 0, 2 * Math.PI );
     ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc( pathNearest.x, pathNearest.y, 8, 0, 2 * Math.PI );
+    ctx.fill();
+
     ctx.shadowBlur = 0;
 
-    // Draw nearest point to mouse line point.
-    ctx.lineWidth = 1.5;
+    // Draw polyline from nearest points to mouse.
+    ctx.globalAlpha = 0.2;
+
     ctx.beginPath();
     ctx.moveTo( nearest.x, nearest.y );
     ctx.lineTo( mouse.x, mouse.y );
+    ctx.lineTo( pathNearest.x, pathNearest.y );
     ctx.stroke();
+
+    ctx.globalAlpha = 1;
 
     // Draw path control points.
     ctx.lineWidth = 2;
@@ -163,11 +177,34 @@ NearestPoint*/
     // Wait for Object.observe changes to propagate.
     requestAnimationFrame( draw );
 
-    // Update nearest point.
+    // Update nearest points.
+    var mousePoint = new Point().copy( mouse )
     nearest = NearestPoint.nearestPointOnCurve(
-      new Point().copy( mouse ),
+      mousePoint,
       curve.controlPoints()
     );
+
+    // Determine the nearest point to a path.
+    pathNearest = (function() {
+      var minDistance = Number.POSITIVE_INFINITY;
+      var minPoint = {};
+
+      path.curves.map(function( curve ) {
+        return NearestPoint.nearestPointOnCurve(
+          mousePoint,
+          curve.controlPoints()
+        );
+      }).forEach(function( point ) {
+        var distance = mousePoint.distanceToSquared( point );
+
+        if ( distance < minDistance ) {
+          minPoint = point;
+          minDistance = distance;
+        }
+      });
+
+      return minPoint;
+    }) ();
 
     if ( !mouse.down ) {
       return;
