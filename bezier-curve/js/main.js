@@ -1,5 +1,8 @@
 /*jshint bitwise:false*/
-/*globals requestAnimationFrame, ControlPoint, Endpoint, Point, BezierCurve, BezierPath*/
+/*globals requestAnimationFrame,
+ControlPoint, Endpoint, Point,
+BezierCurve, BezierPath,
+NearestPoint*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -23,6 +26,10 @@
 
   var curve;
   var cp0, cp1;
+  var nearest = {
+    x: 0,
+    y: 0
+  };
 
   var path;
   var controlPoints;
@@ -66,6 +73,7 @@
     ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
 
     ctx.strokeStyle = '#fff';
+    ctx.fillStyle = '#fff';
 
     // Draw curve.
     ctx.beginPath();
@@ -85,6 +93,21 @@
     cp0.draw( ctx );
     cp1.draw( ctx );
     ctx.lineWidth = 3;
+    ctx.stroke();
+
+    // Draw nearest point to mouse.
+    ctx.beginPath();
+    ctx.arc( nearest.x, nearest.y, 8, 0, 2 * Math.PI );
+    ctx.shadowColor = '#000';
+    ctx.shadowBlur = 8;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // Draw nearest point to mouse line point.
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo( nearest.x, nearest.y );
+    ctx.lineTo( mouse.x, mouse.y );
     ctx.stroke();
 
     // Draw path control points.
@@ -123,7 +146,8 @@
     mousePosition( event );
     mouse.down = true;
 
-    selection = controlPoints.filter(function( controlPoint ) {
+    selection = controlPoints.concat( curve.controlPoints() )
+    .filter(function( controlPoint ) {
       return controlPoint.contains( mouse.x, mouse.y, hitRadius );
     });
 
@@ -135,6 +159,16 @@
 
   function onMouseMove( event ) {
     mousePosition( event );
+
+    // Wait for Object.observe changes to propagate.
+    requestAnimationFrame( draw );
+
+    // Update nearest point.
+    nearest = NearestPoint.nearestPointOnCurve(
+      new Point().copy( mouse ),
+      curve.controlPoints()
+    );
+
     if ( !mouse.down ) {
       return;
     }
@@ -156,9 +190,6 @@
           };
         });
     });
-
-    // Wait for Object.observe changes to propagate.
-    requestAnimationFrame( draw );
   }
 
   function onMouseUp() {
