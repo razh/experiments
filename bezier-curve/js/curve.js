@@ -136,6 +136,12 @@ var BezierCurve = (function() {
     ];
   };
 
+  BezierCurve.fromArray = function() {
+    /* jshint supernew:true */
+    return new (Function.prototype.bind.apply( BezierCurve, arguments ));
+    /* jshint supernew:false */
+  };
+
   // Define public getters and setters for individual coordinates.
   // Favors convenience over speed.
   [ 'p0', 'p1', 'p2', 'p3' ].forEach(function( point, index ) {
@@ -144,11 +150,11 @@ var BezierCurve = (function() {
 
       Object.defineProperty( BezierCurve.prototype, prop, {
         get: function() {
-          return this[ point ][ prop ];
+          return this[ point ][ axis ];
         },
 
         set: function( value ) {
-          this[ point ][ prop ] = value;
+          this[ point ][ axis ] = value;
           return value;
         }
       });
