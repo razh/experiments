@@ -84,6 +84,49 @@ var BezierCurve = (function() {
     return this;
   };
 
+  /**
+   * Returns the coordinate arrays of the curves formed by the split at
+   * parameter t.
+   */
+  BezierCurve.prototype.split = function( t ) {
+    var x0 = this.p0.x,
+        y0 = this.p0.y,
+        x1 = this.p1.x,
+        y1 = this.p1.y,
+        x2 = this.p2.x,
+        y2 = this.p2.y,
+        x3 = this.p3.x,
+        y3 = this.p3.y;
+
+    // Lerp control points.
+    var x01 = x0 + t * ( x1 - x0 ),
+        y01 = y0 + t * ( y1 - y0 );
+
+    var x12 = x1 + t * ( x2 - x1 ),
+        y12 = y1 + t * ( y2 - y1 );
+
+    var x23 = x2 + t * ( x3 - x2 ),
+        y23 = y2 + t * ( y3 - y2 );
+
+    // Second iteration.
+    var x012 = x01 + t * ( x12 - x01 ),
+        y012 = y01 + t * ( y12 - y01 );
+
+    var x123 = x12 + t * ( x23 - x12 ),
+        y123 = y12 + t * ( y23 - y12 );
+
+    // Final iteration.
+    var x0123 = x012 + t * ( x123 - x012 ),
+        y0123 = y012 + t * ( y123 - y012 );
+
+    return [
+      // First curve, from 0 to t.
+      [ x0, y0, x01, y01, x012, y012, x0123, y0123 ],
+      // Second curve, from t to 1.
+      [ x0123, y0123, x123, y123, x23, y23, x3, y3 ]
+    ];
+  };
+
   BezierCurve.prototype.toArray = function() {
     return [
       this.p0.x, this.p0.y,
