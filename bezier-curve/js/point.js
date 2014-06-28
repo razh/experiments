@@ -270,14 +270,26 @@ var Endpoint = (function() {
     ctx.arc( this.x, this.y, 8, 0, 2 * Math.PI );
   };
 
-  Endpoint.prototype.clone = function() {
+  /**
+   * Clone an endpoint and its child control points.
+   *
+   * If a points object is provided, use its optional next.prev properties to
+   * hook up existing control points.
+   */
+  Endpoint.prototype.clone = function( points ) {
+    points = points || {};
+
     var point = BezierPoint.prototype.clone.call( this );
 
-    if ( this.prev ) {
+    if ( points.prev ) {
+      point.prev = points.prev;
+    } else if ( this.prev ) {
       point.prev = this.prev.clone();
     }
 
-    if ( this.next ) {
+    if ( points.next ) {
+      point.next = points.next;
+    } else if ( this.next ) {
       point.next = this.next.clone();
     }
 
@@ -294,7 +306,7 @@ var Endpoint = (function() {
         this.controls.prev.unobserve();
       }
 
-      this.controls.prev = prev.relativeTo( this );
+      this.controls.prev = prev.unobserve().relativeTo( this );
 
       var next = this.next;
       if ( next ) {
@@ -317,7 +329,7 @@ var Endpoint = (function() {
         this.controls.next.unobserve();
       }
 
-      this.controls.next = next.relativeTo( this );
+      this.controls.next = next.unobserve().relativeTo( this );
 
       var prev = this.prev;
       if ( prev ) {

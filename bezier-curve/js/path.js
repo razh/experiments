@@ -71,8 +71,6 @@ var BezierPath = (function() {
 
 
   BezierPath.prototype.insertAt = function( curve, index ) {
-    curve.unlink();
-
     var prev = this.curves[ index - 1 ],
         next = this.curves[ index ];
 
@@ -81,6 +79,7 @@ var BezierPath = (function() {
     }
 
     if ( next ) {
+      next.unlink();
       next.linkTo( curve );
     }
 
