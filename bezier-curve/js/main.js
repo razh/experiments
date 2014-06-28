@@ -34,8 +34,10 @@ NearestPoint*/
   var path;
   var controlPoints;
   var pathNearest = {
-    x: 0,
-    y: 0
+    point: {
+      x: 0,
+      y: 0
+    },
   };
 
   var mouse = {
@@ -108,7 +110,7 @@ NearestPoint*/
     ctx.fill();
 
     ctx.beginPath();
-    ctx.arc( pathNearest.x, pathNearest.y, 8, 0, 2 * Math.PI );
+    ctx.arc( pathNearest.point.x, pathNearest.point.y, 8, 0, 2 * Math.PI );
     ctx.fill();
 
     ctx.shadowBlur = 0;
@@ -119,7 +121,7 @@ NearestPoint*/
     ctx.beginPath();
     ctx.moveTo( nearest.x, nearest.y );
     ctx.lineTo( mouse.x, mouse.y );
-    ctx.lineTo( pathNearest.x, pathNearest.y );
+    ctx.lineTo( pathNearest.point.x, pathNearest.point.y );
     ctx.stroke();
 
     ctx.globalAlpha = 1;
@@ -187,23 +189,32 @@ NearestPoint*/
     // Determine the nearest point to a path.
     pathNearest = (function() {
       var minDistance = Number.POSITIVE_INFINITY;
-      var minPoint = {};
+      var min = {};
 
       path.curves.map(function( curve ) {
-        return NearestPoint.nearestPointOnCurve(
-          mousePoint,
-          curve.controlPoints()
-        );
-      }).forEach(function( point ) {
-        var distance = mousePoint.distanceToSquared( point );
+        return {
+          curve: curve,
+
+          point: NearestPoint.nearestPointOnCurve(
+            mousePoint,
+            curve.controlPoints()
+          ),
+
+          t: NearestPoint.nearestPointOnCurveParameter(
+            mousePoint,
+            curve.controlPoints()
+          )
+        };
+      }).forEach(function( object ) {
+        var distance = mousePoint.distanceToSquared( object.point );
 
         if ( distance < minDistance ) {
-          minPoint = point;
+          min = object;
           minDistance = distance;
         }
       });
 
-      return minPoint;
+      return min;
     }) ();
 
     if ( !mouse.down ) {
@@ -259,6 +270,40 @@ NearestPoint*/
     });
   }
 
+  function onKeyDown( event ) {
+    switch ( event.which ) {
+      // Space. Split a curve.
+      case 32:
+        var curve = pathNearest.curve;
+        if ( !curve ) {
+          return;
+        }
+
+        var index = path.curves.indexOf( curve );
+        if ( index === -1 ) {
+          break;
+        }
+
+        // Create new curves from split.
+        var split = curve.split( pathNearest.t );
+        var curve0 = BezierCurve.fromArray( split[0] ),
+            curve1 = BezierCurve.fromArray( split[1] );
+
+        // Remove old curve.
+        path.removeAt( index );
+
+        // Add new curves.
+        path.insertAt( curve1, index );
+        path.insertAt( curve0, index );
+
+        // Update new control points.
+        controlPoints = path.controlPoints();
+
+        requestAnimationFrame( draw );
+        break;
+    }
+  }
+
   init();
   draw = draw.bind( this, context );
   draw();
@@ -267,5 +312,7 @@ NearestPoint*/
   canvas.addEventListener( 'mousemove', onMouseMove );
   canvas.addEventListener( 'mouseup', onMouseUp );
   canvas.addEventListener( 'dblclick', onDblClick );
+
+  document.addEventListener( 'keydown', onKeyDown );
 
 }) ( window, document );
