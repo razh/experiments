@@ -87,6 +87,10 @@ var BezierPath = (function() {
   };
 
   BezierPath.prototype.removeAt = function( index ) {
+    if ( 0 > index || index > this.curves.length - 1 ) {
+      return;
+    }
+
     var prev = this.curves[ index - 1 ],
         curr = this.curves[ index ],
         next = this.curves[ index + 1 ];
