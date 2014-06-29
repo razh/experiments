@@ -301,6 +301,27 @@ NearestPoint*/
 
         requestAnimationFrame( draw );
         break;
+
+      // A. Add a curve to the path end.
+      case 65:
+        var last = path.last().p3;
+        var t0 = 0.25,
+            t1 = 0.75;
+
+        path.push(
+          new BezierCurve(
+            last.x, last.y,
+            lerp( last.x, mouse.x, t0 ), lerp( last.y, mouse.y, t0 ),
+            lerp( last.x, mouse.x, t1 ), lerp( last.y, mouse.y, t1 ),
+            mouse.x, mouse.y
+          )
+        );
+
+        // Update with new curve control points.
+        controlPoints = path.controlPoints();
+
+        requestAnimationFrame( draw );
+        break;
     }
   }
 
