@@ -180,7 +180,7 @@ NearestPoint*/
     requestAnimationFrame( draw );
 
     // Update nearest points.
-    var mousePoint = new Point().copy( mouse )
+    var mousePoint = new Point().copy( mouse );
     nearest = NearestPoint.nearestPointOnCurve(
       mousePoint,
       curve.controlPoints()
@@ -333,11 +333,31 @@ NearestPoint*/
         curve = pathNearest.curve;
         index = path.curves.indexOf( curve );
 
+        var other;
+        var lastIndex;
+        // We copy the sibling endpoint and control point so that only the
+        // nearest endpoint and its child control points appear to be removed.
+        //
+        // We do not want to remove the entire curve. All other endpoints and
+        // control points should appear to stay in place.
         if ( pathNearest.t < 0.5 ) {
-          // Remove prev curve.
+          // Remove previous curve.
+          if ( index > 0 ) {
+            other = path.curves[ index - 1 ];
+            curve.p0.copy( other.p0 );
+            curve.p1.copy( other.p1 );
+          }
+
           path.removeAt( Math.max( index - 1, 0 ) );
         } else {
           // Remove current curve.
+          lastIndex = path.curves.length - 1;
+          if ( index < lastIndex ) {
+            other = path.curves[ index + 1 ];
+            other.p0.copy( curve.p0 );
+            other.p1.copy( curve.p1 );
+          }
+
           path.remove( curve );
         }
 
