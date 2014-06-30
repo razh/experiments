@@ -364,6 +364,11 @@ NearestPoint*/
         controlPoints = path.controlPoints();
         requestAnimationFrame( draw );
         break;
+
+      // P. Print out path data.
+      case 80:
+        console.log( path.toArray() );
+        break;
     }
   }
 

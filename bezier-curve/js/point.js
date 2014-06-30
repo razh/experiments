@@ -93,6 +93,12 @@ var Point = (function() {
       .addVectors( this, origin );
   };
 
+  Point.prototype.toArray = function() {
+    return [ this.x, this.y ];
+  };
+
+  Point.prototype.toJSON = Point.prototype.toArray;
+
   return Point;
 
 }) ();

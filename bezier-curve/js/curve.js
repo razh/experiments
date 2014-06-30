@@ -139,11 +139,13 @@ var BezierCurve = (function() {
     ];
   };
 
+  BezierCurve.prototype.toJSON = BezierCurve.prototype.toArray;
+
   BezierCurve.fromArray = function( array ) {
     // Add the context argument to array for Function.prototype.bind.
     array = [ this ].concat( array );
     /* jshint supernew:true */
-    return new (Function.prototype.bind.apply( BezierCurve, array ));
+    return new ( Function.prototype.bind.apply( BezierCurve, array ) );
     /* jshint supernew:false */
   };
 

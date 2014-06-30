@@ -117,6 +117,19 @@ var BezierPath = (function() {
     }
   };
 
+  BezierPath.prototype.toArray = function() {
+    if ( !this.curves.length ) {
+      return [];
+    }
+
+    return this.curves.reduce(function( array, curve ) {
+      // We don't want the first endpoint coordinates of subsequent curves.
+      return array.concat( curve.toArray().slice(2) );
+    }, this.curves[0].p0.toArray() );
+  };
+
+  BezierPath.prototype.toJSON = BezierPath.prototype.toArray;
+
   return BezierPath;
 
 }) ();
