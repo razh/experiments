@@ -271,15 +271,18 @@ NearestPoint*/
   }
 
   function onKeyDown( event ) {
+    var curve;
+    var index;
+
     switch ( event.which ) {
       // Space. Split a curve.
       case 32:
-        var curve = pathNearest.curve;
+        curve = pathNearest.curve;
         if ( !curve ) {
           return;
         }
 
-        var index = path.curves.indexOf( curve );
+        index = path.curves.indexOf( curve );
         if ( index === -1 ) {
           break;
         }
@@ -298,7 +301,6 @@ NearestPoint*/
 
         // Update new control points.
         controlPoints = path.controlPoints();
-
         requestAnimationFrame( draw );
         break;
 
@@ -317,9 +319,29 @@ NearestPoint*/
           )
         );
 
-        // Update with new curve control points.
         controlPoints = path.controlPoints();
+        requestAnimationFrame( draw );
+        break;
 
+      // D. Delete the nearest endpoint.
+      case 68:
+        // Prevent degenerate paths.
+        if ( path.curves.length < 2 ) {
+          return;
+        }
+
+        curve = pathNearest.curve;
+        index = path.curves.indexOf( curve );
+
+        if ( pathNearest.t < 0.5 ) {
+          // Remove prev curve.
+          path.removeAt( Math.max( index - 1, 0 ) );
+        } else {
+          // Remove current curve.
+          path.remove( curve );
+        }
+
+        controlPoints = path.controlPoints();
         requestAnimationFrame( draw );
         break;
     }
