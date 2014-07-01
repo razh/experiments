@@ -72,9 +72,17 @@ var BezierCurve = (function() {
     return [ this.p0, this.p1, this.p2, this.p3 ];
   };
 
+  BezierCurve.prototype.first = function() {
+    return this.p0;
+  };
+
+  BezierCurve.prototype.last = function() {
+    return this.p3;
+  };
+
   BezierCurve.prototype.linkTo = function( curve ) {
     var next = this.p0.next;
-    this.p0 = curve.p3;
+    this.p0 = curve.last();
     this.p0.next = next;
     return this;
   };
