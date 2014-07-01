@@ -3,6 +3,10 @@
 var Segment = (function() {
   'use strict';
 
+  function lerp( a, b, t ) {
+    return a + t * ( b - a );
+  }
+
   function Segment() {
     var x0 = 0,
         y0 = 0,
@@ -54,6 +58,34 @@ var Segment = (function() {
     this.p0 = this.p0.clone();
     return this;
   };
+
+  /**
+   * Returns the coordinate arrays of the segments formed by the split at
+   * parameter t.
+   */
+  Segment.prototype.split = function( t ) {
+    var x0 = this.p0.x,
+        y0 = this.p0.y,
+        x1 = this.p1.x,
+        y1 = this.p1.y;
+
+    var xt = lerp( x0, x1, t ),
+        yt = lerp( y0, y1, t );
+
+    return [
+      [ x0, y0, xt, yt ],
+      [ xt, yt, x1, y1 ]
+    ];
+  };
+
+  Segment.prototype.toArray = function() {
+    return [
+      this.p0.x, this.p0.y,
+      this.p1.x, this.p1.y
+    ];
+  };
+
+  Segment.prototype.toJSON = Segment.prototype.toArray;
 
   return Segment;
 
