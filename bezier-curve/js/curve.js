@@ -68,7 +68,7 @@ var BezierCurve = (function() {
     );
   };
 
-  BezierCurve.prototype.controlPoints = function() {
+  BezierCurve.prototype.points = function() {
     return [ this.p0, this.p1, this.p2, this.p3 ];
   };
 

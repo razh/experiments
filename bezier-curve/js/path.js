@@ -46,14 +46,14 @@ var BezierPath = (function() {
     });
   };
 
-  BezierPath.prototype.controlPoints = function() {
+  BezierPath.prototype.points = function() {
     if ( !this.curves.length ) {
       return [];
     }
 
     // Except for the first curve, we only want the last three control points.
     return this.curves.reduce(function( array, curve ) {
-      return array.concat( curve.controlPoints().slice(1) );
+      return array.concat( curve.points().slice(1) );
     }, [ this.curves[0].p0 ] );
   };
 

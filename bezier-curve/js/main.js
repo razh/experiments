@@ -32,7 +32,7 @@ NearestPoint*/
   };
 
   var path;
-  var controlPoints;
+  var points;
   var pathNearest = {
     point: {
       x: 0,
@@ -72,7 +72,7 @@ NearestPoint*/
     path.push( new BezierCurve( 30, 20, 30, 80, 120, 30, 200, 100 ) );
     path.push( new BezierCurve( 80, 90, 150, 190, 50, 120, 70, 300 ) );
 
-    controlPoints = path.controlPoints();
+    points = path.points();
   }
 
   function draw( ctx ) {
@@ -129,9 +129,9 @@ NearestPoint*/
     // Draw path control points.
     ctx.lineWidth = 2;
     path.curves.forEach(function( curve ) {
-      curve.controlPoints().forEach(function( controlPoint ) {
+      curve.points().forEach(function( point ) {
         ctx.beginPath();
-        controlPoint.draw( ctx );
+        point.draw( ctx );
         ctx.stroke();
       });
 
@@ -162,14 +162,14 @@ NearestPoint*/
     mousePosition( event );
     mouse.down = true;
 
-    selection = controlPoints.concat( curve.controlPoints() )
-    .filter(function( controlPoint ) {
-      return controlPoint.contains( mouse.x, mouse.y, hitRadius );
+    selection = points.concat( curve.points() )
+    .filter(function( point ) {
+      return point.contains( mouse.x, mouse.y, hitRadius );
     });
 
-    offsets = selection.map(function( controlPoint ) {
+    offsets = selection.map(function( point ) {
       return new Point()
-      .subVectors( controlPoint, mouse );
+      .subVectors( point, mouse );
     });
   }
 
@@ -183,7 +183,7 @@ NearestPoint*/
     var mousePoint = new Point().copy( mouse );
     nearest = NearestPoint.nearestPointOnCurve(
       mousePoint,
-      curve.controlPoints()
+      curve.points()
     );
 
     // Determine the nearest point to a path.
@@ -197,12 +197,12 @@ NearestPoint*/
 
           point: NearestPoint.nearestPointOnCurve(
             mousePoint,
-            curve.controlPoints()
+            curve.points()
           ),
 
           t: NearestPoint.nearestPointOnCurveParameter(
             mousePoint,
-            curve.controlPoints()
+            curve.points()
           )
         };
       }).forEach(function( object ) {
@@ -247,9 +247,9 @@ NearestPoint*/
   function onDblClick( event ) {
     mousePosition( event );
 
-    controlPoints.filter(function( controlPoint ) {
-      return controlPoint instanceof Endpoint &&
-        controlPoint.contains( mouse.x, mouse.y, hitRadius );
+    points.filter(function( point ) {
+      return point instanceof Endpoint &&
+        point.contains( mouse.x, mouse.y, hitRadius );
     }).forEach(function( endpoint ) {
       switch ( endpoint.type ) {
         case Endpoint.Type.DISCONNECTED:
@@ -300,7 +300,7 @@ NearestPoint*/
         path.insertAt( curve0, index );
 
         // Update new control points.
-        controlPoints = path.controlPoints();
+        points = path.points();
         requestAnimationFrame( draw );
         break;
 
@@ -319,7 +319,7 @@ NearestPoint*/
           )
         );
 
-        controlPoints = path.controlPoints();
+        points = path.points();
         requestAnimationFrame( draw );
         break;
 
@@ -361,7 +361,7 @@ NearestPoint*/
           path.remove( curve );
         }
 
-        controlPoints = path.controlPoints();
+        points = path.points();
         requestAnimationFrame( draw );
         break;
 
