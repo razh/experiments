@@ -135,53 +135,67 @@
   }
 
   (function() {
-    simpleCanvas.width  = canvas.width  = 640;
-    simpleCanvas.height = canvas.height = 480;
+    var ctx;
+    var points;
+    var min, max;
 
-    var scaleY = scaleFn( 0.25 * canvas.height );
+    function resize() {
+      var width  = Math.min( 0.8 * window.innerWidth,  640 ),
+          height = Math.min( 0.8 * window.innerHeight, 480 );
 
-    var points = midpointDisplacement({
-      width: canvas.width,
-      roughness: 0.7
-    }).map( scaleY )
-      .map( to2d );
+      simpleCanvas.width  = canvas.width  = width;
+      simpleCanvas.height = canvas.height = height;
+      ctx = context;
 
-    var ctx = context;
+      var scaleY = scaleFn( 0.25 * canvas.height );
 
-    ctx.save();
+      points = midpointDisplacement({
+        width: canvas.width,
+        roughness: 0.7
+      }).map( scaleY )
+        .map( to2d );
 
-    // Points.
-    ctx.translate( 0, 0.4 * canvas.height );
+      // Draw.
+      ctx.save();
 
-    drawPoints( ctx, points );
-    ctx.fillStyle = '#fff';
-    ctx.fill();
+      // Points.
+      ctx.translate( 0, 0.4 * canvas.height );
 
-    // Lines.
-    ctx.translate( 0, 0.1 * canvas.height );
+      drawPoints( ctx, points );
+      ctx.fillStyle = '#fff';
+      ctx.fill();
 
-    drawLines( ctx, points );
-    ctx.lineWidth = 0.5;
-    ctx.strokeStyle = '#fff';
-    ctx.stroke();
+      // Lines.
+      ctx.translate( 0, 0.1 * canvas.height );
 
-    ctx.restore();
+      drawLines( ctx, points );
+      ctx.lineWidth = 0.5;
+      ctx.strokeStyle = '#fff';
+      ctx.stroke();
 
-    // Switch contexts.
-    ctx = simpleContext;
+      ctx.restore();
 
-    // Calculate areas.
-    simplify( points );
+      // Switch contexts.
+      ctx = simpleContext;
 
-    var min = Number.POSITIVE_INFINITY,
-        max = Number.NEGATIVE_INFINITY;
+      // Calculate areas.
+      simplify( points );
 
-    points.forEach(function( point ) {
-      min = Math.min( min, point.area );
-      max = Math.max( max, point.area );
-    });
+      min = Number.POSITIVE_INFINITY;
+      max = Number.NEGATIVE_INFINITY;
 
-    window.addEventListener( 'mousemove', function( event ) {
+      points.forEach(function( point ) {
+        min = Math.min( min, point.area );
+        max = Math.max( max, point.area );
+      });
+    }
+
+    resize();
+
+    window.addEventListener( 'resize', resize );
+    window.addEventListener( 'orientationchange', resize );
+
+    function onMouse( event ) {
       // Interpolate along a power scale.
       var x = event.pageX / window.innerWidth;
       x = Math.pow( x, 7 );
@@ -196,7 +210,7 @@
       drawSimple( ctx, filteredPoints );
 
       // Draw debug text.
-      ctx.font = '16pt "Helvetica Neue", Helvetica, Arial, sans-serif';
+      ctx.font = '12pt monospace';
       ctx.fillStyle = '#888';
       ctx.fillText( 'min-area: ' + round( area, 2 ), 32, 32 );
 
@@ -214,6 +228,16 @@
         round( filteredPoints.length / points.length * 100, 2 ) + '%',
         32, 96
       );
-    });
+    }
+
+    if ( 'ontouchstart' in window ) {
+      window.addEventListener( 'touchmove', function( event ) {
+        event.preventDefault();
+        onMouse( event.touches[0] );
+      });
+    } else {
+      window.addEventListener( 'mousemove', onMouse );
+    }
   }) ();
+
 }) ( window, document );
