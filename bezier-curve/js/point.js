@@ -122,6 +122,10 @@ var BezierPoint = (function() {
       callback: callback
     });
 
+    if ( !Object.observe ) {
+      return this;
+    }
+
     Object.observe( object, callback, accept );
     return this;
   };
@@ -131,9 +135,11 @@ var BezierPoint = (function() {
     var observer;
     var i, il;
     if ( !arguments.length ) {
-      for ( i = 0, il = this.observers.length; i < il; i++ ) {
-        observer = this.observers[i];
-        Object.unobserve( observer.object, observer.callback );
+      if ( Object.unobserve ) {
+        for ( i = 0, il = this.observers.length; i < il; i++ ) {
+          observer = this.observers[i];
+          Object.unobserve( observer.object, observer.callback );
+        }
       }
 
       this.observers = [];
@@ -143,7 +149,10 @@ var BezierPoint = (function() {
     for ( i = 0, il = this.observers.length; i < il; i++ ) {
       observer = this.observers[i];
       if ( object === observer.object && callback === observer.callback ) {
-        Object.unobserve( object, callback );
+        if ( Object.unobserve ) {
+          Object.unobserve( object, callback );
+        }
+
         this.observers.splice( i, 1 );
         return this;
       }
@@ -200,6 +209,10 @@ var ControlPoint = (function() {
   ControlPoint.prototype.relativeTo = function( point ) {
     this.endpoint = point;
 
+    if ( !Object.getNotifier ) {
+      return this;
+    }
+
     var notifier = Object.getNotifier( this );
     this.observe( point, function( changes ) {
       // Get position changes.
@@ -241,6 +254,10 @@ var Endpoint = (function() {
    * @param  {ControlPoint} other
    */
   function observeControlFn( endpoint, self, other ) {
+    if ( !Object.getNotifier ) {
+      return;
+    }
+
     var notifier = Object.getNotifier( self );
     self.observe( other, function() {
       if ( !endpoint.type ) {

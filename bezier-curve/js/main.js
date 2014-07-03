@@ -221,6 +221,10 @@ NearestPoint*/
       return;
     }
 
+    if ( !Object.getNotifier ) {
+      return;
+    }
+
     selection.forEach(function( element, index ) {
       Object.getNotifier( element )
         .performChange( 'input', function() {
