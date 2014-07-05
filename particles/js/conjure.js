@@ -184,10 +184,24 @@
     window.requestAnimationFrame( tick );
   }
 
-  window.addEventListener( 'mousemove', function( event ) {
+  function onMouse( event ) {
     mouse.x = event.pageX - canvas.offsetLeft;
     mouse.y = event.pageY - canvas.offsetTop;
-  });
+  }
+
+  if ( 'ontouchstart' in window ) {
+    window.addEventListener( 'touchmove', function( event ) {
+      event.preventDefault();
+      onMouse( event.touches[0] );
+      if ( !running ) {
+        running = true;
+        prevTime = Date.now();
+        tick();
+      }
+    });
+  } else {
+    window.addEventListener( 'mousemove', onMouse );
+  }
 
   document.addEventListener( 'keydown', function() {
     // Space.
