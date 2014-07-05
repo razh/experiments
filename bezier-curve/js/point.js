@@ -175,26 +175,26 @@ var BezierPoint = (function() {
 
   BezierPoint.prototype.unobserve = function( object, callback ) {
     // Remove all observers.
-    var observer;
-    var i, il;
     if ( !arguments.length ) {
-      for ( i = 0, il = this.observers.length; i < il; i++ ) {
-        observer = this.observers[i];
+      this.observers.forEach(function( observer ) {
         Object.unobserve( observer.object, observer.callback );
-      }
+      });
 
       this.observers = [];
       return this;
     }
 
-    for ( i = 0, il = this.observers.length; i < il; i++ ) {
-      observer = this.observers[i];
-      if ( object === observer.object && callback === observer.callback ) {
-        Object.unobserve( object, callback );
-        this.observers.splice( i, 1 );
-        return this;
+    this.observers = this.observers.filter(function( observer ) {
+      if ( observer.object !== object &&
+           ( !callback || observer.callback !== callback ) ) {
+        return true;
       }
-    }
+
+      Object.unobserve( object, callback );
+      return false;
+    });
+
+    return this;
   };
 
   if ( !Object.unobserve ) {
