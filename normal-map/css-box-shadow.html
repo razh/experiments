@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Box Shadow</title>
+
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    body,
+    .drop {
+      display: -webkit-flex;
+      display: flex;
+
+      -webkit-align-items: center;
+      align-items: center;
+
+      -webkit-justify-content: space-around;
+      justify-content: space-around;
+    }
+
+    body {
+      margin: 0;
+      background-color: #222;
+      overflow: hidden;
+    }
+
+    .drop {
+      width: 40%;
+      height: 80%;
+
+      color: #fff;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      text-transform: uppercase;
+      text-shadow: 0 0 1em #000;
+
+      background-color: #111;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+  </style>
+</head>
+<body>
+  <div class="drop diffuse">Diffuse</div>
+  <div class="drop normal">Normal</div>
+
+  <script src="./js/css-box-shadow.js"></script>
+</body>
+</html>
