@@ -94,11 +94,11 @@
     event.stopPropagation();
     event.preventDefault();
 
-    image.src = URL.createObjectURL( event.dataTransfer.files[0] );
     image.onload = function() {
       context.drawImage( image, padding, padding );
       imageLoaded = true;
     };
+    image.src = URL.createObjectURL( event.dataTransfer.files[0] );
   });
 
   document.addEventListener( 'dragover', function( event ) {
