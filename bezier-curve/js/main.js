@@ -409,10 +409,23 @@ NearestPoint*/
   init();
   tick();
 
-  canvas.addEventListener( 'mousedown', onMouseDown );
-  canvas.addEventListener( 'mousemove', onMouseMove );
-  canvas.addEventListener( 'mouseup', onMouseUp );
-  canvas.addEventListener( 'dblclick', onDblClick );
+  if ( 'ontouchstart' in window ) {
+    canvas.addEventListener( 'touchstart', function( event ) {
+      onMouseDown( event.touches[0] );
+    });
+
+    canvas.addEventListener( 'touchmove', function( event ) {
+      event.preventDefault();
+      onMouseMove( event.touches[0] );
+    });
+
+    canvas.addEventListener( 'touchend', onMouseUp );
+  } else {
+    canvas.addEventListener( 'mousedown', onMouseDown );
+    canvas.addEventListener( 'mousemove', onMouseMove );
+    canvas.addEventListener( 'mouseup', onMouseUp );
+    canvas.addEventListener( 'dblclick', onDblClick );
+  }
 
   document.addEventListener( 'keydown', onKeyDown );
 
