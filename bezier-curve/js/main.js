@@ -75,6 +75,14 @@ NearestPoint*/
     points = path.points();
   }
 
+  function update() {
+    points.filter(function( point ) {
+      return point.dirty;
+    }).forEach(function( point ) {
+      point.update();
+    });
+  }
+
   function draw( ctx ) {
     ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
 
@@ -153,6 +161,14 @@ NearestPoint*/
     ctx.stroke();
   }
 
+  function tick() {
+    if ( !Object.observe ) {
+      update();
+    }
+
+    draw( context );
+  }
+
   function mousePosition( event ) {
     mouse.x = event.pageX - canvas.offsetLeft;
     mouse.y = event.pageY - canvas.offsetTop;
@@ -177,7 +193,7 @@ NearestPoint*/
     mousePosition( event );
 
     // Wait for Object.observe changes to propagate.
-    requestAnimationFrame( draw );
+    requestAnimationFrame( tick );
 
     // Update nearest points.
     var mousePoint = new Point().copy( mouse );
@@ -222,6 +238,20 @@ NearestPoint*/
     }
 
     if ( !Object.getNotifier ) {
+      selection.forEach(function( element, index ) {
+        element.px = element.x;
+        element.py = element.y;
+        element.dirty = true;
+
+        element.addVectors( mouse, offsets[ index ] );
+
+        if ( event.shiftKey &&
+             element instanceof ControlPoint &&
+             element.endpoint ) {
+          element.orthogonalTo( element.endpoint );
+        }
+      });
+
       return;
     }
 
@@ -305,7 +335,7 @@ NearestPoint*/
 
         // Update new control points.
         points = path.points();
-        requestAnimationFrame( draw );
+        requestAnimationFrame( tick );
         break;
 
       // A. Add a curve to the path end.
@@ -324,7 +354,7 @@ NearestPoint*/
         );
 
         points = path.points();
-        requestAnimationFrame( draw );
+        requestAnimationFrame( tick );
         break;
 
       // D. Delete the nearest endpoint.
@@ -366,7 +396,7 @@ NearestPoint*/
         }
 
         points = path.points();
-        requestAnimationFrame( draw );
+        requestAnimationFrame( tick );
         break;
 
       // P. Print out path data.
@@ -377,8 +407,7 @@ NearestPoint*/
   }
 
   init();
-  draw = draw.bind( this, context );
-  draw();
+  tick();
 
   canvas.addEventListener( 'mousedown', onMouseDown );
   canvas.addEventListener( 'mousemove', onMouseMove );

@@ -93,6 +93,8 @@ var Point = (function() {
       .addVectors( this, origin );
   };
 
+  Point.prototype.update = function() {};
+
   Point.prototype.toArray = function() {
     return [ this.x, this.y ];
   };
@@ -111,10 +113,39 @@ var BezierPoint = (function() {
     Point.call( this, x, y );
 
     this.observers = [];
+
+    // Dirty checking fallback.
+    this.px = this.x;
+    this.py = this.y;
+    this.dirty = false;
+    // Inversion of control fallback.
+    this.observing = [];
   }
 
   BezierPoint.prototype = Object.create( Point.prototype );
   BezierPoint.prototype.constructor = BezierPoint;
+
+  BezierPoint.prototype.update = function() {
+    if ( !this.dirty ) {
+      return;
+    }
+
+    var change = {
+      object: this,
+      oldValue: {
+        x: this.px,
+        y: this.py
+      }
+    };
+
+    this.observers.forEach(function( observer ) {
+      observer.callback( change );
+    });
+
+    this.px = this.x;
+    this.py = this.y;
+    this.dirty = false;
+  };
 
   BezierPoint.prototype.observe = function( object, callback, accept ) {
     this.observers.push({
@@ -122,24 +153,34 @@ var BezierPoint = (function() {
       callback: callback
     });
 
-    if ( !Object.observe ) {
-      return this;
-    }
-
     Object.observe( object, callback, accept );
     return this;
   };
+
+  if ( !Object.observe ) {
+    BezierPoint.prototype.observe = function( object, callback ) {
+      object.observers.push({
+        object: this,
+        callback: callback
+      });
+
+      this.observing.push({
+        object: object,
+        callback: callback
+      });
+
+      return this;
+    };
+  }
 
   BezierPoint.prototype.unobserve = function( object, callback ) {
     // Remove all observers.
     var observer;
     var i, il;
     if ( !arguments.length ) {
-      if ( Object.unobserve ) {
-        for ( i = 0, il = this.observers.length; i < il; i++ ) {
-          observer = this.observers[i];
-          Object.unobserve( observer.object, observer.callback );
-        }
+      for ( i = 0, il = this.observers.length; i < il; i++ ) {
+        observer = this.observers[i];
+        Object.unobserve( observer.object, observer.callback );
       }
 
       this.observers = [];
@@ -149,15 +190,41 @@ var BezierPoint = (function() {
     for ( i = 0, il = this.observers.length; i < il; i++ ) {
       observer = this.observers[i];
       if ( object === observer.object && callback === observer.callback ) {
-        if ( Object.unobserve ) {
-          Object.unobserve( object, callback );
-        }
-
+        Object.unobserve( object, callback );
         this.observers.splice( i, 1 );
         return this;
       }
     }
   };
+
+  if ( !Object.unobserve ) {
+    BezierPoint.prototype.unobserve = function( object, callback ) {
+      if ( !arguments.length ) {
+        // Remove observers from objects being observed.
+        this.observing.forEach(function( observing ) {
+          var object = observing.object;
+          object.observers = object.observers.filter(function( observer ) {
+            return observer.object !== this;
+          }, this );
+        }, this );
+
+        this.observing = [];
+        return this;
+      }
+
+      this.observing = this.observing.filter(function( observing ) {
+        return observing.object !== object &&
+          ( !callback || observing.callback !== callback );
+      });
+
+      object.observers = object.observers.filter(function( observer ) {
+        return observer.object !== this &&
+          ( !callback || observer.callback !== callback );
+      }, this );
+
+      return this;
+    };
+  }
 
   BezierPoint.prototype.asymmetric = function( origin, point ) {
     var angleFrom = Point.prototype.angleFrom.call( point, origin );
@@ -209,10 +276,6 @@ var ControlPoint = (function() {
   ControlPoint.prototype.relativeTo = function( point ) {
     this.endpoint = point;
 
-    if ( !Object.getNotifier ) {
-      return this;
-    }
-
     var notifier = Object.getNotifier( this );
     this.observe( point, function( changes ) {
       // Get position changes.
@@ -226,6 +289,19 @@ var ControlPoint = (function() {
 
     return this;
   };
+
+  if ( !Object.getNotifier ) {
+    ControlPoint.prototype.relativeTo = function( point ) {
+      this.endpoint = point;
+
+      this.observe( point, function( change ) {
+        this.x += change.object.x - change.oldValue.x;
+        this.y += change.object.y - change.oldValue.y;
+      }.bind( this ));
+
+      return this;
+    };
+  }
 
   ControlPoint.prototype.draw = function( ctx ) {
     ctx.rect( this.x - 4, this.y - 4, 8, 8 );
@@ -255,6 +331,18 @@ var Endpoint = (function() {
    */
   function observeControlFn( endpoint, self, other ) {
     if ( !Object.getNotifier ) {
+      self.observe( other, function() {
+        switch ( endpoint.type ) {
+          case Type.MIRROR:
+            self.mirror( endpoint, other );
+            break;
+
+          case Type.ASYMMETRIC:
+            self.asymmetric( endpoint, other );
+            break;
+        }
+      });
+
       return;
     }
 
