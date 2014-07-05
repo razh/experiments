@@ -40,7 +40,7 @@ var NearestPoint = (function( Point ) {
    *   P - The user supplied point
    *   V - Control points of cubic Bezier.
    */
-   function nearestPointOnCurveParameter( P, V ) {
+  function nearestPointOnCurveParameter( P, V ) {
     // Control points for 5th-degree eqn.
     var w;
     // Possible roots.
@@ -132,7 +132,7 @@ var NearestPoint = (function( Point ) {
     // each control point from the next.
     for ( i = 0; i <= DEGREE - 1; i++ ) {
       d[i] = new Point().subVectors( V[ i + 1 ], V[i] )
-        .multiplyScalar(3.0);
+        .multiplyScalar( 3.0 );
     }
 
     // Create the c, d table -- this is a table of dot products of the
