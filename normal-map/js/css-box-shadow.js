@@ -69,6 +69,50 @@
     return tempCtx.getImageData( 0, 0, resolution, resolution );
   }
 
+  /**
+   * Converts an ImageData object (width, height, data: Uint8ClampedArray) to
+   * a CSS box-shadow value.
+   */
+  function boxShadow( imageData, scale ) {
+    scale = scale || 1;
+
+    var width  = imageData.width,
+        height = imageData.height;
+
+    var data = imageData.data;
+    var shadows = [];
+    var x, y;
+    var r, g, b, a;
+    var index = 0;
+    for ( y = 0; y < height; y++ ) {
+      for ( x = 0; x < width; x++ ) {
+        index = 4 * ( y * width + x );
+
+        r = data[ index ];
+        g = data[ index + 1 ];
+        b = data[ index + 2 ];
+        a = data[ index + 3 ];
+
+        if ( !a ) {
+          continue;
+        }
+
+        shadows.push(
+          ( x * scale ) + 'px ' +
+          ( y * scale ) + 'px ' +
+          'rgba(' +
+            r + ', ' +
+            g + ', ' +
+            b + ', ' +
+            ( a / 255 ) +
+          ')'
+        );
+      }
+    }
+
+    return shadows.join( ', ' );
+  }
+
   // Input.
   var inputs = {
     scale: document.querySelector( '#scale' ),
