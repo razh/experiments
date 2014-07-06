@@ -1,6 +1,11 @@
 (function( window, documnet, undefined ) {
   'use strict';
 
+  var config = {
+    scale: 4,
+    resolution: 32
+  };
+
   var material = {
     diffuse: null,
     normal: null
@@ -9,6 +14,76 @@
   var diffuseEl = document.querySelector( '.diffuse' );
   var normalEl = document.querySelector( '.normal' );
 
+  // Canvas elements.
+  var canvasGroup = document.querySelector( '.canvas-group' );
+
+  var canvas = {
+    diffuse: document.createElement( 'canvas' ),
+    normal: document.createElement( 'canvas' )
+  };
+
+  var context = {
+    diffuse: canvas.diffuse.getContext( '2d' ),
+    normal: canvas.normal.getContext( '2d' )
+  };
+
+  Object.keys( canvas ).forEach(function( key ) {
+    var canvasEl = canvas[ key ];
+    canvasEl.width  = 0;
+    canvasEl.height = 0;
+    canvasGroup.appendChild( canvasEl );
+  });
+
+  var tempCanvas = document.createElement( 'canvas' ),
+      tempCtx    = tempCanvas.getContext( '2d' );
+
+  function drawImage( image, ctx ) {
+    var naturalWidth  = image.naturalWidth,
+        naturalHeight = image.naturalHeight;
+
+    var imageSize = Math.max( naturalWidth, naturalHeight );
+    var resolution = config.resolution;
+    var canvasSize = config.scale * resolution;
+
+    ctx.canvas.width  = canvasSize;
+    ctx.canvas.height = canvasSize;
+
+    tempCanvas.width  = resolution;
+    tempCanvas.height = resolution;
+
+    // Scale down image on temporary canvas.
+    tempCtx.drawImage(
+      image,
+      0, 0, imageSize, imageSize,
+      0, 0, resolution, resolution
+    );
+
+    // Draw pixelated image on display canvas.
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(
+      tempCanvas,
+      0, 0, resolution, resolution,
+      0, 0, canvasSize, canvasSize
+    );
+
+    return tempCtx.getImageData( 0, 0, resolution, resolution );
+  }
+
+  // Input.
+  var inputs = {
+    scale: document.querySelector( '#scale' ),
+    resolution: document.querySelector( '#resolution' )
+  };
+
+  Object.keys( inputs ).forEach(function( key ) {
+    var input = inputs[ key ];
+    input.value = config[ key ];
+    input.addEventListener( 'input', function() {
+      config[ key ] = parseInt( input.value, 10 );
+    });
+  });
+
+  // Drag and drop.
   function onDrop( event, callback ) {
     var image = new Image();
     image.onload = callback.bind( image );
@@ -21,8 +96,11 @@
 
     var target = event.target;
     onDrop( event, function() {
+      var id;
       if ( target === diffuseEl || target === normalEl ) {
+        id = target.id;
         target.style.backgroundImage = 'url(' + this.src + ')';
+        material[ id ] = drawImage( this, context[ id ] );
       }
     });
   });

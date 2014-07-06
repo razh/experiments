@@ -10,7 +10,17 @@
       height: 100%;
     }
 
-    body,
+    body {
+      margin: 0;
+      background-color: #222;
+    }
+
+    .container {
+      width: 100%;
+      height: 100%;
+    }
+
+    .container,
     .drop {
       display: -webkit-flex;
       display: flex;
@@ -20,12 +30,6 @@
 
       -webkit-justify-content: space-around;
       justify-content: space-around;
-    }
-
-    body {
-      margin: 0;
-      background-color: #222;
-      overflow: hidden;
     }
 
     .drop {
@@ -42,11 +46,56 @@
       background-position: center;
       background-size: contain;
     }
+
+    form {
+      position: absolute;
+
+      left: 1em;
+      bottom: 1em;
+
+      color: #fff;
+      font-family: monospace;
+    }
+
+    input {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 0.5em 1em;
+    }
+
+    .canvas-group {
+      position: absolute;
+
+      right: 0;
+      bottom: 0;
+    }
+
+    canvas {
+      margin: 1em;
+      box-shadow: 0 0 1em #000;
+    }
   </style>
 </head>
 <body>
-  <div class="drop diffuse">Diffuse</div>
-  <div class="drop normal">Normal</div>
+  <div class="canvas-group"></div>
+
+  <div class="container">
+    <div class="drop diffuse" id="diffuse">Diffuse</div>
+    <div class="drop normal" id="normal">Normal</div>
+  </div>
+
+  <form>
+    <div class="form-group">
+      <label for="scale">Scale</label>
+      <input type="number" id="scale" min="1" max="32">
+    </div>
+    <div class="form-group">
+      <label for="resolution">Resolution</label>
+      <input type="number" id="resolution" min="1" max="512">
+    </div>
+  </form>
+
 
   <script src="./js/css-box-shadow.js"></script>
 </body>
