@@ -89,6 +89,7 @@
 
   function drawOutput() {
     var imageData = shaderFn(
+      context.output,
       config.light, config.ambient, config.falloff,
       material.diffuse, material.normal
     );
@@ -157,146 +158,140 @@
    * Canvas implementation of mattdesl's normal map shader.
    * https://github.com/mattdesl/lwjgl-basics/wiki/ShaderLesson6
    */
-  var shaderFn = (function() {
-    // Temporary canvas.
-    var canvas = document.createElement( 'canvas' );
-    var ctx = canvas.getContext( '2d' );
+  function shaderFn( ctx, light, ambient, falloff, diffuse, normal ) {
+    // Light position.
+    var lx = light.x,
+        ly = light.y,
+        lz = light.z;
 
-    return function shaderFn( light, ambient, falloff, diffuse, normal ) {
-      // Light position.
-      var lx = light.x,
-          ly = light.y,
-          lz = light.z;
+    // Light color.
+    var lr = light.r,
+        lg = light.g,
+        lb = light.b,
+        la = light.a;
 
-      // Light color.
-      var lr = light.r,
-          lg = light.g,
-          lb = light.b,
-          la = light.a;
+    // Pre-multiply light color with intensity.
+    lr *= la;
+    lg *= la;
+    lb *= la;
 
-      // Pre-multiply light color with intensity.
-      lr *= la;
-      lg *= la;
-      lb *= la;
+    // Ambient color.
+    var ar = ambient.r,
+        ag = ambient.g,
+        ab = ambient.b,
+        aa = ambient.a;
 
-      // Ambient color.
-      var ar = ambient.r,
-          ag = ambient.g,
-          ab = ambient.b,
-          aa = ambient.a;
+    // Pre-multiply ambient color with intensity.
+    ar *= aa;
+    ag *= aa;
+    ab *= aa;
 
-      // Pre-multiply ambient color with intensity.
-      ar *= aa;
-      ag *= aa;
-      ab *= aa;
+    // Falloff (attenuation coefficients).
+    var fx = falloff.x,
+        fy = falloff.y,
+        fz = falloff.z;
 
-      // Falloff (attenuation coefficients).
-      var fx = falloff.x,
-          fy = falloff.y,
-          fz = falloff.z;
+    var diffuseData = diffuse.data,
+        normalData  = normal.data;
 
-      var diffuseData = diffuse.data,
-          normalData  = normal.data;
+    var imageData = ctx.createImageData( diffuse );
 
-      var imageData = ctx.createImageData( diffuse );
+    var data   = imageData.data,
+        width  = imageData.width,
+        height = imageData.height;
 
-      var data   = imageData.data,
-          width  = imageData.width,
-          height = imageData.height;
+    var inverse255 = 1 / 255;
 
-      var inverse255 = 1 / 255;
+    var inverseWidth  = 1 / width,
+        inverseHeight = 1 / height;
 
-      var inverseWidth  = 1 / width,
-          inverseHeight = 1 / height;
+    var x, y;
+    var index;
+    // Normalized coordinates.
+    var xt, yt;
+    // Light distance.
+    var dlx, dly, dlz;
+    var D, Dinverse;
+    // Normalized normal and light vectors.
+    var Nr, Ng, Nb;
+    var Lx, Ly, Lz;
+    // Diffuse light intensity.
+    var NdotL;
+    // Diffuse color.
+    var dr, dg, db, da;
+    // Normal color.
+    var nr, ng, nb;
+    // Length of normal vector (inverse).
+    var nl;
+    // Diffuse: light color * Lambertian reflection.
+    var Dr, Dg, Db;
+    // Attenuation and intensity color.
+    var attenuation;
+    var ir, ig, ib;
+    for ( y = 0; y < height; y++ ) {
+      for ( x = 0; x < width; x++ ) {
+        index = 4 * ( y * width + x );
 
-      var x, y;
-      var index;
-      // Normalized coordinates.
-      var xt, yt;
-      // Light distance.
-      var dlx, dly, dlz;
-      var D, Dinverse;
-      // Normalized normal and light vectors.
-      var Nr, Ng, Nb;
-      var Lx, Ly, Lz;
-      // Diffuse light intensity.
-      var NdotL;
-      // Diffuse color.
-      var dr, dg, db, da;
-      // Normal color.
-      var nr, ng, nb;
-      // Length of normal vector (inverse).
-      var nl;
-      // Diffuse: light color * Lambertian reflection.
-      var Dr, Dg, Db;
-      // Attenuation and intensity color.
-      var attenuation;
-      var ir, ig, ib;
-      for ( y = 0; y < height; y++ ) {
-        for ( x = 0; x < width; x++ ) {
-          index = 4 * ( y * width + x );
+        dr = diffuseData[ index ];
+        dg = diffuseData[ index + 1 ];
+        db = diffuseData[ index + 2 ];
+        da = diffuseData[ index + 3 ];
 
-          dr = diffuseData[ index ];
-          dg = diffuseData[ index + 1 ];
-          db = diffuseData[ index + 2 ];
-          da = diffuseData[ index + 3 ];
+        nr = normalData[ index     ] * inverse255;
+        ng = normalData[ index + 1 ] * inverse255;
+        nb = normalData[ index + 2 ] * inverse255;
 
-          nr = normalData[ index     ] * inverse255;
-          ng = normalData[ index + 1 ] * inverse255;
-          nb = normalData[ index + 2 ] * inverse255;
+        // Normalize texel coordinates.
+        xt = x * inverseWidth;
+        yt = y * inverseHeight;
 
-          // Normalize texel coordinates.
-          xt = x * inverseWidth;
-          yt = y * inverseHeight;
+        // Light delta position.
+        dlx = lx - xt;
+        dly = ly - yt;
+        dlz = lz;
 
-          // Light delta position.
-          dlx = lx - xt;
-          dly = ly - yt;
-          dlz = lz;
+        // Light distance.
+        D = Math.sqrt( dlx * dlx + dly * dly + dlz * dlz );
 
-          // Light distance.
-          D = Math.sqrt( dlx * dlx + dly * dly + dlz * dlz );
+        // Normalize normal vector.
+        nr = nr * 2 - 1;
+        ng = ng * 2 - 1;
+        nb = nb * 2 - 1;
+        nl = 1 / Math.sqrt( nr * nr + ng * ng + nb * nb );
 
-          // Normalize normal vector.
-          nr = nr * 2 - 1;
-          ng = ng * 2 - 1;
-          nb = nb * 2 - 1;
-          nl = 1 / Math.sqrt( nr * nr + ng * ng + nb * nb );
+        Nr = nr * nl;
+        Ng = ng * nl;
+        Nb = nb * nl;
 
-          Nr = nr * nl;
-          Ng = ng * nl;
-          Nb = nb * nl;
+        // Normalize light vector.
+        Dinverse = 1 / D;
+        Lx = dlx * Dinverse;
+        Ly = dly * Dinverse;
+        Lz = dlz * Dinverse;
 
-          // Normalize light vector.
-          Dinverse = 1 / D;
-          Lx = dlx * Dinverse;
-          Ly = dly * Dinverse;
-          Lz = dlz * Dinverse;
+        // Diffuse light intensity.
+        NdotL = Math.max( Nr * Lx + Ng * Ly + Nb * Lz, 0 );
+        Dr = lr * NdotL;
+        Dg = lg * NdotL;
+        Db = lb * NdotL;
 
-          // Diffuse light intensity.
-          NdotL = Math.max( Nr * Lx + Ng * Ly + Nb * Lz, 0 );
-          Dr = lr * NdotL;
-          Dg = lg * NdotL;
-          Db = lb * NdotL;
+        attenuation = 1 / ( fx + ( fy * D ) + ( fz * D * D ) );
 
-          attenuation = 1 / ( fx + ( fy * D ) + ( fz * D * D ) );
+        // Intensity = Ambient + Diffuse * Attenuation.
+        ir = ar + Dr * attenuation;
+        ig = ag + Dg * attenuation;
+        ib = ab + Db * attenuation;
 
-          // Intensity = Ambient + Diffuse * Attenuation.
-          ir = ar + Dr * attenuation;
-          ig = ag + Dg * attenuation;
-          ib = ab + Db * attenuation;
-
-          // Final color (diffuse color * intensity).
-          data[ index     ] = dr * ir;
-          data[ index + 1 ] = dg * ig;
-          data[ index + 2 ] = db * ib;
-          data[ index + 3 ] = da;
-        }
+        // Final color (diffuse color * intensity).
+        data[ index     ] = dr * ir;
+        data[ index + 1 ] = dg * ig;
+        data[ index + 2 ] = db * ib;
+        data[ index + 3 ] = da;
       }
+    }
 
-      return imageData;
-    };
-  }) ();
+    return imageData;
+  }
 
   // Input.
   var inputs = {
