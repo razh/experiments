@@ -3,7 +3,31 @@
 
   var config = {
     scale: 4,
-    resolution: 32
+    resolution: 64,
+
+    light: {
+      x: 0.8,
+      y: 0.5,
+      z: 0.1,
+
+      r: 1.0,
+      g: 0.9,
+      b: 0.6,
+      a: 1.0
+    },
+
+    ambient: {
+      r: 0.5,
+      g: 0.5,
+      b: 0.3,
+      a: 0.6
+    },
+
+    falloff: {
+      x: 0.1,
+      y: 0.5,
+      z: 5
+    }
   };
 
   var material = {
@@ -17,18 +41,12 @@
   // Canvas elements.
   var canvasGroup = document.querySelector( '.canvas-group' );
 
-  var canvas = {
-    diffuse: document.createElement( 'canvas' ),
-    normal: document.createElement( 'canvas' )
-  };
+  var canvas = {};
+  var context = {};
 
-  var context = {
-    diffuse: canvas.diffuse.getContext( '2d' ),
-    normal: canvas.normal.getContext( '2d' )
-  };
-
-  Object.keys( canvas ).forEach(function( key ) {
-    var canvasEl = canvas[ key ];
+  [ 'diffuse', 'normal', 'output' ].forEach(function( key ) {
+    var canvasEl = canvas[ key ] = document.createElement( 'canvas' );
+    context[ key ] = canvasEl.getContext( '2d' );
     canvasEl.width  = 0;
     canvasEl.height = 0;
     canvasGroup.appendChild( canvasEl );
@@ -67,6 +85,28 @@
     );
 
     return tempCtx.getImageData( 0, 0, resolution, resolution );
+  }
+
+  function drawOutput() {
+    var imageData = shaderFn(
+      config.light, config.ambient, config.falloff,
+      material.diffuse, material.normal
+    );
+
+    tempCanvas.width  = imageData.width;
+    tempCanvas.height = imageData.height;
+    tempCtx.putImageData( imageData, 0, 0 );
+
+    var canvasSize = config.scale * config.resolution;
+    canvas.output.width  = canvasSize;
+    canvas.output.height = canvasSize;
+
+    context.output.imageSmoothingEnabled = false;
+    context.output.drawImage(
+      tempCanvas,
+      0, 0, tempCanvas.width, tempCanvas.height,
+      0, 0, canvasSize, canvasSize
+    );
   }
 
   /**
@@ -288,6 +328,10 @@
         id = target.id;
         target.style.backgroundImage = 'url(' + this.src + ')';
         material[ id ] = drawImage( this, context[ id ] );
+
+        if ( material.diffuse && material.normal ) {
+          drawOutput();
+        }
       }
     });
   });
