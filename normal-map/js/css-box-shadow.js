@@ -164,21 +164,27 @@
           width  = imageData.width,
           height = imageData.height;
 
+      var inverseWidth  = 1 / width,
+          inverseHeight = 1 / height;
+
       var x, y;
       var index;
+      // Normalized coordinates.
+      var xt, yt;
+      // Light distance.
       var dlx, dly, dlz;
       var D, Dinverse;
       // Normalized normal and light vectors.
       var Nr, Ng, Nb;
       var Lx, Ly, Lz;
-      // N dot L.
-      var NL;
+      // Diffuse light intensity.
+      var NdotL;
       // Diffuse color.
       var dr, dg, db, da;
       // Normal color.
       var nr, ng, nb;
       // Length of normal vector (inverse).
-      var ln;
+      var nl;
       // Diffuse: light color * Lambertian reflection.
       var Dr, Dg, Db;
       // Attenuation and intensity color.
@@ -197,35 +203,39 @@
           ng = normalData[ index + 1 ];
           nb = normalData[ index + 2 ];
 
+          // Normalize texel coordinates.
+          xt = x * inverseWidth;
+          yt = y * inverseHeight;
+
           // Light delta position.
-          dlx = lx - x;
-          dly = ly - y;
+          dlx = lx - xt;
+          dly = ly - yt;
           dlz = lz;
 
           // Light distance.
           D = Math.sqrt( dlx * dlx + dly * dly + dlz * dlz );
 
-          // Normalize.
+          // Normalize normal vector.
           nr = nr * 2 - 1;
           ng = ng * 2 - 1;
           nb = nb * 2 - 1;
-          ln = 1 / Math.sqrt( nr * nr + ng * ng + nb * nb );
+          nl = 1 / Math.sqrt( nr * nr + ng * ng + nb * nb );
 
-          Nr = nr * ln;
-          Ng = ng * ln;
-          Nb = nb * ln;
+          Nr = nr * nl;
+          Ng = ng * nl;
+          Nb = nb * nl;
 
+          // Normalize light vector.
           Dinverse = 1 / D;
           Lx = dlx * Dinverse;
           Ly = dly * Dinverse;
           Lz = dlz * Dinverse;
 
-          // N dot L.
-          NL = Math.max( Nr * Lx + Ng * Ly + Nb * Lz, 0 );
-          // Diffuse lighting factor.
-          Dr = lr * NL;
-          Dg = lg * NL;
-          Db = lb * NL;
+          // Diffuse light intensity.
+          NdotL = Math.max( Nr * Lx + Ng * Ly + Nb * Lz, 0 );
+          Dr = lr * NdotL;
+          Dg = lg * NdotL;
+          Db = lb * NdotL;
 
           attenuation = 1 / ( fx + ( fy * D ) + ( fz * D * D ) );
 
@@ -242,7 +252,7 @@
         }
       }
 
-      return data;
+      return imageData;
     };
   }) ();
 
