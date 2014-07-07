@@ -204,6 +204,8 @@
           width  = imageData.width,
           height = imageData.height;
 
+      var inverse255 = 1 / 255;
+
       var inverseWidth  = 1 / width,
           inverseHeight = 1 / height;
 
@@ -239,9 +241,9 @@
           db = diffuseData[ index + 2 ];
           da = diffuseData[ index + 3 ];
 
-          nr = normalData[ index ];
-          ng = normalData[ index + 1 ];
-          nb = normalData[ index + 2 ];
+          nr = normalData[ index     ] * inverse255;
+          ng = normalData[ index + 1 ] * inverse255;
+          nb = normalData[ index + 2 ] * inverse255;
 
           // Normalize texel coordinates.
           xt = x * inverseWidth;
