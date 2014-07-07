@@ -341,4 +341,18 @@
     event.preventDefault();
   });
 
+  canvas.output.addEventListener( 'mousemove', function( event ) {
+    if ( !material.diffuse || !material.normal ) {
+      return;
+    }
+
+    var output = canvas.output;
+    var rect = output.getBoundingClientRect();
+
+    config.light.x = ( event.pageX - rect.left ) / rect.width;
+    config.light.y = ( event.pageY - rect.top  ) / rect.height;
+
+    drawOutput();
+  });
+
 }) ( window, document );
