@@ -30,6 +30,11 @@
     }
   };
 
+  var images = {
+    diffuse: null,
+    normal: null
+  };
+
   var material = {
     diffuse: null,
     normal: null
@@ -55,7 +60,7 @@
   var tempCanvas = document.createElement( 'canvas' ),
       tempCtx    = tempCanvas.getContext( '2d' );
 
-  function drawImage( image, ctx ) {
+  function drawImage( ctx, image ) {
     var naturalWidth  = image.naturalWidth,
         naturalHeight = image.naturalHeight;
 
@@ -337,23 +342,56 @@
   }) ();
 
   // Drag and drop.
-  function onDrop( event, callback ) {
+  function loadImage( file, callback ) {
     var image = new Image();
     image.onload = callback.bind( image );
-    image.src = URL.createObjectURL( event.dataTransfer.files[0] );
+    image.src = URL.createObjectURL( file );
   }
 
   document.addEventListener( 'drop', function( event ) {
     event.stopPropagation();
     event.preventDefault();
 
+    // Multiple files.
+    var files = event.dataTransfer.files;
+    if ( files.length > 1 ) {
+      var fileDiffuse, fileNormal;
+      // Assume that the image with 'normal' in its file name is the
+      // normal map.
+      if ( files[0].name.indexOf( 'normal' ) === -1 ) {
+        fileDiffuse = files[0];
+        fileNormal = files[1];
+      } else {
+        fileDiffuse = files[1];
+        fileNormal = files[0];
+      }
+
+      loadImage( fileDiffuse, function() {
+        diffuseEl.style.backgroundImage = 'url(' + this.src + ')';
+        images.diffuse = this;
+        material.diffuse = drawImage( context.diffuse, this );
+
+        // Callback hell.
+        loadImage( fileNormal, function() {
+          normalEl.style.backgroundImage = 'url(' + this.src + ')';
+          images.normal = this;
+          material.normal = drawImage( context.normal, this );
+          drawOutput();
+        });
+      });
+
+      return;
+    }
+
+    // Single file.
     var target = event.target;
-    onDrop( event, function() {
+    loadImage( files[0], function() {
       var id;
       if ( target === diffuseEl || target === normalEl ) {
         id = target.id;
         target.style.backgroundImage = 'url(' + this.src + ')';
-        material[ id ] = drawImage( this, context[ id ] );
+        images[ id ] = this;
+        material[ id ] = drawImage( context[ id ], this );
 
         if ( material.diffuse && material.normal ) {
           drawOutput();
