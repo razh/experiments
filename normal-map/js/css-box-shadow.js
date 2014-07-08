@@ -307,6 +307,35 @@
     });
   });
 
+  // Flip y-coordinates of normals for different coordinate systems.
+  (function() {
+    var flipY = document.querySelector( '#flip-y' );
+    var flipped = false;
+    flipY.addEventListener( 'change', function() {
+      var normalData = material.normal;
+      if ( !normalData || flipY.checked === flipped ) {
+        return;
+      }
+
+      flipped = flipY.checked;
+
+      var data   = normalData.data,
+          width  = normalData.width,
+          height = normalData.height;
+
+      var x, y;
+      var index = 0;
+      for ( y = 0; y < height; y++ ) {
+        for ( x = 0; x < width; x++ ) {
+          data[ index + 1 ] = 255 - data[ index + 1 ];
+          index += 4;
+        }
+      }
+
+      drawOutput();
+    });
+  }) ();
+
   // Drag and drop.
   function onDrop( event, callback ) {
     var image = new Image();
