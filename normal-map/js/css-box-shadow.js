@@ -6,27 +6,27 @@
     resolution: 64,
 
     light: {
-      x: 0.8,
+      x: 0.5,
       y: 0.5,
-      z: 0.1,
+      z: 0.075,
 
       r: 1.0,
-      g: 0.9,
+      g: 0.8,
       b: 0.6,
       a: 1.0
     },
 
     ambient: {
-      r: 0.5,
-      g: 0.5,
-      b: 0.3,
-      a: 0.6
+      r: 0.6,
+      g: 0.6,
+      b: 1.0,
+      a: 0.2
     },
 
     falloff: {
-      x: 0.1,
-      y: 0.5,
-      z: 5
+      x: 0.4,
+      y: 3,
+      z: 20
     }
   };
 
@@ -308,7 +308,20 @@
     var input = inputs[ key ];
     input.value = config[ key ];
     input.addEventListener( 'input', function() {
-      config[ key ] = parseInt( input.value, 10 );
+      config[ key ] = parseFloat( input.value );
+
+      // Update canvas previews.
+      if ( images.diffuse ) {
+        material.diffuse = drawImage( context.diffuse, images.diffuse );
+      }
+
+      if ( images.normal ) {
+        material.normal = drawImage( context.normal, images.normal );
+      }
+
+      if ( material.diffuse && material.normal ) {
+        drawOutput();
+      }
     });
   });
 
