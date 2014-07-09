@@ -2,7 +2,7 @@
   'use strict';
 
   var config = {
-    scale: 4,
+    scale: 2,
     resolution: 64,
 
     light: {
@@ -42,6 +42,7 @@
 
   var diffuseEl = document.querySelector( '.diffuse' );
   var normalEl = document.querySelector( '.normal' );
+  var shadowEl = document.querySelector( '.shadow' );
 
   // Canvas elements.
   var canvasGroup = document.querySelector( '.canvas-group' );
@@ -113,6 +114,8 @@
       0, 0, tempCanvas.width, tempCanvas.height,
       0, 0, canvasSize, canvasSize
     );
+
+    setElement( shadowEl );
   }
 
   /**
@@ -157,6 +160,34 @@
     }
 
     return shadows.join( ', ' );
+  }
+
+  function setElement( el ) {
+    var scale = config.scale || 1;
+
+    el.style.width  = scale + 'px';
+    el.style.height = scale + 'px';
+
+    var ctx = context.output,
+        canvas = ctx.canvas;
+
+    var imageData = ctx.getImageData( 0, 0, canvas.width, canvas.height );
+    el.style.boxShadow = boxShadow( imageData, scale );
+
+    var data = imageData.data;
+    var r = data[0],
+        g = data[1],
+        b = data[2],
+        a = data[3];
+
+    if ( a ) {
+      el.style.backgroundColor = 'rgba(' +
+        r + ', ' +
+        g + ', ' +
+        b + ', ' +
+        ( a / 255 ) +
+      ')';
+    }
   }
 
   /**
