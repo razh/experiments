@@ -2,8 +2,9 @@
   'use strict';
 
   var config = {
-    scale: 2,
-    resolution: 64,
+    scale: 0.5,
+    resolution: 128,
+    transformScale: 16,
 
     light: {
       x: 0.5,
@@ -382,6 +383,25 @@
       }
 
       drawOutput();
+    });
+  }) ();
+
+  // Element transform.
+  (function() {
+    var transformScale = document.querySelector( '#transform-scale' );
+    transformScale.value = config.transformScale;
+
+    function setTransformScale( el, scale ) {
+      var transform = 'scale(' + scale + ')';
+      shadowEl.style.webkitTransform = transform;
+      shadowEl.style.transform = transform;
+    }
+
+    setTransformScale( shadowEl, transformScale.value );
+    transformScale.addEventListener( 'input', function() {
+      var value = parseFloat( transformScale.value );
+      config.transformScale = value;
+      setTransformScale( shadowEl, value );
     });
   }) ();
 
