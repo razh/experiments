@@ -20,6 +20,7 @@
     }
 
     .spring,
+    .displays,
     form,
     canvas {
       position: absolute;
@@ -38,6 +39,30 @@
       background-color: #f65;
 
       z-index: 1;
+    }
+
+    .displays {
+      left: 1em;
+      top: 1em;
+
+      color: #000;
+      font-family: monospace;
+      font-size: 0.8em;
+
+      z-index: 2;
+    }
+
+    .display:before {
+      display: inline-block;
+      width: 6em;
+    }
+
+    #display-friction:before {
+      content: "Friction ";
+    }
+
+    #display-tension:before {
+      content: "Tension";
     }
 
     form {
@@ -65,6 +90,11 @@
   </style>
 </head>
 <body>
+  <div class="displays">
+    <div class="display" id="display-friction"></div>
+    <div class="display" id="display-tension"></div>
+  </div>
+
   <form onmousedown="event.stopPropagation()">
     <div class="form-group">
       <label for="friction">Friction</label>

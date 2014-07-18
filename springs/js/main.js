@@ -2,9 +2,18 @@
 (function( window, document, undefined ) {
   'use strict';
 
+  function round( value, precision ) {
+    return parseFloat( value.toFixed( precision ) );
+  }
+
   var inputs = {
     friction: document.querySelector( '#friction' ),
     tension: document.querySelector( '#tension' )
+  };
+
+  var display = {
+    friction: document.querySelector( '#display-friction' ),
+    tension: document.querySelector( '#display-tension' )
   };
 
   // Create springs for both axes.
@@ -13,16 +22,22 @@
     y: new Spring( 40, 8 )
   };
 
+  // Initialize display values.
+  display.friction.textContent = round( springs.x.friction, 2 );
+  display.tension.textContent = round( springs.x.tension, 2 );
+
   inputs.friction.addEventListener( 'input', function() {
     var friction = inputs.friction.value;
     springs.x.quartzFriction( friction );
     springs.y.quartzFriction( friction );
+    display.friction.textContent = round( springs.x.friction, 2 );
   });
 
   inputs.tension.addEventListener( 'input', function() {
     var tension = inputs.tension.value;
     springs.x.quartzTension( tension );
     springs.y.quartzTension( tension );
+    display.tension.textContent = round( springs.x.tension, 2 );
   });
 
   // Create element with spring behavior.
