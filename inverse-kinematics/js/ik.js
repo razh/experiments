@@ -80,11 +80,21 @@ var IK = (function() {
     }
   }
 
+  function toArray( ik ) {
+    return ik.links.map(function( link ) {
+      return link.length;
+    });
+  }
+
   /**
    * Generates an initially horizontal system from an array of link/bone
    * lengths.
    */
   function fromArray( ik, array ) {
+    if ( !array.length ) {
+      return ik;
+    }
+
     ik.links = array.reduce(function( links, length, index ) {
       var link = new Link( length );
 
@@ -103,6 +113,19 @@ var IK = (function() {
     var last = ik.links[ ik.links.length - 1 ];
     ik.xf = last.x + last.length;
     ik.yf = 0;
+
+    return ik;
+  }
+
+  /**
+   * Generate an array of numbers from a comma-separated string of numbers.
+   */
+  function parseString( string ) {
+    return string.split( ',' )
+      .map( parseFloat )
+      .filter(function( value ) {
+        return value && isFinite( value );
+      });
   }
 
   return {
@@ -112,7 +135,10 @@ var IK = (function() {
     draw: draw,
     drawPath: drawPath,
     remove: remove,
-    fromArray: fromArray
+
+    toArray: toArray,
+    fromArray: fromArray,
+    parseString: parseString
   };
 
 }) ();
