@@ -178,21 +178,30 @@
       ctx.fillText( 'formation angle: ' + Math.round( angle * 180 / Math.PI ) + '°', 224, 32 );
     }
 
-    if ( mouse.down && state === State.RANK ) {
-      ctx.beginPath();
-      ctx.moveTo( mouse.xi, mouse.yi );
-      ctx.lineTo( mouse.x, mouse.y );
-      ctx.stroke();
-    } else if ( state === State.FILE ) {
-      drawRectFromPoints( ctx, x0, y0, x1, y1, mouse.x, mouse.y );
-      ctx.stroke();
-    } else if ( state === State.DIRECTION ) {
-      drawRectFromPoints( ctx, x0, y0, x1, y1, x2, y2 );
-      ctx.moveTo( x0, y0 );
-      ctx.lineTo( mouse.x, mouse.y );
-      ctx.moveTo( x1, y1 );
-      ctx.lineTo( mouse.x, mouse.y );
-      ctx.stroke();
+    switch ( state ) {
+      case State.RANK:
+        if ( mouse.down ) {
+          ctx.beginPath();
+          ctx.moveTo( mouse.xi, mouse.yi );
+          ctx.lineTo( mouse.x, mouse.y );
+          ctx.stroke();
+        }
+
+        break;
+
+      case State.FILE:
+        drawRectFromPoints( ctx, x0, y0, x1, y1, mouse.x, mouse.y );
+        ctx.stroke();
+        break;
+
+      case State.DIRECTION:
+        drawRectFromPoints( ctx, x0, y0, x1, y1, x2, y2 );
+        ctx.moveTo( x0, y0 );
+        ctx.lineTo( mouse.x, mouse.y );
+        ctx.moveTo( x1, y1 );
+        ctx.lineTo( mouse.x, mouse.y );
+        ctx.stroke();
+        break;
     }
 
     // Debug text.
@@ -234,18 +243,22 @@
 
       mouse.down = true;
 
-      if ( state === State.DEFAULT ) {
-        state = State.RANK;
-      } else if ( state === State.DIRECTION ) {
-        formations.push(
-          new Formation(
-            formation[0][0], formation[0][1],
-            formation[1][0], formation[1][1],
-            formation[2][0], formation[2][1]
-          )
-        );
+      switch ( state ) {
+        case State.DEFAULT:
+          state = State.RANK;
+          break;
 
-        clearFormation();
+        case State.DIRECTION:
+          formations.push(
+            new Formation(
+              formation[0][0], formation[0][1],
+              formation[1][0], formation[1][1],
+              formation[2][0], formation[2][1]
+            )
+          );
+
+          clearFormation();
+          break;
       }
     });
 
@@ -258,23 +271,27 @@
       mousePosition( event );
       mouse.down = false;
 
-      if ( state === State.RANK ) {
-        var dx = mouse.x - mouse.xi,
-            dy = mouse.y - mouse.yi;
+      switch ( state ) {
+        case State.RANK:
+          var dx = mouse.x - mouse.xi,
+              dy = mouse.y - mouse.yi;
 
-        if ( !dx && !dy ) {
-          return;
-        }
+          if ( !dx && !dy ) {
+            return;
+          }
 
-        formation = [
-          [ mouse.xi, mouse.yi ],
-          [ mouse.x, mouse.y ]
-        ];
+          formation = [
+            [ mouse.xi, mouse.yi ],
+            [ mouse.x, mouse.y ]
+          ];
 
-        state = State.FILE;
-      } else if ( state === State.FILE ) {
-        formation[2] = [ mouse.x, mouse.y ];
-        state = State.DIRECTION;
+          state = State.FILE;
+          break;
+
+        case State.FILE:
+          formation[2] = [ mouse.x, mouse.y ];
+          state = State.DIRECTION;
+          break;
       }
     });
 
@@ -284,30 +301,56 @@
         delta = 10;
       }
 
-      // Unit count.
-      // A/Z.
-      if ( event.which === 65 ) { config.count += delta; }
-      if ( event.which === 90 ) { config.count = Math.max( config.count - delta, 0 ); }
+      switch ( event.which ) {
+        // Unit count.
+        // A.
+        case 65:
+          config.count += delta;
+          break;
 
-      // Rank spacing.
-      // Left/right arrow.
-      if ( event.which === 37 ) { config.spacing.rank -= delta; }
-      if ( event.which === 39 ) { config.spacing.rank += delta; }
+        // Z.
+        case 90:
+          config.count = Math.max( config.count - delta, 0 );
+          break;
 
-      // File spacing.
-      // Up/down arrow.
-      if ( event.which === 38 ) { config.spacing.file += delta; }
-      if ( event.which === 40 ) { config.spacing.file -= delta; }
+        // Rank spacing.
+        // Left arrow.
+        case 37:
+          config.spacing.rank -= delta;
+          break;
 
-      // Radius.
-      // (, and <) / (. and >)
-      if ( event.which === 188 ) { config.radius = Math.max( config.radius - delta, 1 ); }
-      if ( event.which === 190 ) { config.radius += delta; }
+        // Right arrow.
+        case 39:
+          config.spacing.rank += delta;
+          break;
 
-      // ESC.
-      // Reset everything.
-      if ( event.which === 27 ) {
-        clearFormation();
+        // File spacing.
+        // Up arrow.
+        case 38:
+          config.spacing.file += delta;
+          break;
+
+        // Down arrow.
+        case 40:
+          config.spacing.file -= delta;
+          break;
+
+        // Radius.
+        // (, and <)
+        case 188:
+          config.radius = Math.max( config.radius - delta, 1 );
+          break;
+
+        // (. and >)
+        case 190:
+          config.radius += delta;
+          break;
+
+        // ESC.
+        // Reset everything.
+        case 27:
+          clearFormation();
+          break;
       }
 
       draw( context );
