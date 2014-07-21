@@ -9,6 +9,25 @@
 
   var ccd = new CCD();
 
+  var radius;
+  var lengths = [ 0.2, 0.15, 0.3, 0.2 ];
+
+  var lengthsInput = document.querySelector( '#lengths' );
+  lengthsInput.value = lengths;
+  lengthsInput.addEventListener( 'input', function() {
+    lengths = IK.parseString( lengthsInput.value );
+    createIK( radius );
+    IK.calculate( ccd );
+    ccd.set( mouse.x, mouse.y );
+    draw( context );
+  });
+
+  function createIK( radius ) {
+    IK.fromArray( ccd, lengths.map(function( value ) {
+      return value * radius;
+    }));
+  }
+
   var config = {
     debug: false
   };
@@ -71,7 +90,7 @@
     var width  = window.innerWidth,
         height = window.innerHeight;
 
-    var radius = 0.5 * Math.min( width, height );
+    radius = 0.5 * Math.min( width, height );
 
     canvas.width  = width;
     canvas.height = height;
@@ -79,10 +98,7 @@
     ccd.x = 0.5 * width;
     ccd.y = 0.5 * height;
 
-    IK.fromArray( ccd, [ 0.2, 0.15, 0.3, 0.2 ].map(function( value ) {
-      return value * radius;
-    }));
-
+    createIK( radius );
     draw( context );
   }
 

@@ -12,9 +12,25 @@
       background-color: #222;
       overflow: hidden;
     }
+
+    input {
+      position: absolute;
+      z-index: 1;
+
+      left: 1em;
+      top: 1em;
+
+      background-color: transparent;
+      color: #fff;
+      opacity: 0.8;
+
+      border: 1px solid #fff;
+      border-radius: 0.2em;
+    }
   </style>
 </head>
 <body>
+  <input type="text" id="lengths">
   <canvas></canvas>
 
   <script src="./js/input.js"></script>
