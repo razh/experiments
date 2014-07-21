@@ -17,8 +17,6 @@ function Formation( x0, y0, x1, y1, x2, y2 ) {
   // Second edge (height).
   var point = this.toLocal( x2, y2 );
   this.height = point.y;
-
-  Object.freeze( this );
 }
 
 Formation.prototype.applyTransform = function( ctx ) {

@@ -38,7 +38,8 @@
     DEFAULT: 0,
     RANK: 1,
     FILE: 2,
-    DIRECTION: 3
+    DIRECTION: 3,
+    SELECT: 4
   };
 
   var state = State.DEFAULT;
@@ -53,6 +54,9 @@
 
     down: false
   };
+
+  var selection = [];
+  var offsets = [];
 
   function drawRectFromPoints( ctx, x0, y0, x1, y1, x2, y2 ) {
     // First edge (width).
@@ -259,11 +263,36 @@
 
           clearFormation();
           break;
+
+        case State.SELECT:
+          selection = formations.filter(function( formation ) {
+            return formation.contains( mouse.x, mouse.y );
+          });
+
+          offsets = selection.map(function( formation ) {
+            return {
+              x: formation.x,
+              y: formation.y
+            };
+          });
       }
+
+      draw( context );
     });
 
     window.addEventListener( 'mousemove', function( event ) {
       mousePosition( event );
+
+      if ( mouse.down && state === State.SELECT ) {
+        var dx = mouse.x - mouse.xi,
+            dy = mouse.y - mouse.yi;
+
+        selection.forEach(function( formation, index ) {
+          formation.x = offsets[ index ].x + dx;
+          formation.y = offsets[ index ].y + dy;
+        });
+      }
+
       draw( context );
     });
 
@@ -344,6 +373,19 @@
         // (. and >)
         case 190:
           config.radius += delta;
+          break;
+
+        // Toggle on/off selection.
+        // V.
+        case 86:
+          if ( state === State.SELECT ) {
+            state = State.DEFAULT;
+            selection = [];
+            offsets = [];
+          } else {
+            state = State.SELECT;
+          }
+
           break;
 
         // ESC.
