@@ -22,6 +22,7 @@ var Fabrik = (function() {
     this.length = 0;
 
     this.EPSILON = 1e-2;
+    this.MAX_ITERATIONS = 32;
   }
 
   Fabrik.prototype.set = function( x, y ) {
@@ -39,6 +40,7 @@ var Fabrik = (function() {
     var t;
 
     var count = this.links.length;
+    var iterations = 0;
     var link;
     var next;
     var x0, y0;
@@ -94,9 +96,10 @@ var Fabrik = (function() {
       dyf = y - yf;
 
       df = Math.sqrt( dxf * dxf + dyf * dyf );
-      while ( df > this.EPSILON ) {
-        // Stage 1: Forward reaching.
+      while ( df > this.EPSILON && iterations < this.MAX_ITERATIONS ) {
+        iterations++;
 
+        // Stage 1: Forward reaching.
         // Set end effector to target.
         xf = x;
         yf = y;
@@ -130,7 +133,6 @@ var Fabrik = (function() {
         }
 
         // Stage 2: Backward reaching.
-
         // Set first link to initial position.
         link = this.links[0];
 
