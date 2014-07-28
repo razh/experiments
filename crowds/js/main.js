@@ -8,36 +8,29 @@
   canvas.width  = 640;
   canvas.height = 480;
 
-  function draw( ctx ) {
-    ctx.fillStyle = '#000';
-    ctx.fillRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
-  }
-
-  draw( context );
-
   var entities = [];
 
   var config = {
-    cols: 32,
-    rows: 32
+    cols: 16,
+    rows: 16
   };
 
   var densityField;
   var speedField;
 
-  function createGrid( rows ) {
-    var array = [];
+  function createGrid( rows, cols ) {
+    var array = new Array( rows );
 
     for ( var i = 0; i < rows; i++ ) {
-      array.push( [] );
+      array[i] = new Array( cols );
     }
 
     return array;
   }
 
   function init() {
-    densityField = createGrid( config.rows );
-    speedField = createGrid( config.rows );
+    densityField = createGrid( config.rows, config.cols );
+    speedField = createGrid( config.rows, config.cols );
 
     var entityCount = 60;
     while ( entityCount-- ) {
@@ -50,7 +43,32 @@
     }
   }
 
-  init();
+  function draw( ctx ) {
+    var width  = ctx.canvas.width,
+        height = ctx.canvas.height;
+
+    ctx.clearRect( 0, 0, width, height );
+
+    ctx.save();
+
+    ctx.beginPath();
+    drawField( ctx, densityField, width, height, 2 );
+    ctx.globalAlpha = 0.5;
+    ctx.fillStyle = '#f98';
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    ctx.restore();
+
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 1;
+
+    entities.forEach(function( entity ) {
+      ctx.beginPath();
+      entity.draw( ctx, 8 );
+      ctx.stroke();
+    });
+  }
 
   function convertDensityField( field, entities, density, falloff ) {
     var entity;
@@ -100,9 +118,8 @@
     }
   }
 
-  function drawField( ctx, field ) {
-    var width  = ctx.canvas.width,
-        height = ctx.canvas.height;
+  function drawField( ctx, field, width, height, margin ) {
+    margin = margin || 0;
 
     var rows = field.length,
         cols = field[0].length;
@@ -113,9 +130,15 @@
     var x, y;
     for ( y = 0; y < cols; y++ ) {
       for ( x = 0; x < rows; x++ ) {
-        ctx.rect( x * colWidth, y * rowHeight, colWidth, rowHeight );
+        ctx.rect(
+          x * colWidth + margin, y * rowHeight + margin,
+          colWidth - margin, rowHeight - margin
+        );
       }
     }
   }
+
+  init();
+  draw( context );
 
 }) ( window, document );
