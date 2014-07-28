@@ -1,4 +1,4 @@
-/*global Geometry, Entity*/
+/*global requestAnimationFrame, Geometry, Entity*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -7,6 +7,9 @@
 
   canvas.width  = 640;
   canvas.height = 480;
+
+  var prevTime = Date.now(),
+      currTime;
 
   var entities = [];
 
@@ -43,6 +46,24 @@
     }
   }
 
+  function update() {
+    currTime = Date.now();
+    var dt = currTime - prevTime;
+    prevTime = currTime;
+
+    // Limit max frame time.
+    if ( dt > 1e2 ) {
+      dt = 1e2;
+    }
+
+    // Milliseconds to seconds.
+    dt *= 1e-3;
+
+    entities.forEach(function( entity ) {
+      entity.update( dt );
+    });
+  }
+
   function draw( ctx ) {
     var width  = ctx.canvas.width,
         height = ctx.canvas.height;
@@ -68,6 +89,12 @@
       entity.draw( ctx, 8 );
       ctx.stroke();
     });
+  }
+
+  function tick() {
+    update();
+    draw( context );
+    requestAnimationFrame( tick );
   }
 
   function convertDensityField( field, entities, density, falloff ) {

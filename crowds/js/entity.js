@@ -25,6 +25,11 @@ var Entity = (function() {
     ctx.restore();
   };
 
+  Entity.prototype.update = function( dt ) {
+    this.x += this.vx * dt;
+    this.y += this.vy * dt;
+  };
+
   return Entity;
 
 }) ();
