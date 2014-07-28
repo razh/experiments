@@ -19,6 +19,7 @@
   };
 
   var densityField;
+  var averageVelocityField;
   var speedField;
 
   function createGrid( rows, cols ) {
@@ -33,6 +34,7 @@
 
   function init() {
     densityField = createGrid( config.rows, config.cols );
+    averageVelocityField = createGrid( config.rows, config.cols );
     speedField = createGrid( config.rows, config.cols );
 
     var entityCount = 60;
@@ -97,16 +99,27 @@
     requestAnimationFrame( tick );
   }
 
-  function convertDensityField( field, entities, density, falloff ) {
+  function convertDensityField(
+    densityField, averageVelocityField,
+    entities,
+    density, falloff
+  ) {
     var entity;
+    // Entity properties.
     var x, y;
+    var vx, vy;
+    // Cell indices.
     var xi, yi;
+    // Distance from entity to cell center.
     var dx, dy;
+    // Cell densities.
     var pa, pb, pc, pd;
     for ( var i = 0; i < entities; i++ ) {
       entity = entities[i];
       x = entity.x;
       y = entity.y;
+      vx = entity.vx;
+      vy = entity.vy;
 
       // Splat entity.
       // Find closest cell center whose coordinates are both less than entity.
@@ -138,10 +151,35 @@
       pc = Math.pow( Math.min(     dx,     dy ), falloff );
       pd = Math.pow( Math.min( 1 - dx,     dy ), falloff );
 
-      field[ yi     ][ xi     ] += pa;
-      field[ yi     ][ xi + 1 ] += pb;
-      field[ yi + 1 ][ xi + 1 ] += pc;
-      field[ yi + 1 ][ xi     ] += pd;
+      densityField[ yi     ][ xi     ] += pa;
+      densityField[ yi     ][ xi + 1 ] += pb;
+      densityField[ yi + 1 ][ xi + 1 ] += pc;
+      densityField[ yi + 1 ][ xi     ] += pd;
+
+      // Add weighted velocity.
+      averageVelocityField[ yi     ][ xi     ].x += vx * pa;
+      averageVelocityField[ yi     ][ xi     ].y += vy * pa;
+      averageVelocityField[ yi     ][ xi + 1 ].x += vx * pb;
+      averageVelocityField[ yi     ][ xi + 1 ].y += vy * pb;
+      averageVelocityField[ yi + 1 ][ xi + 1 ].x += vx * pc;
+      averageVelocityField[ yi + 1 ][ xi + 1 ].y += vy * pc;
+      averageVelocityField[ yi + 1 ][ xi     ].x += vx * pd;
+      averageVelocityField[ yi + 1 ][ xi     ].y += vy * pd;
+    }
+
+    // Average weighted velocity.
+    var rows = averageVelocityField.length,
+        cols = averageVelocityField[0].length;
+
+    var crowdDensity;
+    for ( y = 0; y < rows; y++ ) {
+      for ( x = 0; x < cols; x++ ) {
+        crowdDensity = densityField[y][x];
+        if ( crowdDensity ) {
+          averageVelocityField[y][x].x /= crowdDensity;
+          averageVelocityField[y][x].y /= crowdDensity;
+        }
+      }
     }
   }
 
