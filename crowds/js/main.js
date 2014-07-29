@@ -21,8 +21,15 @@
   var densityField;
   var averageVelocityField;
   var speedField;
+  var costField;
+  var velocityField;
+  var gradientHeightField;
+  var gradientPotentialField;
 
-  function createGrid( rows, cols ) {
+  /**
+   * Constructs a two-dimensional array of scalars.
+   */
+  function createField( rows, cols ) {
     var array = new Array( rows );
 
     for ( var i = 0; i < rows; i++ ) {
@@ -32,10 +39,82 @@
     return array;
   }
 
+  /**
+   * Constructs a two-dimensional array of 2D vectors.
+   */
+  function createVectorField( rows, cols ) {
+    var array = new Array( rows );
+
+    var i, j;
+    for ( i = 0; i < rows; i++ ) {
+      array[i] = new Array( cols );
+
+      for ( j = 0; j < cols; j++ ) {
+        array[i][j] = [ 0, 0 ];
+      }
+    }
+
+    return array;
+  }
+
+  /**
+   * Constructs a two-dimensional array of four-length arrays.
+   *
+   * Dependent on both position and direction (east, north, west, south).
+   */
+  function createAnisotropicField( rows, cols ) {
+    var array = new Array( rows );
+
+    var i, j;
+    for ( i = 0; i < rows; i++ ) {
+      array[i] = new Array( cols );
+
+      for ( j = 0; j < cols; j++ ) {
+        array[i][j] = [ 0, 0, 0, 0 ];
+      }
+    }
+
+    return array;
+  }
+
+  /**
+   * Constructs a two-dimensional array of four 2D vectors.
+   *
+   * Each vector corresponds to a face direction.
+   */
+  function createFaceVectorField( rows, cols ) {
+    var array = new Array( rows );
+
+    var i, j, k;
+    for ( i = 0; i < rows; i++ ) {
+      array[i] = new Array( cols );
+
+      for ( j = 0; j < cols; j++ ) {
+        array[i][j] = new Array(4);
+
+        // Each face has a 2D vector component.
+        for ( k = 0; k < 4; k++ ) {
+          array[i][j][k] = [ 0, 0 ];
+        }
+      }
+    }
+  }
+
   function init() {
-    densityField = createGrid( config.rows, config.cols );
-    averageVelocityField = createGrid( config.rows, config.cols );
-    speedField = createGrid( config.rows, config.cols );
+    var rows = config.rows,
+        cols = config.cols;
+
+    densityField = createField( rows, cols );
+    averageVelocityField = createVectorField( rows, cols );
+
+    // Anisotropic fields
+    speedField = createAnisotropicField( rows, cols );
+    costField  = createAnisotropicField( rows, cols );
+
+    // Vectors stored at faces.
+    velocityField          = createFaceVectorField( rows, cols );
+    gradientHeightField    = createFaceVectorField( rows, cols );
+    gradientPotentialField = createFaceVectorField( rows, cols );
 
     var entityCount = 60;
     while ( entityCount-- ) {
@@ -157,14 +236,14 @@
       densityField[ yi + 1 ][ xi     ] += pd;
 
       // Add weighted velocity.
-      averageVelocityField[ yi     ][ xi     ].x += vx * pa;
-      averageVelocityField[ yi     ][ xi     ].y += vy * pa;
-      averageVelocityField[ yi     ][ xi + 1 ].x += vx * pb;
-      averageVelocityField[ yi     ][ xi + 1 ].y += vy * pb;
-      averageVelocityField[ yi + 1 ][ xi + 1 ].x += vx * pc;
-      averageVelocityField[ yi + 1 ][ xi + 1 ].y += vy * pc;
-      averageVelocityField[ yi + 1 ][ xi     ].x += vx * pd;
-      averageVelocityField[ yi + 1 ][ xi     ].y += vy * pd;
+      averageVelocityField[ yi     ][ xi     ][0] += vx * pa;
+      averageVelocityField[ yi     ][ xi     ][1] += vy * pa;
+      averageVelocityField[ yi     ][ xi + 1 ][0] += vx * pb;
+      averageVelocityField[ yi     ][ xi + 1 ][1] += vy * pb;
+      averageVelocityField[ yi + 1 ][ xi + 1 ][0] += vx * pc;
+      averageVelocityField[ yi + 1 ][ xi + 1 ][1] += vy * pc;
+      averageVelocityField[ yi + 1 ][ xi     ][0] += vx * pd;
+      averageVelocityField[ yi + 1 ][ xi     ][1] += vy * pd;
     }
 
     // Average weighted velocity.
@@ -176,8 +255,21 @@
       for ( x = 0; x < cols; x++ ) {
         crowdDensity = densityField[y][x];
         if ( crowdDensity ) {
-          averageVelocityField[y][x].x /= crowdDensity;
-          averageVelocityField[y][x].y /= crowdDensity;
+          averageVelocityField[y][x][0] /= crowdDensity;
+          averageVelocityField[y][x][1] /= crowdDensity;
+        }
+      }
+    }
+  }
+
+  function computeUnitCostField( speedField, costField, densityMin, densityMax ) {
+    var rows = speedField.length,
+        cols = speedField[0].lengt;
+
+    var x, y, d;
+    for ( y = 0; y < rows; y++ ) {
+      for ( x = 0; x < cols; x++ ) {
+        for ( d = 0; d < 4; d++ ) {
         }
       }
     }
