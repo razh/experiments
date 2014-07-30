@@ -18,10 +18,20 @@
     rows: 16
   };
 
+  // Cell center.
+  // Scalar fields.
+  var discomfortField;
+  var potentialField;
   var densityField;
+  var heightField;
+  // 2D vector field.
   var averageVelocityField;
+
+  // Cell faces.
+  // Scalar fields (anisotropic).
   var speedField;
   var costField;
+  // 2D vector fields.
   var velocityField;
   var gradientHeightField;
   var gradientPotentialField;
@@ -32,8 +42,13 @@
   function createField( rows, cols ) {
     var array = new Array( rows );
 
-    for ( var i = 0; i < rows; i++ ) {
+    var i, j;
+    for ( i = 0; i < rows; i++ ) {
       array[i] = new Array( cols );
+
+      for ( j = 0; j < cols; j++ ) {
+        array[i][j] = 0;
+      }
     }
 
     return array;
@@ -104,14 +119,19 @@
     var rows = config.rows,
         cols = config.cols;
 
-    densityField = createField( rows, cols );
+    // Scalar fields.
+    discomfortField = createField( rows, cols );
+    potentialField  = createField( rows, cols );
+    densityField    = createField( rows, cols );
+    heightField     = createField( rows, cols );
+    // 2D vector field.
     averageVelocityField = createVectorField( rows, cols );
 
     // Anisotropic fields
     speedField = createAnisotropicField( rows, cols );
     costField  = createAnisotropicField( rows, cols );
 
-    // Vectors stored at faces.
+    // 2D vectors stored at faces.
     velocityField          = createFaceVectorField( rows, cols );
     gradientHeightField    = createFaceVectorField( rows, cols );
     gradientPotentialField = createFaceVectorField( rows, cols );
