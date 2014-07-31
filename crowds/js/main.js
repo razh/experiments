@@ -18,6 +18,13 @@
     rows: 16
   };
 
+  var Direction = {
+    EAST:  0,
+    NORTH: 1,
+    WEST:  2,
+    SOUTH: 3
+  };
+
   // Cell center.
   // Scalar fields.
   var discomfortField;
@@ -311,26 +318,22 @@
         for ( d = 0; d < 4; d++ ) {
           // Determine directional components.
           switch ( d ) {
-            // East.
-            case 0:
+            case Direction.EAST:
               dx = 1;
               dy = 0;
               break;
 
-            // North.
-            case 1:
+            case Direction.NORTH:
               dx = 0;
               dy = -1;
               break;
 
-            // West.
-            case 2:
+            case Direction.WEST:
               dx = -1;
               dy = 0;
               break;
 
-            // South.
-            case 3:
+            case Direction.SOUTH:
               dx = 0;
               dy = 1;
               break;
@@ -347,23 +350,19 @@
           // This evaluates the average velocity for a future position.
           // Otherwise, the entity's previous speed would affect the new speed.
           switch ( d ) {
-            // East.
-            case 0:
+            case Direction.EAST:
               dx += radius;
               break;
 
-            // North.
-            case 1:
+            case Direction.NORTH:
               dy -= radius;
               break;
 
-            // West.
-            case 2:
+            case Direction.WEST:
               dx -= radius;
               break;
 
-            // South.
-            case 3:
+            case Direction.SOUTH:
               dy += radius;
               break;
           }
