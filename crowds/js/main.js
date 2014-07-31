@@ -282,14 +282,122 @@
     }
   }
 
-  function computeUnitCostField( speedField, costField, densityMin, densityMax ) {
+  function computeUnitCostField(
+    speedField, costField,
+    densityField, gradientHeightField, averageVelocityField,
+    radius,
+    slopeMin, slopeMax,
+    speedMin, speedMax,
+    densityMin, densityMax
+  ) {
     var rows = speedField.length,
-        cols = speedField[0].lengt;
+        cols = speedField[0].length;
+
+    var deltaSlope = slopeMax - slopeMin;
+    var deltaSpeed = speedMax - speedMin;
+    var deltaDensity = densityMax - densityMin;
 
     var x, y, d;
+    // x- and y-components for direction.
+    var dx, dy;
+    var density;
+    var gradientHeight;
+    var averageVelocity;
+    var speed;
+    var topographicalSpeed = [ 0, 0 ];
+    var flowSpeed = [ 0, 0 ];
     for ( y = 0; y < rows; y++ ) {
       for ( x = 0; x < cols; x++ ) {
         for ( d = 0; d < 4; d++ ) {
+          // Determine directional components.
+          switch ( d ) {
+            // East.
+            case 0:
+              dx = 1;
+              dy = 0;
+              break;
+
+            // North.
+            case 1:
+              dx = 0;
+              dy = -1;
+              break;
+
+            // West.
+            case 2:
+              dx = -1;
+              dy = 0;
+              break;
+
+            // South.
+            case 3:
+              dx = 0;
+              dy = 1;
+              break;
+          }
+
+          gradientHeight = gradientHeightField[y][x][d];
+
+          topographicalSpeed[0] = speedMax +
+            ( ( gradientHeight[0] * dx - slopeMin ) / deltaSlope ) * deltaSpeed;
+          topographicalSpeed[1] = speedMax +
+            ( ( gradientHeight[1] * dy - slopeMin ) / deltaSlope ) * deltaSpeed;
+
+          // Calculate flow speed at a radius from current position.
+          // This evaluates the average velocity for a future position.
+          // Otherwise, the entity's previous speed would affect the new speed.
+          switch ( d ) {
+            // East.
+            case 0:
+              dx += radius;
+              break;
+
+            // North.
+            case 1:
+              dy -= radius;
+              break;
+
+            // West.
+            case 2:
+              dx -= radius;
+              break;
+
+            // South.
+            case 3:
+              dy += radius;
+              break;
+          }
+
+          dx = Math.floor( dx );
+          dy = Math.floor( dy );
+
+          averageVelocity = averageVelocityField[ dy ][ dx ];
+          flowSpeed[0] = averageVelocity[0];
+          flowSpeed[1] = averageVelocity[1];
+
+          speed = speedField[y][x];
+          // Low density. Equivalent to topographical speed.
+          if ( density <= densityMin ) {
+            speed[0] = topographicalSpeed[0];
+            speed[1] = topographicalSpeed[1];
+          }
+
+          // High density. Equivalent to flow speed.
+          else if ( density >= densityMax ) {
+            speed[0] = flowSpeed[0];
+            speed[1] = flowSpeed[1];
+          }
+
+          // Medium density. Lerp between topographical and flow speed.
+          else {
+            density = densityField[ dy ][ dx ];
+            speed[0] = topographicalSpeed[0] +
+              ( ( density[0] - densityMin ) / deltaDensity ) *
+              ( flowSpeed[0] - topographicalSpeed[0] );
+            speed[1] = topographicalSpeed[1] +
+              ( ( density[1] - densityMin ) / deltaDensity ) *
+              ( flowSpeed[1] - topographicalSpeed[1] );
+          }
         }
       }
     }
