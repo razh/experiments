@@ -25,6 +25,12 @@
     SOUTH: 3
   };
 
+  var weight = {
+    pathLength: 1 / 3,
+    time: 1 / 3,
+    discomfort: 1 / 3
+  };
+
   // Cell center.
   // Scalar fields.
   var discomfortField;
@@ -311,6 +317,7 @@
     var gradientHeight;
     var averageVelocity;
     var speed;
+    var cost;
     var topographicalSpeed = [ 0, 0 ];
     var flowSpeed = [ 0, 0 ];
     for ( y = 0; y < rows; y++ ) {
@@ -397,6 +404,19 @@
               ( ( density[1] - densityMin ) / deltaDensity ) *
               ( flowSpeed[1] - topographicalSpeed[1] );
           }
+
+          // Unit cost field.
+          cost = costField[ dy ][ dx ][d];
+          cost[0] = (
+            weight.pathLength * speed[0] +
+            weight.time +
+            weight.discomfort * discomfortField[ dy ][ dx ]
+          ) / speed[0];
+          cost[1] = (
+            weight.pathLength * speed[1] +
+            weight.time +
+            weight.discomfort * discomfortField[ dy ][ dx ]
+          ) / speed[1];
         }
       }
     }
