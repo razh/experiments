@@ -3,24 +3,33 @@
 var Color = (function() {
   'use strict';
 
-  var Color = {
-    red: function( color ) {
-      return color >> 16;
-    },
+  var BLACK = 0x000000;
+  var WHITE = 0xFFFFFF;
 
-    green: function( color ) {
-      return ( color >> 8 ) & 0xFF;
-    },
+  function red( color ) {
+    return color >> 16;
+  }
 
-    blue: function( color ) {
-      return color & 0xFF;
-    },
+  function green( color ) {
+    return ( color >> 8 ) & 0xFF;
+  }
 
-    rgb: function( red, green, blue ) {
-      return ( red << 16 ) | ( green << 8 ) | blue;
-    }
+  function blue( color ) {
+    return color & 0xFF;
+  }
+
+  function rgb( red, green, blue ) {
+    return ( red << 16 ) | ( green << 8 ) | blue;
+  }
+
+  return {
+    BLACK: BLACK,
+    WHITE: WHITE,
+
+    red: red,
+    green: green,
+    blue: blue,
+    rgb: rgb
   };
-
-  return Color;
 
 }) ();
