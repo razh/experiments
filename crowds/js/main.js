@@ -1,4 +1,4 @@
-/*global requestAnimationFrame, Geometry, Entity*/
+/*global requestAnimationFrame, minHeap, Geometry, Entity*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -31,6 +31,13 @@
     discomfort: 1 / 3
   };
 
+  // If the cell potential has been determined when constructing the dynamic
+  // potential field.
+  var Cell = {
+    UNKNOWN: 0,
+    KNOWN: 1
+  };
+
   // Cell center.
   // Scalar fields.
   var discomfortField;
@@ -48,6 +55,9 @@
   var velocityField;
   var gradientHeightField;
   var gradientPotentialField;
+
+  // Temporary data structure for computing dynamic potential field.
+  var cellPotentials;
 
   /**
    * Constructs a two-dimensional array of scalars.
@@ -126,6 +136,30 @@
         }
       }
     }
+
+    return array;
+  }
+
+  /**
+   * Helper function to create the data structure used to construct the dynamic
+   * potential field.
+   */
+  function createCellPotentials( rows, cols ) {
+    var array = [];
+
+    var i, j;
+    for ( i = 0; i < rows; i++ ) {
+      for ( j = 0; j < cols; j++ ) {
+        array.push({
+          x: j,
+          y: i,
+          potential: Infinity,
+          type: Cell.UNKNOWN
+        });
+      }
+    }
+
+    return array;
   }
 
   function init() {
@@ -148,6 +182,8 @@
     velocityField          = createFaceVectorField( rows, cols );
     gradientHeightField    = createFaceVectorField( rows, cols );
     gradientPotentialField = createFaceVectorField( rows, cols );
+
+    cellPotentials = createCellPotentials( rows, cols );
 
     var entityCount = 60;
     while ( entityCount-- ) {
@@ -418,6 +454,54 @@
             weight.discomfort * discomfortField[ dy ][ dx ]
           ) / speed[1];
         }
+      }
+    }
+  }
+
+  function constructDynamicPotentialField(
+    potentialField,
+    costField,
+    goalContains
+  ) {
+    var rows = potentialField.length,
+        cols = potentialField[0].length;
+
+    // Set potential of goal cells to 0.
+    // Include these goal cells in the list of KNOWN cells.
+    // All other cells are UNKNOWN and set to potentials of Infinity.
+    var x, y;
+    var index;
+    for ( y = 0; y < rows; y++ ) {
+      for ( x = 0; x < cols; x++ ) {
+        index = y * cols + x;
+        if ( goalContains( x, y ) ) {
+          cellPotentials[ index ].potential = 0;
+          cellPotentials[ index ].type = Cell.KNOWN;
+        } else {
+          cellPotentials[ index ].potential = Infinity;
+          cellPotentials[ index ].type = Cell.UNKNOWN;
+        }
+      }
+    }
+
+    // Include UNKNOWN cells adjacent to KNOWN cells in the list of CANDIDATE
+    // cells.
+
+    // Fast marching algorithm.
+    var costs;
+    var mx, my;
+    for ( y = 0; y < rows; y++ ) {
+      for ( x = 0; x < cols; x++ ) {
+        costs = costField[y][x];
+
+        // Determine indices of less costly adjacent grid cell along both axes.
+        mx = ( ( potentialField[y][ x - 1 ] + costs[ Direction.WEST ] ) -
+               ( potentialField[y][ x + 1 ] + costs[ Direction.EAST ] ) < 0 ) ?
+             -1 : 1;
+
+        my = ( ( potentialField[ y - 1 ][x] + costs[ Direction.NORTH ] ) -
+               ( potentialField[ y + 1 ][x] + costs[ Direction.SOUTH ] ) < 0 ) ?
+             -1 : 1;
       }
     }
   }
