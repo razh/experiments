@@ -26,7 +26,10 @@
     context.drawImage( image, 0, 0, canvas.width, canvas.height );
     prepend( canvas );
 
-    document.body.removeChild( document.querySelector( '.message' ) );
+    var messageEl = document.querySelector( '.message' );
+    if ( messageEl ) {
+      document.body.removeChild( messageEl );
+    }
 
     console.time( 'color' );
     var calculator = new DominantColorCalculator(
