@@ -9,9 +9,42 @@
       margin: 0;
       background-color: #222;
     }
+
+    img,
+    canvas,
+    .colors {
+      position: absolute;
+    }
+
+    .colors {
+      right: 0;
+    }
+
+    .color {
+      position: relative;
+      margin: 1em;
+      width: 12em;
+      height: 4em;
+      box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+    }
+
+    .color:after {
+      content: attr(data-color);
+      position: absolute;
+
+      right: 0.5em;
+      bottom: 0.5em;
+
+      color: #fff;
+      font-family: monospace;
+      font-size: 12px;
+      text-align: right;
+      text-shadow: 0 0 0.5em #000;
+    }
   </style>
 </head>
 <body>
+  <div class="colors"></div>
 
   <script src="./js/color.js"></script>
   <script src="./js/utils.js"></script>
