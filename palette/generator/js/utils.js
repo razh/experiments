@@ -39,12 +39,12 @@ var ColorUtils = (function() {
       lighten(  color, fraction );
   }
 
-  function calulateContrast( a, b ) {
+  function calculateContrast( a, b ) {
     return Math.abs( calculateYiqLuma( a ) - calculateYiqLuma( b ) );
   }
 
-  function calculateColorfulness( color ) {
-    var hsv = Color.RGBtoHSV( color );
+  function calculateColorfulness( red, green, blue ) {
+    var hsv = Color.RGBtoHSV( red, green, blue, [] );
     return hsv[1] * hsv[2];
   }
 
@@ -54,7 +54,7 @@ var ColorUtils = (function() {
     blendColors: blendColors,
     calculateYiqLuma: calculateYiqLuma,
     changeBrightness: changeBrightness,
-    calulateContrast: calulateContrast,
+    calculateContrast: calculateContrast,
     calculateColorfulness: calculateColorfulness
   };
 

@@ -37,9 +37,9 @@ var MedianCutQuantizer = (function() {
       done = false;
       while ( k < Kmax && !done ) {
         nextBox = this.findBoxToSplit( colorSet );
-        if ( !nextBox ) {
+        if ( nextBox ) {
           newBox = nextBox.splitBox( this.imageColors );
-          colorSet.add( newBox );
+          colorSet.push( newBox );
           k = k + 1;
         } else {
           done = true;
@@ -111,7 +111,7 @@ var MedianCutQuantizer = (function() {
     var box;
     for ( var i = 0, il = colorBoxes.length; i < il; i++ ) {
       box = colorBoxes[i];
-      avgColors[i] = box.getAverageColor();
+      avgColors[i] = box.getAverageColor( this.imageColors );
     }
 
     return avgColors;
@@ -148,9 +148,9 @@ var MedianCutQuantizer = (function() {
     return Color.rgb( this.red, this.green, this.blue );
   };
 
-  ColorNode.prototype.hsv = function() {
+  ColorNode.prototype.getHsv = function() {
     if ( !this.hsv ) {
-      this.hsv = Color.RGBtoHSV( this.red, this.green, this.blue );
+      this.hsv = Color.RGBtoHSV( this.red, this.green, this.blue, [] );
     }
 
     return this.hsv;
@@ -303,7 +303,10 @@ var MedianCutQuantizer = (function() {
       sorted.sort();
     }
 
-    array.splice.apply( array, [ lower, upper - lower ].concat( sorted ) );
+    for ( var i = lower, il = array.length; i < il && i < upper; i++ ) {
+      array[i] = sorted[ i - lower ];
+    }
+
     return array;
   }
 
@@ -395,7 +398,7 @@ var MedianCutQuantizer = (function() {
   }
 
   ColorHistogram.prototype.getNumberOfColors = function() {
-    return this.colorArray ? 0 : this.colorArray.length;
+    return this.colorArray ? this.colorArray.length : 0;
   };
 
   ColorHistogram.prototype.getColor = function( index ) {

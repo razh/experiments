@@ -44,10 +44,10 @@ var Color = (function() {
     if ( red === max ) {
       h = ( green - blue ) / delta;
     } else if ( green === max ) {
-      h = 2 * ( blue - red ) / delta;
+      h = 2 + ( ( blue - red ) / delta );
     } else {
       // blue === max.
-      h = 4 * ( red - green ) / delta;
+      h = 4 + ( ( red - green ) / delta );
     }
 
     h *= 60;

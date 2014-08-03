@@ -28,7 +28,7 @@ var DominantColorCalculator = (function() {
 
     var mcq = new MedianCutQuantizer( rgbPixels, NUM_COLORS );
 
-    this.palette = mcq.getQuantizedColors();
+    this.palette = mcq.quantColors;
     this.weightedPalette = weight( this.palette );
     this.colorScheme = null;
 
@@ -64,7 +64,7 @@ var DominantColorCalculator = (function() {
   // Return the next color in the weighted palette which ideally has enough
   // difference in hue.
   DominantColorCalculator.prototype.findSecondaryAccentColor = function( primary ) {
-    var primaryHue = primary.hsv()[0];
+    var primaryHue = primary.getHsv()[0];
 
     // Find the first color which has sufficient difference in hue from the
     // primary.
@@ -72,7 +72,7 @@ var DominantColorCalculator = (function() {
     var candidateHue;
     for ( var i = 0, il = this.weightedPalette.length; i < il; i++ ) {
       candidate = this.weightedPalette[i];
-      candidateHue = candidate.hsv()[0];
+      candidateHue = candidate.getHsv()[0];
 
       // Calculate the difference in hue. Return if over the threshold.
       if ( Math.abs( primaryHue - candidateHue ) >+ SECONDARY_MIN_DIFF_HUE_PRIMARY ) {
@@ -147,8 +147,16 @@ var DominantColorCalculator = (function() {
 
   function calculateWeight( node, maxCount ) {
     return FloatUtils.weightedAverage(
-      ColorUtils.calculateColorfulness( node.rgb() ), 2,
-      ( node.count / maxCount ), 1
+      [
+        ColorUtils.calculateColorfulness(
+          node.red,
+          node.green,
+          node.blue
+        ),
+        2,
+        ( node.count / maxCount ),
+        1
+      ]
     );
   }
 
