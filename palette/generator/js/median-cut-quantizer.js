@@ -360,39 +360,26 @@ var MedianCutQuantizer = (function() {
   }
 
   // -------- ColorHistogram -------------------------------------------------
-  //
+  function ColorHistogram( pixels ) {
+    var pixelsCopy = new Uint32Array( pixels );
+    Array.prototype.sort.call( pixelsCopy, numeric );
 
-  function ColorHistogram( color, count ) {
-    if ( arguments.length === 2 ) {
-      this.countArray = count;
-      this.colorArray = color;
-    } else if ( arguments.length === 1 ) {
-      var pixelsOrig = arguments[0];
-      var N = pixelsOrig.length;
-      var pixelsCopy = [];
-      var i;
-      for ( i = 0; i < N; i++ ) {
-        pixelsCopy[i] = pixelsOrig[i];
-      }
+    // Tabulate and count unique colors.
+    this.colorArray = [];
+    this.countArray = [];
 
-      pixelsCopy.sort( numeric );
-
-      // Tabulate and count unique colors.
-      this.colorArray = [];
-      this.countArray = [];
-      // Current color index.
-      var k = -1;
-      var curColor = -1;
-      for ( i = 0; i < pixelsCopy.length; i++ ) {
-        // New color.
-        if ( pixelsCopy[i] !== curColor ) {
-          k++;
-          curColor = pixelsCopy[i];
-          this.colorArray[k] = curColor;
-          this.countArray[k] = 1;
-        } else {
-          this.countArray[k]++;
-        }
+    // Current color index.
+    var k = -1;
+    var curColor = -1;
+    for ( var i = 0, il = pixelsCopy.length; i < il; i++ ) {
+      // New color.
+      if ( pixelsCopy[i] !== curColor ) {
+        k++;
+        curColor = pixelsCopy[i];
+        this.colorArray[k] = curColor;
+        this.countArray[k] = 1;
+      } else {
+        this.countArray[k]++;
       }
     }
   }
