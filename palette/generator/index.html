@@ -10,6 +10,23 @@
       background-color: #222;
     }
 
+    .message {
+      position: absolute;
+      z-index: -1;
+
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: #888;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
     img,
     canvas,
     .colors {
@@ -44,6 +61,9 @@
   </style>
 </head>
 <body>
+  <div class="message">
+    <span>Drag and drop an image here.</span>
+  </div>
   <div class="colors"></div>
 
   <script src="./js/color.js"></script>

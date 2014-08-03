@@ -26,6 +26,8 @@
     context.drawImage( image, 0, 0, canvas.width, canvas.height );
     prepend( canvas );
 
+    document.body.removeChild( document.querySelector( '.message' ) );
+
     console.time( 'color' );
     var calculator = new DominantColorCalculator(
       context.getImageData( 0, 0, canvas.width, canvas.height )
