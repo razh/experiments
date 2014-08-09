@@ -38,13 +38,17 @@
       perspective: 1000px;
     }
 
-    .perspective-input:checked + .depth-container .depth-scene {
+    .depth-scene {
       -webkit-perspective: 1000px;
       perspective: 1000px;
 
       -webkit-transform-style: preserve-3d;
       transform-style: preserve-3d;
 
+      transition: 500ms;
+    }
+
+    .perspective-input:checked + .depth-container .depth-scene {
       -webkit-transform: rotateY(-45deg);
       transform: rotateY(-45deg);
     }
