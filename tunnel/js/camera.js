@@ -62,6 +62,17 @@ var Camera = (function() {
     ];
   };
 
+  Camera.prototype.project = function( x, y, z ) {
+    var m = this.matrix;
+    var d = 1 / ( m[ 3 ] * x + m[ 7 ] * y + m[ 11 ] * z + m[ 15 ] );
+
+    return [
+      ( m[ 0 ] * x + m[ 4 ] * y + m[  8 ] * z + m[ 12 ] ) * d,
+      ( m[ 1 ] * x + m[ 5 ] * y + m[  9 ] * z + m[ 13 ] ) * d,
+      ( m[ 2 ] * x + m[ 6 ] * y + m[ 10 ] * z + m[ 14 ] ) * d
+    ];
+  };
+
   return Camera;
 
 }) ();
