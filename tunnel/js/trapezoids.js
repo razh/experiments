@@ -104,7 +104,7 @@
 
     ctx.fillStyle = '#fdc';
     ctx.strokeStyle = '#fa5';
-    ctx.lineWidth = 2 / ctx.canvas.height;
+    ctx.lineWidth = 2;
     ctx.shadowColor = '#fa5';
     ctx.shadowBlur = 32;
 
@@ -127,10 +127,10 @@
       quad.draw( ctx, camera );
     });
 
+    ctx.restore();
+
     ctx.stroke();
     ctx.fill();
-
-    ctx.restore();
 
     ctx.textAlign = 'left';
     ctx.font = '1em monospace';
