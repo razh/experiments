@@ -30,6 +30,5 @@
   },
   "_source": "git://github.com/dataarts/dat.gui.git",
   "_target": "~0.5.0",
-  "_originalSource": "dat-gui",
-  "_direct": true
+  "_originalSource": "dat-gui"
 }
