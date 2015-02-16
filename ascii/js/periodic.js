@@ -319,7 +319,6 @@
     }
 
     var image = new Image();
-    image.src = './img/br.png';
     image.onload = function() {
       var width  = 4,
           height = 4;
@@ -332,6 +331,7 @@
       var ascii = drawBrightnessASCII( asciiContext, brightnessArray, 8, 8 );
       document.querySelector( '.ascii-text' ).textContent = ascii;
     };
+    image.src = './img/br.png';
   }) ();
 
 }) ( window, document );

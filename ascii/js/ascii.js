@@ -1,4 +1,3 @@
-/*globals $*/
 (function( window, document, undefined ) {
   'use strict';
 
@@ -15,7 +14,7 @@
     while ( !last && row ) {
       row--;
       for ( col = 0; col < width; col++ ) {
-        if ( data[ row * width * 4 + col * 4 + 3 ] ) {
+        if ( data[ 4 * ( row * width + col ) + 3 ] ) {
           last = row;
           break;
         }
@@ -25,7 +24,7 @@
     while ( row ) {
       row--;
       for ( col = 0; col < width; col++ ) {
-        if ( data[ row * width * 4 + col * 4 + 3 ] ) {
+        if ( data[ 4 * ( row * width + col ) + 3 ] ) {
           first = row;
           break;
         }
@@ -43,10 +42,9 @@
     };
   }
 
-  $(function() {
-    var $canvas = $( '#canvas' ),
-        canvas  = $canvas[0],
-        ctx     = canvas.getContext( '2d' );
+  (function() {
+    var canvas = document.querySelector( '#canvas' ),
+        ctx    = canvas.getContext( '2d' );
 
     canvas.width = 1000;
     canvas.height = 30;
@@ -67,7 +65,7 @@
     // var text = '[A*(]';
     var text = String.fromCharCode.apply( null, array );
     var metrics = ctx.measureText( text );
-    console.log( 'width:' + metrics.width );
+    console.log( 'width:', metrics.width );
 
     // ctx.fillStyle = 'white';
     ctx.clearRect( 0, 0, canvas.width, canvas.height );
@@ -84,8 +82,8 @@
     var data = imageData.data;
 
     var bounds = verticalBounds( data, width, height );
-    var first = bounds.y;
-    var last  = bounds.y + bounds.height;
+    var first = bounds.y || 0;
+    var last  = ( bounds.y + bounds.height ) || height;
     console.log( bounds.height );
 
     ctx.beginPath();
@@ -163,8 +161,7 @@
     console.log( min + ', ' + minIndex + ', ' + text.charAt( minIndex ) );
 
     // Now how about doing it with a inverted image.
-    var $testCanvas = $( '#test-canvas' );
-    var testCanvas = $testCanvas[0];
+    var testCanvas = document.querySelector( '#test-canvas' );
     var testCtx = testCanvas.getContext( '2d' );
 
     testCanvas.width = 100;
@@ -205,5 +202,5 @@
     testCtx.fillRect( 0, first, charWidth, last );
 
     console.log( min + ', ' + minIndex + ', ' + text.charAt( minIndex ) );
-  });
+  }) ();
 }) ( window, document );
