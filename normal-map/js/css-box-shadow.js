@@ -1,4 +1,4 @@
-(function( window, documnet, undefined ) {
+(function( window, document, undefined ) {
   'use strict';
 
   var config = {
