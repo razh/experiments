@@ -159,5 +159,3 @@ Background.prototype.totalAlpha = function() {
     return previousValue + gradient.maxAlpha();
   }, 0 );
 };
-
-

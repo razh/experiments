@@ -1,11 +1,9 @@
-/*globals $*/
-$(function() {
+(function( window, document, undefined ) {
   'use strict';
 
   var PI2 = 2 * Math.PI;
 
-  var $canvas = $( '#eyeball' ),
-      canvas  = $canvas[0],
+  var canvas  = document.querySelector( '#eyeball' ),
       context = canvas.getContext( '2d' );
 
   var size = 500,
@@ -152,4 +150,5 @@ $(function() {
   }
 
   tick();
-});
+
+}) ( window, document );

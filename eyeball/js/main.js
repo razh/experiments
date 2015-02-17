@@ -1,11 +1,10 @@
-/*globals jQuery*/
-(function( $, window, document, undefined ) {
+(function( window, document, undefined ) {
   'use strict';
 
-  var $eyeballLeft  = $( '#eyeball-left' ),
-      $eyeballRight = $( '#eyeball-right' ),
-      $pupilLeft    = $( '#pupil-left' ),
-      $pupilRight   = $( '#pupil-right' );
+  var eyeballLeft  = document.querySelector( '#eyeball-left' ),
+      eyeballRight = document.querySelector( '#eyeball-right' ),
+      pupilLeft    = document.querySelector( '#pupil-left' ),
+      pupilRight   = document.querySelector( '#pupil-right' );
 
   var eyeballLeftRadius,
       eyeballRightRadius,
@@ -21,13 +20,13 @@
   };
 
   function resize() {
-    eyeballLeftRadius  = 0.5 * $eyeballLeft.width();
-    eyeballRightRadius = 0.5 * $eyeballRight.width();
-    pupilLeftRadius    = 0.5 * $pupilLeft.width();
-    pupilRightRadius   = 0.5 * $pupilRight.width();
+    eyeballLeftRadius  = 0.5 * eyeballLeft.offsetWidth;
+    eyeballRightRadius = 0.5 * eyeballRight.offsetWidth;
+    pupilLeftRadius    = 0.5 * pupilLeft.offsetWidth;
+    pupilRightRadius   = 0.5 * pupilRight.offsetWidth;
 
-    positionLeft  = parseInt( $eyeballLeft.css( 'left' ), 10 );
-    positionRight = parseInt( $eyeballRight.css( 'left' ), 10 );
+    positionLeft  = parseInt( getComputedStyle( eyeballLeft ).left, 10 );
+    positionRight = parseInt( getComputedStyle( eyeballRight ).left, 10 );
 
     update();
   }
@@ -40,15 +39,11 @@
   }
 
   function update() {
-    $pupilLeft.css({
-      left: mouse.x + 'px',
-      top:  mouse.y + 'px'
-    });
+    pupilLeft.style.left = mouse.x + 'px';
+    pupilLeft.style.top  = mouse.y + 'px';
 
-    $pupilRight.css({
-      left: mouse.x + 'px',
-      top:  mouse.y + 'px'
-    });
+    pupilRight.style.left = mouse.x + 'px';
+    pupilRight.style.top  = mouse.y + 'px';
 
     var halfHeight = 0.5 * window.innerHeight;
 
@@ -60,24 +55,21 @@
     var angle;
     if ( distanceLeft > eyeballLeftRadius - pupilLeftRadius ) {
       angle = Math.atan2( dy, dxLeft );
-      $pupilLeft.css({
-        left: positionLeft + ( eyeballLeftRadius - pupilLeftRadius ) * Math.cos( angle ) + 'px',
-        top:  halfHeight   + ( eyeballLeftRadius - pupilLeftRadius ) * Math.sin( angle ) + 'px'
-      });
+      pupilLeft.style.left = positionLeft + ( eyeballLeftRadius - pupilLeftRadius ) * Math.cos( angle ) + 'px';
+      pupilLeft.style.top  = halfHeight   + ( eyeballLeftRadius - pupilLeftRadius ) * Math.sin( angle ) + 'px';
     }
 
     var distanceRight = Math.sqrt( dxRight * dxRight + dy * dy );
     if ( distanceRight > eyeballRightRadius - pupilRightRadius ) {
       angle = Math.atan2( dy, dxRight );
-      $pupilRight.css({
-        left: positionRight + ( eyeballRightRadius - pupilRightRadius ) * Math.cos( angle ) + 'px',
-        top:  halfHeight    + ( eyeballRightRadius - pupilRightRadius ) * Math.sin( angle ) + 'px'
-      });
+      pupilRight.style.left = positionRight + ( eyeballRightRadius - pupilRightRadius ) * Math.cos( angle ) + 'px';
+      pupilRight.style.top  = halfHeight    + ( eyeballRightRadius - pupilRightRadius ) * Math.sin( angle ) + 'px';
     }
   }
 
   resize();
 
-  $( window ).on( 'resize', resize );
-  $( document ).on( 'mousemove', onMouseMove );
-}) ( jQuery, window, document );
+  window.addEventListener( 'resize', resize );
+  document.addEventListener( 'mousemove', onMouseMove );
+
+}) ( window, document );
