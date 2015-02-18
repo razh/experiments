@@ -1,5 +1,5 @@
-/*globals $, PI2, Background, LinearGradient, ColorStop, RGBColor, RAD_TO_DEG, DEG_TO_RAD*/
-$(function() {
+/*globals PI2, Background, LinearGradient, ColorStop, RGBColor, RAD_TO_DEG, DEG_TO_RAD*/
+(function() {
   'use strict';
 
   var HALF_PI = 0.5 * Math.PI;
@@ -48,19 +48,20 @@ $(function() {
   var editors = [];
 
   function Editor( options ) {
-    this.$gradient = $( options.el );
+    options = options || {};
 
-    this.$canvas = this.$gradient.find( '#canvas' );
-    this.canvas  = this.$canvas[0];
-    this.ctx     = this.canvas.getContext( '2d' );
+    this.el = document.querySelector( options.el );
 
-    this.canvas.width  = this.$canvas.parent().width();
-    this.canvas.height = this.$canvas.parent().height();
+    this.canvas = this.el.querySelector( '#canvas' );
+    this.ctx    = this.canvas.getContext( '2d' );
 
-    this.$gradientOffset = this.$gradient.offset();
+    var rect = this.el.getBoundingClientRect();
 
-    this.x = this.$gradientOffset.left + 0.5 * this.$gradient.width();
-    this.y = this.$gradientOffset.top  + 0.5 * this.$gradient.height();
+    this.canvas.width  = rect.width;
+    this.canvas.height = rect.height;
+
+    this.x = rect.left + 0.5 * rect.width;
+    this.y = rect.top  + 0.5 * rect.height;
 
     this.gradientAngle = 0;
 
@@ -69,25 +70,29 @@ $(function() {
   }
 
   Editor.prototype.update = function() {
-    var $gradient = this.$gradient,
-        gradient  = this.gradient;
+    var el       = this.el,
+        gradient = this.gradient;
 
     var dx = mouse.x - this.x,
         dy = mouse.y - this.y;
 
     this.gradientAngle = Math.round( normalizeAngle( Math.atan2( dy, dx ) ) * RAD_TO_DEG ) % 360;
     gradient.angle = this.gradientAngle + 'deg';
-    $gradient.css( 'background', gradient.css() );
+    el.style.background = gradient.css();
 
     // Clean-up.
-    $gradient.children( '.colorstop' ).remove();
+    [].forEach.call( el.querySelectorAll( '.colorstop' ), function( child ) {
+      el.removeChild( child );
+    });
 
     var gradientAngle = this.gradientAngle,
         quadrant = quadrantOf( gradientAngle * DEG_TO_RAD ),
         colorStopCount = gradient.colorStops.length - 1;
 
     gradient.colorStops.forEach(function( colorStop, index ) {
-      var $colorStop = $( '<div class="colorstop" id="colorstop-' + index + '"></div>' );
+      var colorStopEl = document.createElement( 'div' );
+      colorStopEl.className = 'colorstop';
+      colorStopEl.id = 'colorstop-' + index;
 
       var inPercent, inPixels = false;
       var pixels, xPixels, yPixels;
@@ -156,14 +161,12 @@ $(function() {
         top = '50%';
       }
 
-      $colorStop.css({
-        background: colorStop.css(),
-        top:  top,
-        left: left,
-        transform: 'rotateZ(' + gradient.angle + ')'
-      });
+      colorStopEl.style.background = colorStop.css();
+      colorStopEl.style.top =  top;
+      colorStopEl.style.left = left;
+      colorStopEl.style.transform = 'rotateZ(' + gradient.angle + ')';
 
-      $gradient.append( $colorStop );
+      el.appendChild( colorStopEl );
     });
 
     this.drawCanvas();
@@ -183,12 +186,14 @@ $(function() {
 
 
   function Output( options ) {
-    this.$image = $( options.el );
+    options = options || {};
+
+    this.el = document.querySelector( options.el );
     this.background = new Background();
   }
 
   Output.prototype.update = function() {
-    this.$image.css( 'background', this.background.css() );
+    this.el.style.background = this.background.css();
   };
 
 
@@ -237,7 +242,6 @@ $(function() {
     output0.update();
   }
 
-  $( window ).on({
-    mousemove: onMouseMove
-  });
-});
+  window.addEventListener( 'mousemove', onMouseMove );
+
+}) ();
