@@ -13,19 +13,29 @@
 
     .gradient {
       float: left;
+      -webkit-transition: 200ms;
+      transition: 200ms;
     }
 
+    .gradient-container,
     .gradient-fullscreen {
-      z-index: -1;
       position: absolute;
+
       top: 0;
       left: 0;
       bottom: 0;
       right: 0;
-      opacity: 0;
+    }
 
+    .gradient-cursor,
+    .gradient-fullscreen {
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
+
+      -webkit-transition: 200ms;
+      transition: 200ms;
+
+      pointer-events: none;
     }
 
     .gradient-cursor {
@@ -34,42 +44,18 @@
 
       -moz-box-sizing: border-box;
       box-sizing: border-box;
+    }
 
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
-
-      -webkit-transition: all 0.2s;
-      transition: all 0.2s;
-
-      pointer-events: none;
+    .gradient-fullscreen {
+      opacity: 0;
     }
   </style>
 </head>
 <body>
+  <div class="gradient-container"></div>
   <div class="gradient-cursor"></div>
-
-  <div class="gradient-container">
-    <div class="gradient" id="gradient-0"></div>
-    <div class="gradient" id="gradient-1"></div>
-    <div class="gradient" id="gradient-2"></div>
-    <div class="gradient" id="gradient-3"></div>
-    <div class="gradient" id="gradient-4"></div>
-    <div class="gradient" id="gradient-5"></div>
-    <div class="gradient" id="gradient-6"></div>
-    <div class="gradient" id="gradient-7"></div>
-    <div class="gradient" id="gradient-8"></div>
-    <div class="gradient" id="gradient-9"></div>
-    <div class="gradient" id="gradient-10"></div>
-    <div class="gradient" id="gradient-11"></div>
-    <div class="gradient" id="gradient-12"></div>
-    <div class="gradient" id="gradient-13"></div>
-    <div class="gradient" id="gradient-14"></div>
-    <div class="gradient" id="gradient-15"></div>
-  </div>
-
   <div class="gradient-fullscreen"></div>
 
-  <script src="../app/bower_components/jquery/dist/jquery.js"></script>
   <script src="./js/defs.js"></script>
   <script src="./js/grid-test.js"></script>
 </body>

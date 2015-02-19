@@ -52,7 +52,7 @@
 
     this.el = document.querySelector( options.el );
 
-    this.canvas = this.el.querySelector( '#canvas' );
+    this.canvas = this.el.querySelector( 'canvas' );
     this.ctx    = this.canvas.getContext( '2d' );
 
     var rect = this.el.getBoundingClientRect();
@@ -162,7 +162,7 @@
       }
 
       colorStopEl.style.background = colorStop.css();
-      colorStopEl.style.top =  top;
+      colorStopEl.style.top = top;
       colorStopEl.style.left = left;
       colorStopEl.style.transform = 'rotateZ(' + gradient.angle + ')';
 

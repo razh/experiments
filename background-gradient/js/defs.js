@@ -1,3 +1,4 @@
+/*exported RAD_TO_DEG, DEG_TO_RAD, PI2, randomInt*/
 'use strict';
 
 var RAD_TO_DEG = 180 / Math.PI,
@@ -9,7 +10,7 @@ function round( value, precision ) {
   return parseFloat( value.toFixed( precision ) );
 }
 
-function limit( value, min, max ) {
+function clamp( value, min, max ) {
   return Math.min( Math.max( value, min ), max );
 }
 
@@ -30,9 +31,9 @@ RGBAColor.prototype.css = function( totalAlpha ) {
   }
 
   return 'rgba(' +
-    Math.round( limit( this.red,   0, 255 ) ) + ', ' +
-    Math.round( limit( this.green, 0, 255 ) ) + ', ' +
-    Math.round( limit( this.blue,  0, 255 ) ) + ', ' +
+    Math.round( clamp( this.red,   0, 255 ) ) + ', ' +
+    Math.round( clamp( this.green, 0, 255 ) ) + ', ' +
+    Math.round( clamp( this.blue,  0, 255 ) ) + ', ' +
     round( this.alpha / totalAlpha, 2 ) +
   ')';
 };
@@ -57,7 +58,7 @@ HSLAColor.prototype.css = function( totalAlpha ) {
   }
 
   return 'hsla(' +
-    Math.round( limit( this.hue, 0, 360 ) ) + ', ' +
+    Math.round( clamp( this.hue, 0, 360 ) ) + ', ' +
     Math.round( this.saturation ) + '%, ' +
     Math.round( this.lightness  ) + '%, ' +
     round( this.alpha / totalAlpha, 2 ) +
