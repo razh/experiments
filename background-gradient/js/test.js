@@ -1,12 +1,11 @@
-/*globals $, Background, LinearGradient, RadialGradient, ColorStop, RGBAColor, HSLAColor*/
-$(function() {
+/*globals Background, LinearGradient, RadialGradient, ColorStop, RGBAColor, HSLAColor*/
+(function() {
   'use strict';
 
-  var $canvas = $( '#canvas' ),
-      canvas  = $canvas[0],
+  var canvas  = document.querySelector( 'canvas' ),
       context = canvas.getContext( '2d' );
 
-  var $background = $( '.gradient-view' );
+  var background = document.querySelector( '.gradient-view' );
 
 
   var testGradient = new LinearGradient();
@@ -38,9 +37,7 @@ $(function() {
   var css = testBackground.css();
   console.log( css );
 
-  $background.css({
-    background: css
-  });
+  background.style.background = css;
 
   var gradients = [];
 
@@ -75,4 +72,4 @@ $(function() {
   }
 
   // draw( context );
-});
+}) ();
