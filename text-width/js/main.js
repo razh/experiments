@@ -1,44 +1,48 @@
-/*globals $*/
-$(function() {
+(function() {
   'use strict';
 
   var fontFamily = '"Helvetica Neue", Helvetica, Arial, sans-serif';
 
-  var $editor = $( '#editor' ),
-      $preview = $( '#preview' );
+  var editor  = document.querySelector( '#editor' ),
+      preview = document.querySelector( '#preview' );
 
-  $editor.css({
-    'font-family': fontFamily
-  });
+  editor.style.fontFamily = fontFamily;
 
-  var $inputs = {
-    fontWeight: $( 'input[name="font-weight"]' ),
-    letterSpacing: $( 'input[name="letter-spacing"]' ),
-    lineHeight: $( 'input[name="line-height"]' ),
-    textAlign: $( 'select[name="text-align"]' )
+  var inputs = {
+    fontWeight:    document.querySelector( '#font-weight'    ),
+    letterSpacing: document.querySelector( '#letter-spacing' ),
+    lineHeight:    document.querySelector( '#line-height'    ),
+    textAlign:     document.querySelector( '#text-align'     )
   };
 
   // Get default config values from inputs.
-  var config = Object.keys( $inputs ).reduce(function( object, key ) {
-    object[ key ] = $inputs[ key ].val();
+  var config = Object.keys( inputs ).reduce(function( object, key ) {
+    object[ key ] = inputs[ key ].value;
     return object;
   }, {} );
 
+  function css( el, props ) {
+    Object.keys( props ).forEach(function( key ) {
+      el.style[ key ] = props[ key ];
+    });
+  }
+
   var textWidth = (function() {
-    var div = $( '<div>' )
-      .css({
-        position: 'absolute',
-        float: 'left',
-        visibility: 'hidden',
-        'white-space': 'nowrap'
-      })
-      .appendTo( $( 'body' ) );
+    var div = document.createElement( 'div' );
+    document.body.appendChild( div );
 
-    return function( text, options ) {
-      div.text( text );
-      div.css( options );
+    css( div, {
+      position: 'absolute',
+      float: 'left',
+      visibility: 'hidden',
+      whiteSpace: 'nowrap'
+    });
 
-      return div.width();
+    return function( text, props ) {
+      div.textContent = text;
+      css( div, props );
+
+      return div.getBoundingClientRect().width;
     };
   }) ();
 
@@ -52,15 +56,21 @@ $(function() {
       return object.length;
     }
 
-    function stripTags( string ) {
-      return string.replace( /<div><br><\/div>/gi, '' ) // Remove all line breaks.
-        .replace( /<div>/gi, '\n' ) // Add new lines at div start.
-        .replace( /<\/div>/gi, '' ) // Remove closing div tags.
-        .replace( /<br>/gi, '\n' ); // Replace line breaks.
+    function removeTags( string ) {
+      return string
+        // Remove all line breaks.
+        .replace( /<div><br><\/div>/gi, '' )
+        // Add new lines at div start.
+        .replace( /<div>/gi, '\n' )
+        // Remove closing div tags.
+        .replace( /<\/div>/gi, '' )
+        // Replace line breaks.
+        .replace( /<br>/gi, '\n' );
     }
 
     function unescape( string ) {
-      return string.replace( /&nbsp;/g, ' ' )
+      return string
+        .replace( /&nbsp;/g, ' ' )
         .replace( /&amp;/g, '&' )
         .replace( /&lt;/g, '<' )
         .replace( /&gt;/g, '>' )
@@ -68,7 +78,7 @@ $(function() {
         .replace( /&#039;/g, '\'' );
     }
 
-    return stripTags( text )
+    return removeTags( text )
       .split( '\n' )
       // Remove any empty/whitespace-only strings.
       .map( unescape )
@@ -80,9 +90,9 @@ $(function() {
   var editorTextArray = toTextArray( editorText );
 
   function updatePreview( textArray ) {
-    $preview.empty();
+    preview.innerHTML = '';
 
-    var previewWidth = $preview.width();
+    var previewWidth = preview.getBoundingClientRect().width;
 
     // Configuration values.
     var fontWeight = config.fontWeight,
@@ -92,11 +102,11 @@ $(function() {
 
     function textWidthFontSize( text, fontSize ) {
       return textWidth( text, {
-        'font-weight': fontWeight,
-        'font-size': fontSize + 'px',
-        'font-family': fontFamily,
-        'letter-spacing': letterSpacing + 'px',
-        'line-height': lineHeight
+        fontWeight: fontWeight,
+        fontSize: fontSize + 'px',
+        fontFamily: fontFamily,
+        letterSpacing: letterSpacing + 'px',
+        lineHeight: lineHeight
       });
     }
 
@@ -130,29 +140,32 @@ $(function() {
         currentWidth = textWidthFontSize( text, fontSize );
         high         = textWidthFontSize( text, fontSize + 1 );
 
-        console.log( 'actual: ' + currentWidth + ', ' +
+        console.log(
+          'actual: ' + currentWidth + ', ' +
           'desired: ' + previewWidth + ', ' +
-          'lo|hi: [' + low + ', ' + high + ']' + ', ' +
-          'text: ' + text );
+          '[lo, hi]: [' + low + ', ' + high + ']' + ', ' +
+          'text: ' + text
+        );
       }
 
-      var $line = $( '<div>' ).text( text );
+      var line = document.createElement( 'div' );
+      line.textContent = text;
 
-      $line.css({
-        'font-weight': fontWeight,
-        'font-size': fontSize + 'px',
-        'font-family': fontFamily,
-        'letter-spacing': letterSpacing + 'px',
-        'line-height': lineHeight,
-        'text-align': textAlign
+      css( line, {
+        fontWeight: fontWeight,
+        fontSize: fontSize + 'px',
+        fontFamily: fontFamily,
+        letterSpacing: letterSpacing + 'px',
+        lineHeight: lineHeight,
+        textAlign: textAlign
       });
 
-      $preview.append( $line );
+      preview.appendChild( line );
     });
   }
 
   function update() {
-    editorText = $editor.html();
+    editorText = editor.innerHTML;
     editorTextArray = toTextArray( editorText );
     console.log( editorTextArray );
 
@@ -160,19 +173,19 @@ $(function() {
   }
 
   // Update on input change.
-  Object.keys( $inputs ).forEach(function( key ) {
-    var $input = $inputs[ key ];
+  Object.keys( inputs ).forEach(function( key ) {
+    var input = inputs[ key ];
 
-    $input.on( 'change', function() {
-      config[ key ] = $input.val();
+    input.addEventListener( 'change', function() {
+      config[ key ] = input.value;
       update();
     });
   });
 
   // Update when typing/resizing.
-  $editor.on( 'input', update );
-  $( window ).on( 'resize', update );
+  editor.addEventListener( 'input', update );
+  window.addEventListener( 'resize', update );
 
   // Initial render.
   update();
-});
+}) ();

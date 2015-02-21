@@ -5,14 +5,15 @@
   <title>Text width</title>
 
   <style>
-    html, body {
+    html,
+    body {
       height: 100%;
       background-color: #222;
       color: white;
     }
 
     body {
-      margin: 16px;
+      margin: 1em;
     }
 
     #editor,
@@ -23,12 +24,14 @@
     }
 
     label {
+      display: inline-block;
       font-family: monospace;
+      width: 10em;
     }
 
     .inputs {
       position: absolute;
-      bottom: 0;
+      bottom: 1em;
     }
   </style>
 </head>
@@ -36,22 +39,22 @@
   <div class="inputs">
     <div class="form-group">
       <label for="font-weight">font-weight</label>
-      <input type="number" name="font-weight" min="100" max="900" step="100" value="900">
+      <input id="font-weight" type="number" min="100" max="900" step="100" value="900">
     </div>
 
     <div class="form-group">
       <label for="letter-spacing">letter-spacing</label>
-      <input type="number" name="letter-spacing" min="-10" max="10" step="1" value="0">
+      <input id="letter-spacing" type="number" min="-10" max="10" step="1" value="0">
     </div>
 
     <div class="form-group">
       <label for="line-height">line-height</label>
-      <input type="number" name="line-height" min="0" max="10" step="0.01" value="0.8">
+      <input id="line-height" type="number" min="0" max="10" step="0.01" value="0.8">
     </div>
 
     <div class="form-group">
       <label for="text-align">text-align</label>
-      <select name="text-align" id="text-align">
+      <select id="text-align">
         <option value="left">left</option>
         <option value="center" selected>center</option>
         <option value="right">right</option>
@@ -69,7 +72,6 @@
 
   <div id="preview"></div>
 
-  <script src="../app/bower_components/jquery/dist/jquery.js"></script>
   <script src="./js/main.js"></script>
 </body>
 </html>
