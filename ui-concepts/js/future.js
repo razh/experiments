@@ -1,5 +1,4 @@
-/*globals $*/
-$(function() {
+(function() {
   'use strict';
 
   /**
@@ -139,8 +138,7 @@ $(function() {
    * This uses HTML and CSS rather than Canvas.
    */
   function VerticalDashedCircleCSS( options ) {
-    this.el = options.el || null;
-    this.$el = $( this.el );
+    this.el = document.querySelector( options.el || '' );
 
     this.rotation = 0;
     this.radius = options.radius || 0;
@@ -199,19 +197,16 @@ $(function() {
       this.tickElements.push( el );
     }
 
-    this.$el.append( fragment );
-    this.$el.css({
-      width: 0,
-      height: 0,
-      transform: 'translateZ(0)',
-      'transform-origin': 'left top',
-    });
+    this.el.appendChild( fragment );
+    this.el.style.width = 0;
+    this.el.style.height = 0;
+    this.el.style.transform = 'translateZ(0)';
+    this.el.style.transformOrigin = '0 0';
   };
 
   VerticalDashedCircleCSS.prototype.update = function() {
-    this.$el.css({
-      transform: 'rotate(' + round( this.rotation * RAD_TO_DEG, 1 ) + 'deg) translateZ(0)'
-    });
+    var rotation = round( this.rotation * RAD_TO_DEG, 1 );
+    this.el.style.transform = 'rotate(' + rotation + 'deg) translateZ(0)';
   };
 
   /**
@@ -224,11 +219,13 @@ $(function() {
     tickSubdivisions: 3
   });
 
-  var $oblvButton = $( '#oblv-button' );
+  var oblvButton = document.querySelector( '#oblv-button' );
+  var oblvButtonRect = oblvButton.getBoundingClientRect();
+  var oblvButtonParentRect = oblvButton.parentNode.getBoundingClientRect();
 
   var vdCircle = new VerticalDashedCircle({
-    x: $oblvButton.offset().left + 0.5 * $oblvButton.width() - $oblvButton.parent().offset().left,
-    y: $oblvButton.offset().top - $oblvButton.parent().offset().top,
+    x: oblvButtonRect.left + 0.5 * oblvButtonRect.width - oblvButtonParentRect.left,
+    y: oblvButtonRect.top - oblvButtonParentRect.top,
     lineWidth: 0.5,
     majorLineWidth: 2,
     tickLength: 10,
@@ -238,20 +235,22 @@ $(function() {
     tickSubdivisions: 3
   });
 
-  var $vdCanvas = $( '#dashed-circle' ),
-      vdCanvas  = $vdCanvas[0],
+  var vdCanvas  = document.querySelector( '#dashed-circle' ),
       vdContext = vdCanvas.getContext( '2d' );
 
-  vdCanvas.width = $vdCanvas.parent().width();
-  vdCanvas.height = $vdCanvas.parent().height();
+  var vdCanvasParentRect = vdCanvas.parentNode.getBoundingClientRect();
+
+  vdCanvas.width = vdCanvasParentRect.width;
+  vdCanvas.height = vdCanvasParentRect.height;
 
   // The canvas context for the css version of VerticalDashedCircle.
-  var $cssCanvas = $( '#css-canvas' ),
-      cssCanvas  = $cssCanvas[0],
+  var cssCanvas  = document.querySelector( '#css-canvas' ),
       cssContext = cssCanvas.getContext( '2d' );
 
-  cssCanvas.width = $cssCanvas.parent().width();
-  cssCanvas.height = $cssCanvas.parent().height();
+  var cssCanvasParentRect = cssCanvas.parentNode.getBoundingClientRect();
+
+  cssCanvas.width = cssCanvasParentRect.width;
+  cssCanvas.height = cssCanvasParentRect.height;
 
   /**
    * Loop.
@@ -289,8 +288,10 @@ $(function() {
   }
 
   function onMouseMove( event ) {
-    var dx = event.pageX - vdCircle.x,
-        dy = event.pageY - vdCircle.y - $vdCanvas.offset().top;
+    var vdCanvasRect = vdCanvas.getBoundingClientRect();
+
+    var dx = event.clientX - vdCircle.x,
+        dy = event.clientY - vdCircle.y - vdCanvasRect.top;
 
     vdCircle.rotation = Math.atan2( dy, dx );
     draw( vdContext );
@@ -299,8 +300,10 @@ $(function() {
   }
 
   function onMouseMoveCSS( event ) {
-    var dx = event.pageX - vdCircleCSS.$el.offset().left,
-        dy = event.pageY - vdCircleCSS.$el.offset().top;
+    var vdCircleCSSRect = vdCircleCSS.el.getBoundingClientRect();
+
+    var dx = event.clientX - vdCircleCSSRect.left,
+        dy = event.clientY - vdCircleCSSRect.top;
 
     vdCircleCSS.rotation = Math.atan2( dy, dx );
     vdCircleCSS.update();
@@ -316,23 +319,22 @@ $(function() {
   var onTouchMoveCSS = touchMoveFn( onMouseMoveCSS );
 
   (function() {
+    var oblivionCSS = document.querySelector( '.oblivion-css' );
+
     if ( typeof window.ontouchstart !== 'undefined' ) {
       vdCanvas.addEventListener( 'touchmove', onTouchMove );
-      $( '.oblivion-css' )[0].addEventListener( 'touchmove', onTouchMoveCSS );
+      oblivionCSS.addEventListener( 'touchmove', onTouchMoveCSS );
     }
 
-    $vdCanvas.on({
-      mousemove: onMouseMove
-    });
-
-    $( '.oblivion-css' ).on({
-      mousemove: onMouseMoveCSS
-    });
+    vdCanvas.addEventListener( 'mousemove', onMouseMove );
+    oblivionCSS.addEventListener( 'mousemove', onMouseMoveCSS );
   }) ();
 
-  $( window ).on( 'resize', function() {
-    cssCanvas.width = $cssCanvas.parent().width();
-    cssCanvas.height = $cssCanvas.parent().height();
+  window.addEventListener( 'resize', function() {
+    var cssCanvasParentRect = cssCanvas.parentNode.getBoundingClientRect();
+
+    cssCanvas.width = cssCanvasParentRect.width;
+    cssCanvas.height = cssCanvasParentRect.height;
 
     initCanvas();
     drawCanvas( cssContext );
@@ -366,8 +368,11 @@ $(function() {
   };
 
   function initCanvas() {
-    var x = vdCircleCSS.$el.offset().left,
-        y = vdCircleCSS.$el.offset().top - vdCircleCSS.$el.parent().offset().top;
+    var vdCircleCSSRect = vdCircleCSS.el.getBoundingClientRect(),
+        vdCircleCSSParentRect = vdCircleCSS.el.parentNode.getBoundingClientRect();
+
+    var x = vdCircleCSSRect.left,
+        y = vdCircleCSSRect.top - vdCircleCSSParentRect.top;
 
     initPaths( x, y );
     initShapes( x, y );
@@ -648,4 +653,4 @@ $(function() {
 
   init();
   // tick();
-});
+}) ();
