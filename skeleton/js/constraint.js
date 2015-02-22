@@ -1,7 +1,6 @@
-/*globals define*/
-define([
-  'math/geometry'
-], function( Geometry ) {
+/*global Geometry*/
+/*exported Constraint*/
+var Constraint = (function() {
   'use strict';
 
   function Constraint( p0, p1 ) {
@@ -34,4 +33,4 @@ define([
   };
 
   return Constraint;
-});
+}) ();

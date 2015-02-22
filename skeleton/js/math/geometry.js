@@ -1,5 +1,5 @@
-/*globals define*/
-define(function() {
+/*exported Geometry*/
+var Geometry = (function() {
   'use strict';
 
   var PI2 = 2 * Math.PI;
@@ -26,4 +26,4 @@ define(function() {
     distanceSquared: distanceSquared,
     distance: distance
   };
-});
+}) ();

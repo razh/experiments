@@ -1,8 +1,6 @@
-/*globals define*/
-define([
-  'input',
-  'constraint'
-], function( Input, Constraint ) {
+/*global Constraint*/
+/*exported Point*/
+var Point = (function() {
   'use strict';
 
   function Point( x, y ) {
@@ -83,4 +81,4 @@ define([
   };
 
   return Point;
-});
+}) ();

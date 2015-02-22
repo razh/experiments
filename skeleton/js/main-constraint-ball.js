@@ -1,9 +1,5 @@
-/*globals define*/
-define([
-  'math/geometry',
-  'input',
-  'point'
-], function( Geometry, Input, Point ) {
+/*global Geometry, Input, Point*/
+(function() {
   'use strict';
 
   function Circle( x, y, radius ) {
@@ -209,4 +205,4 @@ define([
   }
 
   init();
-});
+}) ();

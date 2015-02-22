@@ -1,9 +1,5 @@
-/*globals define*/
-define([
-  'math/geometry',
-  'input',
-  'point'
-], function( Geometry, Input, Point ) {
+/*global Geometry, Input, Point*/
+(function() {
   'use strict';
 
   console.log( 'An implementation of Stuffit\'s Tear-able Cloth codepen project.' );
@@ -32,7 +28,7 @@ define([
 
     update();
     draw( context );
-    window.requestAnimationFrame( tick );
+    requestAnimationFrame( tick );
   }
 
   function updatePoints( dt ) {
@@ -169,4 +165,4 @@ define([
   }
 
   init();
-});
+}) ();
