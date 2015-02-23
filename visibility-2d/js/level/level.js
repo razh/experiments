@@ -3,10 +3,24 @@ define([
   'math/geometry',
   'math/point',
   'math/endpoint',
-  'math/segment',
-  'linked-list/list'
-], function( Geometry, Point, Endpoint, Segment, LinkedList ) {
+  'math/segment'
+], function( Geometry, Point, Endpoint, Segment ) {
   'use strict';
+
+  // Array utility functions.
+  function insertBefore( array, value, element ) {
+    var index = array.indexOf( element );
+    if ( index >= 0 ) {
+      array.splice( index, 0, value );
+    }
+  }
+
+  function remove( array, value ) {
+    var index = array.indexOf( value );
+    if ( index >= 0 ) {
+      array.splice( index, 1 );
+    }
+  }
 
   function Level() {
     // Level geometry.
@@ -17,7 +31,7 @@ define([
     this.light = new Point( 0, 0 );
 
     // Open line segments.
-    this.open = new LinkedList();
+    this.open = [];
 
     this.output = [];
     this.intersections = [];
@@ -128,12 +142,12 @@ define([
       return a.compare( b );
     });
 
-    this.open.clear();
+    this.open = [];
 
     var startAngle = 0;
     var point, node;
     var previous, current;
-    var i, il;
+    var i, j, il;
     for ( var pass = 0; pass < 2; pass++ ) {
       for ( i = 0, il = this.endpoints.length; i < il; i++ ) {
         point = this.endpoints[i];
@@ -141,24 +155,25 @@ define([
           break;
         }
 
-        previous = this.open.isEmpty() ? null : this.open.head.data;
+        previous = this.open[0] || null;
 
         if ( point.begin ) {
-          node = this.open.head;
-          while ( node && point.segment.frontOf( node.data, this.light ) ) {
-            node = node.next;
-          }
+          // Find last node that point.segment is not in front of.
+          j = 0;
+          do {
+            node = this.open[ j++ ];
+          } while ( node && point.segment.frontOf( node, this.light ) );
 
           if ( !node ) {
-            this.open.append( point.segment );
+            this.open.push( point.segment );
           } else {
-            this.open.insertBefore( node, point.segment );
+            insertBefore( this.open, point.segment, node );
           }
         } else {
-          this.open.remove( this.open.search( point.segment ) );
+          remove( this.open, point.segment );
         }
 
-        current = this.open.isEmpty() ? null : this.open.head.data;
+        current = this.open[0] || null;
         if ( previous !== current ) {
           if ( pass === 1 ) {
             this.triangle( startAngle, point.angle, previous );

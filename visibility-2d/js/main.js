@@ -108,8 +108,8 @@ define([
     var x = event.pageX - canvas.offsetLeft,
         y = event.pageY - canvas.offsetTop;
 
-    mouse.x = Geometry.limit( x, margin + 1e-2, size - margin - 1e-2 );
-    mouse.y = Geometry.limit( y, margin + 1e-2, size - margin - 1e-2 );
+    mouse.x = Geometry.clamp( x, margin + 1e-2, size - margin - 1e-2 );
+    mouse.y = Geometry.clamp( y, margin + 1e-2, size - margin - 1e-2 );
 
     draw( context );
   }

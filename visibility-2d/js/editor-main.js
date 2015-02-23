@@ -193,8 +193,8 @@ define([
   });
 
   canvas.addEventListener( 'mousemove', function( event ) {
-    mouse.x = Geometry.limit( event.pageX, margin + EPSILON, size - margin - EPSILON );
-    mouse.y = Geometry.limit( event.pageY, margin + EPSILON, size - margin - EPSILON );
+    mouse.x = Geometry.clamp( event.pageX, margin + EPSILON, size - margin - EPSILON );
+    mouse.y = Geometry.clamp( event.pageY, margin + EPSILON, size - margin - EPSILON );
 
     // Update light position.
     if ( editor.state === State.LIGHT ) {

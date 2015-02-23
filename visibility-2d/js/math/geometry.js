@@ -19,7 +19,7 @@ define(function() {
     return lerp( c, d, inverseLerp( value, a, b ) );
   }
 
-  function limit( value, min, max ) {
+  function clamp( value, min, max ) {
     return Math.min( Math.max( value, min ), max );
   }
 
@@ -101,7 +101,7 @@ define(function() {
     lerp: lerp,
     inverseLerp: inverseLerp,
     mapInterval: mapInterval,
-    limit: limit,
+    clamp: clamp,
 
     lineIntersectionParameter: lineIntersectionParameter,
     lineIntersection: lineIntersection,
