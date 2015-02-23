@@ -1,25 +1,5 @@
-/*globals requirejs, define*/
-requirejs.config({
-  shim: {
-    'quadtree': {
-      exports: 'Quadtree'
-    }
-  },
-
-  paths: {
-    'quadtree': '../../point-quadtree/js/quadtree'
-  }
-});
-
-define([
-  'game',
-  'config',
-  'input',
-  'math/geometry',
-  'entities/civilian',
-  'entities/zombie',
-  'entities/player'
-], function( Game, config, Input, Geometry, Civilian, Zombie, Player ) {
+/*global Game, config, Input, Geometry, Civilian, Zombie, Player*/
+(function() {
   'use strict';
 
   function init() {
@@ -57,4 +37,4 @@ define([
   document.addEventListener( 'keyup', Input.onKeyUp );
 
   init();
-});
+}) ();

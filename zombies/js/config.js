@@ -1,5 +1,5 @@
-/*globals define*/
-define(function() {
+/*exported config*/
+var config = (function() {
   'use strict';
 
   return {
@@ -35,4 +35,4 @@ define(function() {
       speed: 200
     }
   };
-});
+}) ();

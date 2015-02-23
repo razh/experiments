@@ -1,8 +1,6 @@
-/*globals define*/
-define([
-  'config',
-  'quadtree'
-], function( config, Quadtree ) {
+/*global config, Quadtree*/
+/*exported Game*/
+var Game = (function() {
   'use strict';
 
   Quadtree.MIN_SIZE = 128;
@@ -126,4 +124,4 @@ define([
   };
 
   return Game.instance;
-});
+}) ();

@@ -1,5 +1,5 @@
-/*globals define*/
-define(function() {
+/*exported Input*/
+var Input = (function() {
   'use strict';
 
   var keys = [];
@@ -35,4 +35,4 @@ define(function() {
     onKeyDown: onKeyDown,
     onKeyUp: onKeyUp
   };
-});
+}) ();

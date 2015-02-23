@@ -1,10 +1,6 @@
-/*globals define*/
-define([
-  'game',
-  'config',
-  'math/geometry',
-  'entities/entity'
-], function( Game, config, Geometry, Entity ) {
+/*global Game, config, Geometry, Entity*/
+/*exported Bullet*/
+var Bullet = (function() {
   'use strict';
 
   function Bullet( x, y, vx, vy ) {
@@ -60,4 +56,4 @@ define([
   };
 
   return Bullet;
-});
+}) ();

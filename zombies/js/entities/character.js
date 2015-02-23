@@ -1,7 +1,6 @@
-/*globals define*/
-define([
-  'entities/entity'
-], function( Entity ) {
+/*global Entity*/
+/*exported Character*/
+var Character = (function() {
   'use strict';
 
   function Character( x, y ) {
@@ -13,4 +12,4 @@ define([
   Character.prototype.constructor = Character;
 
   return Character;
-});
+}) ();

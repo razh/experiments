@@ -1,8 +1,6 @@
-/*globals define*/
-define([
-  'game',
-  'config'
-], function( Game, config ) {
+/*global Game, config*/
+/*exported Entity*/
+var Entity = (function() {
   'use strict';
 
   function Entity( x, y, width, height  ) {
@@ -45,4 +43,4 @@ define([
   };
 
   return Entity;
-});
+}) ();

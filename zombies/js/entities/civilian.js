@@ -1,11 +1,6 @@
-/*globals define*/
-define([
-  'game',
-  'config',
-  'math/geometry',
-  'entities/character',
-  'entities/zombie'
-], function( Game, config, Geometry, Character, Zombie ) {
+/*global Game, config, Geometry, Character, Zombie*/
+/*exported Civilian*/
+var Civilian = (function() {
   'use strict';
 
   function Civilian( x, y ) {
@@ -67,4 +62,4 @@ define([
   };
 
   return Civilian;
-});
+}) ();
