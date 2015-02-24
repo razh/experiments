@@ -1,7 +1,6 @@
-/*globals define*/
-define([
-  'math/point'
-], function( Point ) {
+/*global Point*/
+/*exported Endpoint*/
+var Endpoint = (function() {
   'use strict';
 
   function Endpoint( x, y, begin, segment, angle, visualize ) {
@@ -25,4 +24,4 @@ define([
   };
 
   return Endpoint;
-});
+}) ();

@@ -1,7 +1,6 @@
-/*globals define*/
-define([
-  'math/geometry'
-], function( Geometry ) {
+/*global Geometry*/
+/*exported Point*/
+var Point = (function() {
   'use strict';
 
   function Point( x, y ) {
@@ -25,4 +24,4 @@ define([
   };
 
   return Point;
-});
+}) ();

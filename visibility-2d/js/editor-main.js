@@ -1,10 +1,5 @@
-/*globals define*/
-define([
-  'level/level',
-  'math/geometry',
-  'math/point',
-  'math/segment'
-], function( Level, Geometry ) {
+/*global Geometry, Level*/
+(function() {
   'use strict';
 
   var EPSILON = 1e-6;
@@ -214,7 +209,7 @@ define([
     }
   });
 
-  canvas.addEventListener( 'mouseup', function( event ) {
+  canvas.addEventListener( 'mouseup', function() {
     mouse.down = false;
 
     if ( editor.state === State.DRAW ) {
@@ -295,4 +290,4 @@ define([
     refreshLevel();
     tick();
   }) ();
-});
+}) ();

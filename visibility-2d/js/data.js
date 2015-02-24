@@ -1,5 +1,5 @@
-/*globals define*/
-define(function() {
+/*exported Data*/
+var Data = (function() {
   'use strict';
 
   // Data taken from Amit Patel's 2D visibility article:
@@ -39,4 +39,4 @@ define(function() {
   return {
     mazeWalls: mazeWalls
   };
-});
+}) ();

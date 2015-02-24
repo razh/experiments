@@ -1,7 +1,6 @@
-/*globals define*/
-define([
-  'math/endpoint'
-], function( Endpoint ) {
+/*global Endpoint*/
+/*exported Segment*/
+var Segment = (function() {
   'use strict';
 
   function Segment( start, end, distanceSquared ) {
@@ -63,4 +62,4 @@ define([
   };
 
   return Segment;
-});
+}) ();

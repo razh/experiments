@@ -1,10 +1,6 @@
-/*globals define*/
-define([
-  'math/geometry',
-  'math/point',
-  'math/endpoint',
-  'math/segment'
-], function( Geometry, Point, Endpoint, Segment ) {
+/*global Geometry, Point, Endpoint, Segment*/
+/*exported Level*/
+var Level = (function() {
   'use strict';
 
   // Array utility functions.
@@ -236,4 +232,4 @@ define([
   };
 
   return Level;
-});
+}) ();

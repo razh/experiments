@@ -1,9 +1,5 @@
-/*globals define*/
-define([
-  'level/level',
-  'data',
-  'math/geometry'
-], function( Level, Data, Geometry ) {
+/*global Geometry, Level, Data*/
+(function() {
   'use strict';
 
   console.log( 'An implementation of Amit Patel\'s 2d visibility algorithm.' );
@@ -130,4 +126,4 @@ define([
   }
 
   init();
-});
+}) ();
