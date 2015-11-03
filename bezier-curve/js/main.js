@@ -162,10 +162,7 @@ NearestPoint*/
   }
 
   function tick() {
-    if ( !Object.observe ) {
-      update();
-    }
-
+    update();
     draw( context );
   }
 
@@ -237,40 +234,18 @@ NearestPoint*/
       return;
     }
 
-    if ( !Object.getNotifier ) {
-      selection.forEach(function( element, index ) {
-        element.px = element.x;
-        element.py = element.y;
-        element.dirty = true;
-
-        element.addVectors( mouse, offsets[ index ] );
-
-        if ( event.shiftKey &&
-             element instanceof ControlPoint &&
-             element.endpoint ) {
-          element.orthogonalTo( element.endpoint );
-        }
-      });
-
-      return;
-    }
-
     selection.forEach(function( element, index ) {
-      Object.getNotifier( element )
-        .performChange( 'input', function() {
-          var oldValue = new Point().copy( element );
-          element.addVectors( mouse, offsets[ index ] );
+      element.px = element.x;
+      element.py = element.y;
+      element.dirty = true;
 
-          if ( event.shiftKey &&
-               element instanceof ControlPoint &&
-               element.endpoint ) {
-            element.orthogonalTo( element.endpoint );
-          }
+      element.addVectors( mouse, offsets[ index ] );
 
-          return {
-            oldValue: oldValue
-          };
-        });
+      if ( event.shiftKey &&
+           element instanceof ControlPoint &&
+           element.endpoint ) {
+        element.orthogonalTo( element.endpoint );
+      }
     });
   }
 
