@@ -1,0 +1,22 @@
+{
+  "name": "experiments",
+  "version": "1.0.0",
+  "description": "experiments ===========",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/razh/experiments.git"
+  },
+  "author": "razh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/razh/experiments/issues"
+  },
+  "homepage": "https://github.com/razh/experiments#readme",
+  "dependencies": {
+    "d3": "4.1.0"
+  }
+}
