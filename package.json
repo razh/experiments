@@ -4,6 +4,7 @@
   "description": "experiments ===========",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint .",
     "test": "test"
   },
   "repository": {
@@ -16,7 +17,8 @@
     "url": "https://github.com/razh/experiments/issues"
   },
   "homepage": "https://github.com/razh/experiments#readme",
-  "dependencies": {
-    "d3": "4.1.0"
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "jest": "^20.0.4"
   }
 }
